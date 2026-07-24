@@ -1,15 +1,5 @@
 {
   "sections": {
-    "announcement-bar": {
-      "type": "announcement-bar",
-      "settings": {
-        "show_announcement": true,
-        "text": "Free Shipping on Orders over £40 · 30-Day Returns · UK Designed",
-        "link": "",
-        "bg_color": "#F5DEC8",
-        "text_color": "#3A2E27"
-      }
-    },
     "hero": {
       "type": "hero-banner",
       "settings": {
@@ -265,7 +255,6 @@
     }
   },
   "order": [
-    "announcement-bar",
     "hero",
     "marquee",
     "usp",
