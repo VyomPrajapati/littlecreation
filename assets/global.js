@@ -1,5 +1,5 @@
 // =============================================================
-// Little Creation Theme – Global JS v2.0
+// Little Creation Theme – Global JS v3.0
 // =============================================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,16 +13,51 @@ document.addEventListener('DOMContentLoaded', () => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target); // fire once only
+          observer.unobserve(entry.target);
         }
       });
     }, {
-      root: null,
-      rootMargin: '0px 0px -60px 0px',
-      threshold: 0.08
+      rootMargin: '0px 0px -50px 0px',
+      threshold: 0.05
     });
 
     elems.forEach(el => observer.observe(el));
+  };
+
+  // ---- Mouse Drag-to-Scroll for Horizontal Carousels ----
+  const initDragToScroll = () => {
+    const sliders = document.querySelectorAll('.features-grid__wrapper, .reviews-grid, .staggered-collections__grid, .spotlight-grid__secondary, .featured-collection__grid');
+
+    sliders.forEach(slider => {
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+
+      slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('is-dragging');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+      });
+
+      slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('is-dragging');
+      });
+
+      slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('is-dragging');
+      });
+
+      slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2; // scroll speed multiplier
+        slider.scrollLeft = scrollLeft - walk;
+      });
+    });
   };
 
   // ---- Cart Drawer Toggle ----
@@ -33,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!cartDrawer) return;
 
-    const open  = () => { cartDrawer.classList.add('is-open');    document.body.style.overflow = 'hidden'; };
+    const open  = () => { cartDrawer.classList.add('is-open'); document.body.style.overflow = 'hidden'; };
     const close = () => { cartDrawer.classList.remove('is-open'); document.body.style.overflow = ''; };
 
     cartToggles.forEach(t => t.addEventListener('click', e => { e.preventDefault(); open(); }));
@@ -55,13 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(r => r.json())
         .then(() => {
-          // Update cart count badge without full reload
           return fetch('/?section_id=main-cart-items', { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
         })
         .catch(() => window.location.reload())
         .finally(() => {
           if (btn) { btn.disabled = false; btn.classList.remove('loading'); }
-          // Open cart drawer
           const drawer = document.querySelector('[data-cart-drawer]');
           if (drawer) {
             drawer.classList.add('is-open');
@@ -90,9 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
     customElements.define('variant-radios', VariantRadios);
   }
 
-  // ---- Quantity Stepper (global fallback for sections that don't inline JS) ----
+  // ---- Quantity Stepper ----
   document.querySelectorAll('.qty-stepper').forEach(stepper => {
-    const input   = stepper.querySelector('.qty-stepper__input');
+    const input    = stepper.querySelector('.qty-stepper__input');
     const minusBtn = stepper.querySelector('[name="minus"]');
     const plusBtn  = stepper.querySelector('[name="plus"]');
     if (!input) return;
@@ -107,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---- Initialise ----
   initScrollAnimations();
+  initDragToScroll();
   initCartDrawer();
   initAjaxCart();
 });

@@ -478,3 +478,24 @@ input[type="text"]:focus {
   }
 }
 
+/* ----------------------------------------------------------
+   14. Carousel Grab & Drag Cursor Indicators
+   ---------------------------------------------------------- */
+.features-grid__wrapper,
+.reviews-grid,
+.staggered-collections__grid,
+.spotlight-grid__secondary,
+.featured-collection__grid {
+  cursor: grab;
+  user-select: none;
+}
+.features-grid__wrapper.is-dragging,
+.reviews-grid.is-dragging,
+.staggered-collections__grid.is-dragging,
+.spotlight-grid__secondary.is-dragging,
+.featured-collection__grid.is-dragging {
+  cursor: grabbing !important;
+  scroll-snap-type: none !important;
+}
+
+
