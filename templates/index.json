@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "hero": {
@@ -32,13 +23,49 @@
         "text_color": "#3A2E27"
       },
       "blocks": {
-        "tick_1": { "type": "text", "settings": { "text": "100% Food-Grade Silicone", "icon": "✦" } },
-        "tick_2": { "type": "text", "settings": { "text": "BPA & Toxin Free", "icon": "✦" } },
-        "tick_3": { "type": "text", "settings": { "text": "UK Designed", "icon": "✦" } },
-        "tick_4": { "type": "text", "settings": { "text": "Soothing Relief", "icon": "✦" } },
-        "tick_5": { "type": "text", "settings": { "text": "From 3 Months", "icon": "✦" } }
+        "tick_1": {
+          "type": "text",
+          "settings": {
+            "text": "100% Food-Grade Silicone",
+            "icon": "✦"
+          }
+        },
+        "tick_2": {
+          "type": "text",
+          "settings": {
+            "text": "BPA & Toxin Free",
+            "icon": "✦"
+          }
+        },
+        "tick_3": {
+          "type": "text",
+          "settings": {
+            "text": "UK Designed",
+            "icon": "✦"
+          }
+        },
+        "tick_4": {
+          "type": "text",
+          "settings": {
+            "text": "Soothing Relief",
+            "icon": "✦"
+          }
+        },
+        "tick_5": {
+          "type": "text",
+          "settings": {
+            "text": "From 3 Months",
+            "icon": "✦"
+          }
+        }
       },
-      "block_order": ["tick_1", "tick_2", "tick_3", "tick_4", "tick_5"]
+      "block_order": [
+        "tick_1",
+        "tick_2",
+        "tick_3",
+        "tick_4",
+        "tick_5"
+      ]
     },
     "usp": {
       "type": "image-with-text",
@@ -71,11 +98,30 @@
         "heading": "Our Collection"
       },
       "blocks": {
-        "col_1": { "type": "collection", "settings": { "collection": "" } },
-        "col_2": { "type": "collection", "settings": { "collection": "" } },
-        "col_3": { "type": "collection", "settings": { "collection": "" } }
+        "col_1": {
+          "type": "collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "col_2": {
+          "type": "collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "col_3": {
+          "type": "collection",
+          "settings": {
+            "collection": ""
+          }
+        }
       },
-      "block_order": ["col_1", "col_2", "col_3"]
+      "block_order": [
+        "col_1",
+        "col_2",
+        "col_3"
+      ]
     },
     "weekly_spotlight": {
       "type": "spotlight-grid",
@@ -170,7 +216,14 @@
           }
         }
       },
-      "block_order": ["review_1", "review_2", "review_3", "review_4", "review_5", "review_6"]
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "review_5",
+        "review_6"
+      ]
     },
     "why_choose": {
       "type": "features-grid",
@@ -213,7 +266,12 @@
           }
         }
       },
-      "block_order": ["feature_1", "feature_2", "feature_3", "feature_4"]
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ]
     },
     "faq": {
       "type": "faq-accordion",
@@ -260,7 +318,13 @@
           }
         }
       },
-      "block_order": ["q1", "q2", "q3", "q4", "q5"]
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ]
     },
     "homepage_newsletter": {
       "type": "newsletter",
