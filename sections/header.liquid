@@ -48,32 +48,8 @@
       </ul>
     </nav>
 
-    <!-- Icons & Currency Selector -->
+    <!-- Icons -->
     <div class="header__icons">
-
-      <!-- Country / Region Currency Selector -->
-      {%- if localization.available_countries.size > 1 -%}
-        <div class="header__localization">
-          {%- form 'localization', id: 'HeaderLocalizationForm', class: 'localization-form' -%}
-            <div class="country-selector">
-              <select name="country_code" class="country-selector__select" onchange="this.form.submit()" aria-label="Select Country and Currency">
-                {%- for country in localization.available_countries -%}
-                  <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>
-                    {{ country.name }} | {{ country.currency.iso_code }} {{ country.currency.symbol }}
-                  </option>
-                {%- endfor -%}
-              </select>
-              <svg class="country-selector__arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
-            </div>
-          {%- endform -%}
-        </div>
-      {%- else -%}
-        <div class="header__localization">
-          <div class="country-selector">
-            <span class="country-selector__static">United Kingdom | GBP £</span>
-          </div>
-        </div>
-      {%- endif -%}
 
       <a href="{{ routes.search_url }}" class="header__icon-btn" aria-label="Search">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -124,29 +100,6 @@
     </ul>
   </nav>
   <div class="mobile-menu-drawer__footer">
-    <!-- Mobile Country / Currency Selector -->
-    <div class="mobile-localization mb-md">
-      <span class="mobile-localization__label">Region / Currency</span>
-      {%- if localization.available_countries.size > 1 -%}
-        {%- form 'localization', id: 'MobileLocalizationForm', class: 'localization-form' -%}
-          <div class="country-selector country-selector--full">
-            <select name="country_code" class="country-selector__select" onchange="this.form.submit()" aria-label="Select Country and Currency">
-              {%- for country in localization.available_countries -%}
-                <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>
-                  {{ country.name }} | {{ country.currency.iso_code }} {{ country.currency.symbol }}
-                </option>
-              {%- endfor -%}
-            </select>
-            <svg class="country-selector__arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
-          </div>
-        {%- endform -%}
-      {%- else -%}
-        <div class="country-selector country-selector--full">
-          <span class="country-selector__static">United Kingdom | GBP £</span>
-        </div>
-      {%- endif -%}
-    </div>
-
     <a href="{{ routes.cart_url }}" class="button button--full-width">View Cart
       {%- if cart.item_count > 0 -%} ({{ cart.item_count }}){%- endif -%}
     </a>
