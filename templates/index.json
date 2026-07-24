@@ -1,27 +1,31 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero-banner",
       "settings": {
+        "image": "shopify://shop_images/Website_image_3.jpg",
         "badge_text": "As Seen On Amazon",
         "heading": "Safe, Soothing Teethers for",
         "accent_text": "Your Little One",
         "text": "<p>Discover our premium collection of non-toxic, beautifully designed teethers trusted by parents across the UK.</p>",
         "button_label": "Shop Now",
-        "button_link": "shopify:\/\/collections\/all",
+        "button_link": "shopify://collections/all",
         "button_2_label": "Our Story",
-        "button_2_link": "shopify:\/\/pages\/our-story",
-        "bg_color": "#FBF0E8"
+        "button_2_link": "shopify://pages/our-story",
+        "bg_color": "#fbf0e8"
       }
     },
     "marquee": {
       "type": "marquee-ticker",
-      "settings": {
-        "speed": 30,
-        "pause_on_hover": true,
-        "bg_color": "#F5DEC8",
-        "text_color": "#3A2E27"
-      },
       "blocks": {
         "tick_1": {
           "type": "text",
@@ -65,7 +69,13 @@
         "tick_3",
         "tick_4",
         "tick_5"
-      ]
+      ],
+      "settings": {
+        "speed": 30,
+        "pause_on_hover": true,
+        "bg_color": "#f5dec8",
+        "text_color": "#3a2e27"
+      }
     },
     "usp": {
       "type": "image-with-text",
@@ -75,8 +85,8 @@
         "heading": "Why Parents Choose Montessori Sensory Rattle Teether",
         "text": "<p>Every parent wants to soothe their baby's teething discomfort — but why settle for a toy that only does one thing? The Montessori Sensory Rattle Teether is thoughtfully designed to comfort <em>and</em> nurture your baby's natural development at the same time.</p>",
         "button_label": "Shop Now",
-        "button_link": "shopify:\/\/products\/mighty-lion-rattle-teether-pink",
-        "bg_color": "#FFFFFF"
+        "button_link": "shopify://products/mighty-lion-rattle-teether-pink",
+        "bg_color": "#ffffff"
       }
     },
     "featured_collection_1": {
@@ -88,15 +98,11 @@
         "products_to_show": 4,
         "show_secondary_image": true,
         "show_view_all": true,
-        "bg_color": "#FFFFFF"
+        "bg_color": "#ffffff"
       }
     },
     "collections_grid": {
       "type": "staggered-collections",
-      "settings": {
-        "subtitle": "Discover",
-        "heading": "Our Collection"
-      },
       "blocks": {
         "col_1": {
           "type": "collection",
@@ -121,13 +127,20 @@
         "col_1",
         "col_2",
         "col_3"
-      ]
+      ],
+      "settings": {
+        "subtitle": "Discover",
+        "heading": "Our Collection"
+      }
     },
     "weekly_spotlight": {
       "type": "spotlight-grid",
       "settings": {
         "subtitle": "Made with love",
-        "heading": "Weekly Spotlight"
+        "heading": "Weekly Spotlight",
+        "main_product": "",
+        "secondary_product_1": "",
+        "secondary_product_2": ""
       }
     },
     "usp_2": {
@@ -138,12 +151,82 @@
         "heading": "Animal Shape Teether — Crown Swan Teether",
         "text": "<p>Provide your little one with gentle, cooling relief during their teething journey. Our Water-Filled Teether is specially designed to soothe sore, inflamed gums while being perfectly sized for tiny hands to grasp and explore.</p>",
         "button_label": "Shop Now",
-        "button_link": "shopify:\/\/collections\/all",
-        "bg_color": "#FBF0E8"
+        "button_link": "shopify://collections/all",
+        "bg_color": "#fbf0e8"
       }
     },
     "customer_reviews": {
       "type": "customer-reviews",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "author": "Daniel Boden",
+            "rating": 5,
+            "text": "I absolutely love this Little Creation Teether. It's a sweet, understated toy with a really lovely, soft colour palette that feels modern and calming rather than loud or overly bright.",
+            "date": "February 2026",
+            "fallback_image_url": ""
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "author": "EllieBelle",
+            "rating": 5,
+            "text": "I ordered the dusky pink lion rattle as a present for my nephew's baby. It has a cute little face and comes in a little presentation box. Perfect to gift!",
+            "date": "February 2026",
+            "fallback_image_url": ""
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "author": "Charlie G.",
+            "rating": 4,
+            "text": "This teether rattle has mostly perks for both baby and parents — BPA free, easy enough to hold, and a rattle that's readily audible and interesting to baby but perfectly subtle enough.",
+            "date": "March 2026",
+            "fallback_image_url": ""
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "author": "Lou",
+            "rating": 5,
+            "text": "This little lion is one of the few things my 5-month-old can actually hold onto. The grip is perfectly sized for tiny hands and the rattle noise is just right.",
+            "date": "February 2026",
+            "fallback_image_url": ""
+          }
+        },
+        "review_5": {
+          "type": "review",
+          "settings": {
+            "author": "Kindle Customer",
+            "rating": 5,
+            "text": "Grandson loved it — easy to hold and shake and made him laugh.",
+            "date": "April 2026",
+            "fallback_image_url": ""
+          }
+        },
+        "review_6": {
+          "type": "review",
+          "settings": {
+            "author": "Ebiere",
+            "rating": 5,
+            "text": "I got this teeth rattle for my little one, good quality with grip and teething aid.",
+            "date": "April 2026",
+            "fallback_image_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "review_5",
+        "review_6"
+      ],
       "settings": {
         "label": "Real parents, real stories",
         "heading": "What Parents Are Saying",
@@ -158,80 +241,11 @@
         "two_star_count": "0",
         "one_star_pct": 0,
         "one_star_count": "0",
-        "bg_color": "#FBF0E8"
-      },
-      "blocks": {
-        "review_1": {
-          "type": "review",
-          "settings": {
-            "author": "Daniel Boden",
-            "rating": 5,
-            "text": "I absolutely love this Little Creation Teether. It's a sweet, understated toy with a really lovely, soft colour palette that feels modern and calming rather than loud or overly bright.",
-            "date": "February 2026"
-          }
-        },
-        "review_2": {
-          "type": "review",
-          "settings": {
-            "author": "EllieBelle",
-            "rating": 5,
-            "text": "I ordered the dusky pink lion rattle as a present for my nephew's baby. It has a cute little face and comes in a little presentation box. Perfect to gift!",
-            "date": "February 2026"
-          }
-        },
-        "review_3": {
-          "type": "review",
-          "settings": {
-            "author": "Charlie G.",
-            "rating": 4,
-            "text": "This teether rattle has mostly perks for both baby and parents — BPA free, easy enough to hold, and a rattle that's readily audible and interesting to baby but perfectly subtle enough.",
-            "date": "March 2026"
-          }
-        },
-        "review_4": {
-          "type": "review",
-          "settings": {
-            "author": "Lou",
-            "rating": 5,
-            "text": "This little lion is one of the few things my 5-month-old can actually hold onto. The grip is perfectly sized for tiny hands and the rattle noise is just right.",
-            "date": "February 2026"
-          }
-        },
-        "review_5": {
-          "type": "review",
-          "settings": {
-            "author": "Kindle Customer",
-            "rating": 5,
-            "text": "Grandson loved it — easy to hold and shake and made him laugh.",
-            "date": "April 2026"
-          }
-        },
-        "review_6": {
-          "type": "review",
-          "settings": {
-            "author": "Ebiere",
-            "rating": 5,
-            "text": "I got this teeth rattle for my little one, good quality with grip and teething aid.",
-            "date": "April 2026"
-          }
-        }
-      },
-      "block_order": [
-        "review_1",
-        "review_2",
-        "review_3",
-        "review_4",
-        "review_5",
-        "review_6"
-      ]
+        "bg_color": "#fbf0e8"
+      }
     },
     "why_choose": {
       "type": "features-grid",
-      "settings": {
-        "subtitle": "Why parents choose us",
-        "heading": "Why Parents Choose Little Creation",
-        "bg_color": "#FBF0E8"
-      },
       "blocks": {
         "feature_1": {
           "type": "feature",
@@ -271,16 +285,15 @@
         "feature_2",
         "feature_3",
         "feature_4"
-      ]
+      ],
+      "settings": {
+        "subtitle": "Why parents choose us",
+        "heading": "Why Parents Choose Little Creation",
+        "bg_color": "#fbf0e8"
+      }
     },
     "faq": {
       "type": "faq-accordion",
-      "settings": {
-        "label": "Got questions?",
-        "heading": "Frequently Asked Questions",
-        "subtext": "Everything you need to know about our teethers.",
-        "bg_color": "#F5DEC8"
-      },
       "blocks": {
         "q1": {
           "type": "question",
@@ -324,7 +337,13 @@
         "q3",
         "q4",
         "q5"
-      ]
+      ],
+      "settings": {
+        "label": "Got questions?",
+        "heading": "Frequently Asked Questions",
+        "subtext": "Everything you need to know about our teethers.",
+        "bg_color": "#f5dec8"
+      }
     },
     "homepage_newsletter": {
       "type": "newsletter",
@@ -332,7 +351,7 @@
         "label": "Join our family",
         "heading": "Subscribe to Our Emails",
         "subtext": "Be the first to know about new collection launches, exclusive offers, and helpful parenting guides.",
-        "bg_color": "#FFFFFF"
+        "bg_color": "#ffffff"
       }
     }
   },
