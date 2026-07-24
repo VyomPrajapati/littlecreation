@@ -219,8 +219,6 @@
     {% section 'footer' %}
 
     {% render 'cart-drawer' %}
-    {%- if shop.customer_accounts_enabled -%}
-      {% render 'login-popup' %}
-    {%- endif -%}
+    {% render 'login-popup' %}
   </body>
 </html>
