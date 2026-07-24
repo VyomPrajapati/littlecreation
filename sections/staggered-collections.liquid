@@ -13,34 +13,38 @@
     <div class="staggered-collections__grid">
       {%- for block in section.blocks -%}
         {%- assign collection = collections[block.settings.collection] -%}
-        <div class="staggered-collections__item animate-on-scroll delay-{{ forloop.index }}" {{ block.shopify_attributes }}>
-          <a href="{{ collection.url | default: '#' }}" class="staggered-collections__card" aria-label="{{ collection.title | default: 'Collection' }}">
+        {%- if collection != blank or request.design_mode -%}
+          {%- if collection != blank or block.settings.image != blank -%}
+            <div class="staggered-collections__item animate-on-scroll delay-{{ forloop.index }}" {{ block.shopify_attributes }}>
+              <a href="{{ collection.url | default: '#' }}" class="staggered-collections__card" aria-label="{{ collection.title | default: 'Collection' }}">
 
-            <div class="staggered-collections__image-wrapper">
-              {%- if block.settings.image != blank -%}
-                <img src="{{ block.settings.image | image_url: width: 700 }}"
-                     alt="{{ block.settings.image.alt | default: collection.title | escape }}"
-                     loading="lazy">
-              {%- elsif collection.image != blank -%}
-                <img src="{{ collection.image | image_url: width: 700 }}"
-                     alt="{{ collection.image.alt | escape }}"
-                     loading="lazy">
-              {%- else -%}
-                {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg staggered-collections__placeholder' }}
-              {%- endif -%}
-              <!-- Overlay -->
-              <div class="staggered-collections__overlay"></div>
+                <div class="staggered-collections__image-wrapper">
+                  {%- if block.settings.image != blank -%}
+                    <img src="{{ block.settings.image | image_url: width: 700 }}"
+                         alt="{{ block.settings.image.alt | default: collection.title | escape }}"
+                         loading="lazy">
+                  {%- elsif collection.image != blank -%}
+                    <img src="{{ collection.image | image_url: width: 700 }}"
+                         alt="{{ collection.image.alt | escape }}"
+                         loading="lazy">
+                  {%- else -%}
+                    {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg staggered-collections__placeholder' }}
+                  {%- endif -%}
+                  <!-- Overlay -->
+                  <div class="staggered-collections__overlay"></div>
+                </div>
+
+                <div class="staggered-collections__label">
+                  <span>{{ collection.title | default: 'Collection' }}</span>
+                  <span class="staggered-collections__arrow">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </span>
+                </div>
+
+              </a>
             </div>
-
-            <div class="staggered-collections__label">
-              <span>{{ collection.title | default: 'Collection' }}</span>
-              <span class="staggered-collections__arrow">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </span>
-            </div>
-
-          </a>
-        </div>
+          {%- endif -%}
+        {%- endif -%}
       {%- endfor -%}
     </div>
 
