@@ -1,9 +1,5 @@
 {% comment %}
-  Renders a product's price
-
-  Accepts:
-  - product: {Object} Product Liquid object
-  - price_class: {String} CSS class (optional)
+  Renders a product's price in GBP £
 {% endcomment %}
 
 {%- liquid
@@ -11,14 +7,21 @@
   assign price = target.price | default: 1999
   assign compare_at_price = target.compare_at_price
   assign available = target.available | default: false
-  assign money_price = price | money
+
+  if cart.currency.iso_code == 'GBP'
+    assign money_price = price | money
+    assign money_compare = compare_at_price | money
+  else
+    assign money_price = price | money_without_currency | prepend: '£'
+    assign money_compare = compare_at_price | money_without_currency | prepend: '£'
+  endif
 -%}
 
 <div class="price {% if price_class %} {{ price_class }}{% endif %}{% if compare_at_price > price %} price--on-sale{% endif %}{% if available == false %} price--sold-out{% endif %}">
   {%- if compare_at_price > price -%}
     <span class="visually-hidden visually-hidden--inline">{{ 'products.product.regular_price' | t }}</span>
     <s class="price-item price-item--regular">
-      {{ compare_at_price | money }}
+      {{ money_compare }}
     </s>
     <span class="visually-hidden visually-hidden--inline">{{ 'products.product.sale_price' | t }}</span>
     <span class="price-item price-item--sale">
@@ -35,22 +38,23 @@
 <style>
 .price {
   font-size: 1rem;
-  color: var(--color-text);
+  color: var(--color-heading);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-sm);
+  gap: 8px;
 }
 .price-item--regular {
-  color: var(--color-text);
+  color: var(--color-heading);
+  font-weight: 600;
 }
 .price--on-sale .price-item--regular {
-  color: #777;
+  color: #888888;
   text-decoration: line-through;
   font-size: 0.9rem;
 }
 .price-item--sale {
-  color: #d4a373;
-  font-weight: 600;
+  color: var(--color-primary, #C69A7C);
+  font-weight: 700;
 }
 </style>
