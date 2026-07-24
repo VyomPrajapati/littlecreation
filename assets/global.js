@@ -138,9 +138,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ---- Login / Signup Popup Toggle ----
+  const initLoginPopup = () => {
+    const loginToggles = document.querySelectorAll('[data-login-toggle]');
+    const loginPopup   = document.querySelector('[data-login-popup]');
+    const closeLogins  = document.querySelectorAll('[data-close-login]');
+
+    if (!loginPopup) return;
+
+    const open  = () => { loginPopup.classList.add('is-open'); document.body.style.overflow = 'hidden'; };
+    const close = () => { loginPopup.classList.remove('is-open'); document.body.style.overflow = ''; };
+
+    loginToggles.forEach(t => t.addEventListener('click', e => {
+      // If customer is not logged in, open popup modal
+      if (!t.getAttribute('href').includes('/account/login') && !t.getAttribute('href').includes('/account')) return;
+      if (document.body.classList.contains('customer-logged-in')) return;
+      e.preventDefault();
+      open();
+    }));
+    closeLogins.forEach(c => c.addEventListener('click', e => { e.preventDefault(); close(); }));
+  };
+
   // ---- Initialise ----
   initScrollAnimations();
   initDragToScroll();
   initCartDrawer();
   initAjaxCart();
+  initLoginPopup();
 });
