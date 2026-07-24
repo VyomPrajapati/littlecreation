@@ -108,7 +108,8 @@
         "col_1": {
           "type": "collection",
           "settings": {
-            "collection": "teether"
+            "collection": "teether",
+            "image": "shopify://shop_images/IMG_8359.png"
           }
         },
         "col_2": {
