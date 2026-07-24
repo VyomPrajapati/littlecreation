@@ -37,7 +37,7 @@
         "settings": {
           "logo_width": 160,
           "logo_height": 48,
-          "menu": "main-menu",
+          "menu": "header",
           "sticky_header": true
         }
       },
@@ -80,6 +80,8 @@
           "footer-3"
         ],
         "settings": {
+          "bg_color": "#2c221e",
+          "text_color": "#f5dec8",
           "payment_enable": true
         }
       }

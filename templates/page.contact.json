@@ -1,11 +1,18 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "form": {
       "type": "contact-form",
       "settings": {
-        "label": "Get in touch",
-        "heading": "Contact Little Creation",
-        "subtext": "Have a question or feedback? We'd love to hear from you."
+        "heading": "Contact Little Creation"
       }
     }
   },
