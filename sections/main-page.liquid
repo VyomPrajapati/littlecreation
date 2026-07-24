@@ -1,24 +1,106 @@
-<div class="page-container section-padding container">
-  <div class="page-header text-center mb-lg">
-    <h1 class="page-title">{{ page.title | escape }}</h1>
+<section class="main-page section-padding">
+  <div class="container">
+    <div class="main-page__inner">
+
+      <header class="main-page__header text-center animate-on-scroll">
+        <h1 class="main-page__title">{{ page.title | escape }}</h1>
+        <div class="main-page__divider"></div>
+      </header>
+
+      {%- if page.content != blank -%}
+        <div class="main-page__content rte animate-on-scroll delay-1">
+          {{ page.content }}
+        </div>
+      {%- else -%}
+        <div class="main-page__empty text-center animate-on-scroll delay-1">
+          <p class="main-page__empty-text">This page content is currently empty. You can add content to this page in <strong>Shopify Admin → Pages → Edit {{ page.title | escape }}</strong>.</p>
+          <a href="{{ routes.all_products_collection_url }}" class="button">Explore Products</a>
+        </div>
+      {%- endif -%}
+
+    </div>
   </div>
-  <div class="page-content rte">
-    {{ page.content }}
-  </div>
-</div>
+</section>
 
 <style>
-.page-container {
-  max-width: 800px;
+.main-page {
+  padding-top: var(--spacing-xl);
+  padding-bottom: var(--spacing-xxl);
 }
-.page-title {
-  margin-top: 0;
+.main-page__inner {
+  max-width: 840px;
+  margin: 0 auto;
+}
+.main-page__header {
+  margin-bottom: var(--spacing-xl);
+}
+.main-page__title {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  color: var(--color-heading);
+  margin: 0 0 var(--spacing-sm);
+  line-height: 1.15;
+}
+.main-page__divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  border-radius: var(--radius-pill);
+  margin: var(--spacing-sm) auto 0;
+}
+
+.main-page__content {
+  font-size: 1.02rem;
+  line-height: 1.85;
+  color: var(--color-text);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+}
+@media screen and (max-width: 767px) {
+  .main-page__content {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+}
+.main-page__content p {
+  margin-bottom: 1.25em;
+}
+.main-page__content p:last-child {
+  margin-bottom: 0;
+}
+.main-page__content h2, .main-page__content h3, .main-page__content h4 {
+  color: var(--color-heading);
+  margin-top: 1.5em;
+  margin-bottom: 0.6em;
+}
+.main-page__content ul, .main-page__content ol {
+  padding-left: 1.4rem;
+  margin-bottom: 1.25em;
+}
+.main-page__content li {
+  margin-bottom: 0.5em;
+}
+
+.main-page__empty {
+  background: var(--color-skin-pale);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  margin-top: var(--spacing-md);
+}
+.main-page__empty-text {
+  font-size: 1rem;
+  color: var(--color-text);
+  opacity: 0.8;
+  margin-bottom: var(--spacing-md);
+  line-height: 1.6;
 }
 </style>
 
 {% schema %}
 {
-  "name": "Page",
+  "name": "Page content",
   "settings": []
 }
 {% endschema %}
