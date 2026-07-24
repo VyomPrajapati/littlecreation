@@ -116,7 +116,12 @@
   box-shadow: var(--shadow-md);
 }
 .spotlight-placeholder--tall {
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1 / 1;
+}
+@media screen and (min-width: 768px) {
+  .spotlight-placeholder--tall {
+    aspect-ratio: 3 / 4;
+  }
 }
 .spotlight-placeholder__label {
   position: absolute;

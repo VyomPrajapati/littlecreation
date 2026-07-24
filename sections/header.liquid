@@ -124,6 +124,29 @@
     </ul>
   </nav>
   <div class="mobile-menu-drawer__footer">
+    <!-- Mobile Country / Currency Selector -->
+    <div class="mobile-localization mb-md">
+      <span class="mobile-localization__label">Region / Currency</span>
+      {%- if localization.available_countries.size > 1 -%}
+        {%- form 'localization', id: 'MobileLocalizationForm', class: 'localization-form' -%}
+          <div class="country-selector country-selector--full">
+            <select name="country_code" class="country-selector__select" onchange="this.form.submit()" aria-label="Select Country and Currency">
+              {%- for country in localization.available_countries -%}
+                <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>
+                  {{ country.name }} | {{ country.currency.iso_code }} {{ country.currency.symbol }}
+                </option>
+              {%- endfor -%}
+            </select>
+            <svg class="country-selector__arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+        {%- endform -%}
+      {%- else -%}
+        <div class="country-selector country-selector--full">
+          <span class="country-selector__static">United Kingdom | GBP £</span>
+        </div>
+      {%- endif -%}
+    </div>
+
     <a href="{{ routes.cart_url }}" class="button button--full-width">View Cart
       {%- if cart.item_count > 0 -%} ({{ cart.item_count }}){%- endif -%}
     </a>
@@ -201,9 +224,35 @@
   justify-content: flex-end;
 }
 .header__localization {
-  display: flex;
+  display: none;
   align-items: center;
   margin-right: 4px;
+}
+@media screen and (min-width: 990px) {
+  .header__localization {
+    display: flex;
+  }
+}
+.mobile-localization {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.mobile-localization__label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-heading);
+  opacity: 0.7;
+}
+.country-selector--full {
+  width: 100%;
+}
+.country-selector--full .country-selector__select,
+.country-selector--full .country-selector__static {
+  width: 100%;
+  box-sizing: border-box;
 }
 .country-selector {
   position: relative;
