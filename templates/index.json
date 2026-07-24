@@ -107,6 +107,7 @@
       "settings": {
         "subtitle": "Made with love",
         "heading": "Weekly Spotlight",
+        "bg_color": "#fbf0e8",
         "main_product": "little-creation-bear-cooling-teerther",
         "secondary_product_1": "crown-swan-teether-blue",
         "secondary_product_2": "mighty-lion-rattle-teether"
@@ -115,6 +116,7 @@
     "usp_2": {
       "type": "image-with-text",
       "settings": {
+        "image": "shopify://shop_images/IMG_8359.png",
         "layout": "text_first",
         "label": "Gentle cooling relief",
         "heading": "Animal Shape Teether — Crown Swan Teether",
