@@ -14,7 +14,7 @@
 
     <!-- Desktop grid / Mobile scroll carousel -->
     <div class="product-carousel">
-      {%- if collection != blank and collection.products_count > 0 -%}
+      {%- if collection != blank and collection.products.size > 0 -%}
         {%- for product in collection.products limit: section.settings.products_to_show -%}
           <div class="product-carousel__item animate-on-scroll delay-{{ forloop.index | modulo: 4 | plus: 1 }}">
             {% render 'product-card', product: product, show_secondary_image: section.settings.show_secondary_image %}
