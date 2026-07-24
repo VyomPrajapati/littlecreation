@@ -170,6 +170,33 @@
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
 
+    <style id="GlobalKidsTypography">
+      :root {
+        --font-heading-family: 'Fredoka', 'Quicksand', system-ui, sans-serif !important;
+        --font-body-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+      }
+      body, p, span, li, a, input, select, textarea {
+        font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+      }
+      h1, h2, h3, h4, h5, h6,
+      .h1, .h2, .h3, .h4, .h5, .h6,
+      [class*="title"],
+      [class*="heading"],
+      [class*="subtitle"],
+      .section-label,
+      .header__logo-text,
+      .button,
+      .btn,
+      .product-card__title,
+      .mobile-menu-drawer__title,
+      .contact-info__heading,
+      .faq-accordion__question,
+      .footer__column-title,
+      .cart-drawer__title {
+        font-family: 'Fredoka', 'Quicksand', system-ui, sans-serif !important;
+      }
+    </style>
+
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
 
     <script>
