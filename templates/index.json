@@ -95,7 +95,7 @@
       "settings": {
         "label": "Our bestsellers",
         "heading": "Crafted with Love, Trusted by Parents",
-        "collection": "",
+        "collection": "featured-collection",
         "products_to_show": 4,
         "show_secondary_image": true,
         "show_view_all": true,
