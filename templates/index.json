@@ -102,39 +102,6 @@
         "bg_color": "#ffffff"
       }
     },
-    "collections_grid": {
-      "type": "staggered-collections",
-      "blocks": {
-        "col_1": {
-          "type": "collection",
-          "settings": {
-            "collection": "teether",
-            "image": "shopify://shop_images/IMG_8359.png"
-          }
-        },
-        "col_2": {
-          "type": "collection",
-          "settings": {
-            "collection": ""
-          }
-        },
-        "col_3": {
-          "type": "collection",
-          "settings": {
-            "collection": ""
-          }
-        }
-      },
-      "block_order": [
-        "col_1",
-        "col_2",
-        "col_3"
-      ],
-      "settings": {
-        "subtitle": "Discover",
-        "heading": "Our Collection"
-      }
-    },
     "weekly_spotlight": {
       "type": "spotlight-grid",
       "settings": {
