@@ -62,7 +62,7 @@
             "type": "link_list",
             "settings": {
               "title": "Help",
-              "menu": ""
+              "menu": "footer-help"
             }
           },
           "footer-3": {
