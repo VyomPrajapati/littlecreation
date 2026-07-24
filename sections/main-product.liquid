@@ -232,31 +232,39 @@
 .product__info-inner {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: var(--spacing-lg, 32px);
 }
 .product__title {
-  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
   color: var(--color-heading);
-  margin: 0;
+  margin: 0 0 var(--spacing-xs, 8px) 0;
+  line-height: 1.2;
   overflow-wrap: break-word;
 }
 .product__price {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--color-primary-dark, #A07855);
 }
 .price-item--compare {
   text-decoration: line-through;
   opacity: 0.45;
-  font-size: 1rem;
-  margin-left: 8px;
+  font-size: 1.05rem;
+  margin-left: 10px;
+}
+
+/* ---- Form & Buy Buttons ---- */
+.product__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md, 20px);
 }
 
 /* ---- Variants ---- */
 .product__option {
   border: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 var(--spacing-sm, 16px) 0;
 }
 .product__option-label {
   display: block;
@@ -270,7 +278,7 @@
 .product__option-values {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 .product__option-values input[type="radio"] {
   position: absolute;
@@ -281,11 +289,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 18px;
+  padding: 10px 20px;
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-pill);
   cursor: pointer;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 500;
   color: var(--color-text);
   background: var(--color-white);
@@ -307,7 +315,8 @@
 .product__quantity-row {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-sm, 16px);
+  margin-bottom: var(--spacing-xs, 8px);
 }
 .product__qty-label {
   font-size: 0.85rem;
@@ -327,10 +336,10 @@
 .qty-stepper__btn {
   background: none;
   border: none;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: var(--color-heading);
   display: flex;
   align-items: center;
@@ -341,14 +350,14 @@
 }
 .qty-stepper__btn:hover { background: var(--color-skin-pale); }
 .qty-stepper__input {
-  width: 48px;
+  width: 52px;
   text-align: center;
   border: none;
   border-left: 1.5px solid var(--color-border);
   border-right: 1.5px solid var(--color-border);
   background: none;
   font-family: var(--font-body-family);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--color-heading);
   padding: 8px 0;
@@ -363,61 +372,97 @@
 .product__buy-buttons {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: 16px;
 }
 .product__atc {
-  font-size: 1rem;
-  padding: 16px 24px;
-  letter-spacing: 0.03em;
+  font-size: 1.05rem;
+  padding: 18px 28px;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-skin);
 }
 .product__dynamic-checkout {
   text-align: center;
 }
-.product__dynamic-checkout .shopify-payment-button { margin: 0; }
+.product__dynamic-checkout .shopify-payment-button {
+  margin: 0;
+}
+.product__dynamic-checkout .shopify-payment-button__button {
+  border-radius: var(--radius-pill) !important;
+  min-height: 52px !important;
+}
+.product__dynamic-checkout .shopify-payment-button__more-options {
+  margin-top: 10px !important;
+  font-size: 0.88rem !important;
+  color: var(--color-primary-dark, #A07855) !important;
+  text-decoration: underline !important;
+}
 
 /* ---- Description ---- */
 .product__description {
-  font-size: 0.95rem;
-  line-height: 1.75;
+  font-size: 0.98rem;
+  line-height: 1.8;
   color: var(--color-text);
   padding-top: var(--spacing-md);
   border-top: 1px solid var(--color-border);
 }
-.product__description p { margin-bottom: 0.75em; }
+.product__description p { margin-bottom: 1em; }
+.product__description ul, .product__description ol {
+  padding-left: 1.2rem;
+  margin-bottom: 1em;
+}
+.product__description li {
+  margin-bottom: 0.6em;
+  line-height: 1.7;
+}
 
 /* ---- Trust badges ---- */
 .product__trust {
   background: var(--color-skin-pale);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-md);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg, 24px) var(--spacing-md, 20px);
+  margin-top: var(--spacing-xs);
 }
 .product__trust-heading {
   font-size: 0.82rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--color-heading);
   text-align: center;
-  margin: 0 0 var(--spacing-sm);
+  margin: 0 0 var(--spacing-md, 20px);
 }
 .product__trust-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-sm);
+  gap: var(--spacing-md);
 }
 .trust-badge {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  font-size: 0.78rem;
+  gap: 10px;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--color-heading);
   text-align: center;
 }
 .trust-badge__icon {
-  width: 44px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--color-skin-light), var(--color-secondary));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(198,154,124,0.18);
+}
+.trust-badge__icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--color-primary-dark, #A07855);
+}
   height: 44px;
   background: linear-gradient(135deg, var(--color-skin-light), var(--color-secondary));
   border-radius: 50%;
