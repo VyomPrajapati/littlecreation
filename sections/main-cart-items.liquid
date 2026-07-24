@@ -1,0 +1,173 @@
+<div class="cart-items container section-padding">
+  <div class="cart__header text-center mb-md">
+    <h1>{{ 'sections.cart.title' | t }}</h1>
+    <a href="{{ routes.all_products_collection_url }}" class="underlined-link">{{ 'general.continue_shopping' | t }}</a>
+  </div>
+
+  {%- if cart.empty? -%}
+    <div class="cart__empty text-center py-xl">
+      <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>
+      <a href="{{ routes.all_products_collection_url }}" class="button mt-md">
+        {{ 'general.continue_shopping' | t }}
+      </a>
+    </div>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
+      <div class="cart__items-container">
+        <table class="cart-items__table">
+          <thead>
+            <tr>
+              <th scope="col" colspan="2">Product</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for item in cart.items -%}
+              <tr class="cart-item">
+                <td class="cart-item__media">
+                  {% if item.image %}
+                    <img src="{{ item.image | image_url: width: 300 }}"
+                         alt="{{ item.image.alt | escape }}"
+                         loading="lazy"
+                         width="150"
+                         height="{{ 150 | divided_by: item.image.aspect_ratio | ceil }}">
+                  {% endif %}
+                </td>
+                <td class="cart-item__details">
+                  <a href="{{ item.url }}" class="cart-item__name h4">{{ item.product.title | escape }}</a>
+                  {%- if item.product.has_only_default_variant == false -%}
+                    <div class="cart-item__options">
+                      {%- for option in item.options_with_values -%}
+                        <div class="cart-item__option">
+                          <dt>{{ option.name }}: </dt>
+                          <dd>{{ option.value }}</dd>
+                        </div>
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
+                  <a href="{{ item.url_to_remove }}" class="cart-item__remove mt-sm">Remove</a>
+                </td>
+                <td class="cart-item__price">
+                  {%- if item.original_price != item.final_price -%}
+                    <div class="cart-item__discounted-prices">
+                      <span class="visually-hidden">Regular price</span>
+                      <s class="cart-item__old-price price price--end">{{ item.original_price | money }}</s>
+                      <span class="visually-hidden">Sale price</span>
+                      <strong class="cart-item__final-price price price--end">{{ item.final_price | money }}</strong>
+                    </div>
+                  {%- else -%}
+                    <div class="product-option">{{ item.original_price | money }}</div>
+                  {%- endif -%}
+                </td>
+                <td class="cart-item__quantity">
+                  <div class="quantity">
+                    <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | minus: 1 }}" class="quantity__button" aria-label="Decrease quantity">
+                      &minus;
+                    </a>
+                    <input class="quantity__input"
+                           type="number"
+                           name="updates[]"
+                           value="{{ item.quantity }}"
+                           min="0"
+                           aria-label="Quantity for {{ item.product.title | escape }}"
+                           id="Quantity-{{ item.index | plus: 1 }}"
+                           data-index="{{ item.index | plus: 1 }}">
+                    <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | plus: 1 }}" class="quantity__button" aria-label="Increase quantity">
+                      &plus;
+                    </a>
+                  </div>
+                </td>
+                <td class="cart-item__totals">
+                  <div class="cart-item__price-wrapper">
+                    {%- if item.original_line_price != item.final_line_price -%}
+                      <dl class="cart-item__discounted-prices">
+                        <dt class="visually-hidden">Regular price</dt>
+                        <dd><s class="cart-item__old-price price price--end">{{ item.original_line_price | money }}</s></dd>
+                        <dt class="visually-hidden">Sale price</dt>
+                        <dd><strong class="cart-item__final-price price price--end">{{ item.final_line_price | money }}</strong></dd>
+                      </dl>
+                    {%- else -%}
+                      <span class="price price--end">{{ item.original_line_price | money }}</span>
+                    {%- endif -%}
+                  </div>
+                </td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+    </form>
+  {%- endif -%}
+</div>
+
+<style>
+.cart-items__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.cart-items__table th {
+  text-align: left;
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+.cart-item {
+  border-bottom: 1px solid var(--color-border);
+}
+.cart-item > td {
+  padding: var(--spacing-md) 0;
+  vertical-align: top;
+}
+.cart-item__media img {
+  border-radius: var(--border-radius);
+  max-width: 100px;
+}
+.cart-item__details {
+  padding-left: var(--spacing-sm) !important;
+}
+.cart-item__name {
+  text-decoration: none;
+  display: block;
+  margin-bottom: var(--spacing-base);
+}
+.cart-item__options {
+  font-size: 0.9rem;
+  color: #666;
+}
+.cart-item__option {
+  display: flex;
+  gap: 4px;
+}
+.cart-item__option dt {
+  font-weight: 500;
+}
+.cart-item__option dd {
+  margin: 0;
+}
+.cart-item__remove {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: #888;
+}
+.cart-item__remove:hover {
+  color: var(--color-primary);
+}
+.py-xl {
+  padding-top: var(--spacing-xl);
+  padding-bottom: var(--spacing-xl);
+}
+@media screen and (max-width: 749px) {
+  .cart-items__table th:not(:first-child),
+  .cart-items__table td:not(:first-child) {
+    display: none;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Cart items",
+  "settings": []
+}
+{% endschema %}

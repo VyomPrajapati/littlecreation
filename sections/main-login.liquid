@@ -1,0 +1,107 @@
+<div class="customer login section-padding container">
+  <div class="login__wrapper text-center">
+    <h1 id="recover" tabindex="-1">Reset your password</h1>
+    <div>
+      <p>We will send you an email to reset your password.</p>
+      {%- form 'recover_customer_password' -%}
+        {% assign recover_success = form.posted_successfully? %}
+        <div class="field">
+          <input type="email"
+            value=""
+            name="email"
+            id="RecoverEmail"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            {% if form.errors %}
+              aria-invalid="true"
+              aria-describedby="RecoverEmail-email-error"
+              autofocus
+            {% endif %}
+            placeholder="Email"
+            class="field__input"
+          >
+        </div>
+        {%- if form.errors -%}
+          <small id="RecoverEmail-email-error" class="form__message">
+            {{ form.errors.messages['form'] }}
+          </small>
+        {%- endif -%}
+
+        <button class="button button--full-width mt-md">Submit</button>
+        <a href="#login" class="mt-sm d-block">Cancel</a>
+      {%- endform -%}
+    </div>
+
+    <h1 id="login" tabindex="-1">Login</h1>
+    <div>
+      {%- if recover_success == true -%}
+        <h3 class="form__message" tabindex="-1" autofocus>
+          We've sent you an email with a link to update your password.
+        </h3>
+      {%- endif -%}
+      {%- form 'customer_login', novalidate: 'novalidate' -%}
+        {%- if form.errors -%}
+          <h2 class="form__message" tabindex="-1" autofocus>
+            <span class="visually-hidden">Error</span>
+            {{ form.errors.messages['form'] }}
+          </h2>
+        {%- endif -%}
+
+        <div class="field">
+          <input
+            type="email"
+            name="customer[email]"
+            id="CustomerEmail"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
+            {% if form.errors contains 'form' %}
+              aria-invalid="true"
+            {% endif %}
+            placeholder="Email"
+            class="field__input"
+          >
+        </div>
+
+        {%- if form.password_needed -%}
+          <div class="field mt-sm">
+            <input
+              type="password"
+              value=""
+              name="customer[password]"
+              id="CustomerPassword"
+              autocomplete="current-password"
+              {% if form.errors contains 'form' %}
+                aria-invalid="true"
+              {% endif %}
+              placeholder="Password"
+              class="field__input"
+            >
+          </div>
+          <a href="#recover" class="mt-sm d-block text-right">Forgot your password?</a>
+        {%- endif -%}
+
+        <button class="button button--full-width mt-md">Sign in</button>
+        <a href="{{ routes.account_register_url }}" class="mt-sm d-block">Create account</a>
+      {%- endform -%}
+    </div>
+  </div>
+</div>
+
+<style>
+.login__wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.d-block { display: block; }
+.text-right { text-align: right; }
+h1:focus { outline: none; }
+</style>
+
+{% schema %}
+{
+  "name": "Login",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,154 @@
+{% comment %}
+  Renders a product card
+  
+  Accepts:
+  - product: {Object} Product Liquid object
+  - show_secondary_image: {Boolean} Show the secondary image on hover (optional)
+  - show_vendor: {Boolean} Show the product vendor (optional)
+  - show_rating: {Boolean} Show the product rating (optional)
+{% endcomment %}
+
+<div class="product-card">
+  <a href="{{ product.url | within: collection }}" class="product-card__link">
+    <div class="product-card__image-wrapper animate-on-scroll">
+      {% if product.featured_media %}
+        <img
+          src="{{ product.featured_media | image_url: width: 533 }}"
+          alt="{{ product.featured_media.alt | escape }}"
+          loading="lazy"
+          class="product-card__image {% if product.media[1] != nil and show_secondary_image %}product-card__image--primary{% endif %}"
+          width="{{ product.featured_media.width }}"
+          height="{{ product.featured_media.height }}"
+        >
+        {% if product.media[1] != nil and show_secondary_image %}
+          <img
+            src="{{ product.media[1] | image_url: width: 533 }}"
+            alt="{{ product.media[1].alt | escape }}"
+            loading="lazy"
+            class="product-card__image product-card__image--secondary"
+            width="{{ product.media[1].width }}"
+            height="{{ product.media[1].height }}"
+          >
+        {% endif %}
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+      
+      {% if product.available == false %}
+        <span class="badge badge--sold-out">{{ 'products.product.sold_out' | t }}</span>
+      {% elsif product.compare_at_price > product.price %}
+        <span class="badge badge--sale">Sale</span>
+      {% endif %}
+      
+      <div class="product-card__quick-add">
+        <span class="visually-hidden">Add to Cart</span>
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+
+    <div class="product-card__info animate-on-scroll delay-1">
+      {% if show_vendor %}
+        <span class="product-card__vendor visually-hidden">{{ product.vendor }}</span>
+      {% endif %}
+
+      <h3 class="product-card__title">{{ product.title | escape }}</h3>
+
+      {% render 'price', product: product, price_class: '' %}
+    </div>
+  </a>
+</div>
+
+<style>
+.product-card {
+  position: relative;
+  border-radius: var(--border-radius);
+  transition: transform 0.3s ease;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+}
+.product-card__link {
+  text-decoration: none;
+  color: inherit;
+}
+.product-card__image-wrapper {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-secondary);
+  aspect-ratio: 1/1;
+  border-radius: 24px;
+}
+.product-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease, transform 0.5s ease;
+}
+.product-card__image--secondary {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+.product-card:hover .product-card__image--primary {
+  opacity: 0;
+}
+.product-card:hover .product-card__image--secondary {
+  opacity: 1;
+  transform: scale(1.05);
+}
+.product-card__quick-add {
+  position: absolute;
+  bottom: -50px;
+  right: var(--spacing-sm);
+  width: 40px;
+  height: 40px;
+  background: var(--color-background);
+  color: var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  opacity: 0;
+}
+.product-card__quick-add svg {
+  width: 20px;
+  height: 20px;
+}
+.product-card:hover .product-card__quick-add {
+  bottom: var(--spacing-sm);
+  opacity: 1;
+}
+.product-card__quick-add:hover {
+  transform: scale(1.1);
+  background: var(--color-primary);
+  color: var(--color-background);
+}
+.product-card__info {
+  padding: var(--spacing-sm) 0;
+  text-align: center;
+}
+.product-card__title {
+  margin: 0 0 var(--spacing-base) 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+.badge {
+  position: absolute;
+  bottom: var(--spacing-sm);
+  left: var(--spacing-sm);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: var(--color-primary);
+  color: var(--color-background);
+}
+.badge--sale {
+  background: #d4a373;
+}
+</style>

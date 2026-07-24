@@ -1,0 +1,41 @@
+<div class="customer addresses section-padding container">
+  <div class="text-center mb-lg">
+    <h1>Addresses</h1>
+    <a href="{{ routes.account_url }}">Return to Account details</a>
+  </div>
+  
+  <div class="grid grid--2-col-tablet">
+    {%- for address in customer.addresses -%}
+      <div class="address-box mt-md">
+        {%- if address == customer.default_address -%}
+          <h2 class="h4">Default</h2>
+        {%- endif -%}
+        {{ address | format_address }}
+        <div class="mt-sm">
+          <button type="button" class="button button--secondary">Edit</button>
+          <button type="button" class="button button--secondary">Delete</button>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+<style>
+.address-box {
+  background: var(--color-secondary);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+}
+.button--secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+</style>
+
+{% schema %}
+{
+  "name": "Addresses",
+  "settings": []
+}
+{% endschema %}

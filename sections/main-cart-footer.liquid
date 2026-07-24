@@ -1,0 +1,110 @@
+<div class="cart-footer container pb-lg" id="main-cart-footer" data-id="{{ section.id }}">
+  <div class="cart__footer-wrapper">
+    <div class="cart__blocks">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when '@app' -%}
+            {% render block %}
+          
+          {%- when 'subtotal' -%}
+            <div class="cart__blocks-content" {{ block.shopify_attributes }}>
+              <div class="cart-footer__totals">
+                <h3 class="totals__subtotal">{{ 'sections.cart.subtotal' | t }}</h3>
+                <p class="totals__subtotal-value">{{ cart.total_price | money_with_currency }}</p>
+              </div>
+
+              <small class="tax-note caption-large rte">
+                {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
+                  {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                {%- elsif cart.taxes_included -%}
+                  {{ 'sections.cart.taxes_included_but_shipping_at_checkout' | t }}
+                {%- elsif shop.shipping_policy.body != blank -%}
+                  {{ 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+                {%- else -%}
+                  {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
+                {%- endif -%}
+              </small>
+            </div>
+          
+          {%- when 'buttons' -%}
+            <div class="cart__ctas" {{ block.shopify_attributes }}>
+              <noscript>
+                <button type="submit" class="cart__update-button button button--secondary" form="cart">
+                  Update
+                </button>
+              </noscript>
+
+              <button type="submit" id="checkout" class="cart__checkout-button button button--full-width mt-sm" name="checkout"{% if cart == empty %} disabled{% endif %} form="cart">
+                {{ 'sections.cart.checkout' | t }}
+              </button>
+            </div>
+
+            {%- if additional_checkout_buttons -%}
+              <div class="cart__dynamic-checkout-buttons additional-checkout-buttons mt-sm">
+                {{ content_for_additional_checkout_buttons }}
+              </div>
+            {%- endif -%}
+            
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<style>
+.cart-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+.cart__footer-wrapper {
+  width: 100%;
+  max-width: 400px;
+  background: var(--color-secondary);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+}
+.cart-footer__totals {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+.totals__subtotal {
+  margin: 0;
+  font-size: 1.2rem;
+}
+.totals__subtotal-value {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.tax-note {
+  display: block;
+  color: #666;
+  margin-bottom: var(--spacing-md);
+}
+.pb-lg {
+  padding-bottom: var(--spacing-lg);
+}
+</style>
+
+{% schema %}
+{
+  "name": "Cart footer",
+  "blocks": [
+    {
+      "type": "subtotal",
+      "name": "Subtotal",
+      "limit": 1
+    },
+    {
+      "type": "buttons",
+      "name": "Checkout buttons",
+      "limit": 1
+    },
+    {
+      "type": "@app"
+    }
+  ]
+}
+{% endschema %}

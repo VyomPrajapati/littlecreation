@@ -1,0 +1,117 @@
+<div class="search-page section-padding">
+  <div class="container">
+    <div class="text-center mb-lg">
+      {%- if search.performed -%}
+        <h1 class="h2">{{ 'templates.search.title' | t }}</h1>
+      {%- else -%}
+        <h1 class="h2">{{ 'general.search.search' | t }}</h1>
+      {%- endif -%}
+
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-form mt-md">
+        <div class="search-form__wrapper">
+          <input
+            class="search-form__input"
+            type="search"
+            name="q"
+            value="{{ search.terms | escape }}"
+            placeholder="{{ 'general.search.search' | t }}"
+          >
+          <input type="hidden" name="options[prefix]" value="last">
+          <button class="search-form__button button" aria-label="{{ 'general.search.search' | t }}">
+            {% render 'icon-search' %}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    {%- if search.performed -%}
+      {%- if search.results_count == 0 -%}
+        <div class="text-center mt-lg">
+          <p>{{ 'templates.search.no_results' | t: terms: search.terms }}</p>
+        </div>
+      {%- else -%}
+        <p class="text-center mb-md">
+          {{ 'templates.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+        </p>
+
+        {% paginate search.results by section.settings.results_per_page %}
+          <div class="grid grid--2-col-tablet grid--4-col-desktop">
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                {% render 'product-card', product: item, show_secondary_image: section.settings.show_secondary_image %}
+              {%- else -%}
+                <div class="search-result-item">
+                  <a href="{{ item.url }}">
+                    <h3 class="search-result-item__title">{{ item.title }}</h3>
+                  </a>
+                  <p>{{ item.content | strip_html | truncatewords: 30 }}</p>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if paginate.pages > 1 -%}
+            <div class="mt-lg text-center">
+              {{ paginate | default_pagination }}
+            </div>
+          {%- endif -%}
+        {% endpaginate %}
+      {%- endif -%}
+    {%- endif -%}
+
+  </div>
+</div>
+
+<style>
+.search-form {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.search-form__wrapper {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+.search-form__input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+}
+.search-form__button {
+  padding: 12px 20px;
+}
+.search-result-item {
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+}
+.search-result-item__title {
+  margin-top: 0;
+  margin-bottom: var(--spacing-sm);
+}
+</style>
+
+{% schema %}
+{
+  "name": "Search results",
+  "settings": [
+    {
+      "type": "range",
+      "id": "results_per_page",
+      "min": 8,
+      "max": 36,
+      "step": 4,
+      "default": 16,
+      "label": "Results per page"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "label": "Show second image on hover",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

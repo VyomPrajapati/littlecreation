@@ -1,0 +1,87 @@
+<div class="customer order section-padding container">
+  <div class="text-center mb-lg">
+    <h1>Order {{ order.name }}</h1>
+    <p>{{ order.created_at | time_tag: format: 'date_at_time' }}</p>
+    <a href="{{ routes.account_url }}">Return to Account details</a>
+  </div>
+
+  <div class="grid grid--2-col-desktop">
+    <div>
+      <table class="order-details">
+        <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for line_item in order.line_items -%}
+            <tr>
+              <td>
+                <div>
+                  {%- if line_item.url != blank -%}
+                    <a href="{{ line_item.url }}">{{ line_item.title }}</a>
+                  {%- else -%}
+                    <p>{{ line_item.title }}</p>
+                  {%- endif -%}
+                </div>
+              </td>
+              <td>{{ line_item.price | money }}</td>
+              <td>{{ line_item.quantity }}</td>
+              <td>{{ line_item.final_line_price | money }}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">Subtotal</td>
+            <td>{{ order.line_items_subtotal_price | money }}</td>
+          </tr>
+          <tr>
+            <td colspan="3">Total</td>
+            <td><strong>{{ order.total_price | money_with_currency }}</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    
+    <div>
+      <div class="order-address mt-md">
+        <h2>Billing Address</h2>
+        <p><strong>Payment Status:</strong> {{ order.financial_status_label }}</p>
+        {{ order.billing_address | format_address }}
+      </div>
+      <div class="order-address mt-md">
+        <h2>Shipping Address</h2>
+        <p><strong>Fulfillment Status:</strong> {{ order.fulfillment_status_label }}</p>
+        {{ order.shipping_address | format_address }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.order-details {
+  width: 100%;
+  border-collapse: collapse;
+}
+.order-details th, .order-details td {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+.order-address {
+  background: var(--color-secondary);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+}
+</style>
+
+{% schema %}
+{
+  "name": "Order",
+  "settings": []
+}
+{% endschema %}

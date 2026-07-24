@@ -1,0 +1,24 @@
+<div class="page-container section-padding container">
+  <div class="page-header text-center mb-lg">
+    <h1 class="page-title">{{ page.title | escape }}</h1>
+  </div>
+  <div class="page-content rte">
+    {{ page.content }}
+  </div>
+</div>
+
+<style>
+.page-container {
+  max-width: 800px;
+}
+.page-title {
+  margin-top: 0;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Page",
+  "settings": []
+}
+{% endschema %}

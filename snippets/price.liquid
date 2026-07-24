@@ -1,0 +1,56 @@
+{% comment %}
+  Renders a product's price
+
+  Accepts:
+  - product: {Object} Product Liquid object
+  - price_class: {String} CSS class (optional)
+{% endcomment %}
+
+{%- liquid
+  assign target = product
+  assign price = target.price | default: 1999
+  assign compare_at_price = target.compare_at_price
+  assign available = target.available | default: false
+  assign money_price = price | money
+-%}
+
+<div class="price {% if price_class %} {{ price_class }}{% endif %}{% if compare_at_price > price %} price--on-sale{% endif %}{% if available == false %} price--sold-out{% endif %}">
+  {%- if compare_at_price > price -%}
+    <span class="visually-hidden visually-hidden--inline">{{ 'products.product.regular_price' | t }}</span>
+    <s class="price-item price-item--regular">
+      {{ compare_at_price | money }}
+    </s>
+    <span class="visually-hidden visually-hidden--inline">{{ 'products.product.sale_price' | t }}</span>
+    <span class="price-item price-item--sale">
+      {{ money_price }}
+    </span>
+  {%- else -%}
+    <span class="visually-hidden visually-hidden--inline">{{ 'products.product.regular_price' | t }}</span>
+    <span class="price-item price-item--regular">
+      {{ money_price }}
+    </span>
+  {%- endif -%}
+</div>
+
+<style>
+.price {
+  font-size: 1rem;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+.price-item--regular {
+  color: var(--color-text);
+}
+.price--on-sale .price-item--regular {
+  color: #777;
+  text-decoration: line-through;
+  font-size: 0.9rem;
+}
+.price-item--sale {
+  color: #d4a373;
+  font-weight: 600;
+}
+</style>

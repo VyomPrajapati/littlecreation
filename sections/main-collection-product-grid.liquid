@@ -1,0 +1,152 @@
+<div class="collection section-padding">
+  <div class="container">
+    
+    <header class="collection__header text-center mb-lg">
+      <h1 class="collection__title">{{ collection.title | escape }}</h1>
+      {%- if section.settings.show_description and collection.description != blank -%}
+        <div class="collection__description rte mt-sm">
+          {{ collection.description }}
+        </div>
+      {%- endif -%}
+    </header>
+
+    {%- paginate collection.products by section.settings.products_per_page -%}
+      {%- if collection.products.size == 0 -%}
+        <div class="collection__empty text-center">
+          <p>No products found in this collection.</p>
+          <a href="{{ routes.all_products_collection_url }}" class="button mt-md">Continue shopping</a>
+        </div>
+      {%- else -%}
+        
+        <div class="collection__toolbar">
+          <div class="collection__product-count">
+            Showing {{ collection.products_count }} products
+          </div>
+          {%- if section.settings.enable_sorting -%}
+            <div class="collection__sort">
+              <label for="SortBy">Sort by:</label>
+              <select name="sort_by" class="select__select" id="SortBy" aria-describedby="a11y-refresh-page-message">
+                {%- for option in collection.sort_options -%}
+                  <option value="{{ option.value | escape }}"{% if option.value == sort_by %} selected="selected"{% endif %}>
+                    {{ option.name | escape }}
+                  </option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="grid grid--2-col-tablet grid--4-col-desktop mt-md">
+          {%- for product in collection.products -%}
+            {% render 'product-card', product: product, show_secondary_image: section.settings.show_secondary_image %}
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <div class="collection__pagination mt-lg">
+            {{ paginate | default_pagination }}
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endpaginate -%}
+
+  </div>
+</div>
+
+<style>
+.collection__header {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.collection__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+.collection__sort {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+.select__select {
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-background);
+  font-family: inherit;
+}
+.collection__pagination {
+  text-align: center;
+}
+.collection__pagination span {
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 0 4px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+}
+.collection__pagination .current {
+  background: var(--color-primary);
+  color: var(--color-background);
+  border-color: var(--color-primary);
+}
+.collection__pagination a {
+  text-decoration: none;
+  color: var(--color-text);
+}
+.collection__pagination a:hover {
+  background: var(--color-secondary);
+}
+</style>
+
+<script>
+  // Simple sorting logic
+  document.addEventListener('DOMContentLoaded', function() {
+    const sortSelect = document.getElementById('SortBy');
+    if (sortSelect) {
+      sortSelect.addEventListener('change', function() {
+        const url = new URL(window.location.href);
+        url.searchParams.set('sort_by', this.value);
+        window.location.href = url.href;
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product grid",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 36,
+      "step": 4,
+      "default": 16,
+      "label": "Products per page"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "label": "Show second image on hover",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "default": true,
+      "label": "Enable sorting"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show collection description",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

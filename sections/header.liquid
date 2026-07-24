@@ -1,0 +1,467 @@
+<header class="header {% if section.settings.sticky_header %}header--sticky{% endif %}" id="SiteHeader">
+  <div class="container header__inner">
+
+    <!-- Mobile hamburger -->
+    <div class="header__mobile-menu">
+      <button class="header__icon-btn" data-menu-toggle aria-label="Open menu" aria-expanded="false" aria-controls="MobileDrawer">
+        <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect y="0" width="22" height="2" rx="1" fill="currentColor"/>
+          <rect y="7" width="16" height="2" rx="1" fill="currentColor"/>
+          <rect y="14" width="22" height="2" rx="1" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Logo -->
+    <div class="header__logo">
+      <a href="{{ routes.root_url }}" aria-label="{{ shop.name }} home">
+        {%- if section.settings.logo != blank -%}
+          <img src="{{ section.settings.logo | image_url: width: section.settings.logo_width }}"
+               alt="{{ shop.name }}"
+               width="{{ section.settings.logo_width }}"
+               height="{{ section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | round }}"
+               loading="lazy"
+               style="max-height: {{ section.settings.logo_height }}px; width: auto;">
+        {%- else -%}
+          <span class="header__logo-text">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    <!-- Desktop nav -->
+    <nav class="header__nav" aria-label="Main Navigation">
+      <ul class="header__nav-list">
+        {%- if section.settings.menu.links.size > 0 -%}
+          {%- for link in section.settings.menu.links -%}
+            <li class="header__nav-item">
+              <a href="{{ link.url }}" class="header__nav-link {% if link.active %}is-active{% endif %}">
+                {{ link.title }}
+              </a>
+            </li>
+          {%- endfor -%}
+        {%- else -%}
+          <li class="header__nav-item"><a href="{{ routes.root_url }}" class="header__nav-link">Home</a></li>
+          <li class="header__nav-item"><a href="{{ routes.all_products_collection_url }}" class="header__nav-link">Shop</a></li>
+          <li class="header__nav-item"><a href="/pages/our-story" class="header__nav-link">Our Story</a></li>
+          <li class="header__nav-item"><a href="/pages/contact" class="header__nav-link">Contact</a></li>
+        {%- endif -%}
+      </ul>
+    </nav>
+
+    <!-- Icons -->
+    <div class="header__icons">
+      <a href="{{ routes.search_url }}" class="header__icon-btn" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </a>
+
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="header__icon-btn" aria-label="Account">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+      {%- endif -%}
+
+      <a href="{{ routes.cart_url }}" class="header__icon-btn header__cart-btn" data-cart-toggle aria-label="Cart ({{ cart.item_count }} items)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        {%- if cart.item_count > 0 -%}
+          <span class="header__cart-count" aria-hidden="true">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+  </div>
+</header>
+
+<!-- Mobile Drawer Overlay -->
+<div class="mobile-overlay" data-mobile-overlay></div>
+
+<!-- Mobile Menu Drawer -->
+<div class="mobile-menu-drawer" id="MobileDrawer" data-mobile-menu aria-hidden="true">
+  <div class="mobile-menu-drawer__header">
+    <span class="mobile-menu-drawer__title">Menu</span>
+    <button class="header__icon-btn" data-close-menu aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-menu-drawer__nav">
+    <ul class="mobile-menu-drawer__list">
+      {%- if section.settings.menu.links.size > 0 -%}
+        {%- for link in section.settings.menu.links -%}
+          <li class="mobile-menu-drawer__item">
+            <a href="{{ link.url }}" class="mobile-menu-drawer__link">{{ link.title }}</a>
+          </li>
+        {%- endfor -%}
+      {%- else -%}
+        <li class="mobile-menu-drawer__item"><a href="{{ routes.root_url }}" class="mobile-menu-drawer__link">Home</a></li>
+        <li class="mobile-menu-drawer__item"><a href="{{ routes.all_products_collection_url }}" class="mobile-menu-drawer__link">Shop</a></li>
+        <li class="mobile-menu-drawer__item"><a href="/pages/our-story" class="mobile-menu-drawer__link">Our Story</a></li>
+        <li class="mobile-menu-drawer__item"><a href="/pages/contact" class="mobile-menu-drawer__link">Contact</a></li>
+      {%- endif -%}
+    </ul>
+  </nav>
+  <div class="mobile-menu-drawer__footer">
+    <a href="{{ routes.cart_url }}" class="button button--full-width">View Cart
+      {%- if cart.item_count > 0 -%} ({{ cart.item_count }}){%- endif -%}
+    </a>
+  </div>
+</div>
+
+<style>
+/* ---- Header Shell ---- */
+.header {
+  background-color: var(--color-white);
+  position: relative;
+  z-index: 200;
+  border-bottom: 1px solid var(--color-border);
+  transition: box-shadow var(--transition-base), background-color var(--transition-base);
+}
+.header--sticky {
+  position: sticky;
+  top: 0;
+}
+.header.is-scrolled {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  background-color: rgba(255,255,255,0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ---- Header Inner ---- */
+.header__inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding-top: 18px;
+  padding-bottom: 18px;
+  min-height: 72px;
+}
+
+/* ---- Logo ---- */
+.header__logo {
+  justify-self: center;
+  grid-column: 2;
+}
+.header__logo a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+.header__logo img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+}
+.header__logo-text {
+  font-family: var(--font-heading-family);
+  font-size: 1.6rem;
+  color: var(--color-heading);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+/* Mobile menu button */
+.header__mobile-menu {
+  grid-column: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* Icons */
+.header__icons {
+  grid-column: 3;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+.header__icon-btn {
+  background: none;
+  border: none;
+  color: var(--color-heading);
+  cursor: pointer;
+  padding: 8px;
+  position: relative;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+  box-shadow: none;
+}
+.header__icon-btn:hover {
+  background-color: var(--color-skin-pale);
+  color: var(--color-primary);
+  transform: none;
+  box-shadow: none;
+}
+
+.header__cart-count {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 0.6rem;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-white);
+  animation: pulse-ring 1.5s ease-out infinite;
+}
+
+/* ---- Desktop Nav ---- */
+.header__nav {
+  display: none;
+}
+.header__nav-list {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.header__nav-link {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  position: relative;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+.header__nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-base);
+}
+.header__nav-link:hover,
+.header__nav-link.is-active {
+  color: var(--color-primary);
+  background-color: var(--color-skin-pale);
+  text-decoration: none;
+}
+.header__nav-link:hover::after,
+.header__nav-link.is-active::after {
+  transform: scaleX(1);
+}
+
+/* ---- Mobile overlay ---- */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 299;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-base), visibility var(--transition-base);
+}
+.mobile-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ---- Mobile Drawer ---- */
+.mobile-menu-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: min(320px, 85vw);
+  height: 100dvh;
+  height: 100vh;
+  background: var(--color-white);
+  z-index: 300;
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 6px 0 32px rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+.mobile-menu-drawer.is-open {
+  transform: translateX(0);
+}
+.mobile-menu-drawer__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-skin-pale);
+  flex-shrink: 0;
+}
+.mobile-menu-drawer__title {
+  font-family: var(--font-heading-family);
+  font-size: 1.3rem;
+  color: var(--color-heading);
+}
+.mobile-menu-drawer__nav {
+  flex: 1;
+  overflow-y: auto;
+}
+.mobile-menu-drawer__list {
+  list-style: none;
+  padding: var(--spacing-sm) 0;
+  margin: 0;
+}
+.mobile-menu-drawer__item {
+  border-bottom: 1px solid var(--color-border);
+}
+.mobile-menu-drawer__link {
+  display: flex;
+  align-items: center;
+  padding: 16px var(--spacing-md);
+  text-decoration: none;
+  color: var(--color-heading);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background-color var(--transition-fast), color var(--transition-fast), padding-left var(--transition-fast);
+}
+.mobile-menu-drawer__link:hover {
+  background-color: var(--color-skin-pale);
+  color: var(--color-primary);
+  padding-left: calc(var(--spacing-md) + 6px);
+  text-decoration: none;
+}
+.mobile-menu-drawer__footer {
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+/* ---- Responsive ---- */
+@media screen and (min-width: 768px) {
+  .header__mobile-menu { display: none; }
+  .header__nav { display: block; }
+  .header__inner {
+    grid-template-columns: 160px 1fr 160px;
+  }
+  .header__logo { justify-self: center; }
+  .header__nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    border-top: 1px solid var(--color-border);
+    padding: 10px 0;
+  }
+  /* Re-layout for logo-center nav-below */
+}
+
+@media screen and (min-width: 1024px) {
+  .header__inner {
+    grid-template-columns: 200px 1fr 200px;
+    grid-template-rows: 1fr;
+    min-height: 80px;
+  }
+  .header__logo { grid-column: 2; grid-row: 1; }
+  .header__mobile-menu { grid-column: 1; grid-row: 1; display: none; }
+  .header__icons { grid-column: 3; grid-row: 1; }
+  .header__nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    border-top: 1px solid var(--color-border);
+    padding: 10px 0;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+</style>
+
+<script>
+(function() {
+  var header = document.getElementById('SiteHeader');
+  var drawer = document.querySelector('[data-mobile-menu]');
+  var overlay = document.querySelector('[data-mobile-overlay]');
+  var openBtn = document.querySelector('[data-menu-toggle]');
+  var closeBtn = document.querySelector('[data-close-menu]');
+
+  function openMenu() {
+    drawer && drawer.classList.add('is-open');
+    overlay && overlay.classList.add('is-open');
+    openBtn && openBtn.setAttribute('aria-expanded', 'true');
+    drawer && drawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    drawer && drawer.classList.remove('is-open');
+    overlay && overlay.classList.remove('is-open');
+    openBtn && openBtn.setAttribute('aria-expanded', 'false');
+    drawer && drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  openBtn && openBtn.addEventListener('click', openMenu);
+  closeBtn && closeBtn.addEventListener('click', closeMenu);
+  overlay && overlay.addEventListener('click', closeMenu);
+
+  // Sticky scroll effect
+  if (header && header.classList.contains('header--sticky')) {
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('is-scrolled', window.scrollY > 20);
+    }, { passive: true });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 60,
+      "max": 280,
+      "step": 10,
+      "default": 160,
+      "unit": "px",
+      "label": "Logo width"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 24,
+      "max": 80,
+      "step": 4,
+      "default": 48,
+      "unit": "px",
+      "label": "Logo max height"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "label": "Sticky header (scroll-follows)",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

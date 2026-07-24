@@ -1,0 +1,150 @@
+<div class="marquee-ticker" style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
+  <div class="marquee-ticker__fade marquee-ticker__fade--left"></div>
+  <div class="marquee-ticker__track" {% if section.settings.pause_on_hover %}data-pause-on-hover{% endif %}>
+    <div class="marquee-ticker__content" style="animation-duration: {{ section.settings.speed }}s;">
+      {%- for block in section.blocks -%}
+        <span class="marquee-ticker__item" {{ block.shopify_attributes }}>
+          {{ block.settings.text }}
+          {%- if block.settings.icon != blank -%}
+            <span class="marquee-ticker__sep" aria-hidden="true">{{ block.settings.icon }}</span>
+          {%- endif -%}
+        </span>
+      {%- endfor -%}
+      <!-- Duplicate for seamless loop -->
+      {%- for block in section.blocks -%}
+        <span class="marquee-ticker__item" aria-hidden="true">
+          {{ block.settings.text }}
+          {%- if block.settings.icon != blank -%}
+            <span class="marquee-ticker__sep">{{ block.settings.icon }}</span>
+          {%- endif -%}
+        </span>
+      {%- endfor -%}
+    </div>
+  </div>
+  <div class="marquee-ticker__fade marquee-ticker__fade--right"></div>
+</div>
+
+<style>
+.marquee-ticker {
+  position: relative;
+  overflow: hidden;
+  padding: 14px 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+.marquee-ticker__track {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-ticker__content {
+  display: inline-flex;
+  align-items: center;
+  animation: marquee 30s linear infinite;
+  white-space: nowrap;
+}
+.marquee-ticker__track[data-pause-on-hover]:hover .marquee-ticker__content {
+  animation-play-state: paused;
+}
+.marquee-ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 var(--spacing-md);
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  flex-shrink: 0;
+}
+.marquee-ticker__sep {
+  color: var(--color-primary);
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+/* Edge fade masks */
+.marquee-ticker__fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.marquee-ticker__fade--left {
+  left: 0;
+  background: linear-gradient(to right, var(--color-skin-light, #F5DEC8), transparent);
+}
+.marquee-ticker__fade--right {
+  right: 0;
+  background: linear-gradient(to left, var(--color-skin-light, #F5DEC8), transparent);
+}
+</style>
+
+{% schema %}
+{
+  "name": "Marquee Ticker",
+  "settings": [
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 30,
+      "unit": "s",
+      "label": "Scroll speed (seconds per loop)"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#F5DEC8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#3A2E27"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Ticker Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Premium Quality"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Separator icon (e.g. ✦ or •)",
+          "default": "✦"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee Ticker",
+      "blocks": [
+        { "type": "text", "settings": { "text": "100% Food-Grade Silicone", "icon": "✦" } },
+        { "type": "text", "settings": { "text": "BPA & Toxin Free", "icon": "✦" } },
+        { "type": "text", "settings": { "text": "UK Designed", "icon": "✦" } },
+        { "type": "text", "settings": { "text": "Soothing Relief", "icon": "✦" } },
+        { "type": "text", "settings": { "text": "From 3 Months", "icon": "✦" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

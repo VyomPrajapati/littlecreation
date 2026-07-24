@@ -1,0 +1,16 @@
+{
+  "current": {
+    "color_primary": "#C69A7C",
+    "color_primary_dark": "#A07855",
+    "color_secondary": "#E0B898",
+    "color_skin_light": "#F5DEC8",
+    "color_skin_pale": "#FBF0E8",
+    "color_background": "#FFFFFF",
+    "color_background_alt": "#FBF0E8",
+    "color_heading": "#111111",
+    "color_text": "#3A2E27",
+    "color_border": "#E8D5C4",
+    "color_button_text": "#FFFFFF",
+    "color_button_background": "#C69A7C"
+  }
+}

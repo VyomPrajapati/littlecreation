@@ -1,0 +1,143 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Little Creation Premium",
+    "theme_author": "Antigravity",
+    "theme_version": "2.0.0",
+    "theme_support_url": "https://littlecreation.co.uk"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary accent (skin-deep)",
+        "default": "#C69A7C",
+        "info": "Used for buttons, icons, active states"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_dark",
+        "label": "Primary dark (hover state)",
+        "default": "#A07855"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Secondary accent (skin-mid)",
+        "default": "#E0B898"
+      },
+      {
+        "type": "color",
+        "id": "color_skin_light",
+        "label": "Skin light (section backgrounds)",
+        "default": "#F5DEC8"
+      },
+      {
+        "type": "color",
+        "id": "color_skin_pale",
+        "label": "Skin pale (page background tint)",
+        "default": "#FBF0E8"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Page background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_background_alt",
+        "label": "Alternate section background",
+        "default": "#FBF0E8"
+      },
+      {
+        "type": "color",
+        "id": "color_heading",
+        "label": "Heading text color",
+        "default": "#111111"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Body text color",
+        "default": "#3A2E27"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Border / divider color",
+        "default": "#E8D5C4"
+      },
+      {
+        "type": "color",
+        "id": "color_button_text",
+        "label": "Button text color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_button_background",
+        "label": "Button background color",
+        "default": "#C69A7C"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading font",
+        "default": "dm_serif_display_n4",
+        "info": "Theme uses DM Serif Display from Google Fonts by default"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body font",
+        "default": "dm_sans_n4",
+        "info": "Theme uses DM Sans from Google Fonts by default"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram link",
+        "info": "https://instagram.com/littlecreation"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook link"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok link"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest link"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "Will be scaled down to 32 x 32px"
+      }
+    ]
+  }
+]

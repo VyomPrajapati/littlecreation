@@ -1,0 +1,81 @@
+<div class="customer account section-padding container">
+  <div class="account__header text-center mb-lg">
+    <h1>Account</h1>
+    <a href="{{ routes.account_logout_url }}" class="underlined-link">Log out</a>
+  </div>
+
+  <div class="grid grid--2-col-tablet mt-lg">
+    <div>
+      <h2>Order history</h2>
+      {% paginate customer.orders by 20 %}
+        {%- if customer.orders.size > 0 -%}
+          <table class="order-history">
+            <thead>
+              <tr>
+                <th id="ColumnOrder" scope="col" role="columnheader">Order</th>
+                <th id="ColumnDate" scope="col" role="columnheader">Date</th>
+                <th id="ColumnFulfillment" scope="col" role="columnheader">Fulfillment status</th>
+                <th id="ColumnTotal" scope="col" role="columnheader">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%- for order in customer.orders -%}
+                <tr>
+                  <td headers="ColumnOrder" role="cell" data-label="Order">
+                    <a href="{{ order.customer_url }}">{{ order.name }}</a>
+                  </td>
+                  <td headers="ColumnDate" role="cell" data-label="Date">
+                    {{ order.created_at | time_tag: format: 'date' }}
+                  </td>
+                  <td headers="ColumnFulfillment" role="cell" data-label="Fulfillment status">
+                    {{ order.fulfillment_status_label }}
+                  </td>
+                  <td headers="ColumnTotal" role="cell" data-label="Total">
+                    {{ order.total_price | money_with_currency }}
+                  </td>
+                </tr>
+              {%- endfor -%}
+            </tbody>
+          </table>
+        {%- else -%}
+          <p>You haven't placed any orders yet.</p>
+        {%- endif -%}
+        {%- if paginate.pages > 1 -%}
+          {{ paginate | default_pagination }}
+        {%- endif -%}
+      {% endpaginate %}
+    </div>
+
+    <div>
+      <h2>Account details</h2>
+      <div class="account__details mt-md">
+        {{ customer.default_address | format_address }}
+        <a href="{{ routes.account_addresses_url }}" class="button mt-md">View addresses ({{ customer.addresses_count }})</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.order-history {
+  width: 100%;
+  border-collapse: collapse;
+}
+.order-history th, .order-history td {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+.account__details {
+  background: var(--color-secondary);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+}
+</style>
+
+{% schema %}
+{
+  "name": "Account",
+  "settings": []
+}
+{% endschema %}

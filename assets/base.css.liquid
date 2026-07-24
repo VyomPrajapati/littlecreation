@@ -1,0 +1,437 @@
+/* ==========================================================
+   Little Creation – Premium Base CSS
+   Skin-tone palette · White cards · Black text
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+/* ----------------------------------------------------------
+   1. CSS Custom Properties
+   ---------------------------------------------------------- */
+:root {
+  /* Skin-tone palette */
+  --color-primary:          {{ settings.color_primary | default: '#C69A7C' }};
+  --color-primary-dark:     {{ settings.color_primary_dark | default: '#A07855' }};
+  --color-secondary:        {{ settings.color_secondary | default: '#E0B898' }};
+  --color-skin-light:       {{ settings.color_skin_light | default: '#F5DEC8' }};
+  --color-skin-pale:        {{ settings.color_skin_pale | default: '#FBF0E8' }};
+
+  /* Neutral */
+  --color-white:            #FFFFFF;
+  --color-background:       {{ settings.color_background | default: '#FFFFFF' }};
+  --color-background-alt:   {{ settings.color_background_alt | default: '#FBF0E8' }};
+
+  /* Text */
+  --color-heading:          {{ settings.color_heading | default: '#111111' }};
+  --color-text:             {{ settings.color_text | default: '#3A2E27' }};
+  --color-text-muted:       #7A6A5A;
+
+  /* Border */
+  --color-border:           {{ settings.color_border | default: '#E8D5C4' }};
+
+  /* Button */
+  --color-button-text:      {{ settings.color_button_text | default: '#FFFFFF' }};
+  --color-button-background:{{ settings.color_button_background | default: '#C69A7C' }};
+
+  /* Typography */
+  --font-heading-family:    'DM Serif Display', Georgia, serif;
+  --font-body-family:       'DM Sans', system-ui, sans-serif;
+  --font-heading-style:     normal;
+  --font-heading-weight:    400;
+  --font-body-weight:       400;
+
+  /* Spacing scale */
+  --spacing-xs:    8px;
+  --spacing-sm:    16px;
+  --spacing-md:    32px;
+  --spacing-lg:    56px;
+  --spacing-xl:    80px;
+  --spacing-xxl:   120px;
+
+  /* Border radius */
+  --radius-sm:     8px;
+  --radius-md:     16px;
+  --radius-lg:     24px;
+  --radius-xl:     40px;
+  --radius-pill:   999px;
+
+  /* Shadows */
+  --shadow-sm:     0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md:     0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg:     0 20px 48px rgba(0, 0, 0, 0.10);
+  --shadow-skin:   0 8px 32px rgba(198, 154, 124, 0.22);
+  --shadow-hover:  0 16px 48px rgba(198, 154, 124, 0.30);
+
+  /* Transitions */
+  --transition-fast:   0.15s ease;
+  --transition-base:   0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-slow:   0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ----------------------------------------------------------
+   2. Reset & Base
+   ---------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body-family);
+  font-weight: var(--font-body-weight);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img, video, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+a:hover {
+  color: var(--color-primary-dark);
+}
+
+/* ----------------------------------------------------------
+   3. Typography
+   ---------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading-family);
+  font-weight: var(--font-heading-weight);
+  color: var(--color-heading);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  overflow-wrap: break-word;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+h1 { font-size: clamp(2.4rem, 5vw, 4rem); }
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); }
+h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); }
+h4 { font-size: 1.2rem; }
+
+p { margin-bottom: 1em; }
+p:last-child { margin-bottom: 0; }
+
+/* ----------------------------------------------------------
+   4. Layout Utilities
+   ---------------------------------------------------------- */
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+  width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+  .container { padding: 0 var(--spacing-sm); }
+}
+
+.section-padding {
+  padding: var(--spacing-xl) 0;
+}
+@media screen and (max-width: 767px) {
+  .section-padding { padding: var(--spacing-lg) 0; }
+}
+
+.grid {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+@media screen and (min-width: 768px) {
+  .grid--2-col-tablet { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid--3-col-tablet { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media screen and (min-width: 1024px) {
+  .grid--3-col-desktop { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid--4-col-desktop { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.text-center { text-align: center; }
+.text-left   { text-align: left; }
+
+.mt-sm { margin-top: var(--spacing-sm); }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.mb-xl { margin-bottom: var(--spacing-xl); }
+
+/* ----------------------------------------------------------
+   5. Pill / Section Labels
+   ---------------------------------------------------------- */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-skin-light);
+  color: var(--color-primary-dark);
+  font-family: var(--font-body-family);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+}
+
+.subtitle {
+  font-family: var(--font-body-family);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-primary);
+  display: block;
+  margin-bottom: var(--spacing-xs);
+}
+
+/* ----------------------------------------------------------
+   6. Buttons
+   ---------------------------------------------------------- */
+.button,
+button.button,
+a.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background-color: var(--color-button-background);
+  color: var(--color-button-text);
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body-family);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: var(--shadow-skin);
+  position: relative;
+  overflow: hidden;
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background var(--transition-fast);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  color: var(--color-button-text);
+  text-decoration: none;
+}
+.button:hover::after {
+  background: rgba(255,255,255,0.08);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+/* Button – outline ghost */
+.button--outline {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: none;
+}
+.button--outline:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: var(--shadow-skin);
+}
+
+/* Button – full width */
+.button--full-width {
+  width: 100%;
+}
+
+/* Button – small */
+.button--sm {
+  padding: 10px 22px;
+  font-size: 0.82rem;
+}
+
+/* Button – dark */
+.button--dark {
+  background-color: var(--color-heading);
+  color: var(--color-white);
+  box-shadow: 0 8px 24px rgba(17, 17, 17, 0.20);
+}
+.button--dark:hover {
+  background-color: #2a2a2a;
+  box-shadow: 0 16px 40px rgba(17, 17, 17, 0.28);
+  color: var(--color-white);
+}
+
+/* ----------------------------------------------------------
+   7. Card Utilities
+   ---------------------------------------------------------- */
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ----------------------------------------------------------
+   8. Scroll Animations
+   ---------------------------------------------------------- */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity, transform;
+}
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.08s; }
+.delay-2 { transition-delay: 0.16s; }
+.delay-3 { transition-delay: 0.24s; }
+.delay-4 { transition-delay: 0.32s; }
+
+/* ----------------------------------------------------------
+   9. Keyframe Animations
+   ---------------------------------------------------------- */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-10px) rotate(1deg); }
+  66%       { transform: translateY(-5px) rotate(-1deg); }
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sweep {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------------------------------------
+   10. Shape Utilities
+   ---------------------------------------------------------- */
+.shape-pill   { border-radius: var(--radius-pill); overflow: hidden; }
+.shape-arch   { border-radius: var(--radius-pill) var(--radius-pill) var(--radius-md) var(--radius-md); overflow: hidden; }
+.shape-round  { border-radius: var(--radius-lg); overflow: hidden; }
+
+/* ----------------------------------------------------------
+   11. Accessibility
+   ---------------------------------------------------------- */
+.visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  word-wrap: normal !important;
+}
+
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: 8px 16px;
+  background: var(--color-heading);
+  color: var(--color-white);
+  font-weight: 600;
+  transition: top 0.2s;
+}
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* ----------------------------------------------------------
+   12. Form Elements
+   ---------------------------------------------------------- */
+.field__input,
+input[type="email"],
+input[type="text"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 12px 18px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  color: var(--color-heading);
+  font-family: var(--font-body-family);
+  font-size: 0.95rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+  appearance: none;
+}
+.field__input:focus,
+input[type="email"]:focus,
+input[type="text"]:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(198, 154, 124, 0.18);
+}

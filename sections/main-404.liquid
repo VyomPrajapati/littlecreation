@@ -1,0 +1,27 @@
+<div class="template-404 section-padding text-center container">
+  <h1 class="title">404</h1>
+  <p class="h2">{{ 'general.404.title' | t | default: 'Page not found' }}</p>
+  <p class="mt-md">{{ 'general.404.subtext' | t | default: 'The page you are looking for does not exist.' }}</p>
+  <a href="{{ routes.all_products_collection_url }}" class="button mt-md">
+    {{ 'general.continue_shopping' | t }}
+  </a>
+</div>
+
+<style>
+.template-404 {
+  padding-top: var(--spacing-xl);
+  padding-bottom: var(--spacing-xl);
+}
+.template-404 .title {
+  font-size: 6rem;
+  margin-bottom: 0;
+  color: var(--color-primary);
+}
+</style>
+
+{% schema %}
+{
+  "name": "404",
+  "settings": []
+}
+{% endschema %}
