@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <meta name="theme-color" content="{{ settings.color_primary | default: '#C69A7C' }}">
     <link rel="canonical" href="{{ canonical_url }}">
+    <meta name="robots" content="index, follow">
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
@@ -21,8 +22,142 @@
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
 
-    {% render 'seo-meta' %}
-    {% render 'structured-data' %}
+    <!-- Open Graph / Facebook SEO -->
+    <meta property="og:site_name" content="{{ shop.name | escape }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:title" content="{{ page_title | escape }}">
+    <meta property="og:description" content="{{ page_description | default: shop.description | default: page_title | escape }}">
+
+    {%- if template.name == 'product' -%}
+      <meta property="og:type" content="product">
+      <meta property="og:price:amount" content="{{ product.price | money_without_currency | remove: ',' }}">
+      <meta property="og:price:currency" content="{{ cart.currency.iso_code }}">
+      {%- if product.featured_media -%}
+        <meta property="og:image" content="https:{{ product.featured_media | image_url: width: 1200 }}">
+        <meta property="og:image:secure_url" content="https:{{ product.featured_media | image_url: width: 1200 }}">
+      {%- endif -%}
+    {%- elsif template.name == 'article' -%}
+      <meta property="og:type" content="article">
+      {%- if article.image -%}
+        <meta property="og:image" content="https:{{ article.image | image_url: width: 1200 }}">
+        <meta property="og:image:secure_url" content="https:{{ article.image | image_url: width: 1200 }}">
+      {%- endif -%}
+    {%- else -%}
+      <meta property="og:type" content="website">
+      {%- if page_image -%}
+        <meta property="og:image" content="https:{{ page_image | image_url: width: 1200 }}">
+        <meta property="og:image:secure_url" content="https:{{ page_image | image_url: width: 1200 }}">
+      {%- endif -%}
+    {%- endif -%}
+
+    <!-- Twitter Cards SEO -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_title | escape }}">
+    <meta name="twitter:description" content="{{ page_description | default: shop.description | default: page_title | escape }}">
+    {%- if template.name == 'product' and product.featured_media -%}
+      <meta name="twitter:image" content="https:{{ product.featured_media | image_url: width: 1200 }}">
+    {%- elsif page_image -%}
+      <meta name="twitter:image" content="https:{{ page_image | image_url: width: 1200 }}">
+    {%- endif -%}
+
+    <!-- Schema.org JSON-LD Structured Data for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": {{ shop.name | json }},
+      "url": {{ shop.url | json }},
+      {%- if settings.logo != blank -%}
+        "logo": {{ settings.logo | image_url: width: 600 | prepend: 'https:' | json }},
+      {%- endif -%}
+      "sameAs": [
+        {{ settings.social_instagram_link | json }},
+        {{ settings.social_tiktok_link | json }},
+        {{ settings.social_facebook_link | json }},
+        {{ settings.social_pinterest_link | json }}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": {{ shop.name | json }},
+      "url": {{ shop.url | json }},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {{ shop.url | append: '/search?q={search_term_string}' | json }},
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    {%- if template.name == 'product' -%}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": {{ product.title | json }},
+      "url": {{ shop.url | append: product.url | json }},
+      {%- if product.featured_media -%}
+        "image": [
+          {{ product.featured_media | image_url: width: 1000 | prepend: 'https:' | json }}
+        ],
+      {%- endif -%}
+      "description": {{ product.description | strip_html | truncatewords: 100 | json }},
+      "brand": {
+        "@type": "Brand",
+        "name": {{ product.vendor | default: shop.name | json }}
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": {{ cart.currency.iso_code | json }},
+        "price": {{ product.price | money_without_currency | remove: ',' | json }},
+        "itemCondition": "https://schema.org/NewCondition",
+        "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+        "url": {{ shop.url | append: product.url | json }}
+      }
+    }
+    </script>
+    {%- endif -%}
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": {{ shop.url | json }}
+        }
+        {%- if template.name == 'product' -%}
+          ,{
+            "@type": "ListItem",
+            "position": 2,
+            "name": {{ product.title | json }},
+            "item": {{ shop.url | append: product.url | json }}
+          }
+        {%- elsif template.name == 'collection' -%}
+          ,{
+            "@type": "ListItem",
+            "position": 2,
+            "name": {{ collection.title | json }},
+            "item": {{ shop.url | append: collection.url | json }}
+          }
+        {%- elsif template.name == 'page' -%}
+          ,{
+            "@type": "ListItem",
+            "position": 2,
+            "name": {{ page.title | json }},
+            "item": {{ shop.url | append: page.url | json }}
+          }
+        {%- endif -%}
+      ]
+    }
+    </script>
 
     {{ content_for_header }}
 
