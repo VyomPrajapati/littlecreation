@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_primary": "#C69A7C",
@@ -11,6 +20,70 @@
     "color_text": "#3A2E27",
     "color_border": "#E8D5C4",
     "color_button_text": "#FFFFFF",
-    "color_button_background": "#C69A7C"
+    "color_button_background": "#C69A7C",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "show_announcement": true,
+          "text": "Free Shipping on Orders over £40 · 30-Day Returns · UK Designed",
+          "link": "",
+          "bg_color": "#f5dec8",
+          "text_color": "#3a2e27"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo_width": 160,
+          "logo_height": 48,
+          "menu": "main-menu",
+          "sticky_header": true
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "footer-0": {
+            "type": "brand",
+            "settings": {
+              "title": "Little Creation",
+              "text": "<p>Dedicated to reimagining the teether as a tool for early childhood development, rooted in Montessori philosophy.</p>"
+            }
+          },
+          "footer-1": {
+            "type": "link_list",
+            "settings": {
+              "title": "Shop",
+              "menu": "footer-quick-links"
+            }
+          },
+          "footer-2": {
+            "type": "link_list",
+            "settings": {
+              "title": "Help",
+              "menu": ""
+            }
+          },
+          "footer-3": {
+            "type": "newsletter",
+            "settings": {
+              "title": "Join our family",
+              "text": "Be the first to know about new collections and exclusive offers."
+            }
+          }
+        },
+        "block_order": [
+          "footer-0",
+          "footer-1",
+          "footer-2",
+          "footer-3"
+        ],
+        "settings": {
+          "payment_enable": true
+        }
+      }
+    },
+    "content_for_index": []
   }
 }
