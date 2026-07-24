@@ -1,18 +1,15 @@
 {
   "sections": {
-    "main": {
-      "type": "main-page",
-      "settings": {
-      }
-    },
     "form": {
       "type": "contact-form",
       "settings": {
+        "label": "Get in touch",
+        "heading": "Contact Little Creation",
+        "subtext": "Have a question or feedback? We'd love to hear from you."
       }
     }
   },
   "order": [
-    "main",
     "form"
   ]
 }

@@ -48,8 +48,33 @@
       </ul>
     </nav>
 
-    <!-- Icons -->
+    <!-- Icons & Currency Selector -->
     <div class="header__icons">
+
+      <!-- Country / Region Currency Selector -->
+      {%- if localization.available_countries.size > 1 -%}
+        <div class="header__localization">
+          {%- form 'localization', id: 'HeaderLocalizationForm', class: 'localization-form' -%}
+            <div class="country-selector">
+              <select name="country_code" class="country-selector__select" onchange="this.form.submit()" aria-label="Select Country and Currency">
+                {%- for country in localization.available_countries -%}
+                  <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>
+                    {{ country.name }} | {{ country.currency.iso_code }} {{ country.currency.symbol }}
+                  </option>
+                {%- endfor -%}
+              </select>
+              <svg class="country-selector__arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+          {%- endform -%}
+        </div>
+      {%- else -%}
+        <div class="header__localization">
+          <div class="country-selector">
+            <span class="country-selector__static">United Kingdom | GBP £</span>
+          </div>
+        </div>
+      {%- endif -%}
+
       <a href="{{ routes.search_url }}" class="header__icon-btn" aria-label="Search">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       </a>
@@ -172,8 +197,57 @@
   grid-column: 3;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
   justify-content: flex-end;
+}
+.header__localization {
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+}
+.country-selector {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.country-selector__select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--color-skin-pale, #FBF0E8);
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-pill, 50px);
+  padding: 6px 30px 6px 14px;
+  font-family: var(--font-body-family);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-heading, #111111);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  box-shadow: none;
+}
+.country-selector__select:hover,
+.country-selector__select:focus {
+  border-color: var(--color-primary, #C69A7C);
+  background: #FFFFFF;
+}
+.country-selector__arrow {
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
+  color: var(--color-heading);
+}
+.country-selector__static {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  background: var(--color-skin-pale, #FBF0E8);
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-pill, 50px);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-heading);
+  white-space: nowrap;
 }
 
 .header__icon-btn {
