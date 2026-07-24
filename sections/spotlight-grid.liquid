@@ -1,86 +1,117 @@
-<section class="spotlight-section section-padding" style="background-color: {{ section.settings.bg_color | default: '#FBF0E8' }};">
+<section class="spotlight-editorial section-padding" style="background-color: {{ section.settings.bg_color | default: '#FBF0E8' }};">
   <div class="container">
 
-    <!-- Header -->
-    <div class="spotlight-section__header text-center mb-xl">
+    <!-- Section Header -->
+    <div class="spotlight-editorial__header text-center mb-xl">
       {%- if section.settings.subtitle != blank -%}
         <span class="section-label animate-on-scroll">{{ section.settings.subtitle }}</span>
       {%- endif -%}
-      <h2 class="spotlight-section__title animate-on-scroll delay-1">{{ section.settings.heading | default: 'Weekly Spotlight' }}</h2>
-      {%- if section.settings.subtext != blank -%}
-        <p class="spotlight-section__subtext animate-on-scroll delay-2">{{ section.settings.subtext }}</p>
-      {%- endif -%}
+      <h2 class="spotlight-editorial__heading animate-on-scroll delay-1">{{ section.settings.heading | default: 'Weekly Spotlight' }}</h2>
     </div>
 
-    <!-- Spotlight Cards Grid -->
-    <div class="spotlight-grid">
-
-      <!-- Main Featured Product Card -->
-      <div class="spotlight-card spotlight-card--main animate-on-scroll delay-1">
+    <!-- Editorial Feature Container -->
+    <div class="spotlight-editorial__wrapper animate-on-scroll delay-2">
+      
+      <!-- Main Featured Teether Column -->
+      <div class="spotlight-editorial__main">
         {%- assign main_prod = all_products[section.settings.main_product] -%}
-        {%- if main_prod != empty -%}
-          {% render 'product-card', product: main_prod, show_secondary_image: true %}
-        {%- else -%}
-          <div class="spotlight-card__inner">
-            <div class="spotlight-card__badge">★ Top Pick</div>
-            <div class="spotlight-card__image-box">
-              <img src="https://placehold.co/600x600/F5DEC8/3A2E27?text=Mighty+Lion+Teether" alt="Mighty Lion Teether" loading="lazy">
-            </div>
-            <div class="spotlight-card__content">
-              <span class="spotlight-card__tag">Montessori Sensory</span>
-              <h3 class="spotlight-card__title">Mighty Lion Rattle Teether</h3>
-              <p class="spotlight-card__desc">Dual-action rattle & textured silicone teether designed for tiny hands.</p>
-              <div class="spotlight-card__price-row">
-                <span class="spotlight-card__price">£19.99 GBP</span>
-                <a href="/collections/all" class="button button--small">Shop Now →</a>
-              </div>
-            </div>
+        
+        <div class="spotlight-editorial__badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <span>FLAGSHIP TEETHER OF THE WEEK</span>
+        </div>
+
+        <div class="spotlight-editorial__image-wrapper">
+          {%- if main_prod != empty and main_prod.featured_media -%}
+            <img src="{{ main_prod.featured_media | image_url: width: 900 }}" alt="{{ main_prod.title | escape }}" loading="lazy">
+          {%- else -%}
+            <img src="https://placehold.co/800x800/F5DEC8/3A2E27?text=Mighty+Lion+Teether" alt="Spotlight Teether" loading="lazy">
+          {%- endif -%}
+        </div>
+
+        <div class="spotlight-editorial__info">
+          <div class="spotlight-editorial__rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-text">4.9 / 5.0 (140+ Parent Reviews)</span>
           </div>
-        {%- endif -%}
+
+          <h3 class="spotlight-editorial__title">
+            {{ main_prod.title | default: "Mighty Lion Rattle & Teether" }}
+          </h3>
+
+          <p class="spotlight-editorial__desc">
+            {{ main_prod.description | strip_html | truncatewords: 24 | default: "Designed with soft textured silicone mane for gentle gum relief and an ergonomic easy-grip ring for tiny hands." }}
+          </p>
+
+          <ul class="spotlight-editorial__highlights">
+            <li>✓ 100% Food-Grade Silicone & BPA-Free</li>
+            <li>✓ Multi-Textured Ridges Reach Every Gum</li>
+            <li>✓ Built-in Soft Rattle Stimulates Senses</li>
+          </ul>
+
+          <div class="spotlight-editorial__footer">
+            <div class="spotlight-editorial__price-box">
+              <span class="price-label">Special Price:</span>
+              <span class="price-val">
+                {%- if main_prod != empty -%}
+                  {{ main_prod.price | money }}
+                {%- else -%}
+                  £19.99 GBP
+                {%- endif -%}
+              </span>
+            </div>
+            
+            <a href="{{ main_prod.url | default: '/collections/all' }}" class="button button--primary spotlight-editorial__btn">
+              Shop Spotlight Teether →
+            </a>
+          </div>
+        </div>
       </div>
 
-      <!-- Secondary Product Card 1 -->
-      <div class="spotlight-card animate-on-scroll delay-2">
+      <!-- Secondary Teethers Side Showcase -->
+      <div class="spotlight-editorial__side">
+        <h4 class="spotlight-editorial__side-title">More Parent Favorites</h4>
+
+        <!-- Side Card 1 -->
         {%- assign sec_prod_1 = all_products[section.settings.secondary_product_1] -%}
-        {%- if sec_prod_1 != empty -%}
-          {% render 'product-card', product: sec_prod_1, show_secondary_image: true %}
-        {%- else -%}
-          <div class="spotlight-card__inner">
-            <div class="spotlight-card__image-box">
-              <img src="https://placehold.co/500x500/F5DEC8/3A2E27?text=Crown+Swan+Teether" alt="Crown Swan Teether" loading="lazy">
-            </div>
-            <div class="spotlight-card__content">
-              <span class="spotlight-card__tag">Cooling Relief</span>
-              <h3 class="spotlight-card__title">Crown Swan Water Teether</h3>
-              <div class="spotlight-card__price-row">
-                <span class="spotlight-card__price">£19.99 GBP</span>
-                <a href="/collections/all" class="button button--small button--outline">View →</a>
-              </div>
-            </div>
+        <div class="spotlight-side-card">
+          <div class="spotlight-side-card__img">
+            {%- if sec_prod_1 != empty and sec_prod_1.featured_media -%}
+              <img src="{{ sec_prod_1.featured_media | image_url: width: 400 }}" alt="{{ sec_prod_1.title | escape }}" loading="lazy">
+            {%- else -%}
+              <img src="https://placehold.co/400x400/F5DEC8/3A2E27?text=Crown+Swan" alt="Swan Teether" loading="lazy">
+            {%- endif -%}
           </div>
-        {%- endif -%}
-      </div>
+          <div class="spotlight-side-card__details">
+            <span class="spotlight-side-card__tag">Cooling Water Teether</span>
+            <h5 class="spotlight-side-card__title">{{ sec_prod_1.title | default: "Crown Swan Cooling Teether" }}</h5>
+            <span class="spotlight-side-card__price">
+              {%- if sec_prod_1 != empty -%}{{ sec_prod_1.price | money }}{%- else -%}£19.99 GBP{%- endif -%}
+            </span>
+            <a href="{{ sec_prod_1.url | default: '/collections/all' }}" class="spotlight-side-card__link">View Details →</a>
+          </div>
+        </div>
 
-      <!-- Secondary Product Card 2 -->
-      <div class="spotlight-card animate-on-scroll delay-3">
+        <!-- Side Card 2 -->
         {%- assign sec_prod_2 = all_products[section.settings.secondary_product_2] -%}
-        {%- if sec_prod_2 != empty -%}
-          {% render 'product-card', product: sec_prod_2, show_secondary_image: true %}
-        {%- else -%}
-          <div class="spotlight-card__inner">
-            <div class="spotlight-card__image-box">
-              <img src="https://placehold.co/500x500/F5DEC8/3A2E27?text=Bear+Cooling+Teether" alt="Bear Cooling Teether" loading="lazy">
-            </div>
-            <div class="spotlight-card__content">
-              <span class="spotlight-card__tag">Easy Grip</span>
-              <h3 class="spotlight-card__title">Bear Cooling Teether Ring</h3>
-              <div class="spotlight-card__price-row">
-                <span class="spotlight-card__price">£19.99 GBP</span>
-                <a href="/collections/all" class="button button--small button--outline">View →</a>
-              </div>
-            </div>
+        <div class="spotlight-side-card">
+          <div class="spotlight-side-card__img">
+            {%- if sec_prod_2 != empty and sec_prod_2.featured_media -%}
+              <img src="{{ sec_prod_2.featured_media | image_url: width: 400 }}" alt="{{ sec_prod_2.title | escape }}" loading="lazy">
+            {%- else -%}
+              <img src="https://placehold.co/400x400/F5DEC8/3A2E27?text=Bear+Teether" alt="Bear Teether" loading="lazy">
+            {%- endif -%}
           </div>
-        {%- endif -%}
+          <div class="spotlight-side-card__details">
+            <span class="spotlight-side-card__tag">Easy-Grip Ring</span>
+            <h5 class="spotlight-side-card__title">{{ sec_prod_2.title | default: "Bear Cooling Teether" }}</h5>
+            <span class="spotlight-side-card__price">
+              {%- if sec_prod_2 != empty -%}{{ sec_prod_2.price | money }}{%- else -%}£19.99 GBP{%- endif -%}
+            </span>
+            <a href="{{ sec_prod_2.url | default: '/collections/all' }}" class="spotlight-side-card__link">View Details →</a>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -89,141 +120,251 @@
 </section>
 
 <style>
-.spotlight-section {
+.spotlight-editorial {
   position: relative;
-  overflow: hidden;
 }
-.spotlight-section__header {
-  max-width: 580px;
+.spotlight-editorial__header {
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
 }
-.spotlight-section__subtext {
-  font-size: 1.05rem;
-  color: var(--color-text);
-  opacity: 0.85;
-  margin-top: 8px;
-}
 
-/* Grid layout */
-.spotlight-grid {
+/* Wrapper */
+.spotlight-editorial__wrapper {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--spacing-md, 24px);
-  align-items: stretch;
+  gap: var(--spacing-lg, 32px);
+  background: #FFFFFF;
+  border: 1px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-xl, 28px);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
 }
-@media screen and (min-width: 768px) {
-  .spotlight-grid {
-    grid-template-columns: 1.2fr 1fr 1fr;
-    gap: var(--spacing-lg, 32px);
+@media screen and (min-width: 990px) {
+  .spotlight-editorial__wrapper {
+    grid-template-columns: 1.4fr 1fr;
+    padding: 40px;
+    gap: 48px;
+    align-items: center;
   }
 }
 
-/* Spotlight Card */
-.spotlight-card {
-  background: var(--color-white, #FFFFFF);
-  border: 1px solid var(--color-border, #E8D5C4);
-  border-radius: var(--radius-xl, 24px);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Main Product Column */
+.spotlight-editorial__main {
   display: flex;
   flex-direction: column;
-}
-.spotlight-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-skin);
-}
-
-.spotlight-card__inner {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  gap: 20px;
   position: relative;
-  padding: 20px;
+}
+@media screen and (min-width: 768px) {
+  .spotlight-editorial__main {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 32px;
+    align-items: center;
+  }
 }
 
-.spotlight-card__badge {
+.spotlight-editorial__badge {
   position: absolute;
-  top: 30px;
-  left: 30px;
-  z-index: 2;
-  background: var(--color-button-background, #C69A7C);
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-primary, #C69A7C);
   color: #FFFFFF;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  padding: 5px 14px;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
   border-radius: var(--radius-pill, 50px);
-  box-shadow: 0 4px 12px rgba(198, 154, 124, 0.3);
+  box-shadow: 0 4px 14px rgba(198, 154, 124, 0.35);
 }
 
-.spotlight-card__image-box {
-  width: 100%;
+.spotlight-editorial__image-wrapper {
   aspect-ratio: 1 / 1;
-  border-radius: var(--radius-lg, 16px);
+  border-radius: var(--radius-lg, 20px);
   overflow: hidden;
   background: var(--color-skin-pale, #FBF0E8);
-  margin-bottom: 16px;
 }
-.spotlight-card__image-box img {
+.spotlight-editorial__image-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.5s ease;
 }
-.spotlight-card:hover .spotlight-card__image-box img {
-  transform: scale(1.05);
+.spotlight-editorial__main:hover .spotlight-editorial__image-wrapper img {
+  transform: scale(1.04);
 }
 
-.spotlight-card__content {
+.spotlight-editorial__info {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  gap: 12px;
 }
 
-.spotlight-card__tag {
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-primary, #C69A7C);
-  margin-bottom: 4px;
-}
-
-.spotlight-card__title {
-  font-size: 1.2rem;
-  color: var(--color-heading, #111111);
-  margin-bottom: 8px;
-  line-height: 1.25;
-}
-
-.spotlight-card__desc {
-  font-size: 0.9rem;
-  color: var(--color-text, #3A2E27);
-  opacity: 0.85;
-  line-height: 1.5;
-  margin-bottom: 16px;
-}
-
-.spotlight-card__price-row {
-  margin-top: auto;
+.spotlight-editorial__rating {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding-top: 12px;
-  border-top: 1px solid var(--color-border, #E8D5C4);
+  gap: 8px;
+  font-size: 0.85rem;
+}
+.spotlight-editorial__rating .stars {
+  color: #E6A15C;
+  font-size: 1.05rem;
+  letter-spacing: 1px;
+}
+.spotlight-editorial__rating .rating-text {
+  color: var(--color-text);
+  font-weight: 600;
+  opacity: 0.85;
 }
 
-.spotlight-card__price {
-  font-size: 1.1rem;
+.spotlight-editorial__title {
+  font-size: clamp(1.4rem, 2.5vw, 2.1rem);
+  line-height: 1.18;
+  color: var(--color-heading);
+  margin: 0;
+}
+
+.spotlight-editorial__desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  opacity: 0.85;
+  margin: 0;
+}
+
+.spotlight-editorial__highlights {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.spotlight-editorial__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border, #E8D5C4);
+}
+@media screen and (min-width: 480px) {
+  .spotlight-editorial__footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.spotlight-editorial__price-box {
+  display: flex;
+  flex-direction: column;
+}
+.spotlight-editorial__price-box .price-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+.spotlight-editorial__price-box .price-val {
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--color-heading);
 }
 
-.button--small {
-  padding: 8px 18px !important;
-  font-size: 0.85rem !important;
+.spotlight-editorial__btn {
+  padding: 12px 24px !important;
+  font-size: 0.92rem !important;
+}
+
+/* Side Showcase */
+.spotlight-editorial__side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 0;
+  border-top: 1px solid var(--color-border, #E8D5C4);
+  padding-top: 24px;
+}
+@media screen and (min-width: 990px) {
+  .spotlight-editorial__side {
+    padding-left: 36px;
+    border-top: none;
+    border-left: 1px solid var(--color-border, #E8D5C4);
+    padding-top: 0;
+  }
+}
+
+.spotlight-editorial__side-title {
+  font-size: 1.1rem;
+  color: var(--color-heading);
+  margin: 0 0 4px 0;
+}
+
+.spotlight-side-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--color-skin-pale, #FBF0E8);
+  border: 1px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-lg, 18px);
+  padding: 14px;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.spotlight-side-card:hover {
+  transform: translateX(4px);
+  background: #FFFFFF;
+}
+
+.spotlight-side-card__img {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #FFFFFF;
+}
+.spotlight-side-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spotlight-side-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.spotlight-side-card__tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-primary, #C69A7C);
+}
+.spotlight-side-card__title {
+  font-size: 0.95rem;
+  color: var(--color-heading);
+  margin: 0;
+  line-height: 1.3;
+}
+.spotlight-side-card__price {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-heading);
+}
+.spotlight-side-card__link {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-top: 4px;
 }
 </style>
 
@@ -235,19 +376,13 @@
       "type": "text",
       "id": "subtitle",
       "label": "Label above heading",
-      "default": "Handpicked for baby"
+      "default": "Handpicked Teethers"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
       "default": "Weekly Spotlight"
-    },
-    {
-      "type": "text",
-      "id": "subtext",
-      "label": "Subtext",
-      "default": "Explore our flagship Montessori teethers designed for comfort and early development."
     },
     {
       "type": "color",
@@ -258,17 +393,17 @@
     {
       "type": "product",
       "id": "main_product",
-      "label": "Featured Product (Card 1)"
+      "label": "Main Featured Spotlight Product"
     },
     {
       "type": "product",
       "id": "secondary_product_1",
-      "label": "Featured Product 2 (Card 2)"
+      "label": "Side Product 1"
     },
     {
       "type": "product",
       "id": "secondary_product_2",
-      "label": "Featured Product 3 (Card 3)"
+      "label": "Side Product 2"
     }
   ],
   "presets": [
