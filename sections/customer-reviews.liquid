@@ -153,12 +153,38 @@
 
 /* ---- Review Grid ---- */
 .reviews-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
   gap: var(--spacing-md);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 calc(-1 * var(--spacing-sm, 16px));
+  padding-left: var(--spacing-sm, 16px);
+  padding-right: var(--spacing-sm, 16px);
+  padding-bottom: var(--spacing-xs);
+  scrollbar-width: none;
 }
+.reviews-grid::-webkit-scrollbar { display: none; }
+
+.review-card {
+  scroll-snap-align: start;
+  flex: 0 0 85%;
+  min-width: 85%;
+}
+
 @media screen and (min-width: 640px) {
-  .reviews-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow-x: visible;
+    margin: 0;
+    padding: 0;
+  }
+  .review-card {
+    flex: unset;
+    min-width: unset;
+  }
 }
 @media screen and (min-width: 1024px) {
   .reviews-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
