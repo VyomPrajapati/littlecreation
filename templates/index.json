@@ -108,7 +108,7 @@
         "col_1": {
           "type": "collection",
           "settings": {
-            "collection": ""
+            "collection": "teether"
           }
         },
         "col_2": {
