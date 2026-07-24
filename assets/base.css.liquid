@@ -435,3 +435,46 @@ input[type="text"]:focus {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(198, 154, 124, 0.18);
 }
+
+/* ----------------------------------------------------------
+   13. Mobile Responsiveness Safety Suite (@media max-width: 767px)
+   ---------------------------------------------------------- */
+@media screen and (max-width: 767px) {
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+
+  .container {
+    padding-left: var(--spacing-sm, 16px) !important;
+    padding-right: var(--spacing-sm, 16px) !important;
+    max-width: 100% !important;
+  }
+
+  .section-padding {
+    padding-top: var(--spacing-lg, 40px) !important;
+    padding-bottom: var(--spacing-lg, 40px) !important;
+  }
+
+  h1, .h1 { font-size: clamp(1.8rem, 6.5vw, 2.6rem) !important; line-height: 1.15 !important; }
+  h2, .h2 { font-size: clamp(1.4rem, 5.5vw, 2.0rem) !important; line-height: 1.2 !important; }
+  h3, .h3 { font-size: clamp(1.15rem, 4.5vw, 1.5rem) !important; }
+
+  /* Stack button pairs on mobile */
+  .hero-banner__actions,
+  .button-group {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .hero-banner__actions .button,
+  .button-group .button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Prevent element blowout */
+  img, svg, video, iframe {
+    max-width: 100% !important;
+  }
+}
+
