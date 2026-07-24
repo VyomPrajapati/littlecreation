@@ -261,6 +261,15 @@
         }
       },
       "block_order": ["q1", "q2", "q3", "q4", "q5"]
+    },
+    "homepage_newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "label": "Join our family",
+        "heading": "Subscribe to Our Emails",
+        "subtext": "Be the first to know about new collection launches, exclusive offers, and helpful parenting guides.",
+        "bg_color": "#FFFFFF"
+      }
     }
   },
   "order": [
@@ -273,6 +282,7 @@
     "usp_2",
     "customer_reviews",
     "why_choose",
-    "faq"
+    "faq",
+    "homepage_newsletter"
   ]
 }

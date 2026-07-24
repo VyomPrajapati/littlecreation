@@ -1,0 +1,189 @@
+<section class="newsletter-section section-padding" style="background-color: {{ section.settings.bg_color }};">
+  <div class="container">
+    <div class="newsletter-card animate-on-scroll">
+
+      <div class="newsletter-card__content text-center">
+        {%- if section.settings.label != blank -%}
+          <span class="section-label mb-xs">{{ section.settings.label }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="newsletter-card__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.subtext != blank -%}
+          <p class="newsletter-card__subtext">{{ section.settings.subtext }}</p>
+        {%- endif -%}
+
+        {%- form 'customer', class: 'newsletter-card__form', id: 'HomepageNewsletter' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter, homepage">
+
+          <div class="newsletter-card__field">
+            <input type="email"
+                   name="contact[email]"
+                   id="NewsletterEmail-{{ section.id }}"
+                   class="newsletter-card__input"
+                   placeholder="Enter your email address"
+                   value="{{ form.email }}"
+                   aria-label="Email address"
+                   autocorrect="off"
+                   autocapitalize="off"
+                   autocomplete="email"
+                   required>
+            <button type="submit" class="button newsletter-card__btn" name="commit">
+              <span>Subscribe</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+
+          {%- if form.posted_successfully? -%}
+            <div class="newsletter-card__message newsletter-card__message--success">
+              🎉 Thank you for subscribing! Check your inbox for updates.
+            </div>
+          {%- elsif form.errors -%}
+            <div class="newsletter-card__message newsletter-card__message--error">
+              {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+
+        <p class="newsletter-card__privacy">
+          🔒 We respect your privacy. Unsubscribe at any time.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.newsletter-card {
+  background: var(--color-skin-pale, #FBF0E8);
+  border: 1px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-xl, 24px);
+  padding: var(--spacing-xxl, 60px) var(--spacing-lg, 32px);
+  max-width: 820px;
+  margin: 0 auto;
+  box-shadow: var(--shadow-sm);
+}
+@media screen and (max-width: 767px) {
+  .newsletter-card {
+    padding: var(--spacing-xl, 40px) var(--spacing-md, 20px);
+  }
+}
+
+.newsletter-card__heading {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--color-heading, #111111);
+  margin-top: var(--spacing-xs);
+  margin-bottom: var(--spacing-xs);
+}
+.newsletter-card__subtext {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-text, #3A2E27);
+  opacity: 0.85;
+  max-width: 540px;
+  margin: 0 auto var(--spacing-lg, 32px);
+}
+
+.newsletter-card__form {
+  max-width: 520px;
+  margin: 0 auto var(--spacing-sm);
+}
+.newsletter-card__field {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 480px) {
+  .newsletter-card__field {
+    flex-direction: column;
+  }
+}
+.newsletter-card__input {
+  flex: 1;
+  min-width: 220px;
+  padding: 16px 22px;
+  background: var(--color-white, #FFFFFF);
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-pill, 50px);
+  color: #111111 !important;
+  font-family: var(--font-body-family);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+.newsletter-card__input::placeholder {
+  color: #77665B !important;
+  opacity: 1 !important;
+}
+.newsletter-card__input:focus {
+  border-color: var(--color-primary, #C69A7C);
+  box-shadow: 0 0 0 3px rgba(198, 154, 124, 0.25);
+}
+.newsletter-card__btn {
+  padding: 16px 30px;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.newsletter-card__message {
+  margin-top: 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+}
+.newsletter-card__message--success {
+  background: rgba(76, 175, 80, 0.12);
+  color: #2E7D32;
+}
+.newsletter-card__message--error {
+  background: rgba(211, 47, 47, 0.12);
+  color: #C62828;
+}
+
+.newsletter-card__privacy {
+  font-size: 0.78rem;
+  color: var(--color-text);
+  opacity: 0.6;
+  margin: var(--spacing-xs) 0 0;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Newsletter Subscribe",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label above heading",
+      "default": "Join our family"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Subscribe to Our Emails"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subheading text",
+      "default": "Be the first to know about new collection launches, exclusive offers, and helpful parenting guides."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background colour",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    { "name": "Newsletter Subscribe" }
+  ]
+}
+{% endschema %}

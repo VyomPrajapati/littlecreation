@@ -1,4 +1,4 @@
-<footer class="footer">
+<footer class="footer" style="background-color: {{ section.settings.bg_color | default: '#2C221E' }}; color: {{ section.settings.text_color | default: '#F5DEC8' }};">
   <div class="footer__inner container">
 
     <!-- Top section: blocks grid -->
@@ -58,13 +58,13 @@
             {%- when 'newsletter' -%}
               <p class="footer__newsletter-desc">{{ block.settings.text }}</p>
               {%- form 'customer', id: 'FooterNewsletter', class: 'footer__newsletter-form' -%}
-                <input type="hidden" name="contact[tags]" value="newsletter">
+                <input type="hidden" name="contact[tags]" value="newsletter, footer">
                 <div class="footer__newsletter-field">
                   <input type="email"
                          name="contact[email]"
                          id="FooterEmail-{{ section.id }}"
                          class="footer__email-input"
-                         placeholder="Your email address"
+                         placeholder="Enter your email address"
                          value="{{ form.email }}"
                          autocomplete="email"
                          autocorrect="off"
@@ -88,7 +88,7 @@
 
     <!-- Bottom bar -->
     <div class="footer__bottom">
-      <p class="footer__copyright">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+      <p class="footer__copyright">&copy; {{ 'now' | date: '%Y' }} LITTLE CREATION. All rights reserved.</p>
 
       {%- if section.settings.payment_enable -%}
         <ul class="footer__payment-list">
@@ -107,9 +107,9 @@
 <style>
 /* ---- Footer Shell ---- */
 .footer {
-  background-color: var(--color-heading, #111111);
-  color: rgba(255,255,255,0.85);
-  padding-top: var(--spacing-xxl, 120px);
+  background-color: var(--color-footer-bg, #2C221E);
+  color: var(--color-footer-text, #F5DEC8);
+  padding-top: var(--spacing-xxl, 100px);
   padding-bottom: 0;
   overflow: hidden;
 }
@@ -123,7 +123,7 @@
   grid-template-columns: 1fr;
   gap: var(--spacing-lg);
   padding-bottom: var(--spacing-xl);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(245, 222, 200, 0.12);
 }
 @media screen and (min-width: 600px) {
   .footer__blocks { grid-template-columns: repeat(2, minmax(0,1fr)); }
@@ -135,22 +135,22 @@
 /* ---- Column ---- */
 .footer__col-title {
   font-family: var(--font-body-family);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: rgba(255,255,255,0.5);
+  color: var(--color-secondary, #E0B898);
   margin-bottom: var(--spacing-md);
   margin-top: 0;
 }
 
 /* ---- Brand block ---- */
 .footer__brand-text {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   line-height: 1.7;
-  color: rgba(255,255,255,0.65);
+  color: rgba(255,255,255,0.8);
   margin-bottom: var(--spacing-md);
-  max-width: 280px;
+  max-width: 290px;
 }
 
 /* ---- Social icons ---- */
@@ -166,9 +166,9 @@
   width: 40px;
   height: 40px;
   background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.15);
   border-radius: 50%;
-  color: rgba(255,255,255,0.7);
+  color: #F5DEC8;
   text-decoration: none;
   transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
@@ -189,9 +189,9 @@
   gap: 12px;
 }
 .footer__link {
-  color: rgba(255,255,255,0.65);
+  color: rgba(255,255,255,0.78);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   transition: color var(--transition-fast), padding-left var(--transition-fast);
   display: inline-block;
 }
@@ -205,13 +205,13 @@
 .footer__text-block {
   font-size: 0.9rem;
   line-height: 1.7;
-  color: rgba(255,255,255,0.65);
+  color: rgba(255,255,255,0.8);
 }
 
 /* ---- Newsletter ---- */
 .footer__newsletter-desc {
   font-size: 0.88rem;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.75);
   margin-bottom: var(--spacing-md);
   line-height: 1.6;
 }
@@ -223,29 +223,31 @@
 .footer__email-input {
   flex: 1;
   min-width: 180px;
-  padding: 12px 18px;
-  background: rgba(255,255,255,0.08);
-  border: 1.5px solid rgba(255,255,255,0.15);
+  padding: 13px 20px;
+  background: #FFFFFF !important;
+  border: 1.5px solid var(--color-border, #E8D5C4);
   border-radius: var(--radius-pill);
-  color: var(--color-white);
+  color: #111111 !important;
   font-family: var(--font-body-family);
   font-size: 0.9rem;
   outline: none;
   appearance: none;
-  transition: border-color var(--transition-fast), background var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   box-shadow: none;
 }
-.footer__email-input::placeholder { color: rgba(255,255,255,0.35); }
+.footer__email-input::placeholder {
+  color: #77665B !important;
+  opacity: 1 !important;
+}
 .footer__email-input:focus {
   border-color: var(--color-primary, #C69A7C);
-  background: rgba(255,255,255,0.12);
-  box-shadow: none;
+  box-shadow: 0 0 0 3px rgba(198, 154, 124, 0.25);
 }
 .footer__subscribe-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 12px 22px;
+  padding: 13px 24px;
   background: var(--color-primary, #C69A7C);
   color: var(--color-white);
   border: none;
@@ -277,11 +279,11 @@
   flex-wrap: wrap;
   gap: var(--spacing-sm);
   padding: var(--spacing-md) 0;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(245, 222, 200, 0.08);
 }
 .footer__copyright {
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.35);
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.6);
   margin: 0;
 }
 .footer__payment-list {
@@ -307,6 +309,18 @@
 {
   "name": "Footer",
   "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#2C221E"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#F5DEC8"
+    },
     {
       "type": "checkbox",
       "id": "payment_enable",
@@ -392,8 +406,8 @@
   "default": {
     "blocks": [
       { "type": "brand" },
-      { "type": "link_list", "settings": { "title": "Shop" } },
-      { "type": "link_list", "settings": { "title": "Help" } },
+      { "type": "link_list", "settings": { "title": "SHOP" } },
+      { "type": "link_list", "settings": { "title": "HELP" } },
       { "type": "newsletter" }
     ]
   }
