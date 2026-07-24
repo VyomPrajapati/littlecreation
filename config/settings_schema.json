@@ -91,15 +91,15 @@
         "type": "font_picker",
         "id": "font_heading",
         "label": "Heading font",
-        "default": "dm_serif_display_n4",
-        "info": "Theme uses DM Serif Display from Google Fonts by default"
+        "default": "fredoka_n6",
+        "info": "Theme uses Fredoka from Google Fonts for a funky kids aesthetic"
       },
       {
         "type": "font_picker",
         "id": "font_body",
         "label": "Body font",
-        "default": "dm_sans_n4",
-        "info": "Theme uses DM Sans from Google Fonts by default"
+        "default": "plus_jakarta_sans_n4",
+        "info": "Theme uses Plus Jakarta Sans from Google Fonts by default"
       }
     ]
   },
