@@ -97,10 +97,12 @@
   transition: box-shadow var(--transition-base), transform var(--transition-base), border-color var(--transition-base);
   box-shadow: var(--shadow-sm);
 }
-.features-grid__item:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-skin);
-  border-color: var(--color-primary);
+@media (hover: hover) {
+  .features-grid__item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-skin);
+    border-color: var(--color-primary);
+  }
 }
 
 /* ---- Icon ---- */
@@ -119,8 +121,10 @@
   transition: transform var(--transition-base);
   box-shadow: 0 4px 16px rgba(198, 154, 124, 0.20);
 }
-.features-grid__item:hover .features-grid__icon {
-  transform: scale(1.08) rotate(5deg);
+@media (hover: hover) {
+  .features-grid__item:hover .features-grid__icon {
+    transform: scale(1.08) rotate(5deg);
+  }
 }
 .features-grid__icon svg {
   width: 34px;
