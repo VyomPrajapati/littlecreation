@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ---- Cart Utilities ----
-  const CartDrawer = {
+  const CartDrawer = window.CartDrawer = {
     drawer: document.querySelector('[data-cart-drawer]'),
     body: document.getElementById('CartDrawerBody'),
     footer: document.getElementById('CartDrawerFooter'),

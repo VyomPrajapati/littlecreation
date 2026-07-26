@@ -118,7 +118,12 @@
               </div>
 
               <!-- ---- Gift Option ---- -->
-              <div class="product__gift-option" id="GiftOption-{{ section.id }}">
+              {%- assign gift_variant_id = section.settings.gift_wrapping_variant_id -%}
+              {%- assign gift_price = section.settings.gift_wrapping_price | default: '' -%}
+              <div class="product__gift-option" id="GiftOption-{{ section.id }}"
+                data-gift-variant="{{ gift_variant_id }}"
+                data-gift-price="{{ gift_price }}"
+              >
                 <label class="gift-toggle" for="GiftCheck-{{ section.id }}">
                   <input
                     type="checkbox"
@@ -133,7 +138,13 @@
                   </span>
                   <span class="gift-toggle__label">
                     🎁 Is this a gift?
-                    <span class="gift-toggle__hint">We'll make it extra special</span>
+                    <span class="gift-toggle__hint">
+                      {%- if gift_price != blank -%}
+                        Add gift wrapping for <strong>{{ gift_price }}</strong> &middot; We'll make it extra special
+                      {%- else -%}
+                        We'll make it extra special
+                      {%- endif -%}
+                    </span>
                   </span>
                 </label>
 
@@ -591,21 +602,83 @@
 
 <script>
 (function() {
+  var giftOptionEl = document.querySelector('[data-gift-variant]');
   var checkbox = document.querySelector('[data-gift-toggle]');
-  if (!checkbox) return;
+  if (!checkbox || !giftOptionEl) return;
 
-  var sectionId = checkbox.id.replace('GiftCheck-', '');
-  var messageWrap = document.getElementById('GiftMessageWrap-' + sectionId);
-  var textarea    = messageWrap ? messageWrap.querySelector('textarea') : null;
-  var counter     = document.getElementById('GiftMsgCount-' + sectionId);
+  var sectionId    = checkbox.id.replace('GiftCheck-', '');
+  var variantId    = giftOptionEl.dataset.giftVariant;   // from section setting
+  var messageWrap  = document.getElementById('GiftMessageWrap-' + sectionId);
+  var textarea     = messageWrap ? messageWrap.querySelector('textarea') : null;
+  var counter      = document.getElementById('GiftMsgCount-' + sectionId);
+  var giftLineKey  = null;  // tracks which cart line is the gift wrap item
 
-  checkbox.addEventListener('change', function() {
+  // Find existing gift wrap line in cart (on page load)
+  async function findGiftLine() {
+    if (!variantId) return null;
+    try {
+      var res  = await fetch('/cart.js');
+      var cart = await res.json();
+      var line = cart.items.find(function(i) { return String(i.variant_id) === String(variantId); });
+      return line ? line.key : null;
+    } catch(e) { return null; }
+  }
+
+  async function addGiftWrap() {
+    if (!variantId) return;
+    try {
+      await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+        body: JSON.stringify({ id: parseInt(variantId), quantity: 1, properties: { 'Order note': 'Gift wrapping' } })
+      });
+      // Refresh CartDrawer if it exists
+      if (window.CartDrawer && typeof window.CartDrawer.refresh === 'function') {
+        await window.CartDrawer.refresh();
+      }
+    } catch(e) { console.error('Could not add gift wrap', e); }
+  }
+
+  async function removeGiftWrap() {
+    if (!variantId) return;
+    try {
+      // Find the line with this variant and set qty to 0
+      var res  = await fetch('/cart.js');
+      var cart = await res.json();
+      var lineIdx = null;
+      cart.items.forEach(function(item, idx) {
+        if (String(item.variant_id) === String(variantId)) lineIdx = idx + 1;
+      });
+      if (lineIdx) {
+        await fetch('/cart/change.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ line: lineIdx, quantity: 0 })
+        });
+        if (window.CartDrawer && typeof window.CartDrawer.refresh === 'function') {
+          await window.CartDrawer.refresh();
+        }
+      }
+    } catch(e) { console.error('Could not remove gift wrap', e); }
+  }
+
+  checkbox.addEventListener('change', async function() {
     if (messageWrap) {
       messageWrap.style.display = this.checked ? 'block' : 'none';
       if (this.checked && textarea) textarea.focus();
     }
-    // When unchecked, clear the textarea so no empty property is sent
     if (!this.checked && textarea) textarea.value = '';
+
+    // Add/remove the gift wrap product from cart
+    if (variantId) {
+      checkbox.disabled = true;
+      if (this.checked) {
+        await addGiftWrap();
+      } else {
+        await removeGiftWrap();
+      }
+      checkbox.disabled = false;
+    }
   });
 
   if (textarea && counter) {
@@ -619,7 +692,24 @@
 {% schema %}
 {
   "name": "Product Details",
-  "settings": [],
+  "settings": [
+    {
+      "type": "header",
+      "content": "🎁 Gift Wrapping"
+    },
+    {
+      "type": "text",
+      "id": "gift_wrapping_variant_id",
+      "label": "Gift Wrapping product Variant ID",
+      "info": "Create a 'Gift Wrapping' product in Products, then paste its Variant ID here. Customers will be charged this product's price when they tick the gift box."
+    },
+    {
+      "type": "text",
+      "id": "gift_wrapping_price",
+      "label": "Gift Wrapping price (display only, e.g. £2.99)",
+      "info": "Shown next to the checkbox so customers know the cost. Must match the actual product price."
+    }
+  ],
   "blocks": [
     { "type": "@app" },
     { "type": "title", "name": "Title", "limit": 1 },
