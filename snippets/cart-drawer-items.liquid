@@ -1,0 +1,54 @@
+{% comment %} Rendered inside the cart drawer body — shows live cart items {% endcomment %}
+
+{%- if cart.item_count == 0 -%}
+  <div class="cart-drawer__empty">
+    <div class="cart-drawer__empty-icon">🛍️</div>
+    <p>Your cart is empty</p>
+    <a href="{{ routes.all_products_collection_url }}" class="button">Continue Shopping</a>
+  </div>
+{%- else -%}
+  <div class="cart-drawer__items" id="CartDrawerItems">
+    {%- for item in cart.items -%}
+      <div class="cart-item-row" data-line="{{ forloop.index }}">
+        {%- if item.image -%}
+          <img class="cart-item-row__img"
+               src="{{ item.image | image_url: width: 200 }}"
+               alt="{{ item.image.alt | escape }}"
+               loading="lazy"
+               width="80" height="80">
+        {%- else -%}
+          <div class="cart-item-row__img"></div>
+        {%- endif -%}
+
+        <div class="cart-item-row__details">
+          <a href="{{ item.url }}" class="cart-item-row__name">{{ item.product.title | escape }}</a>
+          {%- unless item.product.has_only_default_variant -%}
+            <div class="cart-item-row__variant">{{ item.variant.title }}</div>
+          {%- endunless -%}
+
+          <div class="cart-item-row__bottom">
+            <!-- Price -->
+            <div class="cart-item-row__price">
+              {%- if item.original_price != item.final_price -%}
+                <s>{{ item.original_price | money }}</s>
+              {%- endif -%}
+              {{ item.final_price | money }}
+            </div>
+
+            <!-- Qty stepper -->
+            <div class="cart-item-qty" data-line="{{ forloop.index }}">
+              <button class="cart-item-qty__btn" data-qty-change="-1" aria-label="Decrease">−</button>
+              <span class="cart-item-qty__val">{{ item.quantity }}</span>
+              <button class="cart-item-qty__btn" data-qty-change="1" aria-label="Increase">+</button>
+            </div>
+
+            <!-- Remove -->
+            <button class="cart-item-row__remove" data-remove-line="{{ forloop.index }}" aria-label="Remove {{ item.product.title | escape }}">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+{%- endif -%}
