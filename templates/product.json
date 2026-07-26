@@ -41,6 +41,7 @@
       "type": "featured-collection",
       "settings": {
         "heading": "You may also like",
+        "collection": "all",
         "products_to_show": 4
       }
     },

@@ -10,14 +10,25 @@
       </div>
     {%- endif -%}
 
-    {%- assign collection = collections[section.settings.collection] -%}
+    {%- assign target_collection = collections[section.settings.collection] -%}
+    {%- if target_collection == blank or target_collection.products.size == 0 -%}
+      {%- assign target_collection = collections['all'] -%}
+    {%- endif -%}
 
     <!-- Desktop grid / Mobile scroll carousel -->
     <div class="product-carousel">
-      {%- if collection != blank and collection.products.size > 0 -%}
-        {%- for product in collection.products limit: section.settings.products_to_show -%}
-          <div class="product-carousel__item animate-on-scroll delay-{{ forloop.index | modulo: 4 | plus: 1 }}">
-            {% render 'product-card', product: product, show_secondary_image: section.settings.show_secondary_image %}
+      {%- if target_collection != blank and target_collection.products.size > 0 -%}
+        {%- assign shown_count = 0 -%}
+        {%- for prod in target_collection.products -%}
+          {%- if prod.id == product.id and target_collection.products.size > 1 -%}
+            {%- continue -%}
+          {%- endif -%}
+          {%- if shown_count >= section.settings.products_to_show -%}
+            {%- break -%}
+          {%- endif -%}
+          {%- assign shown_count = shown_count | plus: 1 -%}
+          <div class="product-carousel__item animate-on-scroll delay-{{ shown_count | modulo: 4 | plus: 1 }}">
+            {% render 'product-card', product: prod, show_secondary_image: section.settings.show_secondary_image %}
           </div>
         {%- endfor -%}
       {%- else -%}
