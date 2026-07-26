@@ -163,6 +163,9 @@ p:last-child { margin-bottom: 0; }
   display: grid;
   gap: var(--spacing-md);
 }
+.grid--2-col {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 
 @media screen and (min-width: 768px) {
   .grid--2-col-tablet { grid-template-columns: repeat(2, minmax(0, 1fr)); }

@@ -104,6 +104,25 @@
   opacity: 1;
   transform: scale(1.05);
 }
+
+@media screen and (max-width: 1024px) {
+  .product-card__image-wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .product-card__image-wrapper::-webkit-scrollbar { display: none; }
+  
+  .product-card__image {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    position: static !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
 .product-card__quick-add {
   position: absolute;
   bottom: -50px;

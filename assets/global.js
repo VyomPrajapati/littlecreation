@@ -275,6 +275,22 @@ document.addEventListener('DOMContentLoaded', () => {
     closeLogins.forEach(c => c.addEventListener('click', e => { e.preventDefault(); close(); }));
   };
 
+  // ---- Product Gallery Thumbnails ----
+  const initProductGallery = () => {
+    document.querySelectorAll('.product__thumb-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const src = btn.dataset.src;
+        const mainImage = document.querySelector('.product__main-image');
+        if (mainImage && src) {
+          mainImage.src = src;
+          // Update active state
+          document.querySelectorAll('.product__thumb-btn').forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+        }
+      });
+    });
+  };
+
   // ---- Initialise ----
   initScrollAnimations();
   initDragToScroll();
@@ -282,4 +298,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initAjaxCart();
   initQuickAdd();
   initLoginPopup();
+  initProductGallery();
 });

@@ -280,12 +280,29 @@
 
 /* ---- Review Grid ---- */
 .cr-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 16px;
   gap: var(--spacing-md, 24px);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
 }
+.cr-grid::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+.cr-grid > .review-card {
+  scroll-snap-align: center;
+  flex: 0 0 85%;
+}
+
 @media screen and (min-width: 640px) {
-  .cr-grid { grid-template-columns: repeat(2, 1fr); }
+  .cr-grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    overflow-x: visible;
+  }
+  .cr-grid > .review-card { flex: auto; }
 }
 @media screen and (min-width: 1024px) {
   .cr-grid { grid-template-columns: repeat(3, 1fr); }

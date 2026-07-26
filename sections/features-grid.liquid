@@ -53,10 +53,9 @@
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  margin: 0;
-  padding-left: 0;
-  padding-right: 0;
-  padding-bottom: var(--spacing-xs);
+  margin: 0 calc(var(--spacing-md) * -1);
+  padding: 0 var(--spacing-md) var(--spacing-xs);
+  scroll-padding-left: var(--spacing-md);
   scrollbar-width: none;
 }
 .features-grid__wrapper::-webkit-scrollbar { display: none; }
