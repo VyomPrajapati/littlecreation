@@ -62,21 +62,10 @@
                   {%- endif -%}
                 </td>
                 <td class="cart-item__quantity">
-                  <div class="quantity">
-                    <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | minus: 1 }}" class="quantity__button" aria-label="Decrease quantity">
-                      &minus;
-                    </a>
-                    <input class="quantity__input"
-                           type="number"
-                           name="updates[]"
-                           value="{{ item.quantity }}"
-                           min="0"
-                           aria-label="Quantity for {{ item.product.title | escape }}"
-                           id="Quantity-{{ item.index | plus: 1 }}"
-                           data-index="{{ item.index | plus: 1 }}">
-                    <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | plus: 1 }}" class="quantity__button" aria-label="Increase quantity">
-                      &plus;
-                    </a>
+                  <div class="cart-page-qty" data-line="{{ forloop.index }}">
+                    <button type="button" class="cart-page-qty__btn" data-qty-page="-1" aria-label="Decrease">−</button>
+                    <span class="cart-page-qty__val">{{ item.quantity }}</span>
+                    <button type="button" class="cart-page-qty__btn" data-qty-page="1" aria-label="Increase">+</button>
                   </div>
                 </td>
                 <td class="cart-item__totals">
@@ -163,7 +152,61 @@
     display: none;
   }
 }
+
+/* ---- Compact qty on cart page ---- */
+.cart-page-qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-pill, 50px);
+  overflow: hidden;
+  height: 28px;
+}
+.cart-page-qty__btn {
+  background: none;
+  border: none;
+  width: 26px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--color-heading);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background-color 0.15s;
+}
+.cart-page-qty__btn:hover { background: var(--color-skin-pale, #FBF0E8); }
+.cart-page-qty__val {
+  font-size: 0.82rem;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+  color: var(--color-heading);
+}
 </style>
+
+<script>
+document.querySelectorAll('.cart-page-qty').forEach(function(el) {
+  var line = parseInt(el.dataset.line);
+  var valEl = el.querySelector('.cart-page-qty__val');
+  el.querySelectorAll('[data-qty-page]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var current = parseInt(valEl.textContent);
+      var delta = parseInt(btn.dataset.qtyPage);
+      var newQty = Math.max(0, current + delta);
+      valEl.textContent = newQty;
+      fetch('/cart/change.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ line: line, quantity: newQty })
+      }).then(function() {
+        if (newQty === 0) window.location.reload();
+      });
+    });
+  });
+});
+</script>
 
 {% schema %}
 {
