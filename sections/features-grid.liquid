@@ -55,15 +55,16 @@
   -webkit-overflow-scrolling: touch;
   margin: 0 calc(var(--spacing-md) * -1);
   padding: 0 var(--spacing-md) var(--spacing-xs);
-  scroll-padding-left: var(--spacing-md);
+  scroll-padding: 0 var(--spacing-md);
   scrollbar-width: none;
 }
 .features-grid__wrapper::-webkit-scrollbar { display: none; }
 
 .features-grid__item {
-  scroll-snap-align: start;
-  flex: 0 0 85%;
-  min-width: 85%;
+  scroll-snap-align: center;
+  flex: 0 0 calc(100% - (var(--spacing-md) * 2));
+  min-width: calc(100% - (var(--spacing-md) * 2));
+  margin: 0 auto;
 }
 
 @media screen and (min-width: 600px) {
