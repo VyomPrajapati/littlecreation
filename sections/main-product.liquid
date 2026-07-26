@@ -117,6 +117,35 @@
                 </div>
               </div>
 
+              {%- if section.settings.gift_wrap_handle != blank -%}
+                {%- assign gift_product = all_products[section.settings.gift_wrap_handle] -%}
+                {%- if gift_product != empty -%}
+                  <div class="gift-wrap-toggle" id="GiftWrapToggle-{{ section.id }}">
+                    <label class="gift-wrap-toggle__label" for="GiftWrap-{{ section.id }}">
+                      <input
+                        type="checkbox"
+                        id="GiftWrap-{{ section.id }}"
+                        class="gift-wrap-toggle__checkbox"
+                        data-gift-wrap
+                        data-gift-variant="{{ gift_product.first_available_variant.id }}"
+                        aria-label="Add gift wrapping"
+                      >
+                      <span class="gift-wrap-toggle__box">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      </span>
+                      <span class="gift-wrap-toggle__content">
+                        <span class="gift-wrap-toggle__icon">🎁</span>
+                        <span class="gift-wrap-toggle__text">
+                          <strong>{{ section.settings.gift_wrap_label | default: 'Add Gift Wrapping' }}</strong>
+                          <small>{{ section.settings.gift_wrap_description | default: 'Beautifully wrapped with a ribbon' }}</small>
+                        </span>
+                        <span class="gift-wrap-toggle__price">+ {{ gift_product.price | money }}</span>
+                      </span>
+                    </label>
+                  </div>
+                {%- endif -%}
+              {%- endif -%}
+
               <div class="product__buy-buttons">
                 <button type="submit" name="add" class="button button--full-width product__atc"
                         {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}>
@@ -444,12 +473,118 @@
   color: var(--color-primary-dark, #A07855) !important;
   text-decoration: underline !important;
 }
+
+/* ---- Gift Wrap Toggle ---- */
+.gift-wrap-toggle {
+  margin-bottom: var(--spacing-md, 20px);
+}
+.gift-wrap-toggle__checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.gift-wrap-toggle__label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--color-skin-pale, #FBF0E8);
+  border: 2px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-lg, 16px);
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+  user-select: none;
+}
+.gift-wrap-toggle__label:hover {
+  border-color: var(--color-primary, #C69A7C);
+  background: var(--color-skin-light, #F5DEC8);
+}
+.gift-wrap-toggle__checkbox:checked ~ * .gift-wrap-toggle__box,
+.gift-wrap-toggle__label:has(input:checked) {
+  border-color: var(--color-primary, #C69A7C);
+  background: var(--color-skin-light, #F5DEC8);
+}
+.gift-wrap-toggle__box {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--color-border, #E8D5C4);
+  border-radius: 6px;
+  background: #fff;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  color: transparent;
+}
+.gift-wrap-toggle__label:has(input:checked) .gift-wrap-toggle__box {
+  background: var(--color-primary, #C69A7C);
+  border-color: var(--color-primary, #C69A7C);
+  color: #fff;
+}
+.gift-wrap-toggle__content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+.gift-wrap-toggle__icon { font-size: 1.3rem; flex-shrink: 0; }
+.gift-wrap-toggle__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+.gift-wrap-toggle__text strong {
+  font-family: var(--font-heading-family);
+  font-size: 0.95rem;
+  color: var(--color-heading);
+}
+.gift-wrap-toggle__text small {
+  font-size: 0.78rem;
+  color: var(--color-text);
+  opacity: 0.7;
+}
+.gift-wrap-toggle__price {
+  font-family: var(--font-heading-family);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-primary, #C69A7C);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+/* Loading state */
+.gift-wrap-toggle--loading .gift-wrap-toggle__label { opacity: 0.6; pointer-events: none; }
 </style>
 
 {% schema %}
 {
   "name": "Product Details",
-  "settings": [],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Gift Wrapping"
+    },
+    {
+      "type": "text",
+      "id": "gift_wrap_handle",
+      "label": "Gift Wrap product handle",
+      "info": "Enter the handle of your 'Gift Wrapping' product (e.g. gift-wrapping). Leave blank to hide."
+    },
+    {
+      "type": "text",
+      "id": "gift_wrap_label",
+      "label": "Checkbox label",
+      "default": "Add Gift Wrapping"
+    },
+    {
+      "type": "text",
+      "id": "gift_wrap_description",
+      "label": "Checkbox description",
+      "default": "Beautifully wrapped with a ribbon & message card"
+    }
+  ],
   "blocks": [
     { "type": "@app" },
     { "type": "title", "name": "Title", "limit": 1 },
