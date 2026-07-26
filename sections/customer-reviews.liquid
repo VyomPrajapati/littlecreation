@@ -1,48 +1,73 @@
-<section class="customer-reviews section-padding" style="background-color: {{ section.settings.bg_color }};">
+<section class="customer-reviews section-padding" id="CustomerReviews-{{ section.id }}" style="background-color: {{ section.settings.bg_color }};">
   <div class="container">
 
-    <!-- Header -->
-    <div class="customer-reviews__header text-center mb-xl animate-on-scroll">
-      <span class="section-label">{{ section.settings.label | default: 'Real parents, real stories' }}</span>
-      <h2 class="mt-sm mb-lg">{{ section.settings.heading }}</h2>
+    <!-- Header row: summary + write a review -->
+    <div class="cr-header animate-on-scroll">
+      <h2 class="cr-heading">{{ section.settings.heading | default: 'Customer reviews' }}</h2>
 
-      <!-- Rating summary -->
-      <div class="reviews-summary">
-        <div class="reviews-summary__score">
-          <span class="reviews-summary__number">{{ section.settings.aggregate_score }}</span>
-          <div class="reviews-summary__stars">
-            <span>★★★★★</span>
-          </div>
-          <p class="reviews-summary__count">Based on {{ section.blocks.size }} verified reviews</p>
+      <div class="cr-summary">
+        <!-- Score box -->
+        <div class="cr-score-box">
+          <span class="cr-score-number">{{ section.settings.aggregate_score }}</span>
         </div>
 
-        <div class="reviews-summary__bars">
-          <div class="bar-row"><span class="bar-label">5</span><span class="bar-star">★</span><div class="bar-track"><div class="bar-fill" style="width: {{ section.settings.five_star_pct }}%;"></div></div><span class="bar-count">{{ section.settings.five_star_count }}</span></div>
-          <div class="bar-row"><span class="bar-label">4</span><span class="bar-star">★</span><div class="bar-track"><div class="bar-fill" style="width: {{ section.settings.four_star_pct }}%;"></div></div><span class="bar-count">{{ section.settings.four_star_count }}</span></div>
-          <div class="bar-row"><span class="bar-label">3</span><span class="bar-star">★</span><div class="bar-track"><div class="bar-fill" style="width: {{ section.settings.three_star_pct }}%;"></div></div><span class="bar-count">{{ section.settings.three_star_count }}</span></div>
-          <div class="bar-row"><span class="bar-label">2</span><span class="bar-star">★</span><div class="bar-track"><div class="bar-fill" style="width: {{ section.settings.two_star_pct }}%;"></div></div><span class="bar-count">{{ section.settings.two_star_count }}</span></div>
-          <div class="bar-row"><span class="bar-label">1</span><span class="bar-star">★</span><div class="bar-track"><div class="bar-fill" style="width: {{ section.settings.one_star_pct }}%;"></div></div><span class="bar-count">{{ section.settings.one_star_count }}</span></div>
+        <!-- Stars + count -->
+        <div class="cr-score-meta">
+          <div class="cr-stars">★★★★★</div>
+          <p class="cr-count">Based on {{ section.blocks.size }} Reviews</p>
         </div>
+
+        <!-- Bar chart – each row is clickable to filter -->
+        <div class="cr-bars">
+          {%- assign star_rows = '5,4,3,2,1' | split: ',' -%}
+          {%- assign pct_vals = section.settings.five_star_pct | append: ',' | append: section.settings.four_star_pct | append: ',' | append: section.settings.three_star_pct | append: ',' | append: section.settings.two_star_pct | append: ',' | append: section.settings.one_star_pct | split: ',' -%}
+          {%- assign cnt_vals = section.settings.five_star_count | append: ',' | append: section.settings.four_star_count | append: ',' | append: section.settings.three_star_count | append: ',' | append: section.settings.two_star_count | append: ',' | append: section.settings.one_star_count | split: ',' -%}
+          {%- for star in star_rows -%}
+            {%- assign idx = forloop.index0 -%}
+            <button class="cr-bar-row" data-filter-star="{{ star }}" aria-label="Filter by {{ star }} stars" type="button">
+              <span class="cr-bar-label">{{ star }}</span>
+              <span class="cr-bar-star">★</span>
+              <div class="cr-bar-track">
+                <div class="cr-bar-fill" style="width: {{ pct_vals[idx] }}%;"></div>
+              </div>
+              <span class="cr-bar-count">({{ cnt_vals[idx] }})</span>
+            </button>
+          {%- endfor -%}
+        </div>
+
+        <!-- Write a review button -->
+        <div class="cr-write-wrap">
+          {%- if section.settings.review_link != blank -%}
+            <a href="{{ section.settings.review_link }}" class="cr-write-btn" target="_blank" rel="noopener">Write a Review</a>
+          {%- else -%}
+            <button class="cr-write-btn" type="button" onclick="alert('Review form coming soon!')">Write a Review</button>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Active filter indicator -->
+      <div class="cr-filter-status" id="cr-filter-status-{{ section.id }}" style="display:none;">
+        Showing <strong id="cr-filter-label-{{ section.id }}"></strong> star reviews
+        <button class="cr-clear-filter" data-clear-filter type="button">× Clear</button>
       </div>
     </div>
 
-    <!-- Review Cards Grid -->
-    <div class="reviews-grid">
+    <!-- Review Cards -->
+    <div class="cr-grid" id="cr-grid-{{ section.id }}">
       {%- for block in section.blocks -%}
-        <div class="review-card animate-on-scroll delay-{{ forloop.index | modulo: 4 | plus: 1 }}" {{ block.shopify_attributes }}>
+        <div class="review-card animate-on-scroll" data-rating="{{ block.settings.rating }}" {{ block.shopify_attributes }}>
 
           {%- if block.settings.image != blank or block.settings.fallback_image_url != blank -%}
             <div class="review-card__image">
               {%- if block.settings.image != blank -%}
                 <img src="{{ block.settings.image | image_url: width: 500 }}" alt="Review image from {{ block.settings.author }}" loading="lazy">
-              {%- elsif block.settings.fallback_image_url != blank -%}
+              {%- else -%}
                 <img src="{{ block.settings.fallback_image_url }}" alt="Review image from {{ block.settings.author }}" loading="lazy">
               {%- endif -%}
             </div>
           {%- endif -%}
 
           <div class="review-card__body">
-            <!-- Stars -->
             <div class="review-card__stars">
               {%- for i in (1..5) -%}
                 {%- if i <= block.settings.rating -%}
@@ -52,15 +77,9 @@
                 {%- endif -%}
               {%- endfor -%}
             </div>
-
-            <!-- Quote -->
             <p class="review-card__text">{{ block.settings.text }}</p>
-
-            <!-- Author row -->
             <div class="review-card__author-row">
-              <div class="review-card__avatar" aria-hidden="true">
-                {{ block.settings.author | slice: 0 | upcase }}
-              </div>
+              <div class="review-card__avatar" aria-hidden="true">{{ block.settings.author | slice: 0 | upcase }}</div>
               <div class="review-card__meta">
                 <strong class="review-card__author-name">{{ block.settings.author }}</strong>
                 <span class="review-card__verified">
@@ -76,228 +95,300 @@
       {%- endfor -%}
     </div>
 
+    <!-- Empty state when filter has no results -->
+    <p class="cr-no-results" id="cr-no-results-{{ section.id }}" style="display:none;">No reviews found for this rating.</p>
+
   </div>
 </section>
 
 <style>
-/* ---- Rating Summary ---- */
-.reviews-summary {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-lg);
-  max-width: 720px;
-  margin: 0 auto;
-}
-@media screen and (min-width: 640px) {
-  .reviews-summary {
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-  }
-}
+/* ---- Section wrapper ---- */
+.customer-reviews { padding: var(--spacing-xl, 64px) 0; }
 
-.reviews-summary__score {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-}
-.reviews-summary__number {
+/* ---- Header ---- */
+.cr-header { margin-bottom: var(--spacing-lg, 40px); }
+.cr-heading {
   font-family: var(--font-heading-family);
-  font-size: 3.5rem;
-  line-height: 1;
+  font-size: clamp(1.4rem, 3vw, 2rem);
   color: var(--color-heading);
-}
-.reviews-summary__stars {
-  font-size: 1.4rem;
-  color: #F5A623;
-  letter-spacing: 2px;
-}
-.reviews-summary__count {
-  font-size: 0.8rem;
-  color: var(--color-text);
-  opacity: 0.6;
-  margin: 0;
-  white-space: nowrap;
+  margin: 0 0 var(--spacing-md, 24px);
 }
 
-.reviews-summary__bars {
-  flex: 1;
-  max-width: 280px;
-  width: 100%;
-}
-.bar-row {
+/* ---- Summary row ---- */
+.cr-summary {
   display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 6px;
-  font-size: 0.78rem;
-}
-.bar-label { width: 10px; text-align: right; color: var(--color-text); opacity: 0.7; }
-.bar-star { color: #F5A623; font-size: 0.7rem; }
-.bar-track {
-  flex: 1;
-  height: 7px;
-  background: var(--color-skin-light);
-  border-radius: var(--radius-pill);
-  overflow: hidden;
-}
-.bar-fill {
-  height: 100%;
-  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
-  border-radius: var(--radius-pill);
-}
-.bar-count { color: var(--color-text); opacity: 0.6; min-width: 20px; }
-
-/* ---- Review Grid ---- */
-.reviews-grid {
-  display: flex;
-  gap: var(--spacing-md);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  margin: 0;
-  padding-left: 0;
-  padding-right: 0;
-  padding-bottom: var(--spacing-xs);
-  scrollbar-width: none;
-}
-.reviews-grid::-webkit-scrollbar { display: none; }
-
-.review-card {
-  scroll-snap-align: start;
-  flex: 0 0 85%;
-  min-width: 85%;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--spacing-md, 24px);
 }
 
-@media screen and (min-width: 640px) {
-  .reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    overflow-x: visible;
-    margin: 0;
-    padding: 0;
-  }
-  .review-card {
-    flex: unset;
-    min-width: unset;
-  }
-}
-@media screen and (min-width: 1024px) {
-  .reviews-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-@media screen and (min-width: 1280px) {
-  .reviews-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
-
-/* ---- Review Card ---- */
-.review-card {
-  background: var(--color-white);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  transition: box-shadow var(--transition-base), transform var(--transition-base);
-}
-.review-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-skin);
-}
-
-.review-card__image {
-  overflow: hidden;
-  max-height: 200px;
-}
-.review-card__image img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  display: block;
-  transition: transform var(--transition-slow);
-}
-.review-card:hover .review-card__image img { transform: scale(1.04); }
-
-.review-card__body {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 12px;
-}
-
-.review-card__stars {
-  display: flex;
-  gap: 2px;
-}
-.star--filled { color: #F5A623; font-size: 1rem; }
-.star--empty  { color: #E0D5C8; font-size: 1rem; }
-
-.review-card__text {
-  font-size: 0.9rem;
-  line-height: 1.65;
-  color: var(--color-text);
-  flex: 1;
-  margin: 0;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
-  overflow: hidden;
-}
-
-.review-card__author-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: auto;
-  padding-top: 12px;
-  border-top: 1px solid var(--color-border);
-}
-.review-card__avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
-  color: var(--color-white);
-  font-weight: 700;
-  font-size: 0.85rem;
+/* Score box */
+.cr-score-box {
+  width: 68px;
+  height: 68px;
+  background: var(--color-primary, #C69A7C);
+  border-radius: var(--radius-lg, 16px);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
-.review-card__meta {
-  flex: 1;
-  min-width: 0;
+.cr-score-number {
+  font-family: var(--font-heading-family);
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
 }
-.review-card__author-name {
-  display: block;
-  font-size: 0.85rem;
-  color: var(--color-heading);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.review-card__verified {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 0.72rem;
-  color: #4CAF50;
-  font-weight: 500;
-}
-.review-card__date {
-  font-size: 0.72rem;
-  color: var(--color-text);
-  opacity: 0.45;
-  white-space: nowrap;
+
+/* Stars + count */
+.cr-score-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
   flex-shrink: 0;
 }
+.cr-stars {
+  font-size: 1.35rem;
+  color: #F5A623;
+  letter-spacing: 2px;
+}
+.cr-count {
+  font-size: 0.82rem;
+  color: var(--color-text);
+  opacity: 0.65;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Bar chart */
+.cr-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-width: 180px;
+  max-width: 320px;
+}
+.cr-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 3px 6px;
+  border-radius: var(--radius-md, 8px);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: left;
+  width: 100%;
+}
+.cr-bar-row:hover,
+.cr-bar-row.is-active {
+  background: var(--color-skin-pale, #FBF0E8);
+}
+.cr-bar-label {
+  font-size: 0.8rem;
+  color: var(--color-text);
+  width: 10px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.cr-bar-star {
+  color: #F5A623;
+  font-size: 0.78rem;
+  flex-shrink: 0;
+}
+.cr-bar-track {
+  flex: 1;
+  height: 8px;
+  background: var(--color-skin-light, #F5DEC8);
+  border-radius: var(--radius-pill, 50px);
+  overflow: hidden;
+}
+.cr-bar-fill {
+  height: 100%;
+  background: var(--color-primary, #C69A7C);
+  border-radius: var(--radius-pill, 50px);
+  transition: width 0.4s ease;
+}
+.cr-bar-row.is-active .cr-bar-fill {
+  background: var(--color-primary-dark, #A07855);
+}
+.cr-bar-count {
+  font-size: 0.78rem;
+  color: var(--color-text);
+  opacity: 0.6;
+  min-width: 28px;
+  flex-shrink: 0;
+}
+
+/* Write a review button */
+.cr-write-wrap {
+  display: flex;
+  align-items: flex-start;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.cr-write-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: var(--color-heading, #111111);
+  color: #fff;
+  font-family: var(--font-heading-family);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 2px solid var(--color-heading, #111111);
+  border-radius: var(--radius-md, 8px);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s, color 0.2s;
+}
+.cr-write-btn:hover {
+  background: transparent;
+  color: var(--color-heading, #111111);
+}
+
+/* Filter status pill */
+.cr-filter-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: var(--spacing-sm, 16px);
+  font-size: 0.85rem;
+  color: var(--color-text);
+  background: var(--color-skin-pale, #FBF0E8);
+  border-radius: var(--radius-pill, 50px);
+  padding: 6px 16px;
+  width: fit-content;
+}
+.cr-clear-filter {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-primary, #C69A7C);
+  font-size: 1rem;
+  padding: 0;
+  line-height: 1;
+}
+
+/* ---- Review Grid ---- */
+.cr-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md, 24px);
+}
+@media screen and (min-width: 640px) {
+  .cr-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media screen and (min-width: 1024px) {
+  .cr-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media screen and (min-width: 1280px) {
+  .cr-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.cr-no-results {
+  text-align: center;
+  padding: var(--spacing-lg, 40px);
+  color: var(--color-text);
+  opacity: 0.6;
+  font-size: 0.95rem;
+}
+
+/* ---- Review Card (keep existing styles) ---- */
+.review-card {
+  background: var(--color-white, #fff);
+  border: 1px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-xl, 24px);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-skin);
+}
+.review-card__image { overflow: hidden; max-height: 200px; }
+.review-card__image img { width: 100%; height: 200px; object-fit: cover; display: block; transition: transform 0.5s; }
+.review-card:hover .review-card__image img { transform: scale(1.04); }
+.review-card__body { padding: 20px; display: flex; flex-direction: column; flex: 1; gap: 12px; }
+.review-card__stars { display: flex; gap: 2px; }
+.star--filled { color: #F5A623; font-size: 1rem; }
+.star--empty  { color: #E0D5C8; font-size: 1rem; }
+.review-card__text { font-size: 0.9rem; line-height: 1.65; color: var(--color-text); flex: 1; margin: 0; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; overflow: hidden; }
+.review-card__author-row { display: flex; align-items: center; gap: 10px; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--color-border, #E8D5C4); }
+.review-card__avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--color-secondary, #E0B898), var(--color-primary, #C69A7C)); color: #fff; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.review-card__meta { flex: 1; min-width: 0; }
+.review-card__author-name { display: block; font-size: 0.85rem; color: var(--color-heading); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.review-card__verified { display: inline-flex; align-items: center; gap: 3px; font-size: 0.72rem; color: #4CAF50; font-weight: 500; }
+.review-card__date { font-size: 0.72rem; color: var(--color-text); opacity: 0.45; white-space: nowrap; flex-shrink: 0; }
+
+/* Hidden card when filtered */
+.review-card[hidden] { display: none !important; }
 </style>
+
+<script>
+(function() {
+  var sectionId = '{{ section.id }}';
+  var grid = document.getElementById('cr-grid-' + sectionId);
+  var filterStatus = document.getElementById('cr-filter-status-' + sectionId);
+  var filterLabel = document.getElementById('cr-filter-label-' + sectionId);
+  var noResults = document.getElementById('cr-no-results-' + sectionId);
+  var activeStar = null;
+
+  function applyFilter(star) {
+    activeStar = star;
+    var cards = grid.querySelectorAll('.review-card');
+    var visible = 0;
+    cards.forEach(function(card) {
+      if (!star || card.dataset.rating === String(star)) {
+        card.removeAttribute('hidden');
+        visible++;
+      } else {
+        card.setAttribute('hidden', '');
+      }
+    });
+    // Update bar row active state
+    document.querySelectorAll('[data-filter-star]').forEach(function(btn) {
+      btn.classList.toggle('is-active', btn.dataset.filterStar === String(star));
+    });
+    // Filter status
+    if (star) {
+      filterStatus.style.display = 'flex';
+      filterLabel.textContent = star;
+    } else {
+      filterStatus.style.display = 'none';
+    }
+    noResults.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  // Bar click
+  document.querySelectorAll('[data-filter-star]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var star = btn.dataset.filterStar;
+      if (activeStar === star) {
+        applyFilter(null); // toggle off
+      } else {
+        applyFilter(star);
+      }
+    });
+  });
+
+  // Clear filter
+  document.querySelectorAll('[data-clear-filter]').forEach(function(btn) {
+    btn.addEventListener('click', function() { applyFilter(null); });
+  });
+})();
+</script>
 
 {% schema %}
 {
@@ -305,45 +396,39 @@
   "settings": [
     {
       "type": "text",
-      "id": "label",
-      "label": "Label above heading",
-      "default": "Real parents, real stories"
-    },
-    {
-      "type": "text",
       "id": "heading",
-      "label": "Heading",
-      "default": "What Parents Are Saying"
+      "label": "Section heading",
+      "default": "Customer reviews"
     },
     {
       "type": "text",
       "id": "aggregate_score",
       "label": "Overall rating score",
-      "default": "4.8"
+      "default": "5"
     },
     {
       "type": "range",
       "id": "five_star_pct",
-      "min": 0, "max": 100, "step": 5, "default": 80,
+      "min": 0, "max": 100, "step": 5, "default": 100,
       "label": "5-star bar %"
     },
     {
       "type": "text",
       "id": "five_star_count",
       "label": "5-star count",
-      "default": "8"
+      "default": "2"
     },
     {
       "type": "range",
       "id": "four_star_pct",
-      "min": 0, "max": 100, "step": 5, "default": 20,
+      "min": 0, "max": 100, "step": 5, "default": 0,
       "label": "4-star bar %"
     },
     {
       "type": "text",
       "id": "four_star_count",
       "label": "4-star count",
-      "default": "2"
+      "default": "0"
     },
     {
       "type": "range",
@@ -382,10 +467,15 @@
       "default": "0"
     },
     {
+      "type": "url",
+      "id": "review_link",
+      "label": "Write a Review link (optional)"
+    },
+    {
       "type": "color",
       "id": "bg_color",
       "label": "Background colour",
-      "default": "#FBF0E8"
+      "default": "#FFFFFF"
     }
   ],
   "blocks": [
@@ -432,13 +522,13 @@
   ],
   "presets": [
     {
-      "name": "Customer Reviews Grid",
+      "name": "Customer Reviews",
       "blocks": [
         { "type": "review", "settings": { "author": "Kindle Customer", "rating": 5, "text": "Grandson loved it easy to hold and shake and made him laugh", "date": "April 2026" } },
         { "type": "review", "settings": { "author": "Ebiere", "rating": 5, "text": "I got this teeth rattle my little one, good quality with grip and teething aid.", "date": "April 2026" } },
         { "type": "review", "settings": { "author": "Kiera", "rating": 4, "text": "Smaller than expected and rattle isn't very loud, great teether toy though", "date": "April 2026" } },
-        { "type": "review", "settings": { "author": "Daniel Boden", "rating": 5, "text": "I absolutely love this Little Creation Teether. It's a sweet, understated toy with a really lovely, soft colour palette that feels modern and calming.", "date": "February 2026" } },
-        { "type": "review", "settings": { "author": "EllieBelle", "rating": 5, "text": "I ordered the dusky pink lion rattle as a present for my nephew's baby. It has a cute little face and comes in a little presentation box. Perfect to gift!", "date": "February 2026" } },
+        { "type": "review", "settings": { "author": "Daniel Boden", "rating": 5, "text": "I absolutely love this Little Creation Teether. It's a sweet, understated toy with a really lovely, soft colour palette.", "date": "February 2026" } },
+        { "type": "review", "settings": { "author": "EllieBelle", "rating": 5, "text": "I ordered the dusky pink lion rattle as a present for my nephew's baby. Perfect to gift!", "date": "February 2026" } },
         { "type": "review", "settings": { "author": "Lou", "rating": 5, "text": "This little lion is one of the few things my 5-month-old can actually hold onto. The grip is perfectly sized for tiny hands.", "date": "February 2026" } }
       ]
     }
