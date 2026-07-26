@@ -1,0 +1,91 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/Website_image_3.jpg",
+        "badge_text": "",
+        "heading": "Our Story",
+        "accent_text": "Little Creation",
+        "text": "<p>Born from a mother's search for safe, beautiful, and effective teething solutions for her little one.<\/p>",
+        "button_label": "",
+        "button_link": "",
+        "button_2_label": "",
+        "button_2_link": "",
+        "bg_color": "#FBF0E8"
+      }
+    },
+    "story": {
+      "type": "image-with-text",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/Website_image_2.jpg",
+        "badge": "How It Started",
+        "heading": "A Journey of Love and Comfort",
+        "text": "<p>When our little one began teething, we couldn't find toys that were both completely non-toxic and aesthetically pleasing. Everything was either brightly plastic or didn't soothe their gums effectively.<\/p><p>We decided to design our own. Using food-grade silicone and natural beech wood, Little Creation was born to offer parents peace of mind and babies true comfort.<\/p>",
+        "button_label": "Shop the Collection",
+        "button_link": "shopify:\/\/collections\/all",
+        "layout": "image_left",
+        "bg_color": "#FFFFFF"
+      }
+    },
+    "features": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon_name": "senses",
+            "title": "Stimulates senses",
+            "text": "Sight, sound, and touch all at once. The gentle rattle sparks natural curiosity from 3 months."
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon_name": "gums",
+            "title": "Soothes every gum",
+            "text": "Multi-texture ridges reach front, back, and side gums where ordinary teethers can't."
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon_name": "motor",
+            "title": "Builds motor skills",
+            "text": "Ergonomic grip sized for tiny hands encourages grasping and transferring milestones."
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon_name": "safe",
+            "title": "Uncompromising Safety",
+            "text": "100% food-grade silicone, BPA-free, and rigorously tested for your absolute peace of mind."
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
+      "settings": {
+        "subtitle": "Our Commitment",
+        "heading": "Designed for Safety & Comfort",
+        "bg_color": "#FBF0E8"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "story",
+    "features",
+    "main"
+  ]
+}
