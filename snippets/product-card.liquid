@@ -110,23 +110,25 @@
   right: 12px;
   width: 38px;
   height: 38px;
-  background: #ffffff;
-  color: var(--color-heading, #111111);
-  border: none;
-  border-radius: 50%;
-  display: flex;
+  background: #ffffff !important;
+  color: var(--color-heading, #111111) !important;
+  border: none !important;
+  outline: none !important;
+  border-radius: 50% !important;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.12) !important;
   opacity: 0;
   cursor: pointer;
   z-index: 2;
+  padding: 0 !important;
 }
 .product-card__quick-add svg {
-  width: 18px;
-  height: 18px;
-  stroke-width: 2.2;
+  width: 18px !important;
+  height: 18px !important;
+  stroke-width: 1.5 !important;
 }
 .product-card:hover .product-card__quick-add {
   bottom: 12px;
