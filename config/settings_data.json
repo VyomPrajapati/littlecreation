@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_primary": "#C69A7C",
@@ -26,8 +35,9 @@
       "header": {
         "type": "header",
         "settings": {
-          "logo_width": 160,
-          "logo_height": 48,
+          "logo": "shopify://shop_images/ChatGPT_Image_Jul_26__2026__11_20_18_AM-removebg-preview.png",
+          "logo_width": 210,
+          "logo_height": 60,
           "menu": "header",
           "sticky_header": true
         }
