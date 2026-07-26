@@ -275,59 +275,11 @@ document.addEventListener('DOMContentLoaded', () => {
     closeLogins.forEach(c => c.addEventListener('click', e => { e.preventDefault(); close(); }));
   };
 
-  // ---- Gift Wrap Toggle ----
-  const initGiftWrap = () => {
-    document.querySelectorAll('[data-gift-wrap]').forEach(checkbox => {
-      const wrapper = checkbox.closest('.gift-wrap-toggle');
-      const variantId = parseInt(checkbox.dataset.giftVariant);
-      if (!variantId) return;
-
-      // Track the cart line of the gift wrap item
-      let giftLineIndex = null;
-
-      checkbox.addEventListener('change', async () => {
-        if (wrapper) wrapper.classList.add('gift-wrap-toggle--loading');
-
-        try {
-          if (checkbox.checked) {
-            // Add gift wrap to cart
-            const res = await fetch('/cart/add.js', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
-              body: JSON.stringify({ id: variantId, quantity: 1 })
-            });
-            if (!res.ok) throw new Error('Failed to add gift wrap');
-            await CartDrawer.refresh();
-          } else {
-            // Find gift wrap in cart and remove it
-            const cartRes = await fetch('/cart.js', { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
-            const cart = await cartRes.json();
-            const giftItem = cart.items.findIndex(item => item.variant_id === variantId);
-            if (giftItem !== -1) {
-              await fetch('/cart/change.js', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
-                body: JSON.stringify({ line: giftItem + 1, quantity: 0 })
-              });
-              await CartDrawer.refresh();
-            }
-          }
-        } catch(err) {
-          console.error('Gift wrap error:', err);
-          checkbox.checked = !checkbox.checked; // revert on error
-        } finally {
-          if (wrapper) wrapper.classList.remove('gift-wrap-toggle--loading');
-        }
-      });
-    });
-  };
-
   // ---- Initialise ----
   initScrollAnimations();
   initDragToScroll();
   initCartDrawer();
   initAjaxCart();
   initQuickAdd();
-  initGiftWrap();
   initLoginPopup();
 });
