@@ -1,5 +1,10 @@
 {% comment %}
-  Renders a product's price in GBP £
+  Renders a product's price
+  Accepts:
+  - product: {Object} Product Liquid object
+  - price_class: {String} Additional CSS class (optional)
+  - show_badges: {Boolean} Show Sale/Sold Out badge (optional, default true)
+  - show_shipping: {Boolean} Show taxes/shipping line (optional, default false — only on product page)
 {% endcomment %}
 
 {%- liquid
@@ -7,31 +12,55 @@
   assign price = target.price | default: 1999
   assign compare_at_price = target.compare_at_price
   assign available = target.available | default: false
+  assign unit_price_measurement = target.selected_or_first_available_variant.unit_price_measurement
+  assign unit_price = target.selected_or_first_available_variant.unit_price
 
   if cart.currency.iso_code == 'GBP'
     assign money_price = price | money
     assign money_compare = compare_at_price | money
+    assign money_unit = unit_price | money
   else
     assign money_price = price | money_without_currency | prepend: '£'
     assign money_compare = compare_at_price | money_without_currency | prepend: '£'
+    assign money_unit = unit_price | money_without_currency | prepend: '£'
   endif
 -%}
 
 <div class="price {% if price_class %} {{ price_class }}{% endif %}{% if compare_at_price > price %} price--on-sale{% endif %}{% if available == false %} price--sold-out{% endif %}">
-  {%- if compare_at_price > price -%}
-    <span class="visually-hidden visually-hidden--inline">{{ 'products.product.regular_price' | t }}</span>
-    <s class="price-item price-item--regular">
-      {{ money_compare }}
-    </s>
-    <span class="visually-hidden visually-hidden--inline">{{ 'products.product.sale_price' | t }}</span>
-    <span class="price-item price-item--sale">
-      {{ money_price }}
-    </span>
-  {%- else -%}
-    <span class="visually-hidden visually-hidden--inline">{{ 'products.product.regular_price' | t }}</span>
-    <span class="price-item price-item--regular">
-      {{ money_price }}
-    </span>
+  <div class="price__row">
+    {%- if compare_at_price > price -%}
+      <s class="price-item price-item--regular">{{ money_compare }}</s>
+      <span class="price-item price-item--sale">{{ money_price }}</span>
+      {%- if show_badges != false -%}
+        <span class="price__badge price__badge--sale">Sale</span>
+      {%- endif -%}
+    {%- else -%}
+      <span class="price-item price-item--regular">{{ money_price }}</span>
+    {%- endif -%}
+  </div>
+
+  {%- if unit_price_measurement -%}
+    <div class="price__unit">
+      {{ money_unit }}
+      <span class="price__unit-sep">/</span>
+      {%- if unit_price_measurement.reference_value != 1 -%}
+        {{- unit_price_measurement.reference_value -}}
+      {%- endif -%}
+      {{ unit_price_measurement.reference_unit }}
+    </div>
+  {%- endif -%}
+
+  {%- if show_shipping -%}
+    <p class="price__taxes">
+      {%- if cart.taxes_included -%}
+        Taxes included.
+      {%- endif -%}
+      {%- if shop.shipping_policy.body != blank -%}
+        <a href="{{ shop.shipping_policy.url }}" class="price__shipping-link">Shipping</a> calculated at checkout.
+      {%- else -%}
+        Shipping calculated at checkout.
+      {%- endif -%}
+    </p>
   {%- endif -%}
 </div>
 
@@ -40,9 +69,18 @@
   font-size: 1rem;
   color: var(--color-heading);
   display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.price__row {
+  display: flex;
   align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
   gap: 8px;
+}
+/* On product cards center-align */
+.product-card .price__row {
+  justify-content: center;
 }
 .price-item--regular {
   color: var(--color-heading);
@@ -52,9 +90,43 @@
   color: #888888;
   text-decoration: line-through;
   font-size: 0.9rem;
+  font-weight: 400;
 }
 .price-item--sale {
-  color: var(--color-primary, #C69A7C);
+  color: var(--color-heading);
   font-weight: 700;
+  font-size: 1.1rem;
+}
+.price__badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.price__badge--sale {
+  background: #111;
+  color: #fff;
+}
+.price__unit {
+  font-size: 0.82rem;
+  color: #555;
+  margin-top: 2px;
+}
+.price__taxes {
+  font-size: 0.82rem;
+  color: var(--color-primary, #C69A7C);
+  margin: 4px 0 0;
+  line-height: 1.5;
+}
+.price__shipping-link {
+  color: var(--color-primary, #C69A7C);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.price__shipping-link:hover {
+  color: var(--color-primary-dark, #A07855);
 }
 </style>

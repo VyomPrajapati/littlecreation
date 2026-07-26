@@ -70,7 +70,7 @@
           </h1>
 
           <div class="product__price" id="price-{{ section.id }}">
-            {% render 'price', product: product %}
+            {% render 'price', product: product, show_shipping: true %}
           </div>
 
           {%- if product.description != blank -%}
