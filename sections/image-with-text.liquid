@@ -2,16 +2,22 @@
   <div class="container">
     <div class="image-with-text__grid {% if section.settings.layout == 'text_first' %}image-with-text__grid--reversed{% endif %}">
 
+      {%- assign assigned_product = section.settings.product -%}
+      {%- assign image_to_show = section.settings.image -%}
+      {%- if assigned_product != blank and assigned_product.featured_image != blank -%}
+        {%- assign image_to_show = assigned_product.featured_image -%}
+      {%- endif -%}
+
       <!-- Image -->
       <div class="image-with-text__image-col animate-on-scroll">
         <div class="image-with-text__image-outer">
           <div class="image-with-text__blob"></div>
           <div class="image-with-text__frame">
-            {%- if section.settings.image != blank -%}
-              <img src="{{ section.settings.image | image_url: width: 900 }}"
-                   alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}"
-                   width="{{ section.settings.image.width }}"
-                   height="{{ section.settings.image.height }}"
+            {%- if image_to_show != blank -%}
+              <img src="{{ image_to_show | image_url: width: 900 }}"
+                   alt="{{ image_to_show.alt | default: section.settings.heading | escape }}"
+                   width="{{ image_to_show.width }}"
+                   height="{{ image_to_show.height }}"
                    loading="lazy"
                    class="image-with-text__img">
             {%- else -%}
@@ -33,13 +39,23 @@
           <h2 class="image-with-text__heading animate-on-scroll delay-1">{{ section.settings.heading }}</h2>
         {%- endif -%}
 
-        {%- if section.settings.text != blank -%}
-          <div class="image-with-text__body rte animate-on-scroll delay-2">{{ section.settings.text }}</div>
+        {%- assign text_to_show = section.settings.text -%}
+        {%- if assigned_product != blank and assigned_product.description != blank -%}
+          {%- assign text_to_show = assigned_product.description -%}
         {%- endif -%}
 
-        {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+        {%- if text_to_show != blank -%}
+          <div class="image-with-text__body rte animate-on-scroll delay-2">{{ text_to_show }}</div>
+        {%- endif -%}
+
+        {%- assign link_to_show = section.settings.button_link -%}
+        {%- if assigned_product != blank -%}
+          {%- assign link_to_show = assigned_product.url -%}
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank and link_to_show != blank -%}
           <div class="animate-on-scroll delay-3">
-            <a href="{{ section.settings.button_link }}" class="button">
+            <a href="{{ link_to_show }}" class="button">
               {{ section.settings.button_label }}
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
@@ -148,6 +164,18 @@
 }
 .image-with-text__body p { margin-bottom: 0.75em; }
 .image-with-text__body p:last-child { margin-bottom: 0; }
+.image-with-text__body ul {
+  padding-left: 20px;
+  margin-bottom: 1em;
+  list-style-type: disc;
+}
+.image-with-text__body li {
+  margin-bottom: 0.5em;
+}
+.image-with-text__body strong {
+  font-weight: 600;
+  color: var(--color-heading);
+}
 </style>
 
 {% schema %}
@@ -157,7 +185,14 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Image"
+      "label": "Image",
+      "info": "Used as a fallback if no product is selected."
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "Select a product to automatically show its image, description, and link."
     },
     {
       "type": "select",
