@@ -80,9 +80,14 @@
           {%- if section.settings.review_link != blank -%}
             <a href="{{ section.settings.review_link }}" class="cr-write-btn" target="_blank" rel="noopener">Write a Review</a>
           {%- else -%}
-            <button class="cr-write-btn" type="button" onclick="const jmBtn = document.querySelector('.jdgm-write-rev-link'); if (jmBtn) { jmBtn.click(); } else { alert('Please enable the Judge.me widget on this page first to write a review!'); }">Write a Review</button>
+            <button class="cr-write-btn" type="button" onclick="const jmBtn = document.querySelector('.jdgm-write-rev-link'); if (jmBtn) { jmBtn.click(); } else { const formBtn = document.querySelector('.jdgm-form-link'); if (formBtn) { formBtn.click(); } else { alert('Judge.me is loading... Please try again in a moment!'); } }">Write a Review</button>
           {%- endif -%}
         </div>
+      </div>
+
+      {%- comment -%} Hidden Judge.me widget container so the Write a Review form opens seamlessly {%- endcomment -%}
+      <div style="display:none !important;" aria-hidden="true">
+        {%- render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product -%}
       </div>
 
       <!-- Active filter indicator -->
