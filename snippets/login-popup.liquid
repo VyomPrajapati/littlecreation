@@ -130,41 +130,42 @@
 </style>
 
 <script>
+window.openLoginPopup = function(view) {
+  var popup = document.getElementById('login-popup');
+  if (popup) {
+    popup.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    var loginView = document.getElementById('popup-view-login');
+    var registerView = document.getElementById('popup-view-register');
+    var recoverView = document.getElementById('popup-view-recover');
+    if (loginView && registerView && recoverView) {
+      loginView.style.display = (view === 'register' || view === 'recover') ? 'none' : 'block';
+      registerView.style.display = (view === 'register') ? 'block' : 'none';
+      recoverView.style.display = (view === 'recover') ? 'block' : 'none';
+    }
+  }
+};
+
+window.closeLoginPopup = function() {
+  var popup = document.getElementById('login-popup');
+  if (popup) {
+    popup.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+};
+
 document.addEventListener('click', function(e) {
   const toggleBtn = e.target.closest('[data-login-toggle], a[href*="/account/login"], a[href*="/account/register"]');
   if (toggleBtn) {
-    if (!window.location.pathname.includes('/account')) {
-      e.preventDefault();
-      const popup = document.getElementById('login-popup');
-      if (popup) {
-        popup.classList.add('is-open');
-        document.body.style.overflow = 'hidden';
-        
-        const isRegister = toggleBtn.href && toggleBtn.href.includes('register');
-        const loginView = document.getElementById('popup-view-login');
-        const registerView = document.getElementById('popup-view-register');
-        
-        if (loginView && registerView) {
-          if (isRegister) {
-            loginView.style.display = 'none';
-            registerView.style.display = 'block';
-          } else {
-            registerView.style.display = 'none';
-            loginView.style.display = 'block';
-          }
-        }
-      }
-    }
+    e.preventDefault();
+    const isRegister = toggleBtn.href && toggleBtn.href.includes('register');
+    window.openLoginPopup(isRegister ? 'register' : 'login');
   }
   
   const closeBtn = e.target.closest('[data-close-login]');
   if (closeBtn) {
     e.preventDefault();
-    const popup = document.getElementById('login-popup');
-    if (popup) {
-      popup.classList.remove('is-open');
-      document.body.style.overflow = '';
-    }
+    window.closeLoginPopup();
   }
 });
 </script>
