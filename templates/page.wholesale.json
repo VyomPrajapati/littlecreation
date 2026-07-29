@@ -1,17 +1,27 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "banner": {
       "type": "hero-banner",
       "settings": {
         "heading": "Become a Distributor",
-        "text": "<p>Interested in stocking Little Creation products? We'd love to hear from you.<\/p>",
+        "text": "<p>Interested in stocking Little Creation products? We'd love to hear from you.</p>",
         "button_label": "Contact Us",
         "button_link": "#wholesale-contact",
         "bg_color": "#FBF0E8"
       }
     },
     "main": {
-      "type": "main-page"
+      "type": "main-page",
+      "settings": {}
     },
     "contact": {
       "type": "contact-form",

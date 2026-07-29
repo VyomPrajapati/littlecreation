@@ -1,21 +1,30 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "banner": {
       "type": "hero-banner",
       "settings": {
         "heading": "Affiliate Program",
-        "text": "<p>Join our affiliate program and earn commissions on every sale you refer.<\/p>",
+        "text": "<p>Join our affiliate program and earn commissions on every sale you refer.</p>",
         "button_label": "Apply Now",
         "button_link": "#apply",
         "bg_color": "#FBF0E8"
       }
     },
     "main": {
-      "type": "main-page"
+      "type": "main-page",
+      "settings": {}
     },
     "rich_text": {
       "type": "rich-text",
-      "settings": {},
       "blocks": {
         "heading": {
           "type": "heading",
@@ -26,14 +35,15 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>1. Sign up for free<br>2. Share your unique link or code<br>3. Earn commission on successful referrals<\/p>"
+            "text": "<p>1. Sign up for free<br>2. Share your unique link or code<br>3. Earn commission on successful referrals</p>"
           }
         }
       },
       "block_order": [
         "heading",
         "text"
-      ]
+      ],
+      "settings": {}
     }
   },
   "order": [
