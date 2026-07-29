@@ -54,9 +54,13 @@
     "related-products": {
       "type": "featured-collection",
       "settings": {
+        "label": "Our bestsellers",
         "heading": "You may also like",
         "collection": "all",
-        "products_to_show": 4
+        "products_to_show": 4,
+        "show_secondary_image": true,
+        "show_view_all": true,
+        "bg_color": "#ffffff"
       }
     },
     "product-reviews": {
@@ -68,7 +72,9 @@
             "author": "Kindle Customer",
             "rating": 5,
             "text": "Grandson loved it easy to hold and shake and made him laugh",
-            "date": "April 2026"
+            "date": "April 2026",
+            "image": "shopify://shop_images/IMG_8352.png",
+            "fallback_image_url": ""
           }
         },
         "review-2": {
@@ -77,7 +83,8 @@
             "author": "Ebiere",
             "rating": 5,
             "text": "I got this teeth rattle my little one, good quality with grip and teething aid.",
-            "date": "April 2026"
+            "date": "April 2026",
+            "fallback_image_url": ""
           }
         },
         "review-3": {
@@ -86,7 +93,8 @@
             "author": "Kiera",
             "rating": 4,
             "text": "Smaller than expected and rattle isn't very loud, great teether toy though",
-            "date": "April 2026"
+            "date": "April 2026",
+            "fallback_image_url": ""
           }
         },
         "review-4": {
@@ -95,7 +103,8 @@
             "author": "Daniel Boden",
             "rating": 5,
             "text": "I absolutely love this Little Creation Teether. It's a sweet, understated toy with a really lovely, soft colour palette.",
-            "date": "February 2026"
+            "date": "February 2026",
+            "fallback_image_url": ""
           }
         },
         "review-5": {
@@ -104,7 +113,8 @@
             "author": "EllieBelle",
             "rating": 5,
             "text": "I ordered the dusky pink lion rattle as a present for my nephew's baby. Perfect to gift!",
-            "date": "February 2026"
+            "date": "February 2026",
+            "fallback_image_url": ""
           }
         },
         "review-6": {
@@ -113,7 +123,8 @@
             "author": "Lou",
             "rating": 5,
             "text": "This little lion is one of the few things my 5-month-old can actually hold onto. The grip is perfectly sized for tiny hands.",
-            "date": "February 2026"
+            "date": "February 2026",
+            "fallback_image_url": ""
           }
         }
       },
@@ -138,7 +149,8 @@
         "two_star_count": "0",
         "one_star_pct": 0,
         "one_star_count": "0",
-        "bg_color": "#FFFFFF"
+        "review_link": "",
+        "bg_color": "#ffffff"
       }
     }
   },
