@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -313,20 +322,43 @@
     },
     "instagram_collage": {
       "type": "instagram-collage",
-      "settings": {
-        "heading": "Follow @littlecreationofficial on Instagram",
-        "link": "https://www.instagram.com/littlecreationofficial/"
-      },
       "blocks": {
-        "insta_1": { "type": "image" },
-        "insta_2": { "type": "image" },
-        "insta_3": { "type": "image" },
-        "insta_4": { "type": "image" },
-        "insta_5": { "type": "image" },
-        "insta_6": { "type": "image" },
-        "insta_7": { "type": "image" },
-        "insta_8": { "type": "image" },
-        "insta_9": { "type": "image" }
+        "insta_1": {
+          "type": "image",
+          "settings": {}
+        },
+        "insta_2": {
+          "type": "image",
+          "settings": {}
+        },
+        "insta_3": {
+          "type": "image",
+          "settings": {}
+        },
+        "insta_4": {
+          "type": "image",
+          "settings": {}
+        },
+        "insta_5": {
+          "type": "image",
+          "settings": {}
+        },
+        "insta_6": {
+          "type": "image",
+          "settings": {}
+        },
+        "insta_7": {
+          "type": "image",
+          "settings": {}
+        },
+        "insta_8": {
+          "type": "image",
+          "settings": {}
+        },
+        "insta_9": {
+          "type": "image",
+          "settings": {}
+        }
       },
       "block_order": [
         "insta_1",
@@ -338,7 +370,11 @@
         "insta_7",
         "insta_8",
         "insta_9"
-      ]
+      ],
+      "settings": {
+        "heading": "Follow @littlecreationofficial on Instagram",
+        "link": "https://www.instagram.com/littlecreationofficial/"
+      }
     },
     "homepage_newsletter": {
       "type": "newsletter",
