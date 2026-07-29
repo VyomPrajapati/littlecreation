@@ -8,7 +8,16 @@
     <div class="login-popup__inner">
       <div class="login-popup__view" id="popup-view-login">
         <h2 id="login-popup-title" class="text-center">Sign in</h2>
-        {%- form 'customer_login', novalidate: 'novalidate', class: 'mt-md' -%}
+        
+        <div class="mt-md">
+          <a href="/account/login" class="button button--full-width" style="background-color: #5A31F4; color: #ffffff; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 600; padding: 12px 20px; border-radius: 99px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm7 17H5V8h14v12z"/></svg>
+            Continue with Shop
+          </a>
+          <div class="text-center my-sm" style="opacity: 0.5; font-size: 0.85rem; margin: 12px 0;">— or —</div>
+        </div>
+
+        {%- form 'customer_login', novalidate: 'novalidate' -%}
           <div class="field">
             <input type="email" name="customer[email]" placeholder="Email" class="field__input" required>
           </div>
@@ -166,6 +175,18 @@ document.addEventListener('click', function(e) {
   if (closeBtn) {
     e.preventDefault();
     window.closeLoginPopup();
+  }
+});
+
+// Auto-open popup when a customer visits the website for the first time
+document.addEventListener('DOMContentLoaded', function() {
+  if (!sessionStorage.getItem('has_seen_login_popup') && !window.location.pathname.includes('/account')) {
+    setTimeout(function() {
+      if (window.openLoginPopup) {
+        window.openLoginPopup('login');
+        sessionStorage.setItem('has_seen_login_popup', 'true');
+      }
+    }, 1500);
   }
 });
 </script>
