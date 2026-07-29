@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
@@ -66,89 +57,111 @@
     "product-reviews": {
       "type": "customer-reviews",
       "blocks": {
-        "review-1": {
+        "review_1": {
           "type": "review",
           "settings": {
             "author": "Kindle Customer",
             "rating": 5,
             "text": "Grandson loved it easy to hold and shake and made him laugh",
-            "date": "April 2026",
-            "image": "shopify://shop_images/IMG_8352.png",
-            "fallback_image_url": ""
+            "date": "4/24/2026"
           }
         },
-        "review-2": {
+        "review_2": {
           "type": "review",
           "settings": {
             "author": "Ebiere",
             "rating": 5,
             "text": "I got this teeth rattle my little one, good quality with grip and teething aid.",
-            "date": "April 2026",
-            "fallback_image_url": ""
+            "date": "4/15/2026"
           }
         },
-        "review-3": {
+        "review_3": {
           "type": "review",
           "settings": {
             "author": "Kiera",
-            "rating": 4,
-            "text": "Smaller than expected and rattle isn't very loud, great teether toy though",
-            "date": "April 2026",
-            "fallback_image_url": ""
+            "rating": 3,
+            "text": "Smaller then expected and rattle isn t very loud , great teether toy though",
+            "date": "4/8/2026"
           }
         },
-        "review-4": {
-          "type": "review",
-          "settings": {
-            "author": "Daniel Boden",
-            "rating": 5,
-            "text": "I absolutely love this Little Creation Teether. It's a sweet, understated toy with a really lovely, soft colour palette.",
-            "date": "February 2026",
-            "fallback_image_url": ""
-          }
-        },
-        "review-5": {
+        "review_4": {
           "type": "review",
           "settings": {
             "author": "EllieBelle",
-            "rating": 5,
-            "text": "I ordered the dusky pink lion rattle as a present for my nephew's baby. Perfect to gift!",
-            "date": "February 2026",
-            "fallback_image_url": ""
+            "rating": 4,
+            "text": "I ordered the dusky pink lion rattle as a present my nephew s baby. It has a cute little face and comes in a little presentation box. It will be easy to wrap and perfect to gift!",
+            "date": "2/24/2026"
           }
         },
-        "review-6": {
+        "review_5": {
+          "type": "review",
+          "settings": {
+            "author": "Happy Customer",
+            "rating": 5,
+            "text": "I absolutely love this Little Creation Teether. It s a sweet, understated toy with a really lovely, soft colour palette that feels modern and calming rather than loud or overly bright.",
+            "date": "2/20/2026"
+          }
+        },
+        "review_6": {
+          "type": "review",
+          "settings": {
+            "author": "Amazon Customer",
+            "rating": 3,
+            "text": "I ordered this rattle my five month old son who has mastered gripping things and navigating to his mouth. His piqued interested in achieving this hand to mouth coordination means he needs smalls",
+            "date": "2/16/2026"
+          }
+        },
+        "review_7": {
+          "type": "review",
+          "settings": {
+            "author": "Charlie G.",
+            "rating": 4,
+            "text": "This teether rattle has mostly perks both baby and parents carers, being bpa free, easy enough to hold, and a rattle that s readily audible and interesting to baby but perfectly subtle enough mums...",
+            "date": "3/15/2026"
+          }
+        },
+        "review_8": {
+          "type": "review",
+          "settings": {
+            "author": "Reviewer28",
+            "rating": 5,
+            "text": "This is a very cute rattle that feels like a quality item. It makes such a nice noise that isn't too grating, which is always a bonus, and it has a lovely weight to it that makes it feel quite...",
+            "date": "2/15/2026"
+          }
+        },
+        "review_9": {
+          "type": "review",
+          "settings": {
+            "author": "Mr. A. Dance",
+            "rating": 5,
+            "text": "lion shaped baby Teether from age 3 months upwards this is a larger than other brands baby hand rattle in a light brown colour on inspection this appears to be made to a high standard the rattle is amazing",
+            "date": "2/13/2026"
+          }
+        },
+        "review_10": {
           "type": "review",
           "settings": {
             "author": "Lou",
             "rating": 5,
-            "text": "This little lion is one of the few things my 5-month-old can actually hold onto. The grip is perfectly sized for tiny hands.",
-            "date": "February 2026",
-            "fallback_image_url": ""
+            "text": "If your house is anything like mine, \"playtime\" usually involves a lot of picking toys up off the floor every thirty seconds. This little lion is one of the few things my 5-month-old can actually love and enjoy it.",
+            "date": "2/13/2026"
           }
         }
       },
       "block_order": [
-        "review-1",
-        "review-2",
-        "review-3",
-        "review-4",
-        "review-5",
-        "review-6"
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "review_5",
+        "review_6",
+        "review_7",
+        "review_8",
+        "review_9",
+        "review_10"
       ],
       "settings": {
         "heading": "Customer reviews",
-        "aggregate_score": "4.8",
-        "five_star_pct": 80,
-        "five_star_count": "5",
-        "four_star_pct": 20,
-        "four_star_count": "1",
-        "three_star_pct": 0,
-        "three_star_count": "0",
-        "two_star_pct": 0,
-        "two_star_count": "0",
-        "one_star_pct": 0,
-        "one_star_count": "0",
         "review_link": "",
         "bg_color": "#ffffff"
       }

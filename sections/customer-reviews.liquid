@@ -10,8 +10,9 @@
     {%- assign review_count = section.blocks.size -%}
 
     {%- for block in section.blocks -%}
-      {%- assign total_rating = total_rating | plus: block.settings.rating -%}
-      {%- case block.settings.rating -%}
+      {%- assign block_rating = block.settings.rating | times: 1 -%}
+      {%- assign total_rating = total_rating | plus: block_rating -%}
+      {%- case block_rating -%}
         {%- when 5 -%}{%- assign five_star = five_star | plus: 1 -%}
         {%- when 4 -%}{%- assign four_star = four_star | plus: 1 -%}
         {%- when 3 -%}{%- assign three_star = three_star | plus: 1 -%}
