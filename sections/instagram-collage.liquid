@@ -13,8 +13,13 @@
       </div>
     {%- endif -%}
 
-    <div class="insta-scroll-container animate-on-scroll delay-1">
-      <div class="insta-grid">
+    <div class="insta-carousel-wrapper" style="position: relative;">
+      <button class="insta-nav insta-nav--prev" aria-label="Previous">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      
+      <div class="insta-scroll-container animate-on-scroll delay-1">
+        <div class="insta-grid">
         {%- for block in section.blocks -%}
           <div class="insta-item" {{ block.shopify_attributes }}>
             <a href="{{ section.settings.link | default: '#' }}" target="_blank" rel="noopener" class="insta-item__link">
@@ -38,9 +43,35 @@
         {%- endfor -%}
       </div>
     </div>
+
+      <button class="insta-nav insta-nav--next" aria-label="Next">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
     
   </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.querySelector('.insta-scroll-container');
+  const prevBtn = document.querySelector('.insta-nav--prev');
+  const nextBtn = document.querySelector('.insta-nav--next');
+
+  if(prevBtn && nextBtn && container) {
+    prevBtn.addEventListener('click', () => {
+      // Scroll by roughly the width of one small item or a bit more
+      const scrollAmount = window.innerWidth > 768 ? 300 : 200;
+      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const scrollAmount = window.innerWidth > 768 ? 300 : 200;
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+  }
+});
+</script>
 
 <style>
 .insta-header {
@@ -67,19 +98,46 @@
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: 16px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0,0,0,0.2) transparent;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
 }
 .insta-scroll-container::-webkit-scrollbar {
-  height: 6px;
+  display: none; /* Chrome/Safari */
 }
-.insta-scroll-container::-webkit-scrollbar-track {
-  background: transparent;
+
+.insta-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  color: #333;
+  transition: all 0.3s ease;
 }
-.insta-scroll-container::-webkit-scrollbar-thumb {
-  background-color: rgba(0,0,0,0.2);
-  border-radius: 10px;
+.insta-nav:hover {
+  background: #fbf0e8;
+  color: #5a4538;
+  transform: translateY(-50%) scale(1.05);
+}
+.insta-nav--prev {
+  left: 10px;
+}
+.insta-nav--next {
+  right: 10px;
+}
+@media (max-width: 767px) {
+  .insta-nav {
+    display: none; /* Hide arrows on mobile, swipe is better */
+  }
 }
 
 .insta-grid {

@@ -1,6 +1,41 @@
 <section class="customer-reviews section-padding" id="CustomerReviews-{{ section.id }}" style="background-color: {{ section.settings.bg_color }};">
   <div class="container">
 
+    {%- assign total_rating = 0 -%}
+    {%- assign one_star = 0 -%}
+    {%- assign two_star = 0 -%}
+    {%- assign three_star = 0 -%}
+    {%- assign four_star = 0 -%}
+    {%- assign five_star = 0 -%}
+    {%- assign review_count = section.blocks.size -%}
+
+    {%- for block in section.blocks -%}
+      {%- assign total_rating = total_rating | plus: block.settings.rating -%}
+      {%- case block.settings.rating -%}
+        {%- when 5 -%}{%- assign five_star = five_star | plus: 1 -%}
+        {%- when 4 -%}{%- assign four_star = four_star | plus: 1 -%}
+        {%- when 3 -%}{%- assign three_star = three_star | plus: 1 -%}
+        {%- when 2 -%}{%- assign two_star = two_star | plus: 1 -%}
+        {%- when 1 -%}{%- assign one_star = one_star | plus: 1 -%}
+      {%- endcase -%}
+    {%- endfor -%}
+
+    {%- if review_count > 0 -%}
+      {%- assign avg_rating = total_rating | times: 10 | divided_by: review_count | divided_by: 10.0 -%}
+      {%- assign five_pct = five_star | times: 100 | divided_by: review_count -%}
+      {%- assign four_pct = four_star | times: 100 | divided_by: review_count -%}
+      {%- assign three_pct = three_star | times: 100 | divided_by: review_count -%}
+      {%- assign two_pct = two_star | times: 100 | divided_by: review_count -%}
+      {%- assign one_pct = one_star | times: 100 | divided_by: review_count -%}
+    {%- else -%}
+      {%- assign avg_rating = 0 -%}
+      {%- assign five_pct = 0 -%}
+      {%- assign four_pct = 0 -%}
+      {%- assign three_pct = 0 -%}
+      {%- assign two_pct = 0 -%}
+      {%- assign one_pct = 0 -%}
+    {%- endif -%}
+
     <!-- Header row: summary + write a review -->
     <div class="cr-header animate-on-scroll">
       <h2 class="cr-heading">{{ section.settings.heading | default: 'Customer reviews' }}</h2>
@@ -8,20 +43,20 @@
       <div class="cr-summary">
         <!-- Score box -->
         <div class="cr-score-box">
-          <span class="cr-score-number">{{ section.settings.aggregate_score }}</span>
+          <span class="cr-score-number">{{ avg_rating }}</span>
         </div>
 
         <!-- Stars + count -->
         <div class="cr-score-meta">
           <div class="cr-stars">★★★★★</div>
-          <p class="cr-count">Based on {{ section.blocks.size }} Reviews</p>
+          <p class="cr-count">Based on {{ review_count }} Reviews</p>
         </div>
 
         <!-- Bar chart – each row is clickable to filter -->
         <div class="cr-bars">
           {%- assign star_rows = '5,4,3,2,1' | split: ',' -%}
-          {%- assign pct_vals = section.settings.five_star_pct | append: ',' | append: section.settings.four_star_pct | append: ',' | append: section.settings.three_star_pct | append: ',' | append: section.settings.two_star_pct | append: ',' | append: section.settings.one_star_pct | split: ',' -%}
-          {%- assign cnt_vals = section.settings.five_star_count | append: ',' | append: section.settings.four_star_count | append: ',' | append: section.settings.three_star_count | append: ',' | append: section.settings.two_star_count | append: ',' | append: section.settings.one_star_count | split: ',' -%}
+          {%- assign pct_vals = five_pct | append: ',' | append: four_pct | append: ',' | append: three_pct | append: ',' | append: two_pct | append: ',' | append: one_pct | split: ',' -%}
+          {%- assign cnt_vals = five_star | append: ',' | append: four_star | append: ',' | append: three_star | append: ',' | append: two_star | append: ',' | append: one_star | split: ',' -%}
           {%- for star in star_rows -%}
             {%- assign idx = forloop.index0 -%}
             <button class="cr-bar-row" data-filter-star="{{ star }}" aria-label="Filter by {{ star }} stars" type="button">
@@ -40,7 +75,7 @@
           {%- if section.settings.review_link != blank -%}
             <a href="{{ section.settings.review_link }}" class="cr-write-btn" target="_blank" rel="noopener">Write a Review</a>
           {%- else -%}
-            <button class="cr-write-btn" type="button" onclick="alert('Review form coming soon!')">Write a Review</button>
+            <button class="cr-write-btn" type="button" onclick="document.getElementById('cr-modal-{{ section.id }}').showModal()">Write a Review</button>
           {%- endif -%}
         </div>
       </div>
@@ -57,13 +92,29 @@
       {%- for block in section.blocks -%}
         <div class="review-card animate-on-scroll" data-rating="{{ block.settings.rating }}" {{ block.shopify_attributes }}>
 
-          {%- if block.settings.image != blank or block.settings.fallback_image_url != blank -%}
-            <div class="review-card__image">
-              {%- if block.settings.image != blank -%}
-                <img src="{{ block.settings.image | image_url: width: 500 }}" alt="Review image from {{ block.settings.author }}" loading="lazy">
-              {%- else -%}
-                <img src="{{ block.settings.fallback_image_url }}" alt="Review image from {{ block.settings.author }}" loading="lazy">
-              {%- endif -%}
+          {%- assign has_images = false -%}
+          {%- if block.settings.image != blank or block.settings.image_2 != blank or block.settings.image_3 != blank or block.settings.image_4 != blank or block.settings.fallback_image_url != blank -%}
+            {%- assign has_images = true -%}
+          {%- endif -%}
+
+          {%- if has_images -%}
+            <div class="review-card__images-wrap">
+              <div class="review-card__images-scroller">
+                {%- if block.settings.image != blank -%}
+                  <div class="review-card__img-item"><img src="{{ block.settings.image | image_url: width: 500 }}" alt="Review photo 1" loading="lazy"></div>
+                {%- elsif block.settings.fallback_image_url != blank -%}
+                  <div class="review-card__img-item"><img src="{{ block.settings.fallback_image_url }}" alt="Review photo 1" loading="lazy"></div>
+                {%- endif -%}
+                {%- if block.settings.image_2 != blank -%}
+                  <div class="review-card__img-item"><img src="{{ block.settings.image_2 | image_url: width: 500 }}" alt="Review photo 2" loading="lazy"></div>
+                {%- endif -%}
+                {%- if block.settings.image_3 != blank -%}
+                  <div class="review-card__img-item"><img src="{{ block.settings.image_3 | image_url: width: 500 }}" alt="Review photo 3" loading="lazy"></div>
+                {%- endif -%}
+                {%- if block.settings.image_4 != blank -%}
+                  <div class="review-card__img-item"><img src="{{ block.settings.image_4 | image_url: width: 500 }}" alt="Review photo 4" loading="lazy"></div>
+                {%- endif -%}
+              </div>
             </div>
           {%- endif -%}
 
@@ -77,7 +128,12 @@
                 {%- endif -%}
               {%- endfor -%}
             </div>
-            <p class="review-card__text">{{ block.settings.text }}</p>
+            
+            <div class="review-card__text-wrap">
+              <p class="review-card__text">{{ block.settings.text }}</p>
+              <button class="review-card__read-more" type="button" onclick="this.previousElementSibling.classList.toggle('is-expanded'); this.textContent = this.textContent === 'Read more' ? 'Read less' : 'Read more';">Read more</button>
+            </div>
+
             <div class="review-card__author-row">
               <div class="review-card__avatar" aria-hidden="true">{{ block.settings.author | slice: 0 | upcase }}</div>
               <div class="review-card__meta">
@@ -97,6 +153,51 @@
 
     <!-- Empty state when filter has no results -->
     <p class="cr-no-results" id="cr-no-results-{{ section.id }}" style="display:none;">No reviews found for this rating.</p>
+
+    <!-- Write a Review Modal -->
+    <dialog id="cr-modal-{{ section.id }}" class="cr-modal">
+      <div class="cr-modal-content">
+        <div class="cr-modal-header">
+          <h3>Write a Review</h3>
+          <button class="cr-modal-close" type="button" aria-label="Close" onclick="document.getElementById('cr-modal-{{ section.id }}').close()">&times;</button>
+        </div>
+        <div class="cr-modal-body">
+          <p class="cr-modal-sub">Please share your experience with us! We will review it and add it to our site.</p>
+          {%- form 'contact', id: 'ReviewForm' -%}
+            {%- if form.posted_successfully? -%}
+              <div class="form-status form-status-list form__message" tabindex="-1" autofocus style="color: green; margin-bottom: 15px;">
+                Thanks for your review! It has been submitted for approval.
+              </div>
+            {%- endif -%}
+            <div class="cr-field">
+              <label for="ReviewName">Name</label>
+              <input type="text" id="ReviewName" name="contact[Name]" required>
+            </div>
+            <div class="cr-field">
+              <label for="ReviewEmail">Email</label>
+              <input type="email" id="ReviewEmail" name="contact[email]" required>
+            </div>
+            <div class="cr-field">
+              <label for="ReviewRating">Rating</label>
+              <select id="ReviewRating" name="contact[Rating]" required>
+                <option value="5">★★★★★ (5/5)</option>
+                <option value="4">★★★★☆ (4/5)</option>
+                <option value="3">★★★☆☆ (3/5)</option>
+                <option value="2">★★☆☆☆ (2/5)</option>
+                <option value="1">★☆☆☆☆ (1/5)</option>
+              </select>
+            </div>
+            <div class="cr-field">
+              <label for="ReviewBody">Review</label>
+              <textarea id="ReviewBody" name="contact[Review]" rows="4" required></textarea>
+            </div>
+            <div class="cr-field cr-modal-actions">
+              <button type="submit" class="cr-write-btn">Submit Review</button>
+            </div>
+          {%- endform -%}
+        </div>
+      </div>
+    </dialog>
 
   </div>
 </section>
@@ -334,14 +435,20 @@
   transform: translateY(-4px);
   box-shadow: var(--shadow-skin);
 }
-.review-card__image { overflow: hidden; max-height: 200px; }
-.review-card__image img { width: 100%; height: 200px; object-fit: cover; display: block; transition: transform 0.5s; }
-.review-card:hover .review-card__image img { transform: scale(1.04); }
+.review-card__images-wrap { width: 100%; border-bottom: 1px solid var(--color-border, #E8D5C4); }
+.review-card__images-scroller { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.review-card__images-scroller::-webkit-scrollbar { display: none; }
+.review-card__img-item { flex: 0 0 100%; scroll-snap-align: center; height: 220px; background: var(--color-skin-light); display: flex; align-items: center; justify-content: center; }
+.review-card__img-item img { width: 100%; height: 100%; object-fit: contain; }
 .review-card__body { padding: 20px; display: flex; flex-direction: column; flex: 1; gap: 12px; }
 .review-card__stars { display: flex; gap: 2px; }
 .star--filled { color: #F5A623; font-size: 1rem; }
 .star--empty  { color: #E0D5C8; font-size: 1rem; }
-.review-card__text { font-size: 0.9rem; line-height: 1.65; color: var(--color-text); flex: 1; margin: 0; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; overflow: hidden; }
+
+.review-card__text-wrap { display: flex; flex-direction: column; align-items: flex-start; flex: 1; min-height: 0; }
+.review-card__text { font-size: 0.9rem; line-height: 1.65; color: var(--color-text); margin: 0; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; transition: all 0.3s ease; }
+.review-card__text.is-expanded { -webkit-line-clamp: unset; }
+.review-card__read-more { background: none; border: none; color: var(--color-primary); font-weight: 600; font-size: 0.85rem; padding: 0; margin-top: 8px; cursor: pointer; display: none; }
 .review-card__author-row { display: flex; align-items: center; gap: 10px; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--color-border, #E8D5C4); }
 .review-card__avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--color-secondary, #E0B898), var(--color-primary, #C69A7C)); color: #fff; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .review-card__meta { flex: 1; min-width: 0; }
@@ -351,6 +458,23 @@
 
 /* Hidden card when filtered */
 .review-card[hidden] { display: none !important; }
+
+/* Modal Styles */
+.cr-modal { border: none; border-radius: var(--radius-xl, 24px); padding: 0; max-width: 500px; width: 90%; box-shadow: var(--shadow-xl, 0 10px 40px rgba(0,0,0,0.2)); background: #fff; margin: auto; }
+.cr-modal::backdrop { background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
+.cr-modal-content { display: flex; flex-direction: column; }
+.cr-modal-header { padding: 20px 24px; border-bottom: 1px solid var(--color-border, #eee); display: flex; justify-content: space-between; align-items: center; }
+.cr-modal-header h3 { margin: 0; font-family: var(--font-heading-family); font-size: 1.4rem; color: var(--color-heading); }
+.cr-modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; line-height: 1; padding: 0; color: #999; transition: color 0.2s; }
+.cr-modal-close:hover { color: #111; }
+.cr-modal-body { padding: 24px; }
+.cr-modal-sub { margin-top: 0; margin-bottom: 20px; font-size: 0.9rem; color: var(--color-text); opacity: 0.8; }
+.cr-field { margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
+.cr-field label { font-size: 0.85rem; font-weight: 600; color: var(--color-heading); }
+.cr-field input, .cr-field select, .cr-field textarea { width: 100%; padding: 12px; border: 1px solid var(--color-border, #ddd); border-radius: var(--radius-md, 8px); font-family: inherit; font-size: 1rem; }
+.cr-field input:focus, .cr-field select:focus, .cr-field textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 2px rgba(198,154,124,0.2); }
+.cr-modal-actions { margin-top: 24px; margin-bottom: 0; }
+.cr-modal-actions .cr-write-btn { width: 100%; font-size: 1rem; }
 </style>
 
 <script>
@@ -404,6 +528,26 @@
   document.querySelectorAll('[data-clear-filter]').forEach(function(btn) {
     btn.addEventListener('click', function() { applyFilter(null); });
   });
+
+  // Read more toggle logic
+  function checkReadMore() {
+    var textElements = document.querySelectorAll('.review-card__text');
+    textElements.forEach(function(el) {
+      if (el.scrollHeight > el.clientHeight) {
+        // Needs a read more button
+        var btn = el.nextElementSibling;
+        if (btn && btn.classList.contains('review-card__read-more')) {
+          btn.style.display = 'block';
+        }
+      }
+    });
+  }
+  // Wait for fonts to load then check
+  if (document.readyState === 'complete') {
+    checkReadMore();
+  } else {
+    window.addEventListener('load', checkReadMore);
+  }
 })();
 </script>
 
@@ -419,69 +563,9 @@
     },
     {
       "type": "text",
-      "id": "aggregate_score",
-      "label": "Overall rating score",
-      "default": "5"
-    },
-    {
-      "type": "range",
-      "id": "five_star_pct",
-      "min": 0, "max": 100, "step": 5, "default": 100,
-      "label": "5-star bar %"
-    },
-    {
-      "type": "text",
-      "id": "five_star_count",
-      "label": "5-star count",
-      "default": "2"
-    },
-    {
-      "type": "range",
-      "id": "four_star_pct",
-      "min": 0, "max": 100, "step": 5, "default": 0,
-      "label": "4-star bar %"
-    },
-    {
-      "type": "text",
-      "id": "four_star_count",
-      "label": "4-star count",
-      "default": "0"
-    },
-    {
-      "type": "range",
-      "id": "three_star_pct",
-      "min": 0, "max": 100, "step": 5, "default": 0,
-      "label": "3-star bar %"
-    },
-    {
-      "type": "text",
-      "id": "three_star_count",
-      "label": "3-star count",
-      "default": "0"
-    },
-    {
-      "type": "range",
-      "id": "two_star_pct",
-      "min": 0, "max": 100, "step": 5, "default": 0,
-      "label": "2-star bar %"
-    },
-    {
-      "type": "text",
-      "id": "two_star_count",
-      "label": "2-star count",
-      "default": "0"
-    },
-    {
-      "type": "range",
-      "id": "one_star_pct",
-      "min": 0, "max": 100, "step": 5, "default": 0,
-      "label": "1-star bar %"
-    },
-    {
-      "type": "text",
-      "id": "one_star_count",
-      "label": "1-star count",
-      "default": "0"
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Customer reviews"
     },
     {
       "type": "url",
@@ -527,7 +611,22 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Review photo (optional)"
+          "label": "Review photo 1 (optional)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Review photo 2 (optional)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Review photo 3 (optional)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Review photo 4 (optional)"
         },
         {
           "type": "url",
