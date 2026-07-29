@@ -10,15 +10,19 @@
     {%- assign review_count = section.blocks.size -%}
 
     {%- for block in section.blocks -%}
-      {%- assign block_rating = block.settings.rating | times: 1 -%}
+      {%- assign block_rating = block.settings.rating | plus: 0 -%}
       {%- assign total_rating = total_rating | plus: block_rating -%}
-      {%- case block_rating -%}
-        {%- when 5 -%}{%- assign five_star = five_star | plus: 1 -%}
-        {%- when 4 -%}{%- assign four_star = four_star | plus: 1 -%}
-        {%- when 3 -%}{%- assign three_star = three_star | plus: 1 -%}
-        {%- when 2 -%}{%- assign two_star = two_star | plus: 1 -%}
-        {%- when 1 -%}{%- assign one_star = one_star | plus: 1 -%}
-      {%- endcase -%}
+      {%- if block_rating == 5 -%}
+        {%- assign five_star = five_star | plus: 1 -%}
+      {%- elsif block_rating == 4 -%}
+        {%- assign four_star = four_star | plus: 1 -%}
+      {%- elsif block_rating == 3 -%}
+        {%- assign three_star = three_star | plus: 1 -%}
+      {%- elsif block_rating == 2 -%}
+        {%- assign two_star = two_star | plus: 1 -%}
+      {%- elsif block_rating == 1 -%}
+        {%- assign one_star = one_star | plus: 1 -%}
+      {%- endif -%}
     {%- endfor -%}
 
     {%- if review_count > 0 -%}
@@ -76,7 +80,7 @@
           {%- if section.settings.review_link != blank -%}
             <a href="{{ section.settings.review_link }}" class="cr-write-btn" target="_blank" rel="noopener">Write a Review</a>
           {%- else -%}
-            <button class="cr-write-btn" type="button" onclick="document.getElementById('cr-modal-{{ section.id }}').showModal()">Write a Review</button>
+            <button class="cr-write-btn" type="button" onclick="const jmBtn = document.querySelector('.jdgm-write-rev-link'); if (jmBtn) { jmBtn.click(); } else { alert('Please enable the Judge.me widget on this page first to write a review!'); }">Write a Review</button>
           {%- endif -%}
         </div>
       </div>
