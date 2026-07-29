@@ -4,14 +4,15 @@
       "type": "hero-banner",
       "settings": {
         "image": "shopify://shop_images/Website_image_3.jpg",
+        "overlay_opacity": 20,
         "badge_text": "",
-        "heading": "Safe, Soothing Teethers for",
-        "accent_text": "Your Little One",
-        "text": "<p>Discover our premium collection of non-toxic, beautifully designed teethers trusted by parents across the UK.</p>",
-        "button_label": "Shop Now",
+        "heading": "Safe, Montessori-inspired teether",
+        "accent_text": "for Little One",
+        "text": "",
+        "button_label": "Shop all",
         "button_link": "shopify://collections/all",
-        "button_2_label": "Our Story",
-        "button_2_link": "shopify://pages/our-story",
+        "button_2_label": "",
+        "button_2_link": "",
         "bg_color": "#fbf0e8"
       }
     },

@@ -1,17 +1,24 @@
-<section class="hero-banner" style="background-color: {{ section.settings.bg_color }};">
-  <div class="hero-banner__container">
+<section class="hero-banner" style="position: relative; overflow: hidden; {% if section.settings.bg_color != blank %}background-color: {{ section.settings.bg_color }};{% endif %}">
+  {%- if section.settings.image != blank -%}
+    <img src="{{ section.settings.image | image_url: width: 2000 }}"
+         alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}"
+         loading="eager"
+         class="hero-banner__bg-image">
+  {%- endif -%}
+  
+  <div class="hero-banner__overlay" style="opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"></div>
 
-    <!-- Text Column -->
-    <div class="hero-banner__content">
+  <div class="hero-banner__container">
+    <div class="hero-banner__content-box animate-on-scroll">
       {%- if section.settings.badge_text != blank -%}
-        <span class="section-label animate-on-scroll">
+        <span class="section-label" style="justify-content: center;">
           <span>✦</span>
           {{ section.settings.badge_text }}
         </span>
       {%- endif -%}
 
       {%- if section.settings.heading != blank -%}
-        <h1 class="hero-banner__heading animate-on-scroll delay-1">
+        <h1 class="hero-banner__heading">
           {{ section.settings.heading }}
           {%- if section.settings.accent_text != blank -%}
             <em class="hero-banner__accent">{{ section.settings.accent_text }}</em>
@@ -20,12 +27,12 @@
       {%- endif -%}
 
       {%- if section.settings.text != blank -%}
-        <div class="hero-banner__text animate-on-scroll delay-2">
+        <div class="hero-banner__text">
           {{ section.settings.text }}
         </div>
       {%- endif -%}
 
-      <div class="hero-banner__actions animate-on-scroll delay-3">
+      <div class="hero-banner__actions">
         {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
           <a href="{{ section.settings.button_link }}" class="button">
             {{ section.settings.button_label }}
@@ -33,99 +40,79 @@
           </a>
         {%- endif -%}
         {%- if section.settings.button_2_label != blank and section.settings.button_2_link != blank -%}
-          <a href="{{ section.settings.button_2_link }}" class="button button--outline">
+          <a href="{{ section.settings.button_2_link }}" class="button button--outline" style="background: rgba(255,255,255,0.8);">
             {{ section.settings.button_2_label }}
           </a>
         {%- endif -%}
       </div>
-
-      <!-- Trust row -->
-      <div class="hero-banner__trust animate-on-scroll delay-4">
-        <span class="hero-banner__trust-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          BPA Free
-        </span>
-        <span class="hero-banner__trust-sep">·</span>
-        <span class="hero-banner__trust-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          UK Designed
-        </span>
-        <span class="hero-banner__trust-sep">·</span>
-        <span class="hero-banner__trust-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          30-Day Returns
-        </span>
-      </div>
     </div>
-
-    <!-- Image Column -->
-    <div class="hero-banner__image-col animate-on-scroll delay-2">
-      <div class="hero-banner__image-blob"></div>
-      <div class="hero-banner__image-frame">
-        {%- if section.settings.image != blank -%}
-          <img src="{{ section.settings.image | image_url: width: 900 }}"
-               alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}"
-               width="{{ section.settings.image.width }}"
-               height="{{ section.settings.image.height }}"
-               loading="eager"
-               class="hero-banner__image">
-        {%- else -%}
-          <div class="hero-banner__placeholder">
-            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
-          </div>
-        {%- endif -%}
-      </div>
-    </div>
-
   </div>
 </section>
 
 <style>
 /* ---- Hero Shell ---- */
 .hero-banner {
-  overflow: hidden;
   position: relative;
-  padding: var(--spacing-xl) 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
 }
 @media screen and (max-width: 767px) {
-  .hero-banner { padding: var(--spacing-lg) 0 var(--spacing-md); }
+  .hero-banner { min-height: 70vh; padding: var(--spacing-xl) 0; }
+}
+
+.hero-banner__bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero-banner__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 1;
 }
 
 /* ---- Grid ---- */
 .hero-banner__container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
   max-width: 1240px;
   margin: 0 auto;
   padding: 0 var(--spacing-md);
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-lg);
-  align-items: center;
-}
-@media screen and (max-width: 767px) {
-  .hero-banner__container { padding: 0 var(--spacing-sm); gap: var(--spacing-md); }
-}
-@media screen and (min-width: 768px) {
-  .hero-banner__container {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-xl);
-    min-height: 75vh;
-  }
-}
-@media screen and (min-width: 1024px) {
-  .hero-banner__container {
-    grid-template-columns: 1.1fr 0.9fr;
-  }
+  display: flex;
+  justify-content: center;
 }
 
 /* ---- Content ---- */
-.hero-banner__content {
+.hero-banner__content-box {
+  background: rgba(255, 255, 255, 0.9);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  border-radius: var(--radius-xl);
+  max-width: 700px;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-lg);
 }
 @media screen and (max-width: 767px) {
-  .hero-banner__content { align-items: center; text-align: center; }
+  .hero-banner__content-box {
+    padding: var(--spacing-lg) var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-md);
+  }
 }
 
 .hero-banner__heading {
@@ -136,7 +123,6 @@
   color: var(--color-heading);
   margin-bottom: var(--spacing-sm);
   margin-top: var(--spacing-xs);
-  max-width: 580px;
 }
 .hero-banner__accent {
   display: block;
@@ -145,112 +131,39 @@
   color: var(--color-primary);
 }
 .hero-banner__text {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: var(--color-text);
-  line-height: 1.7;
-  max-width: 460px;
+  line-height: 1.6;
   margin-bottom: var(--spacing-md);
-  opacity: 0.9;
 }
 
 /* Buttons row */
 .hero-banner__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-md);
-}
-@media screen and (max-width: 767px) {
-  .hero-banner__actions { justify-content: center; }
-}
-
-/* Trust row */
-.hero-banner__trust {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.78rem;
-  color: var(--color-text);
-  opacity: 0.75;
-}
-.hero-banner__trust-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-weight: 500;
-}
-.hero-banner__trust-item svg { color: var(--color-primary); flex-shrink: 0; }
-.hero-banner__trust-sep { opacity: 0.4; }
-@media screen and (max-width: 767px) {
-  .hero-banner__trust { justify-content: center; }
-}
-
-/* ---- Image Column ---- */
-.hero-banner__image-col {
-  position: relative;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  order: -1;
-}
-@media screen and (min-width: 768px) {
-  .hero-banner__image-col { order: 0; }
-}
-
-/* Decorative blob */
-.hero-banner__image-blob {
-  position: absolute;
-  width: 88%;
-  height: 88%;
-  background: var(--color-skin-light);
-  border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
-  z-index: 0;
-  top: 6%;
-  left: 6%;
-}
-
-/* Image frame */
-.hero-banner__image-frame {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 480px;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  animation: float 7s ease-in-out infinite;
-}
-@media screen and (max-width: 767px) {
-  .hero-banner__image-frame { max-width: 300px; border-radius: var(--radius-lg); }
-}
-
-.hero-banner__image {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: inherit;
-}
-
-.hero-banner__placeholder {
-  aspect-ratio: 4/5;
-  background: var(--color-skin-light);
-}
-.hero-banner__placeholder svg {
-  width: 100%;
-  height: 100%;
-  fill: rgba(0,0,0,0.06);
+  gap: var(--spacing-sm);
 }
 </style>
 
 {% schema %}
 {
-  "name": "Asymmetrical Hero",
+  "name": "Full Width Hero",
   "settings": [
     {
       "type": "image_picker",
       "id": "image",
       "label": "Hero image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Image overlay opacity",
+      "default": 20
     },
     {
       "type": "text",
@@ -301,13 +214,13 @@
     {
       "type": "color",
       "id": "bg_color",
-      "label": "Background colour",
+      "label": "Background fallback colour",
       "default": "#FBF0E8"
     }
   ],
   "presets": [
     {
-      "name": "Asymmetrical Hero"
+      "name": "Full Width Hero"
     }
   ]
 }

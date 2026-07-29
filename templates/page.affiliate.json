@@ -1,17 +1,17 @@
 {
   "sections": {
-    "main": {
-      "type": "main-page"
-    },
     "banner": {
       "type": "hero-banner",
       "settings": {
-        "heading": "Become a Brand Ambassador",
-        "text": "<p>Join our affiliate program and earn commissions on every sale you refer.</p>",
+        "heading": "Affiliate Program",
+        "text": "<p>Join our affiliate program and earn commissions on every sale you refer.<\/p>",
         "button_label": "Apply Now",
         "button_link": "#apply",
-        "bg_color": "#fcfcfc"
+        "bg_color": "#FBF0E8"
       }
+    },
+    "main": {
+      "type": "main-page"
     },
     "rich_text": {
       "type": "rich-text",
@@ -26,11 +26,14 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>1. Sign up for free<br>2. Share your unique link or code<br>3. Earn commission on successful referrals</p>"
+            "text": "<p>1. Sign up for free<br>2. Share your unique link or code<br>3. Earn commission on successful referrals<\/p>"
           }
         }
       },
-      "block_order": ["heading", "text"]
+      "block_order": [
+        "heading",
+        "text"
+      ]
     }
   },
   "order": [
