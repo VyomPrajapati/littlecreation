@@ -13,18 +13,16 @@
         {%- if page.handle contains 'safety' or page.title contains 'Safety' -%}
           <div class="main-page__content rte animate-on-scroll delay-1">
             
+            {%- if page.content != blank -%}
+              {{ page.content }}
+            {%- else -%}
+
             <!-- 1. Starting Full Horizontal Hero Banner Placeholder -->
             <div class="safety-hero-placeholder">
               <span class="safety-img-placeholder__icon">🖼️</span>
               <strong>[ Hero Banner Image Placeholder: Upload Full-Width Top Banner Photo ]</strong>
               <span>Recommended size: 1200 x 500 px</span>
             </div>
-
-            {%- if page.content != blank -%}
-              <div class="user-admin-content mb-lg">
-                {{ page.content }}
-              </div>
-            {%- endif -%}
 
             <div class="safety-banner-box">
               <h2>Our Commitment to Safety</h2>
@@ -134,7 +132,7 @@
                 <li>📄 <a href="#" target="_blank" rel="noopener" class="pdf-link">Swan Wooden Ring Teether Declaration</a></li>
               </ul>
             </div>
-
+            {%- endif -%}
           </div>
         {%- elsif page.content != blank -%}
           <div class="main-page__content rte animate-on-scroll delay-1">
