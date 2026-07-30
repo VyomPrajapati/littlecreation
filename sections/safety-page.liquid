@@ -23,29 +23,32 @@
       {% endif %}
 
       <!-- 2. Commitment Box -->
-      {% if section.settings.commitment_heading != blank or section.settings.commitment_text != blank %}
-        <div class="safety-banner-box">
-          <h2>{{ section.settings.commitment_heading }}</h2>
-          <div class="rte">
+      <div class="safety-banner-box">
+        <h2>{{ section.settings.commitment_heading | default: 'Our Commitment to Safety' }}</h2>
+        <div class="rte">
+          {% if section.settings.commitment_text != blank %}
             {{ section.settings.commitment_text }}
-          </div>
+          {% else %}
+            <p>At Little Creation, your little one's safety and well-being is always at the heart of what we do. We use exclusively <strong>100% Premium Food-Grade Platinum Silicone</strong> across our entire teether collection — completely free from BPA, BPS, PVC, phthalates, lead, latex, and heavy metals.</p>
+            <p>Every product undergoes strict, independent lab testing to meet and exceed <strong>UK (UKCA)</strong> and <strong>EU (EN71-1, 2, 3)</strong> safety standards. Whether it is playtime or teething time, you can trust that every Little Creation piece is made to be 100% safe, gentle, and worry-free for your baby.</p>
+          {% endif %}
         </div>
-      {% endif %}
+      </div>
 
       <!-- 3. Why Parents Love Silicone -->
-      {% if section.settings.silicone_heading != blank or section.settings.silicone_text != blank %}
-        <div class="safety-silicone-intro mb-lg">
-          <h3>{{ section.settings.silicone_heading }}</h3>
-          <div class="rte">
+      <div class="safety-silicone-intro mb-lg">
+        <h3>{{ section.settings.silicone_heading | default: "Why Parents & Specialists Love Silicone" }}</h3>
+        <div class="rte">
+          {% if section.settings.silicone_text != blank %}
             {{ section.settings.silicone_text }}
-          </div>
+          {% else %}
+            <p>Food-grade platinum silicone is soft, resilient, and baby-tough. Formulated from natural silica elements, it provides the ideal balance of gentle flexibility to comfort tender gums without sacrificing durability. From cooling teethers to rattles, silicone is non-porous, naturally hygienic, and effortless to clean.</p>
+          {% endif %}
         </div>
-      {% endif %}
+      </div>
 
       <!-- 4. Feature Table -->
-      {% if section.settings.table_heading != blank %}
-        <h3>{{ section.settings.table_heading }}</h3>
-      {% endif %}
+      <h3>{{ section.settings.table_heading | default: "Why We're All About Platinum Silicone" }}</h3>
       
       <div class="safety-table-wrap">
         <table class="safety-table">
@@ -59,23 +62,23 @@
           <tbody>
             <tr>
               <td><strong>1</strong></td>
-              <td><strong>{{ section.settings.feature_1_title }}</strong></td>
-              <td>{{ section.settings.feature_1_desc }}</td>
+              <td><strong>{{ section.settings.feature_1_title | default: "Flexible & Durable" }}</strong></td>
+              <td>{{ section.settings.feature_1_desc | default: "Built for daily baby life. Resists cracks, scuffs, and fading — even after endless washes, intense teething bites, and floor drops." }}</td>
             </tr>
             <tr>
               <td><strong>2</strong></td>
-              <td><strong>{{ section.settings.feature_2_title }}</strong></td>
-              <td>{{ section.settings.feature_2_desc }}</td>
+              <td><strong>{{ section.settings.feature_2_title | default: "Heat & Cold Resistant" }}</strong></td>
+              <td>{{ section.settings.feature_2_desc | default: "From refrigerator cooling to boiling water sanitization — withstands extreme temperatures without warping, melting, or degrading." }}</td>
             </tr>
             <tr>
               <td><strong>3</strong></td>
-              <td><strong>{{ section.settings.feature_3_title }}</strong></td>
-              <td>{{ section.settings.feature_3_desc }}</td>
+              <td><strong>{{ section.settings.feature_3_title | default: "Bacteria & Odor Resistant" }}</strong></td>
+              <td>{{ section.settings.feature_3_desc | default: "Non-porous molecular structure means zero micro-cracks for moisture or germs to hide. Naturally repels odors and stays fresh." }}</td>
             </tr>
             <tr>
               <td><strong>4</strong></td>
-              <td><strong>{{ section.settings.feature_4_title }}</strong></td>
-              <td>{{ section.settings.feature_4_desc }}</td>
+              <td><strong>{{ section.settings.feature_4_title | default: "UKCA & EN71 Certified" }}</strong></td>
+              <td>{{ section.settings.feature_4_desc | default: "Independently tested by accredited safety labs to exceed UK (UKCA) and European (EN71) child toy safety requirements." }}</td>
             </tr>
           </tbody>
         </table>
@@ -88,7 +91,7 @@
             <img src="{{ section.settings.grid_image_1 | image_url: width: 600 }}" alt="{{ section.settings.feature_1_title }}" class="safety-grid-img">
           {% else %}
             <span class="safety-img-placeholder__icon">📷</span>
-            <strong>[ {{ section.settings.feature_1_title }} ]</strong>
+            <strong>[ {{ section.settings.feature_1_title | default: "Flexible & Durable" }} ]</strong>
             <span>Upload photo on right sidebar</span>
           {% endif %}
         </div>
@@ -97,7 +100,7 @@
             <img src="{{ section.settings.grid_image_2 | image_url: width: 600 }}" alt="{{ section.settings.feature_2_title }}" class="safety-grid-img">
           {% else %}
             <span class="safety-img-placeholder__icon">📷</span>
-            <strong>[ {{ section.settings.feature_2_title }} ]</strong>
+            <strong>[ {{ section.settings.feature_2_title | default: "Heat & Cold Resistant" }} ]</strong>
             <span>Upload photo on right sidebar</span>
           {% endif %}
         </div>
@@ -106,7 +109,7 @@
             <img src="{{ section.settings.grid_image_3 | image_url: width: 600 }}" alt="{{ section.settings.feature_3_title }}" class="safety-grid-img">
           {% else %}
             <span class="safety-img-placeholder__icon">📷</span>
-            <strong>[ {{ section.settings.feature_3_title }} ]</strong>
+            <strong>[ {{ section.settings.feature_3_title | default: "Bacteria & Odor Free" }} ]</strong>
             <span>Upload photo on right sidebar</span>
           {% endif %}
         </div>
@@ -115,40 +118,51 @@
             <img src="{{ section.settings.grid_image_4 | image_url: width: 600 }}" alt="{{ section.settings.feature_4_title }}" class="safety-grid-img">
           {% else %}
             <span class="safety-img-placeholder__icon">📷</span>
-            <strong>[ {{ section.settings.feature_4_title }} ]</strong>
+            <strong>[ {{ section.settings.feature_4_title | default: "UKCA & EN71 Certified" }} ]</strong>
             <span>Upload photo on right sidebar</span>
           {% endif %}
         </div>
       </div>
 
       <!-- 6. Understanding Silicone Purity -->
-      {% if section.settings.purity_heading != blank or section.settings.purity_text != blank %}
-        <div class="safety-purity-section mb-xl">
-          <h3>{{ section.settings.purity_heading }}</h3>
-          <div class="rte">
+      <div class="safety-purity-section mb-xl">
+        <h3>{{ section.settings.purity_heading | default: "Understanding Platinum Silicone Purity" }}</h3>
+        <div class="rte">
+          {% if section.settings.purity_text != blank %}
             {{ section.settings.purity_text }}
-          </div>
-        </div>
-      {% endif %}
-
-      <!-- 7. FAQ Section -->
-      {% if section.settings.faq_heading != blank or section.settings.faq_text != blank %}
-        <div class="safety-faq-card">
-          <h4>{{ section.settings.faq_heading }}</h4>
-          <div class="rte">
-            {{ section.settings.faq_text }}
-          </div>
-
-          {% if section.settings.boil_guide_heading != blank or section.settings.boil_guide_text != blank %}
-            <div class="safety-boil-guide">
-              <h5>{{ section.settings.boil_guide_heading }}</h5>
-              <div class="rte">
-                {{ section.settings.boil_guide_text }}
-              </div>
-            </div>
+          {% else %}
+            <p>Not all silicone is created equal. Little Creation uses <strong>100% Platinum-Cured Food-Grade Silicone</strong> — the highest standard of silicone purity. Unlike lower-grade silicones cured with peroxide, platinum curing leaves zero chemical fillers or residues behind.</p>
+            <p>Every single production batch is independently inspected and tested so you can give our products to your baby with absolute peace of mind.</p>
           {% endif %}
         </div>
-      {% endif %}
+      </div>
+
+      <!-- 7. FAQ Section -->
+      <div class="safety-faq-card">
+        <h4>{{ section.settings.faq_heading | default: "FAQ: Why does new silicone sometimes have a slight packaging scent?" }}</h4>
+        <div class="rte">
+          {% if section.settings.faq_text != blank %}
+            {{ section.settings.faq_text }}
+          {% else %}
+            <p>You might notice a subtle "fresh" scent when unboxing your new Little Creation products. This is completely normal, harmless, and safe.</p>
+            <p><strong>The Science:</strong> Our 100% Platinum Silicone is cured at high temperatures during manufacturing. Because items are hygienically sealed immediately after cooling to protect them during transit, natural warm air can remain trapped inside the airtight package.</p>
+            <p>This is <em>not</em> toxic chemical off-gassing. It is simply trapped air from the thermal stabilization process.</p>
+          {% endif %}
+        </div>
+
+        <div class="safety-boil-guide">
+          <h5>{{ section.settings.boil_guide_heading | default: "How to refresh it instantly:" }}</h5>
+          <div class="rte">
+            {% if section.settings.boil_guide_text != blank %}
+              {{ section.settings.boil_guide_text }}
+            {% else %}
+              <p><strong>♨️ The 5-Minute Boil Test:</strong> Place the silicone product in a pot of boiling water for 5 minutes.</p>
+              <p><strong>🌬️ Air Dry:</strong> Allow it to air dry completely in a clean, ventilated area.</p>
+              <p>The gentle heat allows any residual trapped moisture to evaporate, leaving pure, completely odorless silicone.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
 
       <!-- 8. Declaration of Conformity Section -->
       <div id="declaration-of-conformity" style="margin-top: 48px; padding-top: 32px; border-top: 1.5px solid var(--color-border, #E8D5C4);">
