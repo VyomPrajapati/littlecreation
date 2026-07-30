@@ -141,7 +141,9 @@
             
             <div class="review-card__text-wrap">
               <p class="review-card__text">{{ block.settings.text }}</p>
-              <button class="review-card__read-more" type="button" onclick="this.previousElementSibling.classList.toggle('is-expanded'); this.textContent = this.textContent === 'Read more' ? 'Read less' : 'Read more';">Read more</button>
+              {%- if block.settings.text.size > 90 -%}
+                <button class="review-card__read-more" type="button" onclick="this.previousElementSibling.classList.toggle('is-expanded'); this.textContent = this.textContent === 'Read more' ? 'Read less' : 'Read more';">Read more</button>
+              {%- endif -%}
             </div>
 
             <div class="review-card__author-row">
@@ -456,9 +458,10 @@
 .star--empty  { color: #E0D5C8; font-size: 1rem; }
 
 .review-card__text-wrap { display: flex; flex-direction: column; align-items: flex-start; flex: 1; min-height: 0; }
-.review-card__text { font-size: 0.9rem; line-height: 1.65; color: var(--color-text); margin: 0; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; transition: all 0.3s ease; }
-.review-card__text.is-expanded { -webkit-line-clamp: unset; }
-.review-card__read-more { background: none; border: none; color: var(--color-primary); font-weight: 600; font-size: 0.85rem; padding: 0; margin-top: 8px; cursor: pointer; display: none; }
+.review-card__text { font-size: 0.9rem; line-height: 1.6; color: var(--color-text); margin: 0; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; transition: all 0.3s ease; }
+.review-card__text.is-expanded { -webkit-line-clamp: unset; display: block; }
+.review-card__read-more { background: none; border: none; color: var(--color-primary-dark, #A07855); font-weight: 700; font-size: 0.82rem; padding: 0; margin-top: 6px; cursor: pointer; display: inline-block; text-decoration: underline; text-underline-offset: 3px; }
+.review-card__read-more:hover { color: var(--color-heading, #111111); }
 .review-card__author-row { display: flex; align-items: center; gap: 10px; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--color-border, #E8D5C4); }
 .review-card__avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--color-secondary, #E0B898), var(--color-primary, #C69A7C)); color: #fff; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .review-card__meta { flex: 1; min-width: 0; }
