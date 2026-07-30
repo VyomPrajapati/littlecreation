@@ -7,13 +7,13 @@
 {%- assign product_tags_lower = product.tags | join: ',' | downcase -%}
 {%- assign product_title_lower = product.title | downcase -%}
 
-{%- if product_tags_lower contains 'water-filled' or product_tags_lower contains 'water_filled' or product_tags_lower contains 'water' -%}
+{%- if product_tags_lower contains 'cooling' or product_tags_lower contains 'cooling-teether' or product_tags_lower contains 'water-filled' or product_tags_lower contains 'water' -%}
   {%- assign spec_type = 'water_filled' -%}
 {%- elsif product_tags_lower contains 'swan' or product_tags_lower contains 'swan-wooden' or product_tags_lower contains 'swan_wooden' or product_tags_lower contains 'wooden' or product_tags_lower contains 'wood' -%}
   {%- assign spec_type = 'swan_wooden' -%}
 {%- elsif product_tags_lower contains 'rattle' or product_tags_lower contains 'lion' -%}
   {%- assign spec_type = 'rattle' -%}
-{%- elsif product_title_lower contains 'water' -%}
+{%- elsif product_title_lower contains 'cooling' or product_title_lower contains 'water' -%}
   {%- assign spec_type = 'water_filled' -%}
 {%- elsif product_title_lower contains 'swan' or product_title_lower contains 'wood' -%}
   {%- assign spec_type = 'swan_wooden' -%}

@@ -8,14 +8,14 @@
 {%- assign product_title_lower = product.title | downcase -%}
 
 {%- comment -%} Check Product Tags First {%- endcomment -%}
-{%- if product_tags_lower contains 'water-filled' or product_tags_lower contains 'water_filled' or product_tags_lower contains 'water' -%}
+{%- if product_tags_lower contains 'cooling' or product_tags_lower contains 'cooling-teether' or product_tags_lower contains 'water-filled' or product_tags_lower contains 'water' -%}
   {%- assign cleaning_type = 'water_filled' -%}
 {%- elsif product_tags_lower contains 'swan-wooden' or product_tags_lower contains 'swan_wooden' or product_tags_lower contains 'wooden' or product_tags_lower contains 'wood' or product_tags_lower contains 'swan' -%}
   {%- assign cleaning_type = 'swan_wooden' -%}
 {%- elsif product_tags_lower contains 'rattle' -%}
   {%- assign cleaning_type = 'rattle' -%}
 {%- comment -%} Fallback to Title Keyword Matching if no tags present {%- endcomment -%}
-{%- elsif product_title_lower contains 'water' -%}
+{%- elsif product_title_lower contains 'cooling' or product_title_lower contains 'water' -%}
   {%- assign cleaning_type = 'water_filled' -%}
 {%- elsif product_title_lower contains 'swan' or product_title_lower contains 'wood' -%}
   {%- assign cleaning_type = 'swan_wooden' -%}
@@ -36,7 +36,7 @@
           <h3 class="cleaning-card__heading">Cleaning & Care Instructions</h3>
           <span class="cleaning-card__subheading">
             {% if cleaning_type == 'water_filled' %}
-              Water-Filled Teether Care Guide
+              Cooling Teether Care Guide
             {% elsif cleaning_type == 'swan_wooden' %}
               Swan Wooden Teether Care Guide
             {% else %}
@@ -53,11 +53,11 @@
     <div class="cleaning-card__content">
 
       {% if cleaning_type == 'water_filled' %}
-        <!-- 1. WATER-FILLED TEETHER INSTRUCTIONS -->
+        <!-- 1. COOLING TEETHER INSTRUCTIONS -->
         <div class="cleaning-card__section">
           <div class="cleaning-badges">
-            <span class="cleaning-badge cleaning-badge--info">💧 Water-Filled</span>
-            <span class="cleaning-badge cleaning-badge--warn">❄️ Refrigerator Only</span>
+            <span class="cleaning-badge cleaning-badge--info">❄️ Cooling Teether</span>
+            <span class="cleaning-badge cleaning-badge--warn">🧊 Refrigerator Only</span>
             <span class="cleaning-badge cleaning-badge--alert">🚫 Do Not Boil</span>
           </div>
 

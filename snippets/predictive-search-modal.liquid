@@ -9,6 +9,7 @@
   <div class="search-modal__content">
     <div class="search-modal__header">
       <form action="{{ routes.search_url }}" method="get" role="search" class="search-modal__form">
+        <input type="hidden" name="type" value="product">
         <span class="search-modal__form-icon" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         </span>
@@ -32,7 +33,7 @@
     <div class="search-modal__quick-tags">
       <span class="search-modal__quick-label">Popular Searches:</span>
       <button type="button" class="search-tag" data-quick-search="Rattle">🧸 Rattle Teether</button>
-      <button type="button" class="search-tag" data-quick-search="Water">💧 Water-Filled</button>
+      <button type="button" class="search-tag" data-quick-search="Cooling">❄️ Cooling Teether</button>
       <button type="button" class="search-tag" data-quick-search="Swan">🪵 Swan Wooden</button>
     </div>
 
@@ -308,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Predictive API Fetch
+  // Predictive API Fetch with Safe Fallback
   let debounceTimer;
   function handleSearch(query) {
     clearTimeout(debounceTimer);
@@ -320,34 +321,62 @@ document.addEventListener('DOMContentLoaded', () => {
     debounceTimer = setTimeout(() => {
       searchResults.innerHTML = '<div class="search-modal__initial-state"><p>Searching products...</p></div>';
 
-      fetch(`/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=6`)
-        .then(res => res.json())
-        .then(data => {
-          const products = data.resources?.results?.products || [];
-          if (!products.length) {
-            searchResults.innerHTML = `<div class="search-modal__initial-state"><p>No products found for "${query}".</p></div>`;
-            return;
-          }
+      const predictiveUrl = `{{ routes.predictive_search_url }}?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=8`;
+      const fallbackUrl = `{{ routes.search_url }}?q=${encodeURIComponent(query)}&type=product`;
 
-          let html = '<div class="search-modal__grid">';
-          products.forEach(p => {
-            html += `
-              <a href="${p.url}" class="search-modal__item">
-                <img src="${p.image || p.featured_image?.url || ''}" alt="${p.title}" class="search-modal__item-img" loading="lazy">
-                <div class="search-modal__item-info">
-                  <h5 class="search-modal__item-title">${p.title}</h5>
-                  <span class="search-modal__item-price">${p.price ? '£' + (p.price).toFixed(2) : ''}</span>
-                </div>
-              </a>
-            `;
-          });
-          html += '</div>';
-          searchResults.innerHTML = html;
+      fetch(predictiveUrl, { headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(res => {
+          if (!res.ok) throw new Error('Status ' + res.status);
+          return res.json();
         })
-        .catch(() => {
-          searchResults.innerHTML = '<div class="search-modal__initial-state"><p>Error fetching search results.</p></div>';
+        .then(data => {
+          const products = data.resources?.results?.products || data.products || [];
+          renderProducts(products, query, fallbackUrl);
+        })
+        .catch(err => {
+          console.warn('Predictive search fallback triggered:', err);
+          searchResults.innerHTML = `
+            <div class="search-modal__initial-state">
+              <p>Search for "<strong>${query}</strong>"</p>
+              <a href="${fallbackUrl}" class="button button--sm mt-sm">View All Results for "${query}" &rarr;</a>
+            </div>
+          `;
         });
-    }, 200);
+    }, 250);
+  }
+
+  function renderProducts(products, query, fallbackUrl) {
+    if (!products || !products.length) {
+      searchResults.innerHTML = `
+        <div class="search-modal__initial-state">
+          <p>No products found matching "<strong>${query}</strong>".</p>
+          <a href="${fallbackUrl}" class="button button--sm mt-sm" style="margin-top:12px;">Search Store for "${query}" &rarr;</a>
+        </div>
+      `;
+      return;
+    }
+
+    let html = '<div class="search-modal__grid">';
+    products.forEach(p => {
+      const img = p.image || p.featured_image?.url || p.featured_image || '';
+      let priceText = '';
+      if (typeof p.price === 'number') {
+        priceText = '£' + (p.price > 100 ? (p.price / 100).toFixed(2) : p.price.toFixed(2));
+      } else if (p.price) {
+        priceText = p.price;
+      }
+      html += `
+        <a href="${p.url}" class="search-modal__item">
+          <img src="${img}" alt="${p.title || ''}" class="search-modal__item-img" loading="lazy">
+          <div class="search-modal__item-info">
+            <h5 class="search-modal__item-title">${p.title}</h5>
+            ${priceText ? `<span class="search-modal__item-price">${priceText}</span>` : ''}
+          </div>
+        </a>
+      `;
+    });
+    html += '</div>';
+    searchResults.innerHTML = html;
   }
 });
 </script>
