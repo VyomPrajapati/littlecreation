@@ -59,8 +59,7 @@
           </div>
         </div>
 
-        <!-- Product Dimensions & Cleaning Instructions directly under security badges -->
-        {% render 'product-dimensions', product: product %}
+        <!-- Cleaning Instructions directly under security badges -->
         {% render 'cleaning-instructions', product: product %}
 
       </div>
@@ -141,6 +140,8 @@
               </div>
             {%- endform -%}
           </div>
+
+          {% render 'product-dimensions', product: product %}
 
         </div>
       </div>
