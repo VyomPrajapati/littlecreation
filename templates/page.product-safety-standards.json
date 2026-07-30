@@ -1,106 +1,50 @@
 {
   "sections": {
-    "safety_header": {
-      "type": "rich-text",
+    "safety": {
+      "type": "safety-page",
       "blocks": {
-        "heading_1": {
-          "type": "heading",
+        "doc_1": {
+          "type": "pdf_link",
           "settings": {
-            "heading": "Product Safety & Quality Commitment"
+            "title": "Safety module",
+            "pdf_url": ""
           }
         },
-        "text_1": {
-          "type": "text",
+        "doc_2": {
+          "type": "pdf_link",
           "settings": {
-            "text": "<p>At Little Creation, your baby’s safety and health are at the heart of everything we do. As a brand rooted in Montessori philosophy and maternal care, we refuse to compromise on material purity or safety testing. Every teether and rattle we produce undergoes rigorous quality control and lab testing to exceed UK, EU, and international baby safety standards.<\/p>"
+            "title": "Lion Rattle Teether Safety Declaration",
+            "pdf_url": ""
+          }
+        },
+        "doc_3": {
+          "type": "pdf_link",
+          "settings": {
+            "title": "Cooling Teether Safety Declaration",
+            "pdf_url": ""
+          }
+        },
+        "doc_4": {
+          "type": "pdf_link",
+          "settings": {
+            "title": "Swan Wooden Ring Teether Declaration",
+            "pdf_url": ""
           }
         }
       },
       "block_order": [
-        "heading_1",
-        "text_1"
+        "doc_1",
+        "doc_2",
+        "doc_3",
+        "doc_4"
       ],
       "settings": {
-        "bg_color": "#FBF0E8"
-      }
-    },
-    "silicone_standards": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_2": {
-          "type": "heading",
-          "settings": {
-            "heading": "Our Premium 100% Food-Grade Silicone"
-          }
-        },
-        "text_2": {
-          "type": "text",
-          "settings": {
-            "text": "<ul><li><strong>100% Non-Toxic & Food-Grade:<\/strong> Crafted exclusively from pure, premium-grade silicone certified safe for infant teething.<\/li><li><strong>100% Free From Harmful Chemicals:<\/strong> Guaranteed 0% BPA, BPS, PVC, Phthalates, Lead, Latex, or Cadmium.<\/li><li><strong>Hypoallergenic & Bacteria Resistant:<\/strong> Non-porous surface resists mold, fungus, and bacteria growth.<\/li><li><strong>Soft & Gentle on Gums:<\/strong> Perfectly calibrated flexibility to soothe swollen, tender gums without causing oral trauma.<\/li><\/ul>"
-          }
-        }
-      },
-      "block_order": [
-        "heading_2",
-        "text_2"
-      ],
-      "settings": {
-        "bg_color": "#FFFFFF"
-      }
-    },
-    "testing_certification": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_3": {
-          "type": "heading",
-          "settings": {
-            "heading": "UKCA & EN71 Independent Certification"
-          }
-        },
-        "text_3": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Every Little Creation product is independently tested by accredited safety laboratories to comply strictly with:<\/p><ul><li><strong>EN71-1, 2, 3:<\/strong> European Toy Safety Standards (Mechanical, Physical, Flammability, and Chemical migration properties).<\/li><li><strong>UKCA Standard:<\/strong> UK Conformity Assessed safety certification.<\/li><li><strong>FDA & LFGB Food Safety Standard:<\/strong> Meets the world’s strictest food contact safety benchmarks.<\/li><\/ul><p>We test for tear strength, bite endurance, choking hazard safety, and heavy metal migration so you can give our teethers to your baby with complete confidence.<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading_3",
-        "text_3"
-      ],
-      "settings": {
-        "bg_color": "#FBF0E8"
-      }
-    },
-    "care_durability": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_4": {
-          "type": "heading",
-          "settings": {
-            "heading": "Sanitisation & High Durability"
-          }
-        },
-        "text_4": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Our silicone products are built to last through intense daily use while remaining effortless to sanitize:<\/p><ul><li>Can be hand washed with warm soapy water.<\/li><li>Certain silicone teethers can be disinfected in boiling water or cooled in the refrigerator for extra soothing relief.<\/li><li>Resistant to extreme temperature variations without warping, cracking, or degrading.<\/li><\/ul>"
-          }
-        }
-      },
-      "block_order": [
-        "heading_4",
-        "text_4"
-      ],
-      "settings": {
-        "bg_color": "#FFFFFF"
+        "commitment_heading": "Our Commitment to Safety",
+        "silicone_heading": "Why Parents & Specialists Love Silicone"
       }
     }
   },
   "order": [
-    "safety_header",
-    "silicone_standards",
-    "testing_certification",
-    "care_durability"
+    "safety"
   ]
 }

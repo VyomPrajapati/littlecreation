@@ -1,0 +1,364 @@
+{%- comment -%}
+  Customizable Product Safety Standards & Commitment Section
+  Little Creation Theme
+{%- endcomment -%}
+
+<section class="safety-page-section section-padding" style="background-color: {{ section.settings.bg_color | default: '#FFFFFF' }};">
+  <div class="container">
+    <div class="safety-page__inner">
+
+      <!-- 1. Hero Image Banner -->
+      {% if section.settings.hero_image != blank %}
+        <div class="safety-hero-wrap">
+          <img src="{{ section.settings.hero_image | image_url: width: 1400 }}" 
+               alt="{{ section.settings.hero_image.alt | default: 'Product Safety Banner' }}" 
+               class="safety-hero-img" loading="eager">
+        </div>
+      {% else %}
+        <div class="safety-hero-placeholder">
+          <span class="safety-img-placeholder__icon">🖼️</span>
+          <strong>[ Hero Banner Image Placeholder: Upload Full-Width Top Banner Photo ]</strong>
+          <span>Select image in Theme Customizer sidebar on the left</span>
+        </div>
+      {% endif %}
+
+      <!-- Page Content from Shopify Admin Pages (if user types any text in Pages editor) -->
+      {% if page.content != blank %}
+        <div class="user-admin-content mb-xl rte">
+          {{ page.content }}
+        </div>
+      {% endif %}
+
+      <!-- 2. Commitment Box -->
+      <div class="safety-banner-box">
+        <h2>{{ section.settings.commitment_heading | default: 'Our Commitment to Safety' }}</h2>
+        <div class="rte">
+          {% if section.settings.commitment_text != blank %}
+            {{ section.settings.commitment_text }}
+          {% else %}
+            <p>At Little Creation, your little one's safety and well-being is always at the heart of what we do. We use exclusively <strong>100% Premium Food-Grade Platinum Silicone</strong> across our entire teether collection — completely free from BPA, BPS, PVC, phthalates, lead, latex, and heavy metals.</p>
+            <p>Every product undergoes strict, independent lab testing to meet and exceed <strong>UK (UKCA)</strong> and <strong>EU (EN71-1, 2, 3)</strong> safety standards. Whether it is playtime or teething time, you can trust that every Little Creation piece is made to be 100% safe, gentle, and worry-free for your baby.</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- 3. Why Parents Love Silicone -->
+      {% if section.settings.silicone_heading != blank or section.settings.silicone_text != blank %}
+        <div class="safety-silicone-intro mb-lg">
+          <h3>{{ section.settings.silicone_heading | default: "Why Parents & Specialists Love Silicone" }}</h3>
+          <div class="rte">
+            {{ section.settings.silicone_text | default: "<p>Food-grade platinum silicone is soft, resilient, and baby-tough. Formulated from natural silica elements, it provides the ideal balance of gentle flexibility to comfort tender gums without sacrificing durability.</p>" }}
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- 4. Feature Table -->
+      <h3>Why We're All About Platinum Silicone</h3>
+      <div class="safety-table-wrap">
+        <table class="safety-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Key Feature</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1</strong></td>
+              <td><strong>Flexible & Durable</strong></td>
+              <td>Built for daily baby life. Resists cracks, scuffs, and fading — even after endless washes, intense teething bites, and floor drops.</td>
+            </tr>
+            <tr>
+              <td><strong>2</strong></td>
+              <td><strong>Heat & Cold Resistant</strong></td>
+              <td>From refrigerator cooling to boiling water sanitization — withstands extreme temperatures without warping, melting, or degrading.</td>
+            </tr>
+            <tr>
+              <td><strong>3</strong></td>
+              <td><strong>Bacteria & Odor Resistant</strong></td>
+              <td>Non-porous molecular structure means zero micro-cracks for moisture or germs to hide. Naturally repels odors and stays fresh.</td>
+            </tr>
+            <tr>
+              <td><strong>4</strong></td>
+              <td><strong>UKCA & EN71 Certified</strong></td>
+              <td>Independently tested by accredited safety labs to exceed UK (UKCA) and European (EN71) child toy safety requirements.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 5. 4-Image Grid -->
+      <div class="safety-4grid">
+        <div class="safety-4grid__item">
+          {% if section.settings.grid_image_1 != blank %}
+            <img src="{{ section.settings.grid_image_1 | image_url: width: 600 }}" alt="Flexible & Durable" class="safety-grid-img">
+          {% else %}
+            <span class="safety-img-placeholder__icon">📷</span>
+            <strong>[ Image 1: Flexible & Durable ]</strong>
+            <span>Upload photo in Customizer</span>
+          {% endif %}
+        </div>
+        <div class="safety-4grid__item">
+          {% if section.settings.grid_image_2 != blank %}
+            <img src="{{ section.settings.grid_image_2 | image_url: width: 600 }}" alt="Heat & Cold Resistant" class="safety-grid-img">
+          {% else %}
+            <span class="safety-img-placeholder__icon">📷</span>
+            <strong>[ Image 2: Heat & Cold Resistant ]</strong>
+            <span>Upload photo in Customizer</span>
+          {% endif %}
+        </div>
+        <div class="safety-4grid__item">
+          {% if section.settings.grid_image_3 != blank %}
+            <img src="{{ section.settings.grid_image_3 | image_url: width: 600 }}" alt="Bacteria & Odor Free" class="safety-grid-img">
+          {% else %}
+            <span class="safety-img-placeholder__icon">📷</span>
+            <strong>[ Image 3: Bacteria & Odor Free ]</strong>
+            <span>Upload photo in Customizer</span>
+          {% endif %}
+        </div>
+        <div class="safety-4grid__item">
+          {% if section.settings.grid_image_4 != blank %}
+            <img src="{{ section.settings.grid_image_4 | image_url: width: 600 }}" alt="UKCA & EN71 Certified" class="safety-grid-img">
+          {% else %}
+            <span class="safety-img-placeholder__icon">📷</span>
+            <strong>[ Image 4: UKCA & EN71 Certified ]</strong>
+            <span>Upload photo in Customizer</span>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- 6. Understanding Silicone Purity -->
+      <div class="safety-purity-section mb-xl">
+        <h3>Understanding Platinum Silicone Purity</h3>
+        <p>Not all silicone is created equal. Little Creation uses <strong>100% Platinum-Cured Food-Grade Silicone</strong> — the highest standard of silicone purity. Unlike lower-grade silicones cured with peroxide, platinum curing leaves zero chemical fillers or residues behind.</p>
+        <p>Every single production batch is independently inspected and tested so you can give our products to your baby with absolute peace of mind.</p>
+      </div>
+
+      <!-- 7. FAQ Section -->
+      <div class="safety-faq-card">
+        <h4>FAQ: Why does new silicone sometimes have a slight packaging scent?</h4>
+        <p>You might notice a subtle "fresh" scent when unboxing your new Little Creation products. This is completely normal, harmless, and safe.</p>
+        <p><strong>The Science:</strong> Our 100% Platinum Silicone is cured at high temperatures during manufacturing. Because items are hygienically sealed immediately after cooling to protect them during transit, natural warm air can remain trapped inside the airtight package.</p>
+        <p>This is <em>not</em> toxic chemical off-gassing. It is simply trapped air from the thermal stabilization process.</p>
+
+        <div class="safety-boil-guide">
+          <h5>How to refresh it instantly:</h5>
+          <ul>
+            <li><strong>♨️ The 5-Minute Boil Test:</strong> Place the silicone product in a pot of boiling water for 5 minutes.</li>
+            <li><strong>🌬️ Air Dry:</strong> Allow it to air dry completely in a clean, ventilated area.</li>
+          </ul>
+          <p>The gentle heat allows any residual trapped moisture to evaporate, leaving pure, completely odorless silicone.</p>
+        </div>
+      </div>
+
+      <!-- 8. Declaration of Conformity Section -->
+      <div id="declaration-of-conformity" style="margin-top: 48px; padding-top: 32px; border-top: 1.5px solid var(--color-border, #E8D5C4);">
+        <h3>Declaration of Conformity</h3>
+        <p>Below are the official Declaration of Conformity documents for Little Creation products (click any document title to open the PDF in a new window):</p>
+        
+        <ul class="safety-pdf-list">
+          {% if section.blocks.size > 0 %}
+            {% for block in section.blocks %}
+              <li>📄 <a href="{{ block.settings.pdf_url | default: '#' }}" target="_blank" rel="noopener" class="pdf-link" {{ block.shopify_attributes }}><u>{{ block.settings.title | default: 'Safety Document' }}</u></a></li>
+            {% endfor %}
+          {% else %}
+            <li>📄 <a href="#" target="_blank" rel="noopener" class="pdf-link"><u>Safety module</u></a></li>
+            <li>📄 <a href="#" target="_blank" rel="noopener" class="pdf-link"><u>Lion Rattle Teether Safety Declaration</u></a></li>
+            <li>📄 <a href="#" target="_blank" rel="noopener" class="pdf-link"><u>Cooling Teether Safety Declaration</u></a></li>
+            <li>📄 <a href="#" target="_blank" rel="noopener" class="pdf-link"><u>Swan Wooden Ring Teether Declaration</u></a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.safety-page__inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.safety-hero-wrap {
+  width: 100%;
+  border-radius: var(--radius-xl, 24px);
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+.safety-hero-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+.safety-hero-placeholder {
+  width: 100%;
+  background: #F8FAFC;
+  border: 2px dashed #94A3B8;
+  border-radius: var(--radius-xl, 24px);
+  padding: 54px 20px;
+  text-align: center;
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #475569;
+}
+.safety-hero-placeholder strong {
+  font-size: 1.1rem;
+  color: #1E293B;
+}
+.safety-hero-placeholder span {
+  font-size: 0.85rem;
+  color: #64748B;
+}
+
+.safety-banner-box {
+  background: var(--color-skin-pale, #FBF0E8);
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-lg, 20px);
+  padding: 24px;
+  margin-bottom: 28px;
+}
+.safety-banner-box h2 {
+  margin-top: 0 !important;
+}
+
+.safety-table-wrap {
+  overflow-x: auto;
+  margin: 20px 0 28px 0;
+}
+.safety-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-border, #E8D5C4);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.safety-table th, .safety-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border, #E8D5C4);
+  text-align: left;
+}
+.safety-table th {
+  background: var(--color-skin-pale, #FBF0E8);
+  color: var(--color-heading, #111111);
+  font-family: var(--font-heading-family);
+  font-weight: 700;
+}
+
+.safety-4grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 24px 0 32px 0;
+}
+@media screen and (max-width: 900px) {
+  .safety-4grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media screen and (max-width: 500px) {
+  .safety-4grid { grid-template-columns: 1fr; }
+}
+.safety-4grid__item {
+  background: #F8FAFC;
+  border: 2px dashed #CBD5E1;
+  border-radius: var(--radius-lg, 16px);
+  padding: 24px 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #475569;
+  overflow: hidden;
+}
+.safety-grid-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.safety-faq-card {
+  background: #FFFDF9;
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-lg, 20px);
+  padding: 24px;
+  margin-top: 32px;
+}
+.safety-faq-card h4 {
+  margin-top: 0 !important;
+  color: var(--color-heading, #111111);
+  font-size: 1.15rem;
+}
+.safety-boil-guide {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-top: 16px;
+}
+.safety-boil-guide h5 {
+  margin: 0 0 10px 0;
+  font-size: 0.95rem;
+  color: #1E40AF;
+}
+
+.safety-pdf-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.safety-pdf-list li {
+  margin: 0;
+  font-size: 1.05rem;
+}
+.pdf-link {
+  color: var(--color-primary-dark, #A07855) !important;
+  font-weight: 700;
+  text-decoration: underline !important;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+.pdf-link:hover {
+  color: var(--color-heading, #111111) !important;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Safety Standards Page",
+  "settings": [
+    { "type": "image_picker", "id": "hero_image", "label": "Top Hero Banner Image" },
+    { "type": "text", "id": "commitment_heading", "label": "Commitment Heading", "default": "Our Commitment to Safety" },
+    { "type": "richtext", "id": "commitment_text", "label": "Commitment Text" },
+    { "type": "text", "id": "silicone_heading", "label": "Silicone Intro Heading", "default": "Why Parents & Specialists Love Silicone" },
+    { "type": "richtext", "id": "silicone_text", "label": "Silicone Intro Text" },
+    { "type": "image_picker", "id": "grid_image_1", "label": "Grid Image 1 (Flexible & Durable)" },
+    { "type": "image_picker", "id": "grid_image_2", "label": "Grid Image 2 (Heat & Cold)" },
+    { "type": "image_picker", "id": "grid_image_3", "label": "Grid Image 3 (Bacteria Free)" },
+    { "type": "image_picker", "id": "grid_image_4", "label": "Grid Image 4 (UKCA Certified)" },
+    { "type": "color", "id": "bg_color", "label": "Background color", "default": "#FFFFFF" }
+  ],
+  "blocks": [
+    {
+      "type": "pdf_link",
+      "name": "PDF Document Link",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Document Title", "default": "Safety module" },
+        { "type": "url", "id": "pdf_url", "label": "PDF File URL" }
+      ]
+    }
+  ]
+}
+{% endschema %}
