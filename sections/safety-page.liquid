@@ -3,26 +3,24 @@
   Little Creation Theme
 {%- endcomment -%}
 
-<section class="safety-page-section section-padding" style="background-color: {{ section.settings.bg_color | default: '#FFFFFF' }};">
-  <div class="container">
-    <div class="safety-page__inner">
+<section class="safety-page-section" style="background-color: {{ section.settings.bg_color | default: '#FFFFFF' }}; padding-top: 0;">
+  <!-- 1. Full-Width Edge-to-Edge Hero Banner -->
+  <div class="safety-hero-full">
+    {% if section.settings.hero_image != blank %}
+      <img src="{{ section.settings.hero_image | image_url: width: 2200 }}" 
+           alt="{{ section.settings.hero_image.alt | default: 'Product Safety Banner' }}" 
+           class="safety-hero-img-full" loading="eager">
+    {% else %}
+      <div class="safety-hero-placeholder-full">
+        <span class="safety-img-placeholder__icon">🖼️</span>
+        <strong>[ Hero Banner Image Placeholder: Upload Full-Width Top Banner Photo ]</strong>
+        <span>Select image under Top Hero Banner Image setting on the right sidebar</span>
+      </div>
+    {% endif %}
+  </div>
 
-      <!-- 1. Hero Image Banner -->
-      {% if section.settings.hero_image != blank %}
-        <div class="safety-hero-wrap">
-          <img src="{{ section.settings.hero_image | image_url: width: 1400 }}" 
-               alt="{{ section.settings.hero_image.alt | default: 'Product Safety Banner' }}" 
-               class="safety-hero-img" loading="eager">
-        </div>
-      {% else %}
-        <div class="safety-hero-placeholder">
-          <span class="safety-img-placeholder__icon">🖼️</span>
-          <strong>[ Hero Banner Image Placeholder: Upload Full-Width Top Banner Photo ]</strong>
-          <span>Select image under Top Hero Banner Image setting on the right sidebar</span>
-        </div>
-      {% endif %}
-
-      <!-- 2. Commitment Box -->
+  <div class="safety-page__inner section-padding">
+    <!-- 2. Commitment Box -->
       <div class="safety-banner-box">
         <h2>{{ section.settings.commitment_heading | default: 'Our Commitment to Safety' }}</h2>
         <div class="rte">
@@ -184,34 +182,40 @@
       </div>
 
     </div>
-  </div>
 </section>
 
 <style>
-.safety-page__inner {
-  max-width: 1080px;
-  margin: 0 auto;
-}
-.safety-hero-wrap {
-  width: 100%;
-  border-radius: var(--radius-xl, 24px);
+.safety-hero-full {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   overflow: hidden;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
-.safety-hero-img {
+.safety-hero-img-full {
   width: 100%;
   height: auto;
+  min-height: 280px;
+  max-height: 520px;
   display: block;
   object-fit: cover;
 }
-.safety-hero-placeholder {
-  width: 100%;
+.safety-hero-placeholder-full {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   background: #F8FAFC;
-  border: 2px dashed #94A3B8;
-  border-radius: var(--radius-xl, 24px);
-  padding: 54px 20px;
+  border-top: 1px solid #E2E8F0;
+  border-bottom: 2px dashed #94A3B8;
+  padding: 64px 20px;
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -219,13 +223,26 @@
   gap: 8px;
   color: #475569;
 }
-.safety-hero-placeholder strong {
-  font-size: 1.1rem;
+.safety-hero-placeholder-full strong {
+  font-size: 1.15rem;
   color: #1E293B;
 }
-.safety-hero-placeholder span {
-  font-size: 0.85rem;
+.safety-hero-placeholder-full span {
+  font-size: 0.88rem;
   color: #64748B;
+}
+
+.safety-page__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: var(--spacing-container, 32px);
+  padding-right: var(--spacing-container, 32px);
+}
+@media screen and (max-width: 767px) {
+  .safety-page__inner {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 
 .safety-banner-box {
