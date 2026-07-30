@@ -14,6 +14,42 @@
           <div class="main-page__content rte animate-on-scroll delay-1">
             {{ page.content }}
           </div>
+        {%- elsif page.handle contains 'safety' or page.title contains 'Safety' -%}
+          <div class="main-page__content rte animate-on-scroll delay-1">
+            <h2>Product Safety & Quality Commitment</h2>
+            <p>At Little Creation, your baby’s safety and health are at the heart of everything we do. As a brand rooted in Montessori philosophy and maternal care, we refuse to compromise on material purity or safety testing. Every teether and rattle we produce undergoes rigorous quality control and lab testing to exceed UK, EU, and international baby safety standards.</p>
+
+            <h3>Our Premium 100% Food-Grade Silicone</h3>
+            <ul>
+              <li><strong>100% Non-Toxic & Food-Grade:</strong> Crafted exclusively from pure, premium-grade silicone certified safe for infant teething.</li>
+              <li><strong>100% Free From Harmful Chemicals:</strong> Guaranteed 0% BPA, BPS, PVC, Phthalates, Lead, Latex, or Cadmium.</li>
+              <li><strong>Hypoallergenic & Bacteria Resistant:</strong> Non-porous surface resists mold, fungus, and bacteria growth.</li>
+              <li><strong>Soft & Gentle on Gums:</strong> Perfectly calibrated flexibility to soothe swollen, tender gums without causing oral trauma.</li>
+            </ul>
+
+            <h3>UKCA & EN71 Independent Certification</h3>
+            <p>Every Little Creation product is independently tested by accredited safety laboratories to comply strictly with:</p>
+            <ul>
+              <li><strong>EN71-1, 2, 3:</strong> European Toy Safety Standards (Mechanical, Physical, Flammability, and Chemical migration properties).</li>
+              <li><strong>UKCA Standard:</strong> UK Conformity Assessed safety certification.</li>
+              <li><strong>FDA & LFGB Food Safety Standard:</strong> Meets the world’s strictest food contact safety benchmarks.</li>
+            </ul>
+            <p>We test for tear strength, bite endurance, choking hazard safety, and heavy metal migration so you can give our teethers to your baby with complete confidence.</p>
+
+            <h3>Sanitisation & High Durability</h3>
+            <p>Our silicone products are built to last through intense daily use while remaining effortless to sanitize:</p>
+            <ul>
+              <li>Can be hand washed with warm soapy water.</li>
+              <li>Certain silicone teethers can be disinfected in boiling water or cooled in the refrigerator for extra soothing relief.</li>
+              <li>Resistant to extreme temperature variations without warping, cracking, or degrading.</li>
+            </ul>
+          </div>
+        {%- elsif page.handle contains 'declaration' or page.title contains 'Declaration' -%}
+          <div class="main-page__content rte animate-on-scroll delay-1">
+            <h2>Declaration of Conformity</h2>
+            <p>This page contains the official Declaration of Conformity documents for Little Creation products, certifying compliance with UKCA and EU Toy Safety Regulations (EN71 standards).</p>
+            <p><em>The official certificates will be updated here.</em></p>
+          </div>
         {%- else -%}
           <div class="main-page__empty text-center animate-on-scroll delay-1">
             <p class="main-page__empty-text">This page content is currently empty. You can add content to this page in <strong>Shopify Admin → Pages → Edit {{ page.title | escape }}</strong>.</p>
