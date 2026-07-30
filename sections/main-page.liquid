@@ -13,6 +13,13 @@
         {%- if page.handle contains 'safety' or page.title contains 'Safety' -%}
           <div class="main-page__content rte animate-on-scroll delay-1">
             
+            <!-- 1. Starting Full Horizontal Hero Banner Placeholder -->
+            <div class="safety-hero-placeholder">
+              <span class="safety-img-placeholder__icon">🖼️</span>
+              <strong>[ Hero Banner Image Placeholder: Upload Full-Width Top Banner Photo ]</strong>
+              <span>Recommended size: 1200 x 500 px</span>
+            </div>
+
             {%- if page.content != blank -%}
               <div class="user-admin-content mb-lg">
                 {{ page.content }}
@@ -23,13 +30,6 @@
               <h2>Our Commitment to Safety</h2>
               <p>At Little Creation, your little one's safety and well-being is always at the heart of what we do. We use exclusively <strong>100% Premium Food-Grade Platinum Silicone</strong> across our entire teether collection — completely free from BPA, BPS, PVC, phthalates, lead, latex, and heavy metals.</p>
               <p>Every product undergoes strict, independent lab testing to meet and exceed <strong>UK (UKCA)</strong> and <strong>EU (EN71-1, 2, 3)</strong> safety standards. Whether it is playtime or teething time, you can trust that every Little Creation piece is made to be 100% safe, gentle, and worry-free for your baby.</p>
-            </div>
-
-            <!-- Image Placeholder 1 -->
-            <div class="safety-img-placeholder">
-              <span class="safety-img-placeholder__icon">📷</span>
-              <strong>[ Image Placeholder: Upload Premium Silicone Teether Photo ]</strong>
-              <span>Recommended size: 1000 x 500 px</span>
             </div>
 
             <h3>Why Parents & Specialists Love Silicone</h3>
@@ -68,6 +68,30 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
+
+            <!-- 2. 4-Image Grid directly under Platinum Silicone section -->
+            <div class="safety-4grid">
+              <div class="safety-4grid__item">
+                <span class="safety-img-placeholder__icon">📷</span>
+                <strong>[ Image 1: Flexible & Durable ]</strong>
+                <span>Upload photo (e.g. 500 x 500 px)</span>
+              </div>
+              <div class="safety-4grid__item">
+                <span class="safety-img-placeholder__icon">📷</span>
+                <strong>[ Image 2: Heat & Cold Resistant ]</strong>
+                <span>Upload photo (e.g. 500 x 500 px)</span>
+              </div>
+              <div class="safety-4grid__item">
+                <span class="safety-img-placeholder__icon">📷</span>
+                <strong>[ Image 3: Bacteria & Odor Free ]</strong>
+                <span>Upload photo (e.g. 500 x 500 px)</span>
+              </div>
+              <div class="safety-4grid__item">
+                <span class="safety-img-placeholder__icon">📷</span>
+                <strong>[ Image 4: UKCA & EN71 Certified ]</strong>
+                <span>Upload photo (e.g. 500 x 500 px)</span>
+              </div>
             </div>
 
             <!-- Image Placeholder 2 -->
@@ -225,6 +249,70 @@
   }
 
   /* ---- Safety Page Enhancements ---- */
+  .safety-hero-placeholder {
+    width: 100%;
+    background: #F8FAFC;
+    border: 2px dashed #94A3B8;
+    border-radius: var(--radius-xl, 24px);
+    padding: 54px 20px;
+    text-align: center;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #475569;
+  }
+  .safety-hero-placeholder strong {
+    font-size: 1.1rem;
+    color: #1E293B;
+  }
+  .safety-hero-placeholder span {
+    font-size: 0.85rem;
+    color: #64748B;
+  }
+
+  .safety-4grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 24px 0 32px 0;
+  }
+  @media screen and (max-width: 900px) {
+    .safety-4grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .safety-4grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .safety-4grid__item {
+    background: #F8FAFC;
+    border: 2px dashed #CBD5E1;
+    border-radius: var(--radius-lg, 16px);
+    padding: 28px 14px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #475569;
+    aspect-ratio: 1/1;
+  }
+  .safety-4grid__item strong {
+    font-size: 0.88rem;
+    color: #1E293B;
+    line-height: 1.3;
+  }
+  .safety-4grid__item span {
+    font-size: 0.76rem;
+    color: #64748B;
+  }
+
   .safety-banner-box {
     background: var(--color-skin-pale, #FBF0E8);
     border: 1.5px solid var(--color-border, #E8D5C4);
