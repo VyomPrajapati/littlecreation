@@ -1,0 +1,31 @@
+{
+  "sections": {
+    "doc_header": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Declaration of Conformity"
+          }
+        },
+        "text_1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>This page contains the official Declaration of Conformity documents for Little Creation products, certifying compliance with UKCA and EU Toy Safety Regulations (EN71 standards).<\/p><p><em>The official certificates will be updated here.<\/em><\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_1",
+        "text_1"
+      ],
+      "settings": {
+        "bg_color": "#FBF0E8"
+      }
+    }
+  },
+  "order": [
+    "doc_header"
+  ]
+}

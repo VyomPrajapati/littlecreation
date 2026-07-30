@@ -88,7 +88,14 @@
 
     <!-- Bottom bar -->
     <div class="footer__bottom">
-      <p class="footer__copyright">&copy; {{ 'now' | date: '%Y' }} LITTLE CREATION. All rights reserved.</p>
+      <div class="footer__bottom-left">
+        <p class="footer__copyright">&copy; {{ 'now' | date: '%Y' }} LITTLE CREATION. All rights reserved.</p>
+        <div class="footer__compliance-links">
+          <a href="/pages/safety-standards" class="footer__compliance-link">Product Safety Standards</a>
+          <span class="footer__compliance-sep">&bull;</span>
+          <a href="/pages/declaration-of-conformity" class="footer__compliance-link">Declaration of Conformity</a>
+        </div>
+      </div>
 
       {%- if section.settings.payment_enable -%}
         <ul class="footer__payment-list">
@@ -281,10 +288,36 @@
   padding: var(--spacing-md) 0;
   border-top: 1px solid rgba(245, 222, 200, 0.08);
 }
+.footer__bottom-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 .footer__copyright {
   font-size: 0.82rem;
   color: rgba(255,255,255,0.6);
   margin: 0;
+}
+.footer__compliance-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.footer__compliance-link {
+  font-size: 0.78rem;
+  color: var(--color-secondary, #E0B898);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.2s ease;
+}
+.footer__compliance-link:hover {
+  opacity: 0.8;
+  color: #ffffff;
+}
+.footer__compliance-sep {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
 }
 .footer__payment-list {
   display: flex;

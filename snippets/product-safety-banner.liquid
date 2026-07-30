@@ -1,0 +1,77 @@
+{%- comment -%}
+  Product Safety & Commitment Banner Snippet
+  Rendered on Product Detail Pages
+{%- endcomment -%}
+
+<div class="product-safety-card">
+  <div class="product-safety__inner">
+    <div class="product-safety__icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <path d="m9 12 2 2 4-4"/>
+      </svg>
+    </div>
+    <div class="product-safety__content">
+      <h4 class="product-safety__heading">100% Safe & Certified Food-Grade Silicone</h4>
+      <p class="product-safety__desc">Independently lab tested to UKCA & EN71 safety standards. 0% BPA, PVC, or Phthalates.</p>
+      <a href="/pages/safety-standards" class="product-safety__link">View Product Safety Standards & Quality Commitment &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<style>
+.product-safety-card {
+  margin-top: var(--spacing-sm, 16px);
+  margin-bottom: var(--spacing-sm, 16px);
+  background: #F4F9F5;
+  border: 1.5px solid #C8E6C9;
+  border-radius: var(--radius-lg, 20px);
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+.product-safety__inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.product-safety__icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #E8F5E9;
+  color: #2E7D32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(46,125,50,0.12);
+}
+.product-safety__content {
+  flex: 1;
+}
+.product-safety__heading {
+  font-family: var(--font-heading-family);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1B5E20;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+.product-safety__desc {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: #2E7D32;
+  margin: 0 0 8px 0;
+}
+.product-safety__link {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1B5E20;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.2s ease;
+}
+.product-safety__link:hover {
+  opacity: 0.8;
+}
+</style>
