@@ -369,67 +369,81 @@
 .product__quantity-row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: var(--spacing-xs, 8px);
+  gap: 16px;
+  margin-bottom: var(--spacing-xs, 12px);
 }
 .product__qty-label {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--color-heading);
+  color: var(--color-heading, #111111);
+  margin: 0;
+  line-height: 1;
 }
 .qty-stepper {
-  display: inline-flex;
-  align-items: center;
-  border: 1.5px solid var(--color-border, #E8D5C4);
-  border-radius: var(--radius-pill, 999px);
-  background: var(--color-white, #FFFFFF);
-  padding: 3px 6px;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  width: 120px !important;
+  min-width: 120px !important;
+  max-width: 120px !important;
+  height: 40px !important;
+  border: 1.5px solid var(--color-border, #E8D5C4) !important;
+  border-radius: var(--radius-pill, 999px) !important;
+  background: var(--color-white, #FFFFFF) !important;
+  padding: 0 4px !important;
   box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  box-sizing: border-box !important;
 }
 .qty-stepper__btn {
-  background: none !important;
+  background: transparent !important;
   border: none !important;
   outline: none !important;
-  width: 32px;
-  height: 32px;
+  width: 32px !important;
+  min-width: 32px !important;
+  max-width: 32px !important;
+  height: 32px !important;
   border-radius: 50% !important;
-  cursor: pointer;
-  font-size: 1.2rem;
-  font-weight: 600;
-  line-height: 1;
-  color: var(--color-heading, #111111);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color var(--transition-fast);
+  cursor: pointer !important;
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  color: var(--color-heading, #111111) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: background-color var(--transition-fast) !important;
   box-shadow: none !important;
   padding: 0 !important;
   margin: 0 !important;
-  flex-shrink: 0;
+  flex: 0 0 32px !important;
 }
 .qty-stepper__btn:hover { background: var(--color-skin-pale, #FBF0E8) !important; }
 .qty-stepper__input {
-  width: 38px;
-  height: 32px;
-  text-align: center;
+  width: 44px !important;
+  min-width: 44px !important;
+  max-width: 44px !important;
+  height: 32px !important;
+  text-align: center !important;
   border: none !important;
   background: transparent !important;
-  font-family: var(--font-body-family);
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--color-heading, #111111);
+  font-family: var(--font-body-family) !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  color: var(--color-heading, #111111) !important;
   padding: 0 !important;
   margin: 0 !important;
-  -moz-appearance: textfield;
+  -moz-appearance: textfield !important;
   border-radius: 0 !important;
   box-shadow: none !important;
   outline: none !important;
-  flex-shrink: 0;
+  flex: 0 0 44px !important;
 }
 .qty-stepper__input::-webkit-outer-spin-button,
-.qty-stepper__input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.qty-stepper__input::-webkit-inner-spin-button { -webkit-appearance: none !important; margin: 0 !important; }
 
 /* ---- Buy buttons ---- */
 .product__buy-buttons {
