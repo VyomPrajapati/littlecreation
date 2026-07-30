@@ -1,0 +1,160 @@
+{%- comment -%}
+  Product Dimensions & Size Guide Snippet
+  Little Creation Shopify Theme
+{%- endcomment -%}
+
+{%- assign spec_type = '' -%}
+{%- assign product_tags_lower = product.tags | join: ',' | downcase -%}
+{%- assign product_title_lower = product.title | downcase -%}
+
+{%- if product_tags_lower contains 'water-filled' or product_tags_lower contains 'water_filled' or product_tags_lower contains 'water' -%}
+  {%- assign spec_type = 'water_filled' -%}
+{%- elsif product_tags_lower contains 'swan' or product_tags_lower contains 'swan-wooden' or product_tags_lower contains 'swan_wooden' or product_tags_lower contains 'wooden' or product_tags_lower contains 'wood' -%}
+  {%- assign spec_type = 'swan_wooden' -%}
+{%- elsif product_tags_lower contains 'rattle' or product_tags_lower contains 'lion' -%}
+  {%- assign spec_type = 'rattle' -%}
+{%- elsif product_title_lower contains 'water' -%}
+  {%- assign spec_type = 'water_filled' -%}
+{%- elsif product_title_lower contains 'swan' or product_title_lower contains 'wood' -%}
+  {%- assign spec_type = 'swan_wooden' -%}
+{%- else -%}
+  {%- assign spec_type = 'rattle' -%}
+{%- endif -%}
+
+<div class="product-dimensions-card">
+  <div class="product-dimensions__header">
+    <div class="product-dimensions__title">
+      <span class="product-dimensions__icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 12h20M2 12l4-4M2 12l4 4M22 12l-4-4M22 12l4 4"/>
+          <rect x="5" y="4" width="14" height="16" rx="2" stroke-dasharray="2 2"/>
+        </svg>
+      </span>
+      <div>
+        <h4 class="product-dimensions__heading">Product Dimensions & Size</h4>
+        <span class="product-dimensions__subtext">Designed for easy baby grip & safety</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-dimensions__grid">
+    {% if spec_type == 'rattle' %}
+      <!-- Lion Rattle Teether Size -->
+      <div class="dimension-pill">
+        <span class="dimension-pill__label">Height</span>
+        <span class="dimension-pill__value">9.1 cm</span>
+      </div>
+      <div class="dimension-pill">
+        <span class="dimension-pill__label">Bottom Length</span>
+        <span class="dimension-pill__value">6.3 cm</span>
+      </div>
+      <div class="dimension-pill">
+        <span class="dimension-pill__label">Upper Length</span>
+        <span class="dimension-pill__value">5.6 cm</span>
+      </div>
+
+    {% elsif spec_type == 'water_filled' %}
+      <!-- Water-filled Teether Size -->
+      <div class="dimension-pill">
+        <span class="dimension-pill__label">Height</span>
+        <span class="dimension-pill__value">10.3 cm</span>
+      </div>
+      <div class="dimension-pill">
+        <span class="dimension-pill__label">Total Length</span>
+        <span class="dimension-pill__value">7 cm</span>
+      </div>
+
+    {% elsif spec_type == 'swan_wooden' %}
+      <!-- Swan Wooden Ring Teether Size -->
+      <div class="dimension-pill">
+        <span class="dimension-pill__label">Height</span>
+        <span class="dimension-pill__value">11.4 cm</span>
+      </div>
+      <div class="dimension-pill">
+        <span class="dimension-pill__label">Total Length</span>
+        <span class="dimension-pill__value">9.8 cm</span>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+.product-dimensions-card {
+  margin-top: var(--spacing-sm, 16px);
+  margin-bottom: var(--spacing-xs, 12px);
+  background: linear-gradient(135deg, var(--color-skin-pale, #FBF0E8) 0%, #FFFFFF 100%);
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-lg, 20px);
+  padding: 16px 20px;
+  box-shadow: var(--shadow-sm, 0 2px 8px rgba(0,0,0,0.03));
+}
+.product-dimensions__header {
+  margin-bottom: 12px;
+}
+.product-dimensions__title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.product-dimensions__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-primary-dark, #A07855);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(198,154,124,0.15);
+  flex-shrink: 0;
+}
+.product-dimensions__heading {
+  font-family: var(--font-heading-family);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-heading, #111111);
+  margin: 0;
+  line-height: 1.2;
+}
+.product-dimensions__subtext {
+  font-size: 0.76rem;
+  color: var(--color-text-muted, #7A6A5A);
+  font-weight: 500;
+  display: block;
+  margin-top: 2px;
+}
+
+.product-dimensions__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.dimension-pill {
+  flex: 1 1 calc(33.333% - 10px);
+  min-width: 100px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border, #E8D5C4);
+  border-radius: 12px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+.dimension-pill__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted, #7A6A5A);
+  margin-bottom: 2px;
+}
+.dimension-pill__value {
+  font-family: var(--font-heading-family);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-primary-dark, #A07855);
+}
+</style>
