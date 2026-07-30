@@ -1,5 +1,7 @@
 {%- if page.handle == 'contact' or page.handle == 'contact-us' or page.title == 'Contact' or page.title == 'Contact Us' -%}
   {% section 'contact-form' %}
+{%- elsif page.handle contains 'safety' or page.title contains 'Safety' -%}
+  {%- comment -%} Suppress default main-page section on safety page as safety-page section handles full layout {%- endcomment -%}
 {%- else -%}
   <section class="main-page section-padding">
     <div class="container">
@@ -24,6 +26,7 @@
       </div>
     </div>
   </section>
+{%- endif -%}
 
   <style>
   .main-page {
