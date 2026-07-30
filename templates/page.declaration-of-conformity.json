@@ -1,31 +1,48 @@
 {
   "sections": {
-    "doc_header": {
-      "type": "rich-text",
+    "declaration": {
+      "type": "declaration-of-conformity",
       "blocks": {
-        "heading_1": {
-          "type": "heading",
+        "doc_1": {
+          "type": "pdf_document",
           "settings": {
-            "heading": "Declaration of Conformity"
+            "title": "Lion Rattle Teether Declaration",
+            "subtitle": "EN71-1, 2, 3 & UKCA Certified",
+            "pdf_url": "",
+            "button_text": "View PDF"
           }
         },
-        "text_1": {
-          "type": "text",
+        "doc_2": {
+          "type": "pdf_document",
           "settings": {
-            "text": "<p>This page contains the official Declaration of Conformity documents for Little Creation products, certifying compliance with UKCA and EU Toy Safety Regulations (EN71 standards).<\/p><p><em>The official certificates will be updated here.<\/em><\/p>"
+            "title": "Cooling Teether Declaration",
+            "subtitle": "EN71-1, 2, 3 & UKCA Certified",
+            "pdf_url": "",
+            "button_text": "View PDF"
+          }
+        },
+        "doc_3": {
+          "type": "pdf_document",
+          "settings": {
+            "title": "Swan Wooden Ring Teether Declaration",
+            "subtitle": "EN71-1, 2, 3 & UKCA Certified",
+            "pdf_url": "",
+            "button_text": "View PDF"
           }
         }
       },
       "block_order": [
-        "heading_1",
-        "text_1"
+        "doc_1",
+        "doc_2",
+        "doc_3"
       ],
       "settings": {
-        "bg_color": "#FBF0E8"
+        "heading": "Declaration of Conformity",
+        "subtext": "Official UKCA and EN71 Toy Safety Regulation compliance certificates for Little Creation products."
       }
     }
   },
   "order": [
-    "doc_header"
+    "declaration"
   ]
 }
