@@ -138,8 +138,14 @@
             {%- endform -%}
           </div>
 
-          {% render 'product-dimensions', product: product %}
-          {% render 'cleaning-instructions', product: product %}
+          <div class="product-spec-cards-row">
+            <div class="product-spec-cards-col">
+              {% render 'cleaning-instructions', product: product %}
+            </div>
+            <div class="product-spec-cards-col">
+              {% render 'product-dimensions', product: product %}
+            </div>
+          </div>
 
         </div>
       </div>
@@ -448,6 +454,25 @@
   font-size: 0.88rem !important;
   color: var(--color-primary-dark, #A07855) !important;
   text-decoration: underline !important;
+}
+
+/* ---- Side-by-side cards row ---- */
+.product-spec-cards-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-sm, 16px);
+  margin-top: var(--spacing-md, 20px);
+  align-items: start;
+}
+@media screen and (min-width: 768px) {
+  .product-spec-cards-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.product-spec-cards-col .cleaning-card,
+.product-spec-cards-col .product-dimensions-card {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 </style>
 
