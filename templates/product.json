@@ -30,6 +30,10 @@
         "description": {
           "type": "description",
           "settings": {}
+        },
+        "cleaning_instructions": {
+          "type": "cleaning_instructions",
+          "settings": {}
         }
       },
       "block_order": [
@@ -37,6 +41,7 @@
         "price",
         "variant_picker",
         "buy_buttons",
+        "cleaning_instructions",
         "trust_badge",
         "description"
       ],
