@@ -133,14 +133,32 @@
 
       <!-- 6. Understanding Silicone Purity -->
       <div class="safety-purity-section mb-xl">
-        <h3>{{ section.settings.purity_heading | default: "Understanding Platinum Silicone Purity" }}</h3>
-        <div class="rte">
-          {% if section.settings.purity_text != blank %}
-            {{ section.settings.purity_text }}
-          {% else %}
-            <p>Not all silicone is created equal. Little Creation uses <strong>100% Platinum-Cured Food-Grade Silicone</strong> — the highest standard of silicone purity. Unlike lower-grade silicones cured with peroxide, platinum curing leaves zero chemical fillers or residues behind.</p>
-            <p>Every single production batch is independently inspected and tested so you can give our products to your baby with absolute peace of mind.</p>
-          {% endif %}
+        <div class="safety-purity-card">
+          <div class="safety-purity-content">
+            <h3>{{ section.settings.purity_heading | default: "Understanding Platinum Silicone Purity" }}</h3>
+            <div class="rte">
+              {% if section.settings.purity_text != blank %}
+                {{ section.settings.purity_text }}
+              {% else %}
+                <p>Not all silicone is created equal. Little Creation uses <strong>100% Platinum-Cured Food-Grade Silicone</strong> — the highest standard of silicone purity. Unlike lower-grade silicones cured with peroxide, platinum curing leaves zero chemical fillers or residues behind.</p>
+                <p>Every single production batch is independently inspected and tested so you can give our products to your baby with absolute peace of mind.</p>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="safety-purity-image-wrap">
+            {% if section.settings.purity_image != blank %}
+              <img src="{{ section.settings.purity_image | image_url: width: 1200 }}" 
+                   alt="{{ section.settings.purity_heading | default: 'Platinum Silicone Purity' }}" 
+                   class="safety-purity-img" loading="lazy">
+            {% else %}
+              <div class="safety-purity-placeholder">
+                <span class="safety-img-placeholder__icon">📷</span>
+                <strong>[ Large Feature Image Placeholder: Understanding Platinum Silicone Purity ]</strong>
+                <span>Select photo under 6. Silicone Purity Section in the theme editor sidebar</span>
+              </div>
+            {% endif %}
+          </div>
         </div>
       </div>
 
@@ -379,6 +397,72 @@
   border-radius: 12px;
 }
 
+.safety-purity-section {
+  margin-bottom: 48px;
+}
+.safety-purity-card {
+  background: var(--color-skin-pale, #FBF0E8);
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-lg, 24px);
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: center;
+  overflow: hidden;
+}
+@media screen and (min-width: 900px) {
+  .safety-purity-card {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 36px;
+    padding: 36px;
+  }
+}
+.safety-purity-content h3 {
+  margin-top: 0 !important;
+  font-family: var(--font-heading-family);
+  font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+  color: var(--color-heading, #111111);
+  margin-bottom: 16px;
+}
+.safety-purity-image-wrap {
+  width: 100%;
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+.safety-purity-img {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  max-height: 480px;
+  object-fit: cover;
+  display: block;
+}
+.safety-purity-placeholder {
+  background: #FFFFFF;
+  border: 2px dashed #CBD5E1;
+  border-radius: 18px;
+  padding: 48px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #475569;
+  min-height: 280px;
+}
+.safety-purity-placeholder strong {
+  font-size: 1.05rem;
+  color: #1E293B;
+}
+.safety-purity-placeholder span {
+  font-size: 0.85rem;
+  color: #64748B;
+}
+
 .safety-faq-card {
   background: #FFFDF9;
   border: 1.5px solid var(--color-border, #E8D5C4);
@@ -463,6 +547,7 @@
 
     { "type": "header", "content": "6. Silicone Purity Section" },
     { "type": "text", "id": "purity_heading", "label": "Purity Section Heading", "default": "Understanding Platinum Silicone Purity" },
+    { "type": "image_picker", "id": "purity_image", "label": "Purity Section Feature Image (Big Photo)" },
     { "type": "richtext", "id": "purity_text", "label": "Purity Section Text", "default": "<p>Not all silicone is created equal. Little Creation uses <strong>100% Platinum-Cured Food-Grade Silicone</strong> — the highest standard of silicone purity. Unlike lower-grade silicones cured with peroxide, platinum curing leaves zero chemical fillers or residues behind.</p><p>Every single production batch is independently inspected and tested so you can give our products to your baby with absolute peace of mind.</p>" },
 
     { "type": "header", "content": "7. Packaging Scent & Boil Guide FAQ" },
