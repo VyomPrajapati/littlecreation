@@ -513,4 +513,12 @@ input[type="text"]:focus {
   scroll-snap-type: none !important;
 }
 
+/* Failsafe: Permanently eliminate all dotted/dashed outlines on safety grid items */
+.safety-4grid__item,
+.safety-grid-img {
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+}
+
 

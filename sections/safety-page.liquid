@@ -113,7 +113,11 @@
       <div class="safety-4grid">
         <div class="safety-4grid__item">
           {% if section.settings.grid_image_1 != blank %}
-            <img src="{{ section.settings.grid_image_1 | image_url: width: 600 }}" alt="{{ section.settings.feature_1_title }}" class="safety-grid-img">
+            <img src="{{ section.settings.grid_image_1 | image_url: width: 800 }}" 
+                 data-full-img="{{ section.settings.grid_image_1 | image_url: width: 2000 }}"
+                 data-title="{{ section.settings.feature_1_title | default: 'Flexible & Durable' }}"
+                 alt="{{ section.settings.feature_1_title }}" 
+                 class="safety-grid-img safety-lightbox-trigger" loading="lazy">
           {% else %}
             <span class="safety-img-placeholder__icon">📷</span>
             <strong>[ {{ section.settings.feature_1_title | default: "Flexible & Durable" }} ]</strong>
@@ -122,7 +126,11 @@
         </div>
         <div class="safety-4grid__item">
           {% if section.settings.grid_image_2 != blank %}
-            <img src="{{ section.settings.grid_image_2 | image_url: width: 600 }}" alt="{{ section.settings.feature_2_title }}" class="safety-grid-img">
+            <img src="{{ section.settings.grid_image_2 | image_url: width: 800 }}" 
+                 data-full-img="{{ section.settings.grid_image_2 | image_url: width: 2000 }}"
+                 data-title="{{ section.settings.feature_2_title | default: 'Heat & Cold Resistant' }}"
+                 alt="{{ section.settings.feature_2_title }}" 
+                 class="safety-grid-img safety-lightbox-trigger" loading="lazy">
           {% else %}
             <span class="safety-img-placeholder__icon">📷</span>
             <strong>[ {{ section.settings.feature_2_title | default: "Heat & Cold Resistant" }} ]</strong>
@@ -131,7 +139,11 @@
         </div>
         <div class="safety-4grid__item">
           {% if section.settings.grid_image_3 != blank %}
-            <img src="{{ section.settings.grid_image_3 | image_url: width: 600 }}" alt="{{ section.settings.feature_3_title }}" class="safety-grid-img">
+            <img src="{{ section.settings.grid_image_3 | image_url: width: 800 }}" 
+                 data-full-img="{{ section.settings.grid_image_3 | image_url: width: 2000 }}"
+                 data-title="{{ section.settings.feature_3_title | default: 'Bacteria & Odor Free' }}"
+                 alt="{{ section.settings.feature_3_title }}" 
+                 class="safety-grid-img safety-lightbox-trigger" loading="lazy">
           {% else %}
             <span class="safety-img-placeholder__icon">📷</span>
             <strong>[ {{ section.settings.feature_3_title | default: "Bacteria & Odor Free" }} ]</strong>
@@ -140,12 +152,28 @@
         </div>
         <div class="safety-4grid__item">
           {% if section.settings.grid_image_4 != blank %}
-            <img src="{{ section.settings.grid_image_4 | image_url: width: 600 }}" alt="{{ section.settings.feature_4_title }}" class="safety-grid-img">
+            <img src="{{ section.settings.grid_image_4 | image_url: width: 800 }}" 
+                 data-full-img="{{ section.settings.grid_image_4 | image_url: width: 2000 }}"
+                 data-title="{{ section.settings.feature_4_title | default: 'UKCA & EN71 Certified' }}"
+                 alt="{{ section.settings.feature_4_title }}" 
+                 class="safety-grid-img safety-lightbox-trigger" loading="lazy">
           {% else %}
             <span class="safety-img-placeholder__icon">📷</span>
             <strong>[ {{ section.settings.feature_4_title | default: "UKCA & EN71 Certified" }} ]</strong>
             <span>Upload photo on right sidebar</span>
           {% endif %}
+        </div>
+      </div>
+
+      <!-- Fullscreen Image Lightbox Modal -->
+      <div class="safety-lightbox" id="SafetyLightbox" aria-hidden="true" role="dialog">
+        <div class="safety-lightbox__overlay" id="SafetyLightboxOverlay"></div>
+        <div class="safety-lightbox__content">
+          <button type="button" class="safety-lightbox__close" id="SafetyLightboxClose" aria-label="Close modal">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+          <img src="" alt="" class="safety-lightbox__img" id="SafetyLightboxImg">
+          <div class="safety-lightbox__caption" id="SafetyLightboxCaption"></div>
         </div>
       </div>
 
@@ -215,16 +243,9 @@
         <ol class="safety-pdf-list">
           {% if section.blocks.size > 0 %}
             {% for block in section.blocks %}
-              {% assign doc_url = block.settings.pdf_file.url %}
-              {% if doc_url == blank and block.settings.pdf_file != blank %}
-                {% assign doc_url = block.settings.pdf_file | file_url %}
-              {% endif %}
-              {% if doc_url == blank %}
-                {% assign doc_url = block.settings.pdf_url %}
-              {% endif %}
               <li class="pdf-item" {{ block.shopify_attributes }}>
                 <span class="pdf-num">{{ forloop.index }}.</span>
-                <a href="{{ doc_url | default: '#' }}" target="_blank" rel="noopener" class="pdf-link"><u>{{ block.settings.title | default: 'Safety Document' }}</u></a>
+                <a href="{{ block.settings.pdf_url | default: '#' }}" target="_blank" rel="noopener" class="pdf-link"><u>{{ block.settings.title | default: 'Safety Document' }}</u></a>
               </li>
             {% endfor %}
           {% else %}
@@ -459,19 +480,25 @@
 .safety-4grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin: 24px 0 32px 0;
+  gap: 24px;
+  margin: 32px 0 44px 0;
 }
-@media screen and (max-width: 900px) {
-  .safety-4grid { grid-template-columns: repeat(2, 1fr); }
+@media screen and (max-width: 1024px) {
+  .safety-4grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
 }
-@media screen and (max-width: 500px) {
-  .safety-4grid { grid-template-columns: 1fr; }
+@media screen and (max-width: 550px) {
+  .safety-4grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
 .safety-4grid__item {
-  background: transparent;
-  border: none;
-  border-radius: var(--radius-lg, 20px);
+  background: #FFFFFF;
+  border: 1px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-lg, 24px);
   padding: 0;
   text-align: center;
   display: flex;
@@ -481,19 +508,113 @@
   gap: 6px;
   color: #475569;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  aspect-ratio: 1 / 1;
+  min-height: 280px;
 }
 .safety-4grid__item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 14px 32px rgba(198, 154, 124, 0.25);
 }
 .safety-grid-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: 20px;
+  border-radius: 24px;
+  cursor: zoom-in;
+  transition: transform 0.5s ease;
+}
+.safety-4grid__item:hover .safety-grid-img {
+  transform: scale(1.04);
+}
+
+/* Fullscreen Lightbox Modal */
+.safety-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: 20px;
+}
+.safety-lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+.safety-lightbox__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: zoom-out;
+}
+.safety-lightbox__content {
+  position: relative;
+  z-index: 2;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.92);
+  transition: transform 0.3s ease;
+}
+.safety-lightbox.is-open .safety-lightbox__content {
+  transform: scale(1);
+}
+.safety-lightbox__img {
+  max-width: 90vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+.safety-lightbox__close {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #111111;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.safety-lightbox__close:hover {
+  transform: scale(1.1);
+  background: #ffffff;
+  color: var(--color-primary-dark, #A07855);
+}
+.safety-lightbox__caption {
+  margin-top: 14px;
+  color: #ffffff;
+  font-family: var(--font-heading-family);
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .safety-purity-section {
@@ -682,8 +803,7 @@
       "name": "PDF Document Link",
       "settings": [
         { "type": "text", "id": "title", "label": "Document Title", "default": "Safety module" },
-        { "type": "generic_file", "id": "pdf_file", "label": "Upload PDF Document (Direct File Upload)" },
-        { "type": "url", "id": "pdf_url", "label": "Or Paste External PDF URL" }
+        { "type": "url", "id": "pdf_url", "label": "PDF Document Link / File URL" }
       ]
     }
   ],
@@ -694,3 +814,47 @@
   ]
 }
 {% endschema %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const lightbox = document.getElementById('SafetyLightbox');
+    const lightboxImg = document.getElementById('SafetyLightboxImg');
+    const lightboxCaption = document.getElementById('SafetyLightboxCaption');
+    const closeBtn = document.getElementById('SafetyLightboxClose');
+    const overlay = document.getElementById('SafetyLightboxOverlay');
+    const triggers = document.querySelectorAll('.safety-lightbox-trigger');
+
+    function openLightbox(imgSrc, title) {
+      if (!lightbox || !lightboxImg) return;
+      lightboxImg.src = imgSrc;
+      lightboxCaption.textContent = title || '';
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      if (!lightbox) return;
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    triggers.forEach(function(img) {
+      img.addEventListener('click', function() {
+        const fullUrl = this.getAttribute('data-full-img') || this.src;
+        const title = this.getAttribute('data-title') || this.alt || '';
+        openLightbox(fullUrl, title);
+      });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (overlay) overlay.addEventListener('click', closeLightbox);
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && lightbox && lightbox.classList.contains('is-open')) {
+        closeLightbox();
+      }
+    });
+  });
+</script>
