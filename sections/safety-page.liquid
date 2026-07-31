@@ -744,6 +744,42 @@
 .pdf-link:hover {
   color: var(--color-primary-dark, #A07855) !important;
 }
+
+/* Mobile Responsive Improvements */
+@media screen and (max-width: 768px) {
+  /* Fix Image Cropping on Mobile */
+  .safety-silicone-image-wrap,
+  .safety-purity-image-wrap {
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #FAF7F2;
+  }
+  .safety-silicone-img,
+  .safety-purity-img {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    display: block;
+  }
+
+  /* Justified Paragraph Text on Mobile */
+  .safety-page__inner p,
+  .safety-page__inner .rte p,
+  .safety-banner-box p,
+  .safety-silicone-content p,
+  .safety-purity-content p,
+  .safety-faq-card p,
+  .safety-boil-guide p,
+  .safety-table-wrap p {
+    text-align: justify !important;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+}
 </style>
 
 {% schema %}

@@ -192,6 +192,28 @@
   font-weight: 600;
   color: var(--color-primary-dark, #A07855);
 }
+
+@media screen and (max-width: 768px) {
+  .featured-collection__item-wrap .product-card__info {
+    padding: 10px 6px;
+    min-height: auto;
+  }
+  .featured-collection__item-wrap .product-card__title {
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0 0 6px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 2.25em;
+  }
+  .featured-collection__item-wrap .product-card__image-wrapper {
+    aspect-ratio: 1/1;
+    width: 100%;
+  }
+}
 </style>
 
 {% schema %}
