@@ -1,9 +1,18 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero-banner",
       "settings": {
-        "image": "shopify://shop_images/Website_image_3.jpg",
+        "image": "shopify://shop_images/Web_Site_Banner_01.jpg",
         "overlay_opacity": 20,
         "text_color": "#111111",
         "badge_text": "",
@@ -130,7 +139,8 @@
             "author": "Kindle Customer",
             "rating": 5,
             "text": "Grandson loved it easy to hold and shake and made him laugh",
-            "date": "4/24/2026"
+            "date": "4/24/2026",
+            "fallback_image_url": ""
           }
         },
         "review_2": {
@@ -139,7 +149,8 @@
             "author": "Ebiere",
             "rating": 5,
             "text": "I got this teeth rattle my little one, good quality with grip and teething aid.",
-            "date": "4/15/2026"
+            "date": "4/15/2026",
+            "fallback_image_url": ""
           }
         },
         "review_3": {
@@ -148,7 +159,8 @@
             "author": "Kiera",
             "rating": 3,
             "text": "Smaller then expected and rattle isn t very loud , great teether toy though",
-            "date": "4/8/2026"
+            "date": "4/8/2026",
+            "fallback_image_url": ""
           }
         },
         "review_4": {
@@ -157,7 +169,8 @@
             "author": "EllieBelle",
             "rating": 4,
             "text": "I ordered the dusky pink lion rattle as a present my nephew s baby. It has a cute little face and comes in a little presentation box. It will be easy to wrap and perfect to gift!",
-            "date": "2/24/2026"
+            "date": "2/24/2026",
+            "fallback_image_url": ""
           }
         },
         "review_5": {
@@ -166,7 +179,8 @@
             "author": "Happy Customer",
             "rating": 5,
             "text": "I absolutely love this Little Creation Teether. It s a sweet, understated toy with a really lovely, soft colour palette that feels modern and calming rather than loud or overly bright.",
-            "date": "2/20/2026"
+            "date": "2/20/2026",
+            "fallback_image_url": ""
           }
         },
         "review_6": {
@@ -175,7 +189,8 @@
             "author": "Amazon Customer",
             "rating": 3,
             "text": "I ordered this rattle my five month old son who has mastered gripping things and navigating to his mouth. His piqued interested in achieving this hand to mouth coordination means he needs smalls",
-            "date": "2/16/2026"
+            "date": "2/16/2026",
+            "fallback_image_url": ""
           }
         },
         "review_7": {
@@ -184,7 +199,8 @@
             "author": "Charlie G.",
             "rating": 4,
             "text": "This teether rattle has mostly perks both baby and parents carers, being bpa free, easy enough to hold, and a rattle that s readily audible and interesting to baby but perfectly subtle enough mums...",
-            "date": "3/15/2026"
+            "date": "3/15/2026",
+            "fallback_image_url": ""
           }
         },
         "review_8": {
@@ -193,7 +209,8 @@
             "author": "Reviewer28",
             "rating": 5,
             "text": "This is a very cute rattle that feels like a quality item. It makes such a nice noise that isn't too grating, which is always a bonus, and it has a lovely weight to it that makes it feel quite...",
-            "date": "2/15/2026"
+            "date": "2/15/2026",
+            "fallback_image_url": ""
           }
         },
         "review_9": {
@@ -202,7 +219,8 @@
             "author": "Mr. A. Dance",
             "rating": 5,
             "text": "lion shaped baby Teether from age 3 months upwards this is a larger than other brands baby hand rattle in a light brown colour on inspection this appears to be made to a high standard the rattle is amazing",
-            "date": "2/13/2026"
+            "date": "2/13/2026",
+            "fallback_image_url": ""
           }
         },
         "review_10": {
@@ -211,7 +229,8 @@
             "author": "Lou",
             "rating": 5,
             "text": "If your house is anything like mine, \"playtime\" usually involves a lot of picking toys up off the floor every thirty seconds. This little lion is one of the few things my 5-month-old can actually love and enjoy it.",
-            "date": "2/13/2026"
+            "date": "2/13/2026",
+            "fallback_image_url": ""
           }
         }
       },
