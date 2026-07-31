@@ -44,13 +44,31 @@
 
       <!-- 3. Why Parents Love Silicone -->
       <div class="safety-silicone-intro mb-lg">
-        <h3>{{ section.settings.silicone_heading | default: "Why Parents & Specialists Love Silicone" }}</h3>
-        <div class="rte">
-          {% if section.settings.silicone_text != blank %}
-            {{ section.settings.silicone_text }}
-          {% else %}
-            <p>Food-grade platinum silicone is soft, resilient, and baby-tough. Formulated from natural silica elements, it provides the ideal balance of gentle flexibility to comfort tender gums without sacrificing durability. From cooling teethers to rattles, silicone is non-porous, naturally hygienic, and effortless to clean.</p>
-          {% endif %}
+        <div class="safety-silicone-card">
+          <div class="safety-silicone-image-wrap">
+            {% if section.settings.silicone_image != blank %}
+              <img src="{{ section.settings.silicone_image | image_url: width: 1200 }}" 
+                   alt="{{ section.settings.silicone_heading | default: 'Why Parents & Specialists Love Silicone' }}" 
+                   class="safety-silicone-img" loading="lazy">
+            {% else %}
+              <div class="safety-silicone-placeholder">
+                <span class="safety-img-placeholder__icon">📷</span>
+                <strong>[ Feature Image Placeholder: Why Parents & Specialists Love Silicone ]</strong>
+                <span>Select photo under 3. Silicone Intro Section in the theme editor sidebar</span>
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="safety-silicone-content">
+            <h3>{{ section.settings.silicone_heading | default: "Why Parents & Specialists Love Silicone" }}</h3>
+            <div class="rte">
+              {% if section.settings.silicone_text != blank %}
+                {{ section.settings.silicone_text }}
+              {% else %}
+                <p>Food-grade platinum silicone is soft, resilient, and baby-tough. Formulated from natural silica elements, it provides the ideal balance of gentle flexibility to comfort tender gums without sacrificing durability. From cooling teethers to rattles, silicone is non-porous, naturally hygienic, and effortless to clean.</p>
+              {% endif %}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -339,6 +357,70 @@
   margin-top: 0 !important;
 }
 
+.safety-silicone-card {
+  background: var(--color-white, #FFFFFF);
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-lg, 24px);
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+@media screen and (min-width: 900px) {
+  .safety-silicone-card {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 36px;
+    padding: 36px;
+  }
+}
+.safety-silicone-content h3 {
+  margin-top: 0 !important;
+  font-family: var(--font-heading-family);
+  font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+  color: var(--color-heading, #111111);
+  margin-bottom: 16px;
+}
+.safety-silicone-image-wrap {
+  width: 100%;
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+.safety-silicone-img {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  max-height: 440px;
+  object-fit: cover;
+  display: block;
+}
+.safety-silicone-placeholder {
+  background: #F8FAFC;
+  border: 2px dashed #CBD5E1;
+  border-radius: 18px;
+  padding: 48px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #475569;
+  min-height: 260px;
+}
+.safety-silicone-placeholder strong {
+  font-size: 1.05rem;
+  color: #1E293B;
+}
+.safety-silicone-placeholder span {
+  font-size: 0.85rem;
+  color: #64748B;
+}
+
 .safety-table-wrap {
   overflow-x: auto;
   margin: 20px 0 28px 0;
@@ -526,6 +608,7 @@
 
     { "type": "header", "content": "3. Silicone Intro Section" },
     { "type": "text", "id": "silicone_heading", "label": "Silicone Intro Heading", "default": "Why Parents & Specialists Love Silicone" },
+    { "type": "image_picker", "id": "silicone_image", "label": "Silicone Intro Feature Photo" },
     { "type": "richtext", "id": "silicone_text", "label": "Silicone Intro Text", "default": "<p>Food-grade platinum silicone is soft, resilient, and baby-tough. Formulated from natural silica elements, it provides the ideal balance of gentle flexibility to comfort tender gums without sacrificing durability. From cooling teethers to rattles, silicone is non-porous, naturally hygienic, and effortless to clean.</p>" },
 
     { "type": "header", "content": "4. Platinum Silicone Feature Table" },
