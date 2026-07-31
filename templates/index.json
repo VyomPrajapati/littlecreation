@@ -370,11 +370,15 @@
         },
         "insta_3": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/4.png"
+          }
         },
         "insta_4": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/6.png"
+          }
         },
         "insta_5": {
           "type": "image",
