@@ -46,13 +46,19 @@
 
         <div class="custom-app-field">
           <label for="Wholesale-storetype">Store Type *</label>
-          <select id="Wholesale-storetype" name="contact[Store Type]" class="custom-app-input custom-app-select" required>
+          <select id="Wholesale-storetype" name="contact[Store Type]" class="custom-app-input custom-app-select" onchange="toggleOtherStoreType(this)" required>
             <option value="" disabled selected>Select Store Type...</option>
             <option value="Online Only">Online Store</option>
             <option value="Brick & Mortar Shop">Brick & Mortar Retail Shop</option>
             <option value="Both (Online & Physical Shop)">Both (Online & Physical Store)</option>
             <option value="Distributor / Chain Store">Distributor / Pharmacy Chain</option>
+            <option value="Other">Other</option>
           </select>
+        </div>
+
+        <div id="Wholesale-other-container" class="custom-app-field custom-app-field--full" style="display: none;">
+          <label for="Wholesale-storetype-other">Please Specify Other Store Type *</label>
+          <input type="text" id="Wholesale-storetype-other" name="contact[Other Store Type Details]" class="custom-app-input" placeholder="e.g. Pop-up Store, Event Vendor, etc.">
         </div>
 
         <div class="custom-app-field">
@@ -247,3 +253,21 @@
   border: 1px solid #FFC9C9 !important;
 }
 </style>
+
+<script>
+function toggleOtherStoreType(selectEl) {
+  var otherContainer = document.getElementById('Wholesale-other-container');
+  var otherInput = document.getElementById('Wholesale-storetype-other');
+  if (!otherContainer || !otherInput) return;
+
+  if (selectEl.value === 'Other') {
+    otherContainer.style.display = 'block';
+    otherInput.setAttribute('required', 'required');
+    otherInput.focus();
+  } else {
+    otherContainer.style.display = 'none';
+    otherInput.removeAttribute('required');
+    otherInput.value = '';
+  }
+}
+</script>
