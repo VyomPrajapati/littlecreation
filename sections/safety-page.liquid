@@ -212,18 +212,28 @@
         <h3>{{ section.settings.declaration_heading | default: 'Declaration of Conformity' }}</h3>
         <p>{{ section.settings.declaration_subtext }}</p>
         
-        <ul class="safety-pdf-list">
+        <ol class="safety-pdf-list">
           {% if section.blocks.size > 0 %}
             {% for block in section.blocks %}
-              <li>📄 <a href="{{ block.settings.pdf_url | default: '#' }}" target="_blank" rel="noopener" class="pdf-link" {{ block.shopify_attributes }}><u>{{ block.settings.title | default: 'Safety Document' }}</u></a></li>
+              {% assign doc_url = block.settings.pdf_file.url %}
+              {% if doc_url == blank and block.settings.pdf_file != blank %}
+                {% assign doc_url = block.settings.pdf_file | file_url %}
+              {% endif %}
+              {% if doc_url == blank %}
+                {% assign doc_url = block.settings.pdf_url %}
+              {% endif %}
+              <li class="pdf-item" {{ block.shopify_attributes }}>
+                <span class="pdf-num">{{ forloop.index }}.</span>
+                <a href="{{ doc_url | default: '#' }}" target="_blank" rel="noopener" class="pdf-link"><u>{{ block.settings.title | default: 'Safety Document' }}</u></a>
+              </li>
             {% endfor %}
           {% else %}
-            <li>📄 <a href="#" target="_blank" rel="noopener" class="pdf-link"><u>Safety module</u></a></li>
-            <li>📄 <a href="#" target="_blank" rel="noopener" class="pdf-link"><u>Lion Rattle Teether Safety Declaration</u></a></li>
-            <li>📄 <a href="#" target="_blank" rel="noopener" class="pdf-link"><u>Cooling Teether Safety Declaration</u></a></li>
-            <li>📄 <a href="#" target="_blank" rel="noopener" class="pdf-link"><u>Swan Wooden Ring Teether Declaration</u></a></li>
+            <li class="pdf-item"><span class="pdf-num">1.</span> <a href="#" target="_blank" rel="noopener" class="pdf-link"><u>Safety module</u></a></li>
+            <li class="pdf-item"><span class="pdf-num">2.</span> <a href="#" target="_blank" rel="noopener" class="pdf-link"><u>Lion Rattle Teether Safety Declaration</u></a></li>
+            <li class="pdf-item"><span class="pdf-num">3.</span> <a href="#" target="_blank" rel="noopener" class="pdf-link"><u>Cooling Teether Safety Declaration</u></a></li>
+            <li class="pdf-item"><span class="pdf-num">4.</span> <a href="#" target="_blank" rel="noopener" class="pdf-link"><u>Swan Wooden Ring Teether Declaration</u></a></li>
           {% endif %}
-        </ul>
+        </ol>
       </div>
 
     </div>
@@ -313,7 +323,7 @@
   margin-right: -50vw;
   background: #F8FAFC;
   border-top: 1px solid #E2E8F0;
-  border-bottom: 2px dashed #94A3B8;
+  border-bottom: 1px solid #E2E8F0;
   padding: 64px 20px;
   text-align: center;
   margin-bottom: 40px;
@@ -400,7 +410,7 @@
 }
 .safety-silicone-placeholder {
   background: #F8FAFC;
-  border: 2px dashed #CBD5E1;
+  border: 1.5px solid #E2E8F0;
   border-radius: 18px;
   padding: 48px 24px;
   text-align: center;
@@ -459,10 +469,10 @@
   .safety-4grid { grid-template-columns: 1fr; }
 }
 .safety-4grid__item {
-  background: #F8FAFC;
-  border: 2px dashed #CBD5E1;
-  border-radius: var(--radius-lg, 16px);
-  padding: 24px 14px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-lg, 20px);
+  padding: 0;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -471,12 +481,19 @@
   gap: 6px;
   color: #475569;
   overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.safety-4grid__item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
 }
 .safety-grid-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 12px;
+  display: block;
+  border-radius: 20px;
 }
 
 .safety-purity-section {
@@ -524,7 +541,7 @@
 }
 .safety-purity-placeholder {
   background: #FFFFFF;
-  border: 2px dashed #CBD5E1;
+  border: 1.5px solid #E2E8F0;
   border-radius: 18px;
   padding: 48px 24px;
   text-align: center;
@@ -546,52 +563,65 @@
 }
 
 .safety-faq-card {
-  background: #FFFDF9;
+  background: var(--color-skin-pale, #FBF0E8);
   border: 1.5px solid var(--color-border, #E8D5C4);
-  border-radius: var(--radius-lg, 20px);
-  padding: 24px;
+  border-radius: var(--radius-lg, 24px);
+  padding: 32px;
   margin-top: 32px;
 }
 .safety-faq-card h4 {
   margin-top: 0 !important;
   color: var(--color-heading, #111111);
-  font-size: 1.15rem;
+  font-family: var(--font-heading-family);
+  font-size: 1.25rem;
+  font-weight: 700;
 }
 .safety-boil-guide {
-  background: #EFF6FF;
-  border: 1px solid #BFDBFE;
-  border-radius: 12px;
-  padding: 16px 20px;
-  margin-top: 16px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-top: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 .safety-boil-guide h5 {
   margin: 0 0 10px 0;
-  font-size: 0.95rem;
-  color: #1E40AF;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-primary-dark, #A07855);
 }
 
 .safety-pdf-list {
   list-style: none;
   padding: 0;
-  margin: 16px 0;
+  margin: 20px 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
-.safety-pdf-list li {
-  margin: 0;
+.pdf-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 1.05rem;
+  margin: 0;
+}
+.pdf-num {
+  font-weight: 700;
+  color: var(--color-primary-dark, #A07855);
+  font-size: 1.1rem;
+  min-width: 24px;
 }
 .pdf-link {
-  color: var(--color-primary-dark, #A07855) !important;
-  font-weight: 700;
+  color: var(--color-heading, #111111) !important;
+  font-weight: 600;
   text-decoration: underline !important;
   text-underline-offset: 4px;
   transition: color 0.2s ease;
   cursor: pointer;
 }
 .pdf-link:hover {
-  color: var(--color-heading, #111111) !important;
+  color: var(--color-primary-dark, #A07855) !important;
 }
 </style>
 
@@ -652,7 +682,8 @@
       "name": "PDF Document Link",
       "settings": [
         { "type": "text", "id": "title", "label": "Document Title", "default": "Safety module" },
-        { "type": "url", "id": "pdf_url", "label": "PDF File URL" }
+        { "type": "generic_file", "id": "pdf_file", "label": "Upload PDF Document (Direct File Upload)" },
+        { "type": "url", "id": "pdf_url", "label": "Or Paste External PDF URL" }
       ]
     }
   ],
