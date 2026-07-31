@@ -1,174 +1,212 @@
 {%- comment -%}
-  Interactive Contact / Affiliate Application Form Snippet
+  Interactive Affiliate Application Form Snippet
 {%- endcomment -%}
 
-<div class="contact-section section-padding" style="background-color: #ffffff; margin-top: 40px;">
+<div class="affiliate-app-section">
   <div class="container">
+    <div class="affiliate-app-card">
 
-    <div class="contact-section__header text-center mb-xl animate-on-scroll">
-      <span class="section-label">Partner With Us</span>
-      <h2 class="contact-section__title mt-xs mb-sm">Affiliate Program Application</h2>
-      <p class="contact-section__subtext">Fill out the application form below with your details and our partner team will review your application within 24 hours.</p>
-    </div>
+      <div class="affiliate-app-header text-center">
+        <span class="section-label">Partner With Us</span>
+        <h2 class="affiliate-app-title">Affiliate Program Application</h2>
+        <p class="affiliate-app-subtext">Fill out the form below to apply. Our team will review your application within 24 hours.</p>
+      </div>
 
-    <div class="contact-section__grid">
+      {%- form 'contact', id: 'AffiliateApplicationForm', class: 'affiliate-form' -%}
 
-      <!-- Info Cards Column -->
-      <div class="contact-info animate-on-scroll delay-1">
-        <div class="contact-info__card">
-          <h2 class="contact-info__heading">Why Partner With Us?</h2>
-          <p class="contact-info__text">Join a trusted UK baby brand. Get access to exclusive partner perks, competitive commission rates, and early access to new product releases.</p>
-
-          <div class="contact-info__list">
-
-            <div class="contact-info__item">
-              <div class="contact-info__icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              </div>
-              <div class="contact-info__details">
-                <span class="contact-info__label">Email Us</span>
-                <a href="mailto:hello@littlecreation.co.uk" class="contact-info__value">hello@littlecreation.co.uk</a>
-              </div>
-            </div>
-
-            <div class="contact-info__item">
-              <div class="contact-info__icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              </div>
-              <div class="contact-info__details">
-                <span class="contact-info__label">Location</span>
-                <span class="contact-info__value">United Kingdom</span>
-              </div>
-            </div>
-
-            <div class="contact-info__item">
-              <div class="contact-info__icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-              </div>
-              <div class="contact-info__details">
-                <span class="contact-info__label">Response Time</span>
-                <span class="contact-info__value">Within 24 Business Hours</span>
-              </div>
-            </div>
-
+        {%- if form.posted_successfully? -%}
+          <div class="affiliate-form__alert affiliate-form__alert--success">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span>Thanks for applying! We'll review your details and get back to you shortly.</span>
           </div>
+        {%- elsif form.errors -%}
+          <div class="affiliate-form__alert affiliate-form__alert--error">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>Please check your application details and try again.</span>
+          </div>
+        {%- endif -%}
+
+        <input type="hidden" name="contact[Form Subject]" value="Affiliate Program Application">
+
+        <div class="affiliate-form-grid">
+
+          <div class="affiliate-form-field">
+            <label for="Affiliate-name">Full Name *</label>
+            <input type="text" id="Affiliate-name" name="contact[Full Name]" placeholder="e.g. Sarah Jenkins" required>
+          </div>
+
+          <div class="affiliate-form-field">
+            <label for="Affiliate-email">Email Address *</label>
+            <input type="email" id="Affiliate-email" name="contact[email]" placeholder="e.g. sarah@example.com" required>
+          </div>
+
+          <div class="affiliate-form-field">
+            <label for="Affiliate-social">Instagram / TikTok Username *</label>
+            <input type="text" id="Affiliate-social" name="contact[Instagram / TikTok Username]" placeholder="@yourhandle" required>
+          </div>
+
+          <div class="affiliate-form-field">
+            <label for="Affiliate-followers">Followers Count *</label>
+            <input type="text" id="Affiliate-followers" name="contact[Followers Count]" placeholder="e.g. 10k+" required>
+          </div>
+
+          <div class="affiliate-form-field">
+            <label for="Affiliate-niche">Content Niche *</label>
+            <input type="text" id="Affiliate-niche" name="contact[Content Niche]" placeholder="e.g. Parenting, Baby Products, Montessori" required>
+          </div>
+
+          <div class="affiliate-form-field">
+            <label for="Affiliate-country">Country *</label>
+            <input type="text" id="Affiliate-country" name="contact[Country]" placeholder="e.g. United Kingdom" required>
+          </div>
+
+          <div class="affiliate-form-field affiliate-form-field--full">
+            <label for="Affiliate-website">Website / Blog (Optional)</label>
+            <input type="text" id="Affiliate-website" name="contact[Website or Blog]" placeholder="https://yourwebsite.com">
+          </div>
+
+          <div class="affiliate-form-field affiliate-form-field--full">
+            <label for="Affiliate-body">Why would you like to collaborate with Little Creation? *</label>
+            <textarea id="Affiliate-body" name="contact[Why Collaborate / Application Message]" rows="3" placeholder="Tell us about your audience and why you'd love to work with us..." required>{{- form.body -}}</textarea>
+          </div>
+
+          <div class="affiliate-form-field affiliate-form-field--full">
+            <button type="submit" class="affiliate-submit-btn">
+              <span>Submit Application</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+
         </div>
-      </div>
 
-      <!-- Form Column -->
-      <div class="contact-form-card animate-on-scroll delay-2">
-        {%- form 'contact', id: 'AffiliateContactFormSnippet', class: 'contact-form' -%}
-
-          {%- if form.posted_successfully? -%}
-            <div class="contact-form__alert contact-form__alert--success" tabindex="-1" autofocus>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              <span>Thanks for applying! We'll review your details and get back to you shortly.</span>
-            </div>
-          {%- elsif form.errors -%}
-            <div class="contact-form__alert contact-form__alert--error" role="alert" tabindex="-1" autofocus>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <span>Please check your application details and try again.</span>
-            </div>
-          {%- endif -%}
-
-          <input type="hidden" name="contact[Form Subject]" value="Affiliate Program Application">
-
-          <div class="contact-form__row">
-            <div class="contact-form__field">
-              <label class="contact-form__label" for="Affiliate-name">Full Name *</label>
-              <input class="contact-form__input"
-                     type="text"
-                     id="Affiliate-name"
-                     name="contact[Full Name]"
-                     placeholder="e.g. Sarah Jenkins"
-                     required>
-            </div>
-
-            <div class="contact-form__field">
-              <label class="contact-form__label" for="Affiliate-email">Email Address *</label>
-              <input class="contact-form__input"
-                     type="email"
-                     id="Affiliate-email"
-                     name="contact[email]"
-                     placeholder="e.g. sarah@example.com"
-                     autocomplete="email"
-                     autocapitalize="off"
-                     required>
-            </div>
-          </div>
-
-          <div class="contact-form__row">
-            <div class="contact-form__field">
-              <label class="contact-form__label" for="Affiliate-social">Instagram / TikTok Username *</label>
-              <input class="contact-form__input"
-                     type="text"
-                     id="Affiliate-social"
-                     name="contact[Instagram / TikTok Username]"
-                     placeholder="@yourhandle"
-                     required>
-            </div>
-
-            <div class="contact-form__field">
-              <label class="contact-form__label" for="Affiliate-followers">Followers Count *</label>
-              <input class="contact-form__input"
-                     type="text"
-                     id="Affiliate-followers"
-                     name="contact[Followers Count]"
-                     placeholder="e.g. 10k+"
-                     required>
-            </div>
-          </div>
-
-          <div class="contact-form__row">
-            <div class="contact-form__field">
-              <label class="contact-form__label" for="Affiliate-niche">Content Niche *</label>
-              <input class="contact-form__input"
-                     type="text"
-                     id="Affiliate-niche"
-                     name="contact[Content Niche]"
-                     placeholder="e.g. Parenting, Baby Products, Montessori"
-                     required>
-            </div>
-
-            <div class="contact-form__field">
-              <label class="contact-form__label" for="Affiliate-website">Website / Blog (Optional)</label>
-              <input class="contact-form__input"
-                     type="text"
-                     id="Affiliate-website"
-                     name="contact[Website or Blog]"
-                     placeholder="https://yourwebsite.com">
-            </div>
-          </div>
-
-          <div class="contact-form__field">
-            <label class="contact-form__label" for="Affiliate-country">Country *</label>
-            <input class="contact-form__input"
-                   type="text"
-                   id="Affiliate-country"
-                   name="contact[Country]"
-                   placeholder="e.g. United Kingdom"
-                   required>
-          </div>
-
-          <div class="contact-form__field">
-            <label class="contact-form__label" for="Affiliate-body">Why would you like to collaborate with Little Creation? *</label>
-            <textarea rows="4"
-                      id="Affiliate-body"
-                      class="contact-form__input contact-form__textarea"
-                      name="contact[Why Collaborate / Application Message]"
-                      placeholder="Tell us about your audience and why you'd love to work with us..."
-                      required>{{- form.body -}}</textarea>
-          </div>
-
-          <button type="submit" class="button button--full-width contact-form__submit">
-            <span>Submit Application</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-
-        {%- endform -%}
-      </div>
+      {%- endform -%}
 
     </div>
-
   </div>
 </div>
+
+<style>
+.affiliate-app-section {
+  padding: 10px 0 40px 0;
+  margin-top: 10px;
+}
+.affiliate-app-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--color-skin-pale, #FBF0E8);
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: 24px;
+  padding: 36px 40px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+}
+@media screen and (max-width: 768px) {
+  .affiliate-app-card {
+    padding: 24px 18px;
+    border-radius: 18px;
+  }
+}
+.affiliate-app-header {
+  margin-bottom: 28px;
+  text-align: center;
+}
+.affiliate-app-title {
+  font-family: var(--font-heading-family);
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  color: var(--color-heading, #111111);
+  margin: 8px 0;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+}
+.affiliate-app-subtext {
+  font-size: 0.98rem;
+  color: var(--color-text, #4A3E37);
+  margin: 0;
+}
+.affiliate-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 24px;
+}
+@media screen and (max-width: 640px) {
+  .affiliate-form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+.affiliate-form-field--full {
+  grid-column: 1 / -1;
+}
+.affiliate-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.affiliate-form-field label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-heading, #111111);
+}
+.affiliate-form-field input,
+.affiliate-form-field textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  color: #111111;
+  font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.affiliate-form-field input:focus,
+.affiliate-form-field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary-dark, #A07855);
+  box-shadow: 0 0 0 3px rgba(160, 120, 85, 0.15);
+}
+.affiliate-submit-btn {
+  width: 100%;
+  height: 52px;
+  background: linear-gradient(135deg, var(--color-primary, #C69A7C), var(--color-primary-dark, #A07855));
+  color: #FFFFFF;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(160, 120, 85, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 8px;
+}
+.affiliate-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(160, 120, 85, 0.35);
+}
+.affiliate-form__alert {
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.affiliate-form__alert--success {
+  background: #EBFBEE;
+  color: #2B8A3E;
+  border: 1px solid #B2F2BB;
+}
+.affiliate-form__alert--error {
+  background: #FFF5F5;
+  color: #E03131;
+  border: 1px solid #FFC9C9;
+}
+</style>
