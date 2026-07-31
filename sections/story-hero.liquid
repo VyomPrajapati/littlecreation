@@ -17,12 +17,14 @@
 
     <div class="container story-hero__container">
       <div class="story-hero__content">
-        {% if section.settings.heading != blank %}
-          <h1 class="story-hero__title">{{ section.settings.heading }}</h1>
-        {% endif %}
-        {% if section.settings.subheading != blank %}
-          <span class="story-hero__subtitle">{{ section.settings.subheading }}</span>
-        {% endif %}
+        <div class="story-hero__card">
+          {% if section.settings.heading != blank %}
+            <h1 class="story-hero__title">{{ section.settings.heading }}</h1>
+          {% endif %}
+          {% if section.settings.subheading != blank %}
+            <span class="story-hero__subtitle">{{ section.settings.subheading }}</span>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
@@ -48,11 +50,6 @@
   justify-content: center;
   background: var(--color-skin-pale, #FBF0E8);
 }
-@media screen and (max-width: 768px) {
-  .story-hero__wrapper {
-    min-height: 480px;
-  }
-}
 .story-hero__img {
   width: 100%;
   height: 100%;
@@ -62,8 +59,32 @@
   display: block;
 }
 @media screen and (max-width: 768px) {
+  .story-hero {
+    margin-bottom: 24px;
+  }
+  .story-hero__wrapper {
+    min-height: auto !important;
+    height: auto !important;
+  }
   .story-hero__img {
-    min-height: 480px;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    object-fit: contain !important;
+  }
+  .story-hero__container {
+    padding: 12px 16px;
+  }
+  .story-hero__card {
+    padding: 16px 20px !important;
+    border-radius: 16px !important;
+  }
+  .story-hero__title {
+    font-size: 1.65rem !important;
+    margin-bottom: 4px !important;
+  }
+  .story-hero__subtitle {
+    font-size: 0.82rem !important;
   }
 }
 .story-hero__overlay {
@@ -72,7 +93,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%);
+  background: rgba(0, 0, 0, 0.04);
   z-index: 1;
   pointer-events: none;
 }
@@ -84,29 +105,39 @@
   width: 100%;
   z-index: 2;
   text-align: center;
-  color: #ffffff;
   padding: 20px;
 }
 .story-hero__content {
-  max-width: 800px;
+  max-width: 750px;
   margin: 0 auto;
+}
+.story-hero__card {
+  background: rgba(251, 240, 232, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: 24px;
+  padding: 28px 44px;
+  display: inline-block;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 .story-hero__title {
   font-family: var(--font-heading-family);
-  font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
   font-weight: 800;
-  color: #ffffff !important;
-  margin: 0 0 10px 0;
+  color: var(--color-heading, #111111) !important;
+  margin: 0 0 8px 0;
   line-height: 1.15;
-  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+  text-shadow: none;
 }
 .story-hero__subtitle {
   display: block;
-  font-size: clamp(0.95rem, 2vw, 1.35rem);
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  font-size: clamp(0.95rem, 1.8vw, 1.25rem);
+  font-weight: 700;
+  color: var(--color-primary-dark, #A07855) !important;
+  text-shadow: none;
   letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 .story-hero__placeholder {
   position: absolute;
