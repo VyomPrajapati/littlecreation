@@ -1,10 +1,20 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "banner": {
       "type": "story-hero",
       "settings": {
-        "heading": "",
-        "subheading": ""
+        "image": "shopify://shop_images/our_story.png",
+        "heading": "Our Story",
+        "subheading": "Loved by Little Ones"
       }
     },
     "rich_text_1": {
@@ -19,7 +29,7 @@
         "text_1": {
           "type": "text",
           "settings": {
-            "text": "<p>Little Creation is a female-founded baby brand dedicated to reimagining the Teether as a tool for early childhood development. Rooted in Montessori philosophy and an unwavering commitment to material safety, we design Teether that go beyond soothing — they engage, stimulate, and gently nurture the growing minds of the world's most precious learners.<\/p><p>Our products are thoughtfully crafted from certified safe, non toxic materials, chosen with the same care a mother brings to every decision — because we believe the smallest details make the greatest difference. Every shape is intentional. Every texture is purposeful. Every piece is made to be held, explored, and loved.<\/p><p>At Little Creation, we don't follow trends. We follow child development research, maternal instinct, and the timeless wisdom of Montessori education. We are for the parents who ask questions, read labels, and refuse to compromise. We are for the babies who deserve a world designed with them in mind — from the very first reach of their tiny hands.<\/p>"
+            "text": "<p>Little Creation is a female-founded baby brand dedicated to reimagining the Teether as a tool for early childhood development. Rooted in Montessori philosophy and an unwavering commitment to material safety, we design Teether that go beyond soothing — they engage, stimulate, and gently nurture the growing minds of the world's most precious learners.</p><p>Our products are thoughtfully crafted from certified safe, non toxic materials, chosen with the same care a mother brings to every decision — because we believe the smallest details make the greatest difference. Every shape is intentional. Every texture is purposeful. Every piece is made to be held, explored, and loved.</p><p>At Little Creation, we don't follow trends. We follow child development research, maternal instinct, and the timeless wisdom of Montessori education. We are for the parents who ask questions, read labels, and refuse to compromise. We are for the babies who deserve a world designed with them in mind — from the very first reach of their tiny hands.</p>"
           }
         }
       },
@@ -28,7 +38,7 @@
         "text_1"
       ],
       "settings": {
-        "bg_color": "#FBF0E8"
+        "bg_color": "#fbf0e8"
       }
     },
     "rich_text_2": {
@@ -43,7 +53,7 @@
         "text_2": {
           "type": "text",
           "settings": {
-            "text": "<p>A very great brand begins with a moment - a pause, a question, a quiet refusal to settle for less. the world of baby products surrounding her. Bright plastics. Synthetic coatings. Generic shapes designed to entertain, not educate.<\/p><p>\"What if a teether could do more than soothe - what if it could gently awaken a child's mind?\"<\/p><p>Driven by her passion for child development, her deep respect for the Montessori philosophy, and an uncompromising commitment to safety, she set out to build something that didn't yet exist - a teether that was beautiful in its simplicity, powerful in its purpose, and honest in every material it was made from.<\/p><p>The Idea was born in July 2025, But After Months of research, late nights, and relentless testing followed. We studied Montessori principles - the belief that children are natural learners, that the right environment and the right tools awaken independence, coordination, and sensory intelligence. She worked with child development specialists, material safety experts, and mothers just like her. And from that dedication, Little Creation was born.<\/p><p>A brand rooted not in trends, but in truth. Truth about what babies deserve. The truth about what parents need to trust. Truth about what materials belong in the hands of the next generation.<\/p>"
+            "text": "<p>A very great brand begins with a moment - a pause, a question, a quiet refusal to settle for less. the world of baby products surrounding her. Bright plastics. Synthetic coatings. Generic shapes designed to entertain, not educate.</p><p>\"What if a teether could do more than soothe - what if it could gently awaken a child's mind?\"</p><p>Driven by her passion for child development, her deep respect for the Montessori philosophy, and an uncompromising commitment to safety, she set out to build something that didn't yet exist - a teether that was beautiful in its simplicity, powerful in its purpose, and honest in every material it was made from.</p><p>The Idea was born in July 2025, But After Months of research, late nights, and relentless testing followed. We studied Montessori principles - the belief that children are natural learners, that the right environment and the right tools awaken independence, coordination, and sensory intelligence. She worked with child development specialists, material safety experts, and mothers just like her. And from that dedication, Little Creation was born.</p><p>A brand rooted not in trends, but in truth. Truth about what babies deserve. The truth about what parents need to trust. Truth about what materials belong in the hands of the next generation.</p>"
           }
         }
       },
@@ -52,7 +62,7 @@
         "text_2"
       ],
       "settings": {
-        "bg_color": "#FFFFFF"
+        "bg_color": "#ffffff"
       }
     },
     "rich_text_3": {
@@ -67,7 +77,7 @@
         "text_3": {
           "type": "text",
           "settings": {
-            "text": "<p>To craft teethers that are as intentional as they are beautiful — designed to develop little minds, soothe little gums, and give parents complete peace of mind.<\/p>"
+            "text": "<p>To craft teethers that are as intentional as they are beautiful — designed to develop little minds, soothe little gums, and give parents complete peace of mind.</p>"
           }
         }
       },
@@ -76,7 +86,7 @@
         "text_3"
       ],
       "settings": {
-        "bg_color": "#FBF0E8"
+        "bg_color": "#fbf0e8"
       }
     }
   },
