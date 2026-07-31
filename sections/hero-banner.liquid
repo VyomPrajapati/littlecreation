@@ -6,7 +6,7 @@
          class="hero-banner__bg-image">
   {%- endif -%}
   
-  <div class="hero-banner__overlay"></div>
+  <div class="hero-banner__overlay" style="{% if section.settings.overlay_opacity > 0 %}background: linear-gradient(90deg, rgba(255, 255, 255, {{ section.settings.overlay_opacity | times: 0.0075 | plus: 0.25 }}) 0%, rgba(255, 255, 255, {{ section.settings.overlay_opacity | times: 0.005 | plus: 0.1 }}) 50%, rgba(255, 255, 255, 0) 100%);{% endif %}"></div>
 
   <div class="hero-banner__container">
     <div class="hero-banner__content-box animate-on-scroll">
@@ -96,6 +96,13 @@
   width: 100%;
   height: 100%;
   z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.45) 45%, rgba(255, 255, 255, 0) 100%);
+}
+@media screen and (max-width: 767px) {
+  .hero-banner__overlay {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 65%, rgba(255, 255, 255, 0) 100%);
+  }
 }
 
 /* ---- Grid ---- */
@@ -131,28 +138,30 @@
 .hero-banner__heading {
   font-family: 'Fredoka', 'Quicksand', system-ui, sans-serif !important;
   font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: 500 !important;
+  font-weight: 700 !important;
   line-height: 1.2;
-  color: {{ section.settings.text_color | default: 'var(--color-heading)' }};
+  color: {{ section.settings.text_color | default: '#111111' }};
   margin-bottom: var(--spacing-sm);
   margin-top: var(--spacing-xs);
-  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.4);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9), 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 .hero-banner__accent {
   display: block;
   font-family: 'Fredoka', 'Quicksand', system-ui, sans-serif !important;
-  font-weight: 500 !important;
+  font-weight: 600 !important;
   font-style: normal !important;
-  color: {{ section.settings.text_color | default: 'var(--color-text)' }};
+  color: {{ section.settings.text_color | default: '#111111' }};
   font-size: 0.85em;
   margin-top: 8px;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
 }
 .hero-banner__text {
   font-size: 1.1rem;
-  color: {{ section.settings.text_color | default: 'var(--color-text)' }};
+  font-weight: 500;
+  color: {{ section.settings.text_color | default: '#111111' }};
   line-height: 1.6;
   margin-bottom: var(--spacing-md);
-  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.4);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
 }
 
 /* Buttons row */
@@ -175,21 +184,22 @@
   align-items: center;
   gap: 12px;
   font-size: 0.95rem;
-  color: {{ section.settings.text_color | default: 'var(--color-text)' }};
+  color: {{ section.settings.text_color | default: '#111111' }};
   margin-top: var(--spacing-lg);
-  opacity: 0.9;
+  opacity: 1;
+  font-weight: 600;
 }
 .hero-banner__trust-item {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-weight: 500;
+  font-weight: 600;
 }
 .hero-banner__trust-item svg { 
-  color: {{ section.settings.text_color | default: 'var(--color-text)' }}; 
+  color: {{ section.settings.text_color | default: '#111111' }}; 
   flex-shrink: 0; 
 }
-.hero-banner__trust-sep { opacity: 0.4; font-size: 1.2em; }
+.hero-banner__trust-sep { opacity: 0.5; font-size: 1.2em; }
 @media screen and (max-width: 767px) {
   .hero-banner__trust { justify-content: center; gap: 8px; font-size: 0.85rem; }
 }
@@ -218,7 +228,7 @@
       "type": "color",
       "id": "text_color",
       "label": "Text colour",
-      "default": "#5A4538"
+      "default": "#111111"
     },
     {
       "type": "text",
