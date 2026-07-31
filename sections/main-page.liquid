@@ -14,7 +14,7 @@
 
         {%- if page.content != blank -%}
           <div class="main-page__content rte animate-on-scroll delay-1">
-            {{ page.content | replace: '(content is missing )', 'Little Creation. We are a UK-based baby brand dedicated to crafting non-toxic, 100% food-grade silicone teething toys that blend safety, developmental play, and modern aesthetics.' | replace: '(content is missing)', 'Little Creation. We are a UK-based baby brand dedicated to crafting non-toxic, 100% food-grade silicone teething toys that blend safety, developmental play, and modern aesthetics.' }}
+            {{ page.content | replace: 'for (content is missing )', 'for Little Creation. We are a UK-based baby brand dedicated to crafting non-toxic, 100% food-grade silicone teething toys that blend safety, developmental play, and modern aesthetics.' | replace: 'for (content is missing)', 'for Little Creation. We are a UK-based baby brand dedicated to crafting non-toxic, 100% food-grade silicone teething toys that blend safety, developmental play, and modern aesthetics.' | replace: '(content is missing )', 'Little Creation. We are a UK-based baby brand dedicated to crafting non-toxic, 100% food-grade silicone teething toys that blend safety, developmental play, and modern aesthetics.' | replace: '(content is missing)', 'Little Creation. We are a UK-based baby brand dedicated to crafting non-toxic, 100% food-grade silicone teething toys that blend safety, developmental play, and modern aesthetics.' }}
           </div>
         {%- else -%}
           <div class="main-page__empty text-center animate-on-scroll delay-1">
