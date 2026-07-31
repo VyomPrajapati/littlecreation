@@ -1,15 +1,5 @@
 {
   "sections": {
-    "banner": {
-      "type": "hero-banner",
-      "settings": {
-        "heading": "Become a Distributor",
-        "text": "<p>Interested in stocking Little Creation products? We'd love to hear from you.</p>",
-        "button_label": "Contact Us",
-        "button_link": "#wholesale-contact",
-        "bg_color": "#FBF0E8"
-      }
-    },
     "main": {
       "type": "main-page",
       "settings": {}
@@ -22,7 +12,6 @@
     }
   },
   "order": [
-    "banner",
     "main",
     "contact"
   ]

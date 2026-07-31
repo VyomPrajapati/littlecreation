@@ -1,15 +1,5 @@
 {
   "sections": {
-    "banner": {
-      "type": "hero-banner",
-      "settings": {
-        "heading": "Affiliate & Partner Program",
-        "text": "<p>Partner with Little Creation to share 100% Food-Grade Platinum Silicone teethers with your community and earn generous commissions on every sale you generate.</p>",
-        "button_label": "Apply Now",
-        "button_link": "#affiliate-contact",
-        "bg_color": "#FBF0E8"
-      }
-    },
     "main": {
       "type": "main-page",
       "settings": {}
@@ -26,7 +16,6 @@
     }
   },
   "order": [
-    "banner",
     "main",
     "contact"
   ]

@@ -7,12 +7,10 @@
     <div class="container">
       <div class="main-page__inner">
 
-        {%- unless page.handle == 'wholesale' or page.handle == 'become-a-distributor' or page.handle == 'affiliate' or page.handle == 'affiliate-program' or page.handle == 'shipping-returns' or page.handle == 'shipping-return' or page.handle == 'shipping' or page.title contains 'Distributor' or page.title contains 'Affiliate' or page.title contains 'Shipping' -%}
-          <header class="main-page__header text-center animate-on-scroll">
-            <h1 class="main-page__title">{{ page.title | escape }}</h1>
-            <div class="main-page__divider"></div>
-          </header>
-        {%- endunless -%}
+        <header class="main-page__header animate-on-scroll">
+          <h1 class="main-page__title">{{ page.title | escape }}</h1>
+          <div class="main-page__divider"></div>
+        </header>
 
         {%- if page.content != blank -%}
           <div class="main-page__content rte animate-on-scroll delay-1">
@@ -40,23 +38,24 @@
     margin: 0 auto;
   }
   .main-page__header {
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: 36px;
+    text-align: left;
   }
   .main-page__title {
     font-family: var(--font-heading-family);
-    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
     font-weight: 800;
-    color: var(--color-heading);
-    margin: 0 0 var(--spacing-sm);
-    line-height: 1.15;
+    color: var(--color-heading, #111111);
+    margin: 0 0 10px 0;
+    line-height: 1.2;
     letter-spacing: -0.01em;
   }
   .main-page__divider {
-    width: 70px;
+    width: 65px;
     height: 3.5px;
-    background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
-    border-radius: var(--radius-pill);
-    margin: var(--spacing-sm) auto 0;
+    background: linear-gradient(to right, var(--color-primary, #C69A7C), var(--color-primary-dark, #A07855));
+    border-radius: var(--radius-pill, 2px);
+    margin: 10px 0 0 0;
   }
 
   .main-page__content {
