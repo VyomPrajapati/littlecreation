@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -349,11 +358,15 @@
       "blocks": {
         "insta_1": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_Jul_31_2026_11_21_06_AM.png"
+          }
         },
         "insta_2": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/1.png"
+          }
         },
         "insta_3": {
           "type": "image",
@@ -365,7 +378,9 @@
         },
         "insta_5": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/2.png"
+          }
         },
         "insta_6": {
           "type": "image",
