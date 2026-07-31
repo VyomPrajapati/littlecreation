@@ -1,14 +1,10 @@
 {
   "sections": {
     "banner": {
-      "type": "hero-banner",
+      "type": "story-hero",
       "settings": {
         "heading": "Our Story",
-        "subheading": "REIMAGINING EARLY CHILDHOOD DEVELOPMENT",
-        "text": "<p>Rooted in Montessori philosophy and an unwavering commitment to material safety, we design teethers that go beyond soothing — they engage, stimulate, and gently nurture growing minds.</p>",
-        "button_label": "Explore Our Collection",
-        "button_link": "/collections/all",
-        "bg_color": "#FBF0E8"
+        "subheading": "Reimagining Early Childhood Development"
       }
     },
     "rich_text_1": {
