@@ -28,7 +28,7 @@
   </section>
 
   {%- if page.handle contains 'affiliate' or page.handle contains 'wholesale' or page.handle contains 'distributor' or page.title contains 'Affiliate' or page.title contains 'Distributor' -%}
-    {% section 'contact-form' %}
+    {% render 'contact-form-snippet' %}
   {%- endif -%}
 {%- endif -%}
 

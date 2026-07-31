@@ -1,0 +1,174 @@
+{%- comment -%}
+  Interactive Contact / Affiliate Application Form Snippet
+{%- endcomment -%}
+
+<div class="contact-section section-padding" style="background-color: #ffffff; margin-top: 40px;">
+  <div class="container">
+
+    <div class="contact-section__header text-center mb-xl animate-on-scroll">
+      <span class="section-label">Partner With Us</span>
+      <h2 class="contact-section__title mt-xs mb-sm">Affiliate Program Application</h2>
+      <p class="contact-section__subtext">Fill out the application form below with your details and our partner team will review your application within 24 hours.</p>
+    </div>
+
+    <div class="contact-section__grid">
+
+      <!-- Info Cards Column -->
+      <div class="contact-info animate-on-scroll delay-1">
+        <div class="contact-info__card">
+          <h2 class="contact-info__heading">Why Partner With Us?</h2>
+          <p class="contact-info__text">Join a trusted UK baby brand. Get access to exclusive partner perks, competitive commission rates, and early access to new product releases.</p>
+
+          <div class="contact-info__list">
+
+            <div class="contact-info__item">
+              <div class="contact-info__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="contact-info__details">
+                <span class="contact-info__label">Email Us</span>
+                <a href="mailto:hello@littlecreation.co.uk" class="contact-info__value">hello@littlecreation.co.uk</a>
+              </div>
+            </div>
+
+            <div class="contact-info__item">
+              <div class="contact-info__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="contact-info__details">
+                <span class="contact-info__label">Location</span>
+                <span class="contact-info__value">United Kingdom</span>
+              </div>
+            </div>
+
+            <div class="contact-info__item">
+              <div class="contact-info__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+              </div>
+              <div class="contact-info__details">
+                <span class="contact-info__label">Response Time</span>
+                <span class="contact-info__value">Within 24 Business Hours</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Column -->
+      <div class="contact-form-card animate-on-scroll delay-2">
+        {%- form 'contact', id: 'AffiliateContactFormSnippet', class: 'contact-form' -%}
+
+          {%- if form.posted_successfully? -%}
+            <div class="contact-form__alert contact-form__alert--success" tabindex="-1" autofocus>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>Thanks for applying! We'll review your details and get back to you shortly.</span>
+            </div>
+          {%- elsif form.errors -%}
+            <div class="contact-form__alert contact-form__alert--error" role="alert" tabindex="-1" autofocus>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span>Please check your application details and try again.</span>
+            </div>
+          {%- endif -%}
+
+          <input type="hidden" name="contact[Form Subject]" value="Affiliate Program Application">
+
+          <div class="contact-form__row">
+            <div class="contact-form__field">
+              <label class="contact-form__label" for="Affiliate-name">Full Name *</label>
+              <input class="contact-form__input"
+                     type="text"
+                     id="Affiliate-name"
+                     name="contact[Full Name]"
+                     placeholder="e.g. Sarah Jenkins"
+                     required>
+            </div>
+
+            <div class="contact-form__field">
+              <label class="contact-form__label" for="Affiliate-email">Email Address *</label>
+              <input class="contact-form__input"
+                     type="email"
+                     id="Affiliate-email"
+                     name="contact[email]"
+                     placeholder="e.g. sarah@example.com"
+                     autocomplete="email"
+                     autocapitalize="off"
+                     required>
+            </div>
+          </div>
+
+          <div class="contact-form__row">
+            <div class="contact-form__field">
+              <label class="contact-form__label" for="Affiliate-social">Instagram / TikTok Username *</label>
+              <input class="contact-form__input"
+                     type="text"
+                     id="Affiliate-social"
+                     name="contact[Instagram / TikTok Username]"
+                     placeholder="@yourhandle"
+                     required>
+            </div>
+
+            <div class="contact-form__field">
+              <label class="contact-form__label" for="Affiliate-followers">Followers Count *</label>
+              <input class="contact-form__input"
+                     type="text"
+                     id="Affiliate-followers"
+                     name="contact[Followers Count]"
+                     placeholder="e.g. 10k+"
+                     required>
+            </div>
+          </div>
+
+          <div class="contact-form__row">
+            <div class="contact-form__field">
+              <label class="contact-form__label" for="Affiliate-niche">Content Niche *</label>
+              <input class="contact-form__input"
+                     type="text"
+                     id="Affiliate-niche"
+                     name="contact[Content Niche]"
+                     placeholder="e.g. Parenting, Baby Products, Montessori"
+                     required>
+            </div>
+
+            <div class="contact-form__field">
+              <label class="contact-form__label" for="Affiliate-website">Website / Blog (Optional)</label>
+              <input class="contact-form__input"
+                     type="text"
+                     id="Affiliate-website"
+                     name="contact[Website or Blog]"
+                     placeholder="https://yourwebsite.com">
+            </div>
+          </div>
+
+          <div class="contact-form__field">
+            <label class="contact-form__label" for="Affiliate-country">Country *</label>
+            <input class="contact-form__input"
+                   type="text"
+                   id="Affiliate-country"
+                   name="contact[Country]"
+                   placeholder="e.g. United Kingdom"
+                   required>
+          </div>
+
+          <div class="contact-form__field">
+            <label class="contact-form__label" for="Affiliate-body">Why would you like to collaborate with Little Creation? *</label>
+            <textarea rows="4"
+                      id="Affiliate-body"
+                      class="contact-form__input contact-form__textarea"
+                      name="contact[Why Collaborate / Application Message]"
+                      placeholder="Tell us about your audience and why you'd love to work with us..."
+                      required>{{- form.body -}}</textarea>
+          </div>
+
+          <button type="submit" class="button button--full-width contact-form__submit">
+            <span>Submit Application</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+
+        {%- endform -%}
+      </div>
+
+    </div>
+
+  </div>
+</div>
