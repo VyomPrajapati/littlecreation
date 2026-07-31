@@ -20,9 +20,15 @@
       <div class="declaration__pdf-grid">
         {% if section.blocks.size > 0 %}
           {% for block in section.blocks %}
-            <a href="{{ block.settings.pdf_url | default: '#' }}" 
+            {%- assign doc_url = '#' -%}
+            {%- if block.settings.pdf_file != blank -%}
+              {%- assign doc_url = block.settings.pdf_file | file_url -%}
+            {%- elsif block.settings.pdf_url != blank -%}
+              {%- assign doc_url = block.settings.pdf_url -%}
+            {%- endif -%}
+            <a href="{{ doc_url }}" 
                class="pdf-item-card animate-on-scroll" 
-               {% if block.settings.pdf_url != blank %}target="_blank" rel="noopener"{% endif %} 
+               {% if doc_url != '#' %}target="_blank" rel="noopener"{% endif %} 
                {{ block.shopify_attributes }}>
               <div class="pdf-item-card__icon-wrap">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -209,9 +215,10 @@
       "type": "pdf_document",
       "name": "PDF Document",
       "settings": [
-        { "type": "text", "id": "title", "label": "Document Title", "default": "Lion Rattle Teether Certificate" },
+        { "type": "text", "id": "title", "label": "Document Title", "default": "Safety Certificate" },
         { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "EN71-1, 2, 3 & UKCA Certified" },
-        { "type": "url", "id": "pdf_url", "label": "PDF File Link (URL)" },
+        { "type": "generic_file", "id": "pdf_file", "label": "Upload PDF File (From Shopify Files)" },
+        { "type": "url", "id": "pdf_url", "label": "Or Enter External PDF Link (URL)" },
         { "type": "text", "id": "button_text", "label": "Button Label", "default": "Download PDF" }
       ]
     }
