@@ -1,7 +1,5 @@
 {%- if page.handle == 'contact' or page.handle == 'contact-us' or page.title == 'Contact' or page.title == 'Contact Us' -%}
   {% section 'contact-form' %}
-{%- elsif page.handle contains 'safety' or page.title contains 'Safety' or page.handle contains 'conformity' or page.title contains 'Conformity' -%}
-  {% render 'safety-page-snippet' %}
 {%- else -%}
   <section class="main-page section-padding">
     <div class="container">
@@ -45,6 +43,25 @@
         {%- elsif page.handle contains 'wholesale' or page.handle contains 'distributor' or page.title contains 'Distributor' -%}
           <div class="main-page__content rte animate-on-scroll delay-1">
             <p style="font-size: 1.1rem; line-height: 1.8; color: var(--color-text); margin-bottom: 24px;">Interested in stocking Little Creation products in your retail store or becoming an authorized regional distributor? We partner with select boutiques, nursery retailers, and international distributors who share our passion for premium, non-toxic baby essentials. Fill out the application form below and our wholesale team will get back to you within 24 hours.</p>
+          </div>
+        {%- elsif page.handle contains 'shipping' or page.title contains 'Shipping' or page.handle contains 'return' or page.title contains 'Return' -%}
+          <div class="main-page__content rte animate-on-scroll delay-1">
+            <h2>UK Shipping Policy</h2>
+            <p>We pack and dispatch all Little Creation orders with care from our UK fulfillment center. All orders are processed within 1-2 business days.</p>
+            <ul>
+              <li><strong>Standard UK Delivery (3-5 Business Days):</strong> Free on all orders over £40 (or £3.95 for orders under £40).</li>
+              <li><strong>Express UK Delivery (1-2 Business Days):</strong> £5.95 next-day dispatch service.</li>
+            </ul>
+
+            <h2>30-Day Hassle-Free Returns Policy</h2>
+            <p>We want you and your little one to be 100% delighted with your Little Creation order. If for any reason you are not completely satisfied, you may return unopened, unused items in their original packaging within <strong>30 days of delivery</strong> for a full refund or exchange.</p>
+
+            <h2>How to Return an Item</h2>
+            <ol>
+              <li>Contact our customer support team at <strong>hello@littlecreation.co.uk</strong> with your Order Number and reason for return.</li>
+              <li>Our team will issue a return confirmation and instructions on how to ship your package back to us.</li>
+              <li>Once received and inspected, your refund will be processed back to your original payment method within 3-5 business days.</li>
+            </ol>
           </div>
         {%- else -%}
           <div class="main-page__empty text-center animate-on-scroll delay-1">
@@ -179,20 +196,37 @@
   line-height: 1.2;
 }
 
-/* Paragraph strong tags stay clean inline bold text without block underlines */
+/* Standalone paragraph strong tags (e.g. <p><strong>Why Join Us?</strong></p>) render as bold section headings with dividers */
+.main-page__content p > strong:only-child,
+.main-page__content p > b:only-child,
+.rte p > strong:only-child,
+.rte p > b:only-child {
+  display: block !important;
+  font-family: var(--font-heading-family) !important;
+  font-size: clamp(1.2rem, 2.5vw, 1.45rem) !important;
+  font-weight: 800 !important;
+  color: var(--color-heading, #111111) !important;
+  margin-top: 1.6em !important;
+  margin-bottom: 0.6em !important;
+  padding-bottom: 6px !important;
+  border-bottom: 1.5px solid var(--color-border, #E8D5C4) !important;
+  width: 100% !important;
+}
+
+/* Inline paragraph strong tags stay clean inline bold text without block underlines */
 .main-page__content p strong,
 .main-page__content p b,
 .rte p strong,
 .rte p b {
-  display: inline !important;
-  font-family: inherit !important;
-  font-size: inherit !important;
-  line-height: inherit !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border-bottom: none !important;
-  color: var(--color-heading, #111111) !important;
-  font-weight: 700 !important;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  border-bottom: none;
+  color: var(--color-heading, #111111);
+  font-weight: 700;
 }
 
 .main-page__content ul,
