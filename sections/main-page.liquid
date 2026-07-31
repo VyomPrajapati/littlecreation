@@ -1,7 +1,7 @@
 {%- if page.handle == 'contact' or page.handle == 'contact-us' or page.title == 'Contact' or page.title == 'Contact Us' -%}
   {% section 'contact-form' %}
 {%- elsif page.handle contains 'safety' or page.title contains 'Safety' or page.handle contains 'conformity' or page.title contains 'Conformity' -%}
-  {% render 'safety-page-snippet' %}
+  {%- comment -%} Suppress default main-page section on safety page as safety_page_section handles full editable layout {%- endcomment -%}
 {%- else -%}
   <section class="main-page section-padding">
     <div class="container">
@@ -160,7 +160,7 @@
   line-height: 1.2;
 }
 
-/* Paragraph strong tags should stay clean inline bold text without block underlines */
+/* Paragraph strong tags stay clean inline bold text without block underlines */
 .main-page__content p strong,
 .main-page__content p b,
 .rte p strong,
