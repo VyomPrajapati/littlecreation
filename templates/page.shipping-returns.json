@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "banner": {
+      "type": "hero-banner",
+      "settings": {
+        "heading": "Shipping & Returns",
+        "text": "<p>Everything you need to know about our UK & international delivery options, order processing times, and hassle-free 30-day return policy.</p>",
+        "button_label": "Explore Products",
+        "button_link": "/collections/all",
+        "bg_color": "#FBF0E8"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "banner",
+    "main"
+  ]
+}

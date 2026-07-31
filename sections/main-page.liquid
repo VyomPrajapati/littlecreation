@@ -7,10 +7,12 @@
     <div class="container">
       <div class="main-page__inner">
 
-        <header class="main-page__header text-center animate-on-scroll">
-          <h1 class="main-page__title">{{ page.title | escape }}</h1>
-          <div class="main-page__divider"></div>
-        </header>
+        {%- unless page.handle == 'wholesale' or page.handle == 'become-a-distributor' or page.handle == 'affiliate' or page.handle == 'shipping-returns' or page.handle == 'shipping' or page.handle == 'our-story' -%}
+          <header class="main-page__header text-center animate-on-scroll">
+            <h1 class="main-page__title">{{ page.title | escape }}</h1>
+            <div class="main-page__divider"></div>
+          </header>
+        {%- endunless -%}
 
         {%- if page.content != blank -%}
           <div class="main-page__content rte animate-on-scroll delay-1">
@@ -116,6 +118,45 @@
     color: var(--color-heading);
     margin-top: 1.2em;
     margin-bottom: 0.4em;
+  }
+
+  /* Shipping & Information Cards */
+  .shipping-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin: 28px 0;
+  }
+  @media screen and (max-width: 768px) {
+    .shipping-info-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+  .shipping-info-card {
+    background: var(--color-skin-pale, #FBF0E8);
+    border: 1.5px solid var(--color-border, #E8D5C4);
+    border-radius: var(--radius-lg, 20px);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+  }
+  .shipping-info-card h3,
+  .shipping-info-card h4 {
+    margin-top: 0 !important;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+    color: var(--color-heading, #111111);
+  }
+  .shipping-highlight-box {
+    background: #FFFFFF;
+    border: 1.5px solid var(--color-border, #E8D5C4);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
   }
   .main-page__content ul, .main-page__content ol {
     padding-left: 1.4rem;

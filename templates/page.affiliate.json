@@ -1,21 +1,12 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "banner": {
       "type": "hero-banner",
       "settings": {
-        "heading": "Affiliate Program",
-        "text": "<p>Join our affiliate program and earn commissions on every sale you refer.</p>",
+        "heading": "Affiliate & Partner Program",
+        "text": "<p>Partner with Little Creation to share 100% Food-Grade Platinum Silicone teethers with your community and earn generous commissions on every sale you generate.</p>",
         "button_label": "Apply Now",
-        "button_link": "#apply",
+        "button_link": "#affiliate-contact",
         "bg_color": "#FBF0E8"
       }
     },
@@ -23,32 +14,20 @@
       "type": "main-page",
       "settings": {}
     },
-    "rich_text": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "How It Works"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>1. Sign up for free<br>2. Share your unique link or code<br>3. Earn commission on successful referrals</p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text"
-      ],
-      "settings": {}
+    "contact": {
+      "type": "contact-form",
+      "settings": {
+        "label": "Partner With Us",
+        "heading": "Apply for the Affiliate Program",
+        "subtext": "Fill out the application form below with your social media handle / website link, and our partner team will get back to you within 24 hours.",
+        "info_heading": "Why Partner With Us?",
+        "info_text": "Join a trusted UK baby brand. Get access to exclusive partner perks, competitive commission rates, and early access to new product releases."
+      }
     }
   },
   "order": [
     "banner",
     "main",
-    "rich_text"
+    "contact"
   ]
 }
