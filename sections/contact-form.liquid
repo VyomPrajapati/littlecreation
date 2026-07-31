@@ -145,19 +145,61 @@
 <style>
 /* ---- Contact Header ---- */
 .contact-section__header {
-  max-width: 640px;
+  max-width: 680px;
   margin-left: auto;
   margin-right: auto;
 }
+.section-label {
+  display: inline-block;
+  padding: 4px 16px;
+  background: var(--color-skin-pale, #FBF0E8);
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  color: var(--color-primary-dark, #A07855);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
 .contact-section__title {
-  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-  color: var(--color-heading);
+  font-size: clamp(1.85rem, 4.5vw, 3.2rem);
+  font-family: var(--font-heading-family);
+  font-weight: 800;
+  color: var(--color-heading, #111111);
+  margin-bottom: 12px;
+  position: relative;
+  padding-bottom: 12px;
+}
+.contact-section__title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, var(--color-primary, #C69A7C), var(--color-primary-dark, #A07855));
+  border-radius: 2px;
+  margin: 10px auto 0 auto;
 }
 .contact-section__subtext {
   font-size: 1.05rem;
   line-height: 1.7;
-  color: var(--color-text);
-  opacity: 0.85;
+  color: var(--color-text, #3A2E27);
+  opacity: 0.9;
+  margin-top: 12px;
+}
+
+@media screen and (max-width: 768px) {
+  .contact-section__subtext,
+  .contact-info__text {
+    text-align: justify !important;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+  .contact-info__heading {
+    border-bottom: 1.5px solid var(--color-border, #E8D5C4);
+    padding-bottom: 8px;
+    margin-bottom: 12px !important;
+  }
 }
 
 /* ---- Grid Layout ---- */

@@ -7,7 +7,7 @@
     <div class="container">
       <div class="main-page__inner">
 
-        {%- unless page.handle == 'wholesale' or page.handle == 'become-a-distributor' or page.handle == 'affiliate' or page.handle == 'shipping-returns' or page.handle == 'shipping' or page.handle == 'our-story' -%}
+        {%- unless page.handle == 'wholesale' or page.handle == 'become-a-distributor' or page.title contains 'Distributor' -%}
           <header class="main-page__header text-center animate-on-scroll">
             <h1 class="main-page__title">{{ page.title | escape }}</h1>
             <div class="main-page__divider"></div>
