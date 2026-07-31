@@ -56,7 +56,7 @@
           </select>
         </div>
 
-        <div id="Wholesale-other-container" class="custom-app-field custom-app-field--full" style="display: none;">
+        <div id="Wholesale-other-container" class="custom-app-field custom-app-field--full custom-app-field--hidden">
           <label for="Wholesale-storetype-other">Please Specify Other Store Type *</label>
           <input type="text" id="Wholesale-storetype-other" name="contact[Other Store Type Details]" class="custom-app-input" placeholder="e.g. Pop-up Store, Event Vendor, etc.">
         </div>
@@ -208,6 +208,10 @@
   box-shadow: 0 0 0 3px rgba(160, 120, 85, 0.2) !important;
 }
 
+.custom-app-field--hidden {
+  display: none !important;
+}
+
 .custom-app-btn {
   width: 100% !important;
   height: 52px !important;
@@ -261,11 +265,11 @@ function toggleOtherStoreType(selectEl) {
   if (!otherContainer || !otherInput) return;
 
   if (selectEl.value === 'Other') {
-    otherContainer.style.display = 'block';
+    otherContainer.classList.remove('custom-app-field--hidden');
     otherInput.setAttribute('required', 'required');
     otherInput.focus();
   } else {
-    otherContainer.style.display = 'none';
+    otherContainer.classList.add('custom-app-field--hidden');
     otherInput.removeAttribute('required');
     otherInput.value = '';
   }

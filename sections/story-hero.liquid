@@ -1,17 +1,10 @@
+{%- if section.settings.image != blank -%}
 <section class="story-hero">
   <div class="story-hero__wrapper">
-    {% if section.settings.image != blank %}
-      <img src="{{ section.settings.image | image_url: width: 2400 }}" 
-           alt="{{ section.settings.heading | default: 'Our Story' | escape }}" 
-           class="story-hero__img" 
-           loading="eager">
-    {% else %}
-      <div class="story-hero__placeholder">
-        <span class="story-hero__placeholder-icon">🖼️</span>
-        <strong>[ Select Hero Banner Photo ]</strong>
-        <span>Upload background image under Story Hero Banner in the theme editor sidebar</span>
-      </div>
-    {% endif %}
+    <img src="{{ section.settings.image | image_url: width: 2400 }}" 
+         alt="{{ section.settings.heading | default: 'Our Story' | escape }}" 
+         class="story-hero__img" 
+         loading="eager">
 
     {% if section.settings.heading != blank or section.settings.subheading != blank %}
       <div class="container story-hero__container">
@@ -27,6 +20,7 @@
     {% endif %}
   </div>
 </section>
+{%- endif -%}
 
 <style>
 .story-hero {
