@@ -1,5 +1,7 @@
 {%- if page.handle == 'contact' or page.handle == 'contact-us' or page.title == 'Contact' or page.title == 'Contact Us' -%}
   {% section 'contact-form' %}
+{%- elsif page.handle contains 'safety' or page.title contains 'Safety' or page.handle contains 'conformity' or page.title contains 'Conformity' -%}
+  {%- comment -%} Suppress default page header and empty text box on safety pages so safety-page hero banner sits at the very top {%- endcomment -%}
 {%- else -%}
   <section class="main-page section-padding">
     <div class="container">
