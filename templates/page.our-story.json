@@ -13,8 +13,8 @@
       "type": "story-hero",
       "settings": {
         "image": "shopify://shop_images/our_story.png",
-        "heading": "",
-        "subheading": ""
+        "heading": "Our Story",
+        "subheading": "Loved by Little Ones"
       }
     },
     "rich_text_1": {
