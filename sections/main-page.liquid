@@ -1,7 +1,7 @@
 {%- if page.handle == 'contact' or page.handle == 'contact-us' or page.title == 'Contact' or page.title == 'Contact Us' -%}
   {% section 'contact-form' %}
 {%- elsif page.handle contains 'safety' or page.title contains 'Safety' or page.handle contains 'conformity' or page.title contains 'Conformity' -%}
-  {%- comment -%} Suppress default main-page section on safety page as safety_page_section handles full editable layout {%- endcomment -%}
+  {% render 'safety-page-snippet' %}
 {%- else -%}
   <section class="main-page section-padding">
     <div class="container">
