@@ -106,13 +106,23 @@
   box-sizing: border-box;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 640px) and (max-width: 1023px) {
   .featured-collection__grid-wrapper {
-    gap: 24px;
+    gap: 16px;
   }
   .featured-collection__item-wrap {
-    width: calc(25% - 18px); /* 4 columns on desktop */
-    max-width: 280px;
+    width: calc(33.333% - 12px); /* 3 columns on tablet */
+    max-width: 260px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .featured-collection__grid-wrapper {
+    gap: 16px;
+  }
+  .featured-collection__item-wrap {
+    width: calc(20% - 13px); /* 5 columns on desktop */
+    max-width: 240px;
   }
 }
 
@@ -193,7 +203,7 @@
       "min": 2,
       "max": 12,
       "step": 1,
-      "default": 4,
+      "default": 8,
       "label": "Maximum products to show"
     },
     {
