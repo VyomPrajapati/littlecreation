@@ -85,6 +85,8 @@
     {% render 'contact-form-snippet' %}
   {%- elsif page.handle contains 'wholesale' or page.handle contains 'distributor' or page.title contains 'Distributor' -%}
     {% render 'wholesale-form-snippet' %}
+  {%- elsif page.handle contains 'safety' or page.title contains 'Safety' or page.handle contains 'conformity' or page.title contains 'Conformity' -%}
+    {% render 'safety-page-snippet' %}
   {%- endif -%}
 {%- endif -%}
 
