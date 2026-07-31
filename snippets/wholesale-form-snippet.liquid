@@ -7,9 +7,9 @@
     <div class="affiliate-app-card">
 
       <div class="affiliate-app-header text-center">
-        <span class="section-label">Wholesale Opportunities</span>
-        <h2 class="affiliate-app-title">Apply for a Wholesale Account</h2>
-        <p class="affiliate-app-subtext">Fill out the form below with your business details and our wholesale team will review your application within 24 hours.</p>
+        <span class="section-label">Partner With Us</span>
+        <h2 class="affiliate-app-title">Distributor Application Form</h2>
+        <p class="affiliate-app-subtext">Fill out the form below with your business details, and our partner team will review your application within 24 hours.</p>
       </div>
 
       {%- form 'contact', id: 'WholesaleApplicationFormSnippet', class: 'affiliate-form' -%}
@@ -87,6 +87,71 @@
 </div>
 
 <style>
+.affiliate-app-section {
+  padding: 10px 0 40px 0;
+  margin-top: 10px;
+}
+.affiliate-app-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--color-skin-pale, #FBF0E8);
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: 24px;
+  padding: 36px 40px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+}
+@media screen and (max-width: 768px) {
+  .affiliate-app-card {
+    padding: 24px 18px;
+    border-radius: 18px;
+  }
+}
+.affiliate-app-header {
+  margin-bottom: 28px;
+  text-align: center;
+}
+.affiliate-app-title {
+  font-family: var(--font-heading-family);
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  color: var(--color-heading, #111111);
+  margin: 8px 0;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+}
+.affiliate-app-subtext {
+  font-size: 0.98rem;
+  color: var(--color-text, #4A3E37);
+  margin: 0;
+}
+.affiliate-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 24px;
+}
+@media screen and (max-width: 640px) {
+  .affiliate-form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+.affiliate-form-field--full {
+  grid-column: 1 / -1;
+}
+.affiliate-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.affiliate-form-field label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-heading, #111111);
+}
+.affiliate-form-field input,
+.affiliate-form-field textarea,
 .affiliate-form-select {
   width: 100%;
   padding: 12px 16px;
@@ -96,10 +161,55 @@
   font-size: 0.95rem;
   color: #111111;
   font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
+.affiliate-form-field input:focus,
+.affiliate-form-field textarea:focus,
 .affiliate-form-select:focus {
   outline: none;
   border-color: var(--color-primary-dark, #A07855);
   box-shadow: 0 0 0 3px rgba(160, 120, 85, 0.15);
+}
+.affiliate-submit-btn {
+  width: 100%;
+  height: 52px;
+  background: linear-gradient(135deg, var(--color-primary, #C69A7C), var(--color-primary-dark, #A07855));
+  color: #FFFFFF;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(160, 120, 85, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 8px;
+}
+.affiliate-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(160, 120, 85, 0.35);
+}
+.affiliate-form__alert {
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.affiliate-form__alert--success {
+  background: #EBFBEE;
+  color: #2B8A3E;
+  border: 1px solid #B2F2BB;
+}
+.affiliate-form__alert--error {
+  background: #FFF5F5;
+  color: #E03131;
+  border: 1px solid #FFC9C9;
 }
 </style>
