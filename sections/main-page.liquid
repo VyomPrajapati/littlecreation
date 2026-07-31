@@ -29,6 +29,8 @@
 
   {%- if page.handle contains 'affiliate' or page.title contains 'Affiliate' -%}
     {% render 'contact-form-snippet' %}
+  {%- elsif page.handle contains 'wholesale' or page.handle contains 'distributor' or page.title contains 'Distributor' -%}
+    {% render 'wholesale-form-snippet' %}
   {%- endif -%}
 {%- endif -%}
 
