@@ -388,7 +388,9 @@
         },
         "insta_6": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/5.png"
+          }
         },
         "insta_7": {
           "type": "image",
