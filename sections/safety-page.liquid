@@ -10,6 +10,15 @@
       <img src="{{ section.settings.hero_image | image_url: width: 2200 }}" 
            alt="{{ section.settings.hero_image.alt | default: 'Product Safety Banner' }}" 
            class="safety-hero-img-full" loading="eager">
+      <div class="safety-hero-overlay"></div>
+      <div class="safety-hero-content">
+        <span class="safety-hero-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          UKCA & EN71 Certified
+        </span>
+        <h1 class="safety-hero-title">{{ section.settings.commitment_heading | default: 'Our Commitment to Safety' }}</h1>
+        <p class="safety-hero-subtitle">100% Premium Food-Grade Platinum Silicone · Non-Toxic & BPA-Free · Rigorously Tested for Your Baby</p>
+      </div>
     {% else %}
       <div class="safety-hero-placeholder-full">
         <span class="safety-img-placeholder__icon">🖼️</span>
@@ -194,14 +203,70 @@
   margin-right: -50vw;
   overflow: hidden;
   margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
 }
 .safety-hero-img-full {
   width: 100%;
-  height: auto;
-  min-height: 280px;
+  height: 100%;
+  min-height: 380px;
   max-height: 520px;
   display: block;
   object-fit: cover;
+  object-position: center top;
+}
+.safety-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.5) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.safety-hero-content {
+  position: absolute;
+  z-index: 2;
+  text-align: center;
+  color: #ffffff;
+  padding: 32px 20px;
+  max-width: 850px;
+  margin: 0 auto;
+}
+.safety-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #111111;
+  font-family: var(--font-body-family);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 6px 18px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+.safety-hero-title {
+  font-family: var(--font-heading-family);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  line-height: 1.15;
+  margin: 0 0 12px 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+.safety-hero-subtitle {
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 .safety-hero-placeholder-full {
   width: 100vw;
