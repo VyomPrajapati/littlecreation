@@ -3,9 +3,80 @@
     "main": {
       "type": "main-page",
       "settings": {}
+    },
+    "safety": {
+      "type": "safety-page",
+      "blocks": {
+        "doc_1": {
+          "type": "pdf_link",
+          "settings": {
+            "title": "Safety module",
+            "pdf_url": ""
+          }
+        },
+        "doc_2": {
+          "type": "pdf_link",
+          "settings": {
+            "title": "Lion Rattle Teether Safety Declaration",
+            "pdf_url": ""
+          }
+        },
+        "doc_3": {
+          "type": "pdf_link",
+          "settings": {
+            "title": "Cooling Teether Safety Declaration",
+            "pdf_url": ""
+          }
+        },
+        "doc_4": {
+          "type": "pdf_link",
+          "settings": {
+            "title": "Swan Wooden Ring Teether Declaration",
+            "pdf_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "doc_1",
+        "doc_2",
+        "doc_3",
+        "doc_4"
+      ],
+      "settings": {
+        "hero_image": "shopify://shop_images/Web_Site_Banner_02.jpg",
+        "commitment_heading": "Our Commitment to Safety",
+        "commitment_text": "<p>At Little Creation, your little one's safety and well-being is always at the heart of what we do. We use exclusively <strong>100% Premium Food-Grade Platinum Silicone</strong> across our entire teether collection — completely free from BPA, BPS, PVC, phthalates, lead, latex, and heavy metals.</p><p>Every product undergoes strict, independent lab testing to meet and exceed <strong>UK (UKCA)</strong> and <strong>EU (EN71-1, 2, 3)</strong> safety standards. Whether it is playtime or teething time, you can trust that every Little Creation piece is made to be 100% safe, gentle, and worry-free for your baby.</p>",
+        "silicone_heading": "Why Parents & Specialists Love Silicone",
+        "silicone_image": "shopify://shop_images/Why_Parents_Specialists_Love_Silicone.png",
+        "silicone_text": "<p>Food-grade platinum silicone is soft, resilient, and baby-tough. Formulated from natural silica elements, it provides the ideal balance of gentle flexibility to comfort tender gums without sacrificing durability. From cooling teethers to rattles, silicone is non-porous, naturally hygienic, and effortless to clean.</p>",
+        "table_heading": "Why We're All About Platinum Silicone",
+        "feature_1_title": "Flexible & Durable",
+        "feature_1_desc": "Built for daily baby life. Resists cracks, scuffs, and fading — even after endless washes, intense teething bites, and floor drops.",
+        "feature_2_title": "Heat & Cold Resistant",
+        "feature_2_desc": "From refrigerator cooling to boiling water sanitization — withstands extreme temperatures without warping, melting, or degrading.",
+        "feature_3_title": "Bacteria & Odor Resistant",
+        "feature_3_desc": "Non-porous molecular structure means zero micro-cracks for moisture or germs to hide. Naturally repels odors and stays fresh.",
+        "feature_4_title": "UKCA & EN71 Certified",
+        "feature_4_desc": "Independently tested by accredited safety labs to exceed UK (UKCA) and European (EN71) child toy safety requirements.",
+        "grid_image_1": "shopify://shop_images/flexible_durable.png",
+        "grid_image_2": "shopify://shop_images/heat_cold_resistance.png",
+        "grid_image_3": "shopify://shop_images/bacteriafree.png",
+        "grid_image_4": "shopify://shop_images/UKCA.png",
+        "purity_heading": "Understanding Platinum Silicone Purity",
+        "purity_image": "shopify://shop_images/Understanding_Platinum_Silicone_Purity.png",
+        "purity_text": "<p>Not all silicone is created equal. Little Creation uses <strong>100% Platinum-Cured Food-Grade Silicone</strong> — the highest standard of silicone purity. Unlike lower-grade silicones cured with peroxide, platinum curing leaves zero chemical fillers or residues behind.</p><p>Every single production batch is independently inspected and tested so you can give our products to your baby with absolute peace of mind.</p>",
+        "faq_heading": "FAQ: Why does new silicone sometimes have a slight packaging scent?",
+        "faq_text": "<p>You might notice a subtle \"fresh\" scent when unboxing your new Little Creation products. This is completely normal, harmless, and safe.</p><p><strong>The Science:</strong> Our 100% Platinum Silicone is cured at high temperatures during manufacturing. Because items are hygienically sealed immediately after cooling to protect them during transit, natural warm air can remain trapped inside the airtight package.</p><p>This is <em>not</em> toxic chemical off-gassing. It is simply trapped air from the thermal stabilization process.</p>",
+        "boil_guide_heading": "How to refresh it instantly:",
+        "boil_guide_text": "<p><strong>♨️ The 5-Minute Boil Test:</strong> Place the silicone product in a pot of boiling water for 5 minutes.</p><p><strong>🌬️ Air Dry:</strong> Allow it to air dry completely in a clean, ventilated area.</p><p>The gentle heat allows any residual trapped moisture to evaporate, leaving pure, completely odorless silicone.</p>",
+        "declaration_heading": "Declaration of Conformity",
+        "declaration_subtext": "Below are the official Declaration of Conformity documents for Little Creation products (click any document title to open the PDF in a new window):",
+        "bg_color": "#ffffff"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "safety"
   ]
 }

@@ -3,6 +3,7 @@
   Little Creation Theme
 {%- endcomment -%}
 
+{%- if page.handle contains 'safety' or page.title contains 'Safety' or page.handle contains 'conformity' or page.title contains 'Conformity' or template.name == 'page' and template.suffix == 'product-safety-standards' or request.design_mode -%}
 <section class="safety-page-section" style="background-color: {{ section.settings.bg_color | default: '#FFFFFF' }}; padding-top: 0;">
   <!-- 1. Full-Width Edge-to-Edge Hero Banner -->
   <div class="safety-hero-full">
@@ -259,6 +260,7 @@
 
     </div>
 </section>
+{%- endif -%}
 
 <style>
 .safety-hero-full {
