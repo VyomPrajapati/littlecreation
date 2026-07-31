@@ -42,27 +42,18 @@
 .story-hero__wrapper {
   position: relative;
   width: 100%;
-  min-height: 380px;
-  max-height: 520px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--color-skin-pale, #FBF0E8);
-}
-@media screen and (max-width: 768px) {
-  .story-hero__wrapper {
-    min-height: 280px;
-    max-height: 380px;
-  }
+  min-height: 220px;
 }
 .story-hero__img {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  display: block;
 }
 .story-hero__overlay {
   position: absolute;
@@ -70,15 +61,20 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.55) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%);
   z-index: 1;
+  pointer-events: none;
 }
 .story-hero__container {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
   z-index: 2;
   text-align: center;
   color: #ffffff;
-  padding: 40px 20px;
+  padding: 20px;
 }
 .story-hero__content {
   max-width: 800px;
@@ -86,19 +82,19 @@
 }
 .story-hero__title {
   font-family: var(--font-heading-family);
-  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  font-size: clamp(2.2rem, 5.5vw, 4.2rem);
   font-weight: 800;
   color: #ffffff !important;
   margin: 0 0 10px 0;
   line-height: 1.15;
-  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
 }
 .story-hero__subtitle {
   display: block;
-  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-size: clamp(0.95rem, 2vw, 1.35rem);
   font-weight: 500;
   color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   letter-spacing: 0.04em;
 }
 .story-hero__placeholder {

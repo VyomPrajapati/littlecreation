@@ -82,49 +82,80 @@
   .main-page__content h1,
   .main-page__content h2,
   .main-page__content h3,
-  .main-page__content h4 {
+  .main-page__content h4,
+  .main-page__content h5,
+  .main-page__content h6,
+  .rte h1,
+  .rte h2,
+  .rte h3,
+  .rte h4,
+  .rte h5,
+  .rte h6 {
     font-family: var(--font-heading-family);
-    color: var(--color-heading, #111111);
-    font-weight: 800;
+    color: var(--color-heading, #111111) !important;
+    font-weight: 800 !important;
     line-height: 1.25;
     margin-top: 1.8em;
     margin-bottom: 0.65em;
     padding-bottom: 8px;
-    border-bottom: 1.5px solid var(--color-border, #E8D5C4);
+    border-bottom: 1.5px solid var(--color-border, #E8D5C4) !important;
   }
-  .main-page__content h1 {
+  .main-page__content h1, .rte h1 {
     font-size: clamp(1.85rem, 4.5vw, 2.8rem);
   }
-  .main-page__content h2 {
+  .main-page__content h2, .rte h2 {
     font-size: clamp(1.5rem, 3.5vw, 2.2rem);
   }
-  .main-page__content h3 {
+  .main-page__content h3, .rte h3 {
     font-size: clamp(1.3rem, 2.8vw, 1.7rem);
   }
-  .main-page__content h4 {
+  .main-page__content h4, .rte h4 {
     font-size: clamp(1.1rem, 2.2vw, 1.35rem);
   }
 
+  /* First heading on page top gets no top margin, but retains underline */
   .main-page__content > h1:first-child,
-  .main-page__content > h2:first-child {
+  .main-page__content > h2:first-child,
+  .main-page__content > h3:first-child,
+  .rte > h1:first-child,
+  .rte > h2:first-child,
+  .rte > h3:first-child {
     margin-top: 0 !important;
-    border-bottom: none !important;
-    padding-bottom: 0 !important;
-    font-size: clamp(2rem, 4.5vw, 3rem);
+    padding-bottom: 8px !important;
+    border-bottom: 1.5px solid var(--color-border, #E8D5C4) !important;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
     line-height: 1.2;
   }
 
+  /* Target paragraph bold headers (e.g. <p><strong>Title</strong></p>) */
+  .main-page__content p > strong:only-child,
+  .rte p > strong:only-child {
+    display: block;
+    font-family: var(--font-heading-family);
+    font-size: clamp(1.3rem, 2.8vw, 1.75rem);
+    font-weight: 800 !important;
+    color: var(--color-heading, #111111) !important;
+    margin-top: 1.6em;
+    margin-bottom: 0.6em;
+    padding-bottom: 8px;
+    border-bottom: 1.5px solid var(--color-border, #E8D5C4) !important;
+  }
+
   .main-page__content ul,
-  .main-page__content ol {
+  .main-page__content ol,
+  .rte ul,
+  .rte ol {
     padding-left: 1.4rem;
     margin-bottom: 1.5em;
   }
-  .main-page__content li {
+  .main-page__content li,
+  .rte li {
     margin-bottom: 0.6em;
     line-height: 1.65;
     color: var(--color-text, #3A2E27);
   }
-  .main-page__content li strong {
+  .main-page__content li strong,
+  .rte li strong {
     color: var(--color-heading, #111111);
     font-weight: 700;
   }
