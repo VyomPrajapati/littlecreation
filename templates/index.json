@@ -82,7 +82,7 @@
     "usp": {
       "type": "image-with-text",
       "settings": {
-        "image": "shopify://shop_images/Sofa_bed_photo.jpg",
+        "image": "shopify://shop_images/why_parents_love_us.png",
         "product": "",
         "layout": "image_first",
         "label": "Why parents love us",
