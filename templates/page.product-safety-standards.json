@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "safety": {
@@ -66,7 +75,8 @@
         "boil_guide_heading": "How to refresh it instantly:",
         "boil_guide_text": "<p><strong>♨️ The 5-Minute Boil Test:</strong> Place the silicone product in a pot of boiling water for 5 minutes.</p><p><strong>🌬️ Air Dry:</strong> Allow it to air dry completely in a clean, ventilated area.</p><p>The gentle heat allows any residual trapped moisture to evaporate, leaving pure, completely odorless silicone.</p>",
         "declaration_heading": "Declaration of Conformity",
-        "declaration_subtext": "Below are the official Declaration of Conformity documents for Little Creation products (click any document title to open the PDF in a new window):"
+        "declaration_subtext": "Below are the official Declaration of Conformity documents for Little Creation products (click any document title to open the PDF in a new window):",
+        "bg_color": "#ffffff"
       }
     }
   },
