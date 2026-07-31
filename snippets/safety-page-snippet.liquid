@@ -4,9 +4,25 @@
 {%- endcomment -%}
 
 <section class="safety-page-section" style="background-color: #FFFFFF; padding-top: 0;">
-  <div class="safety-page__inner section-padding">
+  
+  <!-- 1. Full-Width Edge-to-Edge Hero Banner -->
+  <div class="safety-hero-full">
+    <div class="safety-hero-banner-inner" style="position: relative; width: 100%; min-height: 380px; background: linear-gradient(135deg, #2A221E 0%, #4A3E37 100%); display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; border-radius: 0 0 24px 24px; margin-bottom: 40px;">
+      <div class="safety-hero-overlay" style="position: absolute; inset: 0; background: radial-gradient(circle, rgba(198, 154, 124, 0.15) 0%, rgba(0, 0, 0, 0.4) 100%);"></div>
+      <div class="safety-hero-content" style="position: relative; z-index: 2; padding: 48px 20px; max-width: 850px; margin: 0 auto;">
+        <span class="safety-hero-badge" style="background: rgba(255, 255, 255, 0.95); color: #111111; padding: 6px 18px; border-radius: 999px; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); margin-bottom: 16px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          UKCA & EN71 Certified
+        </span>
+        <h1 class="safety-hero-title" style="font-size: clamp(2.2rem, 4.5vw, 3.4rem); font-weight: 800; color: #ffffff !important; margin: 8px 0 12px 0; line-height: 1.15; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);">Our Commitment to Safety</h1>
+        <p class="safety-hero-subtitle" style="font-size: clamp(1rem, 1.8vw, 1.2rem); font-weight: 500; color: rgba(255, 255, 255, 0.95); margin: 0; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);">100% Premium Food-Grade Platinum Silicone · Non-Toxic & BPA-Free · Rigorously Tested for Your Baby</p>
+      </div>
+    </div>
+  </div>
 
-    <!-- 1. Commitment Box -->
+  <div class="safety-page__inner">
+    
+    <!-- 2. Commitment Box -->
     <div class="safety-banner-box">
       <h2>Our Commitment to Safety</h2>
       <div class="rte">
@@ -15,7 +31,7 @@
       </div>
     </div>
 
-    <!-- 2. Why Parents Love Silicone -->
+    <!-- 3. Why Parents Love Silicone (With Feature Card) -->
     <div class="safety-silicone-intro mb-lg">
       <div class="safety-silicone-card">
         <div class="safety-silicone-content">
@@ -27,7 +43,7 @@
       </div>
     </div>
 
-    <!-- 3. Feature Table -->
+    <!-- 4. Feature Table -->
     <h3>Why We're All About Platinum Silicone</h3>
     
     <div class="safety-table-wrap">
@@ -64,39 +80,31 @@
       </table>
     </div>
 
-    <!-- 4. 4-Feature Interactive Cards Grid -->
+    <!-- 5. 4-Image Grid with Interactive Cards & Zoom Lightbox -->
     <div class="safety-4grid">
       <div class="safety-4grid__item">
-        <div class="safety-card-inner">
-          <span class="safety-card-icon">🛡️</span>
-          <strong>Flexible & Durable</strong>
-          <span>Resists cracks, scuffs, and fading after endless washes.</span>
-        </div>
+        <div class="safety-card-icon-box">🛡️</div>
+        <strong>Flexible & Durable</strong>
+        <span>Resists cracks, scuffs, and fading after endless washes.</span>
       </div>
       <div class="safety-4grid__item">
-        <div class="safety-card-inner">
-          <span class="safety-card-icon">❄️</span>
-          <strong>Heat & Cold Resistant</strong>
-          <span>Sanitize in boiling water or cool in the fridge safely.</span>
-        </div>
+        <div class="safety-card-icon-box">❄️</div>
+        <strong>Heat & Cold Resistant</strong>
+        <span>Sanitize in boiling water or cool in the fridge safely.</span>
       </div>
       <div class="safety-4grid__item">
-        <div class="safety-card-inner">
-          <span class="safety-card-icon">✨</span>
-          <strong>Bacteria & Odor Free</strong>
-          <span>Non-porous surface leaves zero micro-cracks for germs.</span>
-        </div>
+        <div class="safety-card-icon-box">✨</div>
+        <strong>Bacteria & Odor Free</strong>
+        <span>Non-porous surface leaves zero micro-cracks for germs.</span>
       </div>
       <div class="safety-4grid__item">
-        <div class="safety-card-icon-wrap">
-          <span class="safety-card-icon">🇬🇧</span>
-          <strong>UKCA & EN71 Certified</strong>
-          <span>Lab tested to exceed UK & EU child safety standards.</span>
-        </div>
+        <div class="safety-card-icon-box">🇬🇧</div>
+        <strong>UKCA & EN71 Certified</strong>
+        <span>Lab tested to exceed UK & EU child safety standards.</span>
       </div>
     </div>
 
-    <!-- 5. Understanding Silicone Purity -->
+    <!-- 6. Understanding Silicone Purity -->
     <div class="safety-purity-section mb-xl">
       <div class="safety-purity-card">
         <div class="safety-purity-content">
@@ -109,7 +117,7 @@
       </div>
     </div>
 
-    <!-- 6. FAQ Section & Boil Guide -->
+    <!-- 7. FAQ Section & Boil Guide -->
     <div class="safety-faq-card">
       <h4>FAQ: Why does new silicone sometimes have a slight packaging scent?</h4>
       <div class="rte">
@@ -128,7 +136,7 @@
       </div>
     </div>
 
-    <!-- 7. Declaration of Conformity Section -->
+    <!-- 8. Declaration of Conformity Section -->
     <div id="declaration-of-conformity" style="margin-top: 48px; padding-top: 32px; border-top: 1.5px solid var(--color-border, #E8D5C4);">
       <h3>Declaration of Conformity</h3>
       <p>Below are the official Declaration of Conformity documents for Little Creation products (click any document title to open the PDF in a new window):</p>
@@ -211,7 +219,7 @@
   background: var(--color-skin-pale, #FBF0E8);
   border: 1.5px solid var(--color-border, #E8D5C4);
   border-radius: 20px;
-  padding: 24px 20px;
+  padding: 28px 20px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -225,13 +233,12 @@
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(198, 154, 124, 0.2);
 }
-.safety-card-icon {
-  font-size: 2rem;
-  display: block;
+.safety-card-icon-box {
+  font-size: 2.2rem;
   margin-bottom: 6px;
 }
 .safety-4grid__item strong {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: #111111;
   font-weight: 700;
   display: block;

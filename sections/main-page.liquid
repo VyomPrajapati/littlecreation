@@ -22,11 +22,10 @@
             {%- assign clean_content = content_parts[0] -%}
           {%- endif -%}
 
+        {%- if page.content != blank -%}
           <div class="main-page__content rte animate-on-scroll delay-1">
             {{ clean_content }}
           </div>
-        {%- elsif page.handle contains 'safety' or page.title contains 'Safety' or page.handle contains 'conformity' or page.title contains 'Conformity' -%}
-          {% render 'safety-page-snippet' %}
         {%- else -%}
           <div class="main-page__empty text-center animate-on-scroll delay-1">
             <p class="main-page__empty-text">This page content is currently empty. You can add content to this page in <strong>Shopify Admin → Pages → Edit {{ page.title | escape }}</strong>.</p>
