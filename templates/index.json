@@ -429,6 +429,10 @@
         "subtext": "Be the first to know about new collection launches, exclusive offers, and helpful parenting guides.",
         "bg_color": "#ffffff"
       }
+    },
+    "1785936374ccef06ae": {
+      "type": "apps",
+      "settings": {}
     }
   },
   "order": [
@@ -442,6 +446,7 @@
     "why_choose",
     "faq",
     "instagram_collage",
-    "homepage_newsletter"
+    "homepage_newsletter",
+    "1785936374ccef06ae"
   ]
 }
