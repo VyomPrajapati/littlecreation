@@ -125,6 +125,34 @@
 
 
 
+              <!-- Custom Built-in Gifting Solution Widget -->
+              <div class="product__gifting-box">
+                <label class="gifting-checkbox-label" for="EnableGifting-{{ section.id }}">
+                  <input type="checkbox" id="EnableGifting-{{ section.id }}" class="gifting-checkbox" onchange="toggleGiftFields(this)">
+                  <span class="gifting-checkbox-custom"></span>
+                  <span class="gifting-title-wrap">
+                    <span class="gifting-icon">🎁</span>
+                    <strong>Is this a gift? Add Customised Gift Box (+£5.00)</strong>
+                  </span>
+                </label>
+                {%- assign gift_prod = all_products['customised-gift-box'] -%}
+                {%- assign gift_var_id = gift_prod.first_available_variant.id | default: gift_prod.variants.first.id -%}
+                <input type="hidden" name="properties[Gift Box]" id="GiftPropPackaging-{{ section.id }}" data-gift-variant-id="{{ gift_var_id }}" value="" disabled>
+              </div>
+
+              <script>
+                function toggleGiftFields(checkbox) {
+                  const packagingInput = document.getElementById('GiftPropPackaging-{{ section.id }}');
+                  if (checkbox.checked) {
+                    packagingInput.disabled = false;
+                    packagingInput.value = 'Yes (+£5.00 Customised Gift Box)';
+                  } else {
+                    packagingInput.disabled = true;
+                    packagingInput.value = '';
+                  }
+                }
+              </script>
+
               <div class="product__buy-buttons">
                 <button type="submit" name="add" class="button button--full-width product__atc"
                         {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}>
@@ -152,6 +180,82 @@
 </div>
 
 <style>
+/* ---- Gifting Box Widget ---- */
+.product__gifting-box {
+  margin: 20px 0 24px 0;
+  padding: 16px 20px;
+  background: var(--color-skin-pale, #FBF0E8);
+  border: 1.5px solid var(--color-secondary, #E0B898);
+  border-radius: var(--radius-lg, 16px);
+  transition: all var(--transition-fast, 0.2s);
+}
+.product__gifting-box:hover {
+  border-color: var(--color-primary, #C69A7C);
+  box-shadow: 0 4px 16px rgba(198, 154, 124, 0.12);
+}
+.gifting-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  margin: 0;
+}
+.gifting-checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-primary, #C69A7C);
+  cursor: pointer;
+}
+.gifting-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.98rem;
+  color: var(--color-heading, #111111);
+}
+.gifting-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+.gifting-fields {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--color-secondary, #E0B898);
+}
+.gifting-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.gifting-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-heading, #111111);
+}
+.gifting-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-md, 12px);
+  background: #FFFFFF;
+  font-family: var(--font-body-family);
+  font-size: 0.92rem;
+  color: var(--color-text, #3A2E27);
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.gifting-textarea:focus {
+  border-color: var(--color-primary, #C69A7C);
+  box-shadow: 0 0 0 3px rgba(198, 154, 124, 0.2);
+}
+.gifting-hint {
+  font-size: 0.8rem;
+  color: #71717A;
+  font-style: italic;
+}
+
 /* ---- Product grid ---- */
 .product__grid {
   display: grid;

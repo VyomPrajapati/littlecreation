@@ -153,12 +153,62 @@ document.addEventListener('DOMContentLoaded', () => {
         if (btn) { btn.disabled = true; btn.innerHTML = '<span>Adding…</span>'; }
 
         try {
-          const res = await fetch('/cart/add.js', {
-            method: 'POST',
-            headers: { 'X-Requested-With': 'XMLHttpRequest' },
-            body: new FormData(form)
-          });
-          if (!res.ok) throw new Error('Add to cart failed');
+          const giftCheckbox = form.querySelector('.gifting-checkbox');
+          if (giftCheckbox && giftCheckbox.checked) {
+            const formData = new FormData(form);
+            const mainVariantId = formData.get('id');
+            const qty = parseInt(formData.get('quantity') || 1);
+
+            let giftVariantId = form.querySelector('[data-gift-variant-id]')?.dataset?.giftVariantId;
+            if (!giftVariantId || giftVariantId === '') {
+              try {
+                const giftRes = await fetch('/products/customised-gift-box.js');
+                if (giftRes.ok) {
+                  const giftData = await giftRes.json();
+                  if (giftData.variants && giftData.variants.length > 0) {
+                    giftVariantId = giftData.variants[0].id;
+                  }
+                }
+              } catch(e) {}
+            }
+
+            const mainProperties = {};
+            for (let [key, val] of formData.entries()) {
+              if (key.startsWith('properties[')) {
+                const propName = key.replace('properties[', '').replace(']', '');
+                if (val) mainProperties[propName] = val;
+              }
+            }
+
+            const itemsPayload = [
+              {
+                id: parseInt(mainVariantId),
+                quantity: qty,
+                properties: mainProperties
+              }
+            ];
+
+            if (giftVariantId) {
+              itemsPayload.push({
+                id: parseInt(giftVariantId),
+                quantity: 1
+              });
+            }
+
+            const res = await fetch('/cart/add.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+              body: JSON.stringify({ items: itemsPayload })
+            });
+            if (!res.ok) throw new Error('Add to cart failed');
+          } else {
+            const res = await fetch('/cart/add.js', {
+              method: 'POST',
+              headers: { 'X-Requested-With': 'XMLHttpRequest' },
+              body: new FormData(form)
+            });
+            if (!res.ok) throw new Error('Add to cart failed');
+          }
           await CartDrawer.refresh();
           CartDrawer.open();
         } catch(err) {
