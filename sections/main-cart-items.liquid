@@ -51,6 +51,7 @@
                     {%- endif -%}
                   {%- else -%}
                     <a href="{{ item.url }}" class="cart-item__name h4">{{ item.product.title | escape }}</a>
+                    <div class="cart-item__qty-subtitle" style="font-size: 0.84rem; color: #71717A; font-weight: 600; margin-top: 2px;">Qty: x{{ item.quantity }}</div>
                     {%- if item.product.has_only_default_variant == false -%}
                       <div class="cart-item__options">
                         {%- for option in item.options_with_values -%}
@@ -92,7 +93,7 @@
                 <td class="cart-item__quantity">
                   <div class="cart-page-qty" data-line="{{ forloop.index }}">
                     <button type="button" class="cart-page-qty__btn" data-qty-page="-1" aria-label="Decrease">−</button>
-                    <span class="cart-page-qty__val" style="font-weight: 700; color: #3A2E27;">x{{ item.quantity }}</span>
+                    <span class="cart-page-qty__val">{{ item.quantity }}</span>
                     <button type="button" class="cart-page-qty__btn" data-qty-page="1" aria-label="Increase">+</button>
                   </div>
                 </td>
