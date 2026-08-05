@@ -1,0 +1,211 @@
+<!-- Automatic High-Converting Newsletter Subscription Popup -->
+<div id="NewsletterPopupModal" class="newsletter-popup-overlay" style="display: none;" aria-hidden="true">
+  <div class="newsletter-popup-card">
+    <button type="button" class="newsletter-popup-close" id="CloseNewsletterPopup" aria-label="Close popup">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    
+    <div class="newsletter-popup-icon">🎁</div>
+    <h3 class="newsletter-popup-title">Join the Little Creation Family</h3>
+    <p class="newsletter-popup-desc">Subscribe to receive exclusive offers, newborn safety guides, and <strong>10% OFF</strong> your next purchase!</p>
+
+    {%- form 'customer', id: 'PopupNewsletterForm', class: 'newsletter-popup-form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter, popup">
+      
+      {%- if form.posted_successfully? -%}
+        <div class="newsletter-popup-success">
+          🎉 Thank you for subscribing! Check your inbox for your 10% discount code.
+        </div>
+      {%- else -%}
+        <div class="newsletter-popup-field-group">
+          <input type="email" 
+                 name="contact[email]" 
+                 id="PopupNewsletterEmail"
+                 class="newsletter-popup-input" 
+                 placeholder="Enter your email address..." 
+                 required 
+                 autocomplete="email">
+          <button type="submit" class="newsletter-popup-submit-btn">
+            <span>Subscribe</span>
+          </button>
+        </div>
+        {%- if form.errors -%}
+          <div class="newsletter-popup-error">
+            Please enter a valid email address.
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endform -%}
+
+    <p class="newsletter-popup-footnote">We respect your privacy. Unsubscribe at any time.</p>
+  </div>
+</div>
+
+<style>
+.newsletter-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: popupFadeIn 0.3s ease-out forwards;
+}
+@keyframes popupFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.newsletter-popup-card {
+  position: relative;
+  background: #FFFDF9;
+  border: 1px solid #F0E2D5;
+  border-radius: 24px;
+  padding: 36px 32px;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(58, 46, 39, 0.2);
+  animation: popupSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes popupSlideUp {
+  from { transform: translateY(20px) scale(0.95); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+.newsletter-popup-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #F6EBE1;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.newsletter-popup-close:hover {
+  background: #E8D7C8;
+  color: #111;
+  transform: rotate(90deg);
+}
+.newsletter-popup-icon {
+  font-size: 2.4rem;
+  margin-bottom: 8px;
+}
+.newsletter-popup-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #111111;
+  margin: 0 0 8px 0;
+  line-height: 1.25;
+}
+.newsletter-popup-desc {
+  font-size: 0.95rem;
+  color: #66584F;
+  line-height: 1.5;
+  margin: 0 0 20px 0;
+}
+.newsletter-popup-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.newsletter-popup-input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1.5px solid #E5D5C5;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  background: #FFFFFF;
+  color: #111111;
+  outline: none;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.03);
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+.newsletter-popup-input:focus {
+  border-color: #C69A7C;
+}
+.newsletter-popup-submit-btn {
+  width: 100%;
+  padding: 14px 20px;
+  background: #C69A7C;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(198, 154, 124, 0.3);
+}
+.newsletter-popup-submit-btn:hover {
+  background: #B38666;
+  transform: translateY(-1px);
+}
+.newsletter-popup-success {
+  background: #EFF6EE;
+  color: #276729;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.newsletter-popup-error {
+  color: #D32F2F;
+  font-size: 0.82rem;
+  margin-top: 6px;
+}
+.newsletter-popup-footnote {
+  font-size: 0.78rem;
+  color: #99887C;
+  margin: 14px 0 0 0;
+}
+</style>
+
+<script>
+  (function() {
+    document.addEventListener('DOMContentLoaded', function() {
+      var modal = document.getElementById('NewsletterPopupModal');
+      var closeBtn = document.getElementById('CloseNewsletterPopup');
+      if (!modal) return;
+
+      var isSubmitted = window.location.search.includes('customer_posted=true');
+      var isDismissed = localStorage.getItem('lc_newsletter_dismissed');
+
+      if (isSubmitted) {
+        modal.style.display = 'flex';
+        modal.setAttribute('aria-hidden', 'false');
+      } else if (!isDismissed) {
+        setTimeout(function() {
+          modal.style.display = 'flex';
+          modal.setAttribute('aria-hidden', 'false');
+        }, 3500);
+      }
+
+      closeBtn && closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+        localStorage.setItem('lc_newsletter_dismissed', 'true');
+      });
+
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+          modal.setAttribute('aria-hidden', 'true');
+          localStorage.setItem('lc_newsletter_dismissed', 'true');
+        }
+      });
+    });
+  })();
+</script>

@@ -179,6 +179,28 @@
   </div>
 </div>
 
+<!-- Judge.me Interactive Product Reviews Section -->
+<div id="judgeme_product_reviews" class="container section-padding">
+  {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product %}
+</div>
+
+<script>
+  if (window.location.hash && window.location.hash.includes('judgeme_product_reviews')) {
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        var el = document.getElementById('judgeme_product_reviews');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+        var btn = document.querySelector('.jdgm-write-rev-link') || document.querySelector('.jdgm-form-link');
+        if (btn) {
+          btn.click();
+        }
+      }, 600);
+    });
+  }
+</script>
+
 <style>
 /* ---- Gifting Box Widget ---- */
 .product__gifting-box {
