@@ -49,14 +49,14 @@
                   {%- endif -%}
 
                   {%- if item.properties.size > 0 -%}
-                    <div class="cart-item__properties" style="font-size: 0.85rem; color: #71717A; margin-top: 6px;">
-                      {%- for property in item.properties -%}
-                        {%- assign property_first_char = property.first | slice: 0 -%}
-                        {%- if property.last != blank and property_first_char != '_' -%}
+                    <div class="cart-item__properties" style="font-size: 0.85rem; color: #A07855; margin-top: 6px; background: #FBF0E8; padding: 4px 8px; border-radius: 6px; display: inline-block;">
+                      {%- for p in item.properties -%}
+                        {%- assign first_char = p.first | slice: 0 -%}
+                        {%- unless p.last == blank or first_char == '_' -%}
                           <div>
-                            <strong style="color: #3A2E27;">{{ property.first }}:</strong> {{ property.last }}
+                            🎁 <strong>{{ p.first }}:</strong> {{ p.last }}
                           </div>
-                        {%- endif -%}
+                        {%- endunless -%}
                       {%- endfor -%}
                     </div>
                   {%- endif -%}
