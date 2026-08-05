@@ -83,7 +83,11 @@
             </div>
           {%- endif -%}
 
-          <input type="hidden" name="contact[Form Subject]" value="Affiliate Program Application">
+          {%- if page.handle contains 'affiliate' or section.settings.heading contains 'Affiliate' or template contains 'affiliate' -%}
+            <input type="hidden" name="contact[Form Subject]" value="Affiliate Program Application">
+          {%- else -%}
+            <input type="hidden" name="contact[Form Subject]" value="General Customer Contact Inquiry">
+          {%- endif -%}
 
           <div class="contact-form__row">
             <div class="contact-form__field">
@@ -111,7 +115,7 @@
             </div>
           </div>
 
-          {%- if page.handle contains 'affiliate' or section.settings.heading contains 'Affiliate' -%}
+          {%- if page.handle contains 'affiliate' or section.settings.heading contains 'Affiliate' or template contains 'affiliate' -%}
             <div class="contact-form__row">
               <div class="contact-form__field">
                 <label class="contact-form__label" for="ContactForm-social">Instagram / TikTok Username *</label>
