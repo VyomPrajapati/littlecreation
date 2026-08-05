@@ -111,18 +111,18 @@
             <div class="review-card__images-wrap">
               <div class="review-card__images-scroller">
                 {%- if block.settings.image != blank -%}
-                  <div class="review-card__img-item"><img src="{{ block.settings.image | image_url: width: 500 }}" alt="Review photo 1" loading="lazy"></div>
+                  <div class="review-card__img-item"><img src="{{ block.settings.image | image_url: width: 500 }}" alt="Review photo 1" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" loading="lazy"></div>
                 {%- elsif block.settings.fallback_image_url != blank -%}
-                  <div class="review-card__img-item"><img src="{{ block.settings.fallback_image_url }}" alt="Review photo 1" loading="lazy"></div>
+                  <div class="review-card__img-item"><img src="{{ block.settings.fallback_image_url }}" alt="Review photo 1" width="500" height="500" loading="lazy"></div>
                 {%- endif -%}
                 {%- if block.settings.image_2 != blank -%}
-                  <div class="review-card__img-item"><img src="{{ block.settings.image_2 | image_url: width: 500 }}" alt="Review photo 2" loading="lazy"></div>
+                  <div class="review-card__img-item"><img src="{{ block.settings.image_2 | image_url: width: 500 }}" alt="Review photo 2" width="{{ block.settings.image_2.width }}" height="{{ block.settings.image_2.height }}" loading="lazy"></div>
                 {%- endif -%}
                 {%- if block.settings.image_3 != blank -%}
-                  <div class="review-card__img-item"><img src="{{ block.settings.image_3 | image_url: width: 500 }}" alt="Review photo 3" loading="lazy"></div>
+                  <div class="review-card__img-item"><img src="{{ block.settings.image_3 | image_url: width: 500 }}" alt="Review photo 3" width="{{ block.settings.image_3.width }}" height="{{ block.settings.image_3.height }}" loading="lazy"></div>
                 {%- endif -%}
                 {%- if block.settings.image_4 != blank -%}
-                  <div class="review-card__img-item"><img src="{{ block.settings.image_4 | image_url: width: 500 }}" alt="Review photo 4" loading="lazy"></div>
+                  <div class="review-card__img-item"><img src="{{ block.settings.image_4 | image_url: width: 500 }}" alt="Review photo 4" width="{{ block.settings.image_4.width }}" height="{{ block.settings.image_4.height }}" loading="lazy"></div>
                 {%- endif -%}
               </div>
             </div>

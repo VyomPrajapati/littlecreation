@@ -1,0 +1,14 @@
+{%- comment -%}
+  Judge.me Review Widgets Snippet
+  Auto-generated / compatibility stub for Shopify Judge.me Product Reviews
+{%- endcomment -%}
+{%- case widget_type -%}
+  {%- when 'judgeme_review_widget' -%}
+    <div class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}">
+      {{ product.metafields.judgeme.widget }}
+    </div>
+  {%- when 'judgeme_preview_badge' -%}
+    <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
+      {{ product.metafields.judgeme.badge }}
+    </div>
+{%- endcase -%}

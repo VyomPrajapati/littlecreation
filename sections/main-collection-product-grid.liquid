@@ -23,6 +23,7 @@
             Showing {{ collection.products_count }} products
           </div>
           {%- if section.settings.enable_sorting -%}
+            {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
             <div class="collection__sort">
               <label for="SortBy">Sort by:</label>
               <select name="sort_by" class="select__select" id="SortBy" aria-describedby="a11y-refresh-page-message">

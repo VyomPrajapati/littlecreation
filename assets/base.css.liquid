@@ -521,4 +521,18 @@ input[type="text"]:focus {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
 }
 
+/* Suppress Shopify Privacy & Cookie Banner Popups */
+#shopify-privacy-banner,
+.shopify-privacy-banner,
+#privacy-banner,
+.privacy-banner,
+[class*="cookie-banner"],
+[id*="cookie-banner"],
+#cookie-consent-banner {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 

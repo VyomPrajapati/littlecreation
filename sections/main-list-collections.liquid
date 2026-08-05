@@ -8,6 +8,8 @@
             {%- if collection.featured_image -%}
               <img src="{{ collection.featured_image | image_url: width: 600 }}"
                    alt="{{ collection.title | escape }}"
+                   width="{{ collection.featured_image.width }}"
+                   height="{{ collection.featured_image.height }}"
                    loading="lazy">
             {%- else -%}
               {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}

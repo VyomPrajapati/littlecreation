@@ -23,9 +23,9 @@
 
         <div class="spotlight-editorial__image-wrapper">
           {%- if main_prod != empty and main_prod.featured_media -%}
-            <img src="{{ main_prod.featured_media | image_url: width: 900 }}" alt="{{ main_prod.title | escape }}" loading="lazy">
+            <img src="{{ main_prod.featured_media | image_url: width: 900 }}" alt="{{ main_prod.title | escape }}" width="{{ main_prod.featured_media.width }}" height="{{ main_prod.featured_media.height }}" loading="lazy">
           {%- else -%}
-            <img src="https://placehold.co/800x800/F5DEC8/3A2E27?text=Mighty+Lion+Teether" alt="Spotlight Teether" loading="lazy">
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
           {%- endif -%}
         </div>
 
@@ -77,9 +77,9 @@
         <div class="spotlight-side-card">
           <div class="spotlight-side-card__img">
             {%- if sec_prod_1 != empty and sec_prod_1.featured_media -%}
-              <img src="{{ sec_prod_1.featured_media | image_url: width: 400 }}" alt="{{ sec_prod_1.title | escape }}" loading="lazy">
+              <img src="{{ sec_prod_1.featured_media | image_url: width: 400 }}" alt="{{ sec_prod_1.title | escape }}" width="{{ sec_prod_1.featured_media.width }}" height="{{ sec_prod_1.featured_media.height }}" loading="lazy">
             {%- else -%}
-              <img src="https://placehold.co/400x400/F5DEC8/3A2E27?text=Crown+Swan" alt="Swan Teether" loading="lazy">
+              {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg' }}
             {%- endif -%}
           </div>
           <div class="spotlight-side-card__details">
@@ -97,9 +97,9 @@
         <div class="spotlight-side-card">
           <div class="spotlight-side-card__img">
             {%- if sec_prod_2 != empty and sec_prod_2.featured_media -%}
-              <img src="{{ sec_prod_2.featured_media | image_url: width: 400 }}" alt="{{ sec_prod_2.title | escape }}" loading="lazy">
+              <img src="{{ sec_prod_2.featured_media | image_url: width: 400 }}" alt="{{ sec_prod_2.title | escape }}" width="{{ sec_prod_2.featured_media.width }}" height="{{ sec_prod_2.featured_media.height }}" loading="lazy">
             {%- else -%}
-              <img src="https://placehold.co/400x400/F5DEC8/3A2E27?text=Bear+Teether" alt="Bear Teether" loading="lazy">
+              {{ 'product-3' | placeholder_svg_tag: 'placeholder-svg' }}
             {%- endif -%}
           </div>
           <div class="spotlight-side-card__details">

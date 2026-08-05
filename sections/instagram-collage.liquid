@@ -26,6 +26,8 @@
               {%- if block.settings.image != blank -%}
                 <img src="{{ block.settings.image | image_url: width: 800 }}"
                      alt="{{ block.settings.image.alt | default: 'Instagram photo' | escape }}"
+                     width="{{ block.settings.image.width }}"
+                     height="{{ block.settings.image.height }}"
                      loading="lazy"
                      class="insta-item__img">
               {%- else -%}

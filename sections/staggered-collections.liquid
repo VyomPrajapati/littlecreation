@@ -22,10 +22,14 @@
                   {%- if block.settings.image != blank -%}
                     <img src="{{ block.settings.image | image_url: width: 700 }}"
                          alt="{{ block.settings.image.alt | default: collection.title | escape }}"
+                         width="{{ block.settings.image.width }}"
+                         height="{{ block.settings.image.height }}"
                          loading="lazy">
                   {%- elsif collection.image != blank -%}
                     <img src="{{ collection.image | image_url: width: 700 }}"
                          alt="{{ collection.image.alt | escape }}"
+                         width="{{ collection.image.width }}"
+                         height="{{ collection.image.height }}"
                          loading="lazy">
                   {%- else -%}
                     {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg staggered-collections__placeholder' }}
