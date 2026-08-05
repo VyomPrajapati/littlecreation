@@ -37,6 +37,9 @@
         {% paginate search.results by section.settings.results_per_page %}
           <div class="grid grid--2-col-tablet grid--4-col-desktop">
             {%- for item in search.results -%}
+              {%- if item.tags contains 'hidden' or item.handle == 'customised-gift-box' -%}
+                {%- continue -%}
+              {%- endif -%}
               {%- if item.object_type == 'product' -%}
                 {% render 'product-card', product: item, show_secondary_image: section.settings.show_secondary_image %}
               {%- else -%}

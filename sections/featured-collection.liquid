@@ -19,6 +19,9 @@
       {%- if target_collection != blank and target_collection.products.size > 0 -%}
         {%- assign shown_count = 0 -%}
         {%- for prod in target_collection.products -%}
+          {%- if prod.tags contains 'hidden' or prod.handle == 'customised-gift-box' -%}
+            {%- continue -%}
+          {%- endif -%}
           {%- if prod.id == product.id and target_collection.products.size > 1 -%}
             {%- continue -%}
           {%- endif -%}
