@@ -9,32 +9,42 @@
 {%- else -%}
   <div class="cart-drawer__items" id="CartDrawerItems">
     {%- for item in cart.items -%}
-      <div class="cart-item-row" data-line="{{ forloop.index }}">
-        {%- if item.image -%}
-          <img class="cart-item-row__img"
-               src="{{ item.image | image_url: width: 200 }}"
-               alt="{{ item.image.alt | escape }}"
-               loading="lazy"
-               width="80" height="80">
-        {%- else -%}
-          <div class="cart-item-row__img"></div>
-        {%- endif -%}
-
-        <div class="cart-item-row__details">
-          {%- if item.product.handle == 'customised-gift-box' -%}
-            <div class="cart-item-row__name" style="font-size: 0.9rem; color: #A07855; font-weight: 700;">
-              🎁 Customised Gift Box (+£5.00)
+      {%- if item.product.handle == 'customised-gift-box' -%}
+        <!-- Nested Sub-Row for Gift Box Add-on -->
+        <div class="cart-item-row cart-item-row--gift-addon" data-line="{{ forloop.index }}" style="margin-left: 20px; padding: 10px 14px; background: #FBF0E8; border-left: 3px solid #C69A7C; border-radius: 0 12px 12px 0; margin-top: -6px; margin-bottom: 12px;">
+          <div class="cart-item-row__details" style="width: 100%;">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+              <div>
+                <span style="font-size: 0.85rem; font-weight: 700; color: #111111;">🎁 Customised Gift Box</span>
+                {%- if item.properties['For Item'] != blank -%}
+                  <div style="font-size: 0.76rem; color: #A07855; font-weight: 600; margin-top: 1px;">
+                    For: {{ item.properties['For Item'] }}
+                  </div>
+                {%- endif -%}
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span style="font-size: 0.9rem; font-weight: 700; color: #111111;">+£5.00</span>
+                <button class="cart-item-row__remove" data-remove-line="{{ forloop.index }}" aria-label="Remove gift box" style="color: #999; cursor: pointer;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+                </button>
+              </div>
             </div>
-            {%- if item.properties['For Item'] != blank -%}
-              <div style="font-size: 0.78rem; color: #3A2E27; font-weight: 600; margin-top: 2px;">
-                For: {{ item.properties['For Item'] }}
-              </div>
-            {%- else -%}
-              <div style="font-size: 0.78rem; color: #71717A; margin-top: 2px;">
-                Attached to product order
-              </div>
-            {%- endif -%}
+          </div>
+        </div>
+      {%- else -%}
+        <!-- Standard Product Row -->
+        <div class="cart-item-row" data-line="{{ forloop.index }}">
+          {%- if item.image -%}
+            <img class="cart-item-row__img"
+                 src="{{ item.image | image_url: width: 200 }}"
+                 alt="{{ item.image.alt | escape }}"
+                 loading="lazy"
+                 width="80" height="80">
           {%- else -%}
+            <div class="cart-item-row__img"></div>
+          {%- endif -%}
+
+          <div class="cart-item-row__details">
             <a href="{{ item.url }}" class="cart-item-row__name">{{ item.product.title | escape }}</a>
             {%- unless item.product.has_only_default_variant -%}
               <div class="cart-item-row__variant">{{ item.variant.title }}</div>
@@ -52,31 +62,31 @@
                 {%- endfor -%}
               </div>
             {%- endif -%}
-          {%- endif -%}
 
-          <div class="cart-item-row__bottom">
-            <!-- Price -->
-            <div class="cart-item-row__price">
-              {%- if item.original_price != item.final_price -%}
-                <s>{{ item.original_price | money }}</s>
-              {%- endif -%}
-              {{ item.final_price | money }}
+            <div class="cart-item-row__bottom">
+              <!-- Price -->
+              <div class="cart-item-row__price">
+                {%- if item.original_price != item.final_price -%}
+                  <s>{{ item.original_price | money }}</s>
+                {%- endif -%}
+                {{ item.final_price | money }}
+              </div>
+
+              <!-- Qty stepper -->
+              <div class="cart-item-qty" data-line="{{ forloop.index }}">
+                <button class="cart-item-qty__btn" data-qty-change="-1" aria-label="Decrease">−</button>
+                <span class="cart-item-qty__val">{{ item.quantity }}</span>
+                <button class="cart-item-qty__btn" data-qty-change="1" aria-label="Increase">+</button>
+              </div>
+
+              <!-- Remove -->
+              <button class="cart-item-row__remove" data-remove-line="{{ forloop.index }}" aria-label="Remove {{ item.product.title | escape }}">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+              </button>
             </div>
-
-            <!-- Qty stepper -->
-            <div class="cart-item-qty" data-line="{{ forloop.index }}">
-              <button class="cart-item-qty__btn" data-qty-change="-1" aria-label="Decrease">−</button>
-              <span class="cart-item-qty__val">{{ item.quantity }}</span>
-              <button class="cart-item-qty__btn" data-qty-change="1" aria-label="Increase">+</button>
-            </div>
-
-            <!-- Remove -->
-            <button class="cart-item-row__remove" data-remove-line="{{ forloop.index }}" aria-label="Remove {{ item.product.title | escape }}">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
-            </button>
           </div>
         </div>
-      </div>
+      {%- endif -%}
     {%- endfor -%}
   </div>
 {%- endif -%}
