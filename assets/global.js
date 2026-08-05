@@ -156,8 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
           const giftCheckbox = form.querySelector('.gifting-checkbox');
           if (giftCheckbox && giftCheckbox.checked) {
             const formData = new FormData(form);
-            const mainVariantId = formData.get('id');
-            const qty = parseInt(formData.get('quantity') || 1);
+            const mainVariantId = formData.get('id') || form.querySelector('[name="id"]')?.value;
+            const qtyInput = form.querySelector('input[name="quantity"]') || document.getElementById(`Qty-${form.id.replace('product-form-', '')}`);
+            const qty = parseInt(qtyInput ? qtyInput.value : (formData.get('quantity') || 1), 10);
 
             let giftVariantId = form.querySelector('[data-gift-variant-id]')?.dataset?.giftVariantId;
             if (!giftVariantId || giftVariantId === '') {
@@ -311,8 +312,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const minusBtn = stepper.querySelector('[name="minus"]');
     const plusBtn  = stepper.querySelector('[name="plus"]');
     if (!input) return;
-    minusBtn && minusBtn.addEventListener('click', () => { const v = parseInt(input.value,10); if (v > 1) input.value = v - 1; });
-    plusBtn  && plusBtn.addEventListener('click',  () => { input.value = parseInt(input.value,10) + 1; });
+    minusBtn && minusBtn.addEventListener('click', () => {
+      const v = parseInt(input.value, 10) || 1;
+      if (v > 1) {
+        input.value = v - 1;
+        input.setAttribute('value', input.value);
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+    plusBtn && plusBtn.addEventListener('click', () => {
+      const v = parseInt(input.value, 10) || 1;
+      input.value = v + 1;
+      input.setAttribute('value', input.value);
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    });
   });
 
   // ---- Login Popup Toggle ----
