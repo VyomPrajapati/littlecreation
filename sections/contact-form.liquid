@@ -91,7 +91,7 @@
               <input class="contact-form__input"
                      type="text"
                      id="ContactForm-name"
-                     name="contact[{{ 'templates.contact.form.name' | t }}]"
+                     name="contact[name]"
                      value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
                      placeholder="e.g. Sarah Jenkins"
                      required>
@@ -170,7 +170,7 @@
               <textarea rows="4"
                         id="ContactForm-body"
                         class="contact-form__input contact-form__textarea"
-                        name="contact[{{ 'templates.contact.form.comment' | t }}]"
+                        name="contact[body]"
                         placeholder="Tell us about your audience and why you'd love to work with us..."
                         required>{{- form.body -}}</textarea>
             </div>
@@ -180,7 +180,7 @@
               <input class="contact-form__input"
                      type="tel"
                      id="ContactForm-phone"
-                     name="contact[{{ 'templates.contact.form.phone' | t }}]"
+                     name="contact[phone]"
                      value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
                      placeholder="+44 7123 456789">
             </div>
@@ -190,7 +190,7 @@
               <textarea rows="5"
                         id="ContactForm-body"
                         class="contact-form__input contact-form__textarea"
-                        name="contact[{{ 'templates.contact.form.comment' | t }}]"
+                        name="contact[body]"
                         placeholder="How can we help you today?"
                         required>{{- form.body -}}</textarea>
             </div>
