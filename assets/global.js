@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
               } catch(e) {}
             }
 
-            const mainProductName = form.closest('.product__info-col')?.querySelector('.product__title')?.innerText?.trim() || form.closest('.product')?.querySelector('.product__title')?.innerText?.trim() || 'Product';
+            const mainProductName = document.querySelector('h1.product__title')?.innerText?.trim() || form.closest('.product__info-col')?.querySelector('.product__title')?.innerText?.trim() || document.querySelector('h1')?.innerText?.trim() || 'Product';
 
             const mainProperties = {};
             for (let [key, val] of formData.entries()) {

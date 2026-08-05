@@ -75,7 +75,7 @@
               <!-- Qty stepper -->
               <div class="cart-item-qty" data-line="{{ forloop.index }}">
                 <button class="cart-item-qty__btn" data-qty-change="-1" aria-label="Decrease">−</button>
-                <span class="cart-item-qty__val">{{ item.quantity }}</span>
+                <span class="cart-item-qty__val" style="font-weight: 700; color: #3A2E27;">x{{ item.quantity }}</span>
                 <button class="cart-item-qty__btn" data-qty-change="1" aria-label="Increase">+</button>
               </div>
 
