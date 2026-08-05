@@ -172,6 +172,8 @@ document.addEventListener('DOMContentLoaded', () => {
               } catch(e) {}
             }
 
+            const mainProductName = form.closest('.product__info-col')?.querySelector('.product__title')?.innerText?.trim() || form.closest('.product')?.querySelector('.product__title')?.innerText?.trim() || 'Product';
+
             const mainProperties = {};
             for (let [key, val] of formData.entries()) {
               if (key.startsWith('properties[')) {
@@ -179,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (val) mainProperties[propName] = val;
               }
             }
+            mainProperties['Gift Box'] = 'Yes (+£5.00 Customised Gift Box)';
 
             const itemsPayload = [
               {
@@ -191,7 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (giftVariantId) {
               itemsPayload.push({
                 id: parseInt(giftVariantId),
-                quantity: 1
+                quantity: 1,
+                properties: {
+                  'For Item': mainProductName
+                }
               });
             }
 

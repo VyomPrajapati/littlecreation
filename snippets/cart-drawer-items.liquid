@@ -23,11 +23,17 @@
         <div class="cart-item-row__details">
           {%- if item.product.handle == 'customised-gift-box' -%}
             <div class="cart-item-row__name" style="font-size: 0.9rem; color: #A07855; font-weight: 700;">
-              🎁 Customised Gift Box (Add-on)
+              🎁 Customised Gift Box (+£5.00)
             </div>
-            <div style="font-size: 0.78rem; color: #71717A; margin-top: 2px;">
-              Attached to product order
-            </div>
+            {%- if item.properties['For Item'] != blank -%}
+              <div style="font-size: 0.78rem; color: #3A2E27; font-weight: 600; margin-top: 2px;">
+                For: {{ item.properties['For Item'] }}
+              </div>
+            {%- else -%}
+              <div style="font-size: 0.78rem; color: #71717A; margin-top: 2px;">
+                Attached to product order
+              </div>
+            {%- endif -%}
           {%- else -%}
             <a href="{{ item.url }}" class="cart-item-row__name">{{ item.product.title | escape }}</a>
             {%- unless item.product.has_only_default_variant -%}
