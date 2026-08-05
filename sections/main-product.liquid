@@ -187,16 +187,24 @@
 <script>
   if (window.location.hash && window.location.hash.includes('judgeme_product_reviews')) {
     window.addEventListener('load', function() {
-      setTimeout(function() {
-        var el = document.getElementById('judgeme_product_reviews');
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-        var btn = document.querySelector('.jdgm-write-rev-link') || document.querySelector('.jdgm-form-link');
+      var el = document.getElementById('judgeme_product_reviews');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+      var attempts = 0;
+      var timer = setInterval(function() {
+        attempts++;
+        var btn = document.querySelector('.jdgm-write-rev-link') || 
+                  document.querySelector('.jdgm-form-link') || 
+                  document.querySelector('.jdgm-rev-wid__write-link') ||
+                  document.querySelector('[data-jdgm-write-review]');
         if (btn) {
           btn.click();
+          clearInterval(timer);
+        } else if (attempts > 30) {
+          clearInterval(timer);
         }
-      }, 600);
+      }, 200);
     });
   }
 </script>
