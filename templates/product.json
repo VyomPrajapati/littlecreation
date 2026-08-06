@@ -184,6 +184,7 @@
         "review_9",
         "review_10"
       ],
+      "disabled": true,
       "settings": {
         "heading": "Customer reviews",
         "review_link": "",
