@@ -4,11 +4,15 @@
 {%- endcomment -%}
 {%- case widget_type -%}
   {%- when 'judgeme_review_widget' -%}
-    <div class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}">
+    <div class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}" data-product-title="{{ product.title | escape }}">
       {{ product.metafields.judgeme.widget }}
     </div>
   {%- when 'judgeme_preview_badge' -%}
     <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
       {{ product.metafields.judgeme.badge }}
+    </div>
+  {%- when 'judgeme_featured_carousel' -%}
+    <div class="jdgm-widget jdgm-carousel-wrapper">
+      {{ shop.metafields.judgeme.featured_carousel }}
     </div>
 {%- endcase -%}

@@ -85,8 +85,8 @@
         </div>
       </div>
 
-      {%- comment -%} Hidden Judge.me widget container so the Write a Review form opens seamlessly {%- endcomment -%}
-      <div style="display:none !important;" aria-hidden="true">
+      {%- comment -%} Judge.me review widget container {%- endcomment -%}
+      <div id="judgeme_product_reviews" class="cr-judgeme-wrap">
         {%- render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product -%}
       </div>
 

@@ -1,0 +1,10 @@
+# Local temporary CSV files
+judgeme_reviews_import.csv
+*.csv
+
+# Shopify Theme CLI & Local configs
+.shopify/
+config/settings_data.json.bak
+node_modules/
+.DS_Store
+Thumbs.db

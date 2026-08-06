@@ -1,0 +1,6 @@
+# Exclude CSV import files from Shopify CLI uploads
+judgeme_reviews_import.csv
+*.csv
+.git/
+.gitignore
+node_modules/
