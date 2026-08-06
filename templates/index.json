@@ -433,6 +433,10 @@
     "1785936374ccef06ae": {
       "type": "apps",
       "settings": {}
+    },
+    "178600031788b080af": {
+      "type": "apps",
+      "settings": {}
     }
   },
   "order": [
@@ -447,6 +451,7 @@
     "faq",
     "instagram_collage",
     "homepage_newsletter",
-    "1785936374ccef06ae"
+    "1785936374ccef06ae",
+    "178600031788b080af"
   ]
 }
