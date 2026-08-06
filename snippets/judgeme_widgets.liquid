@@ -2,6 +2,14 @@
   Judge.me Review Widgets Snippet
   Auto-generated / compatibility stub for Shopify Judge.me Product Reviews
 {%- endcomment -%}
+
+<script>
+  window.jdgm = window.jdgm || {};
+  window.jdgm.SHOP_DOMAIN = "{{ shop.permanent_domain }}";
+  window.jdgm.PLATFORM = "shopify";
+</script>
+<script src="https://cdn.judge.me/assets/installed_judgeme.js" async></script>
+
 {%- case widget_type -%}
   {%- when 'judgeme_review_widget' -%}
     <div class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}" data-product-title="{{ product.title | escape }}">
