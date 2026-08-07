@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "unsubscribe-page",
+      "settings": {
+        "heading": "We're sorry to see you go!",
+        "text": "You've been unsubscribed from our mailing list. You won't receive any more marketing updates from us."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

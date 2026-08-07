@@ -1,0 +1,143 @@
+{%- comment -%}
+  Little Creation - Premium Unsubscribe Page Section
+{%- endcomment -%}
+
+<div class="unsubscribe-page section-padding">
+  <div class="container container--narrow">
+    <div class="unsubscribe-card">
+      <div class="unsubscribe-card__icon">💌</div>
+      <h1 class="unsubscribe-card__title">{{ section.settings.heading | default: "We're sorry to see you go!" }}</h1>
+      <p class="unsubscribe-card__subtitle">
+        {{ section.settings.text | default: "You've been unsubscribed from our mailing list. You won't receive any more marketing updates from us." }}
+      </p>
+
+      <div class="unsubscribe-card__resubscribe-box">
+        <h3>Changed your mind?</h3>
+        <p>Resubscribe anytime to receive exclusive collection launches, parenting guides, and special discounts.</p>
+
+        {%- form 'customer', class: 'unsubscribe-resub-form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          {%- if form.posted_successfully? -%}
+            <div class="unsubscribe-alert unsubscribe-alert--success">
+              ✨ Welcome back! You have been successfully resubscribed to our family newsletter.
+            </div>
+          {%- else -%}
+            <div class="unsubscribe-form-row">
+              <input type="email" name="contact[email]" class="unsubscribe-input" placeholder="Enter your email address" required>
+              <button type="submit" class="button button--primary unsubscribe-submit">Resubscribe</button>
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+
+      <div class="unsubscribe-card__actions">
+        <a href="{{ routes.all_products_collection_url | default: '/collections/all' }}" class="button button--secondary">
+          Return to Shop
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.unsubscribe-page {
+  padding: 60px 0;
+  background-color: var(--color-skin-pale, #FBF0E8);
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+.unsubscribe-card {
+  background: var(--color-white, #FFFFFF);
+  border: 1.5px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-lg, 24px);
+  padding: 48px 36px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(58, 46, 39, 0.06);
+}
+.unsubscribe-card__icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+.unsubscribe-card__title {
+  font-family: var(--font-heading-family);
+  font-size: 2.2rem;
+  color: var(--color-heading, #111111);
+  margin-bottom: 12px;
+}
+.unsubscribe-card__subtitle {
+  font-size: 1.05rem;
+  color: var(--color-text, #3A2E27);
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto 32px;
+}
+.unsubscribe-card__resubscribe-box {
+  background-color: var(--color-skin-pale, #FBF0E8);
+  border: 1px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-md, 16px);
+  padding: 28px 24px;
+  margin-bottom: 32px;
+}
+.unsubscribe-card__resubscribe-box h3 {
+  font-family: var(--font-heading-family);
+  font-size: 1.3rem;
+  color: var(--color-heading, #111111);
+  margin-bottom: 8px;
+}
+.unsubscribe-card__resubscribe-box p {
+  font-size: 0.92rem;
+  color: var(--color-text, #3A2E27);
+  margin-bottom: 20px;
+}
+.unsubscribe-form-row {
+  display: flex;
+  gap: 12px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+.unsubscribe-input {
+  flex: 1;
+  padding: 12px 18px;
+  border: 1px solid var(--color-border, #E8D5C4);
+  border-radius: var(--radius-pill, 999px);
+  font-size: 0.95rem;
+  outline: none;
+}
+.unsubscribe-input:focus {
+  border-color: var(--color-primary, #C69A7C);
+}
+.unsubscribe-submit {
+  border-radius: var(--radius-pill, 999px);
+  padding: 12px 24px;
+  white-space: nowrap;
+}
+.unsubscribe-alert--success {
+  background: #E8F5E9;
+  color: #2E7D32;
+  padding: 12px 16px;
+  border-radius: var(--radius-pill, 999px);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Unsubscribe Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "We're sorry to see you go!"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Subtitle Text",
+      "default": "You've been unsubscribed from our mailing list. You won't receive any more marketing updates from us."
+    }
+  ]
+}
+{% endschema %}
