@@ -417,6 +417,7 @@
         "insta_8",
         "insta_9"
       ],
+      "disabled": true,
       "settings": {
         "heading": "Follow @littlecreationofficial on Instagram",
         "link": "https://www.instagram.com/littlecreationofficial/"
@@ -458,11 +459,11 @@
             "arrows_position": "sides",
             "max_width": 1100,
             "corner_styling": "round",
-            "header_text_color": "#3A2E27",
-            "text_color": "#55483F",
-            "card_color": "#FBF0E8",
-            "stars_color": "#EFA92E",
-            "arrows_color": "#C69A7C",
+            "header_text_color": "#3a2e27",
+            "text_color": "#55483f",
+            "card_color": "#fbf0e8",
+            "stars_color": "#efa92e",
+            "arrows_color": "#c69a7c",
             "transition_speed": 0,
             "header_text": "Customers are saying",
             "show_average_rating": true,
