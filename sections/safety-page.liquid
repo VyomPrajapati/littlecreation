@@ -51,10 +51,12 @@
           <div class="safety-silicone-image-wrap">
             {% if section.settings.silicone_image != blank %}
               <img src="{{ section.settings.silicone_image | image_url: width: 1200 }}" 
+                   data-full-img="{{ section.settings.silicone_image | image_url: width: 2400 }}"
+                   data-title="{{ section.settings.silicone_heading | default: 'Why Parents & Specialists Love Silicone' }}"
                    alt="{{ section.settings.silicone_heading | default: 'Why Parents & Specialists Love Silicone' }}" 
                    width="{{ section.settings.silicone_image.width }}"
                    height="{{ section.settings.silicone_image.height }}"
-                   class="safety-silicone-img" loading="lazy">
+                   class="safety-silicone-img safety-lightbox-trigger" loading="lazy">
             {% else %}
               <div class="safety-silicone-placeholder">
                 <span class="safety-img-placeholder__icon">📷</span>
@@ -208,10 +210,12 @@
           <div class="safety-purity-image-wrap">
             {% if section.settings.purity_image != blank %}
               <img src="{{ section.settings.purity_image | image_url: width: 1200 }}" 
+                   data-full-img="{{ section.settings.purity_image | image_url: width: 2400 }}"
+                   data-title="{{ section.settings.purity_heading | default: 'Understanding Platinum Silicone Purity' }}"
                    alt="{{ section.settings.purity_heading | default: 'Platinum Silicone Purity' }}" 
                    width="{{ section.settings.purity_image.width }}"
                    height="{{ section.settings.purity_image.height }}"
-                   class="safety-purity-img" loading="lazy">
+                   class="safety-purity-img safety-lightbox-trigger" loading="lazy">
             {% else %}
               <div class="safety-purity-placeholder">
                 <span class="safety-img-placeholder__icon">📷</span>
@@ -544,6 +548,20 @@
 }
 .safety-4grid__item:hover .safety-grid-img {
   transform: scale(1.04);
+}
+
+.safety-lightbox-trigger {
+  cursor: zoom-in !important;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.3s ease, box-shadow 0.3s ease !important;
+}
+.safety-silicone-image-wrap,
+.safety-purity-image-wrap {
+  cursor: zoom-in;
+}
+.safety-silicone-image-wrap:hover .safety-silicone-img,
+.safety-purity-image-wrap:hover .safety-purity-img {
+  transform: scale(1.025) !important;
+  filter: brightness(1.03) !important;
 }
 
 /* Fullscreen Lightbox Modal */
