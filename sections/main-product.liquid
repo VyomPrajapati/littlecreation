@@ -125,33 +125,35 @@
 
 
 
-              <!-- Custom Built-in Gifting Solution Widget -->
-              <div class="product__gifting-box">
-                <label class="gifting-checkbox-label" for="EnableGifting-{{ section.id }}">
-                  <input type="checkbox" id="EnableGifting-{{ section.id }}" class="gifting-checkbox" onchange="toggleGiftFields(this)">
-                  <span class="gifting-checkbox-custom"></span>
-                  <span class="gifting-title-wrap">
-                    <span class="gifting-icon">🎁</span>
-                    <strong>Is this a gift? Add Customised Gift Box (+£5.00)</strong>
-                  </span>
-                </label>
-                {%- assign gift_prod = all_products['customised-gift-box'] -%}
-                {%- assign gift_var_id = gift_prod.first_available_variant.id | default: gift_prod.variants.first.id -%}
-                <input type="hidden" name="properties[Gift Box]" id="GiftPropPackaging-{{ section.id }}" data-gift-variant-id="{{ gift_var_id }}" value="" disabled>
-              </div>
+              {%- if section.settings.show_gifting_option -%}
+                <!-- Custom Built-in Gifting Solution Widget -->
+                <div class="product__gifting-box">
+                  <label class="gifting-checkbox-label" for="EnableGifting-{{ section.id }}">
+                    <input type="checkbox" id="EnableGifting-{{ section.id }}" class="gifting-checkbox" onchange="toggleGiftFields(this)">
+                    <span class="gifting-checkbox-custom"></span>
+                    <span class="gifting-title-wrap">
+                      <span class="gifting-icon">🎁</span>
+                      <strong>Is this a gift? Add Customised Gift Box (+£5.00)</strong>
+                    </span>
+                  </label>
+                  {%- assign gift_prod = all_products['customised-gift-box'] -%}
+                  {%- assign gift_var_id = gift_prod.first_available_variant.id | default: gift_prod.variants.first.id -%}
+                  <input type="hidden" name="properties[Gift Box]" id="GiftPropPackaging-{{ section.id }}" data-gift-variant-id="{{ gift_var_id }}" value="" disabled>
+                </div>
 
-              <script>
-                function toggleGiftFields(checkbox) {
-                  const packagingInput = document.getElementById('GiftPropPackaging-{{ section.id }}');
-                  if (checkbox.checked) {
-                    packagingInput.disabled = false;
-                    packagingInput.value = 'Yes (+£5.00 Customised Gift Box)';
-                  } else {
-                    packagingInput.disabled = true;
-                    packagingInput.value = '';
+                <script>
+                  function toggleGiftFields(checkbox) {
+                    const packagingInput = document.getElementById('GiftPropPackaging-{{ section.id }}');
+                    if (checkbox.checked) {
+                      packagingInput.disabled = false;
+                      packagingInput.value = 'Yes (+£5.00 Customised Gift Box)';
+                    } else {
+                      packagingInput.disabled = true;
+                      packagingInput.value = '';
+                    }
                   }
-                }
-              </script>
+                </script>
+              {%- endif -%}
 
               <div class="product__buy-buttons">
                 <button type="submit" name="add" class="button button--full-width product__atc"
@@ -614,7 +616,14 @@
 {% schema %}
 {
   "name": "Product Details",
-  "settings": [],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_gifting_option",
+      "label": "Enable 'Is this a gift?' Option (+£5.00 Box)",
+      "default": false
+    }
+  ],
   "blocks": [
     { "type": "@app" },
     { "type": "title", "name": "Title", "limit": 1 },
