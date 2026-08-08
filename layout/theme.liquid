@@ -334,184 +334,128 @@
     {% render 'cart-drawer' %}
     {% render 'newsletter-popup' %}
 
-    <!-- Judge.me Free Plan: Brand Colour Overrider + MutationObserver -->
+    <!-- Judge.me Free Plan: Brand Colour Overrider -->
     <script>
     (function jdgmBrandOverride() {
       var BRAND  = '#C69A7C';
-      var BRANDD = '#A07855';   /* darker hover */
+      var BRANDD = '#A07855';
       var GOLD   = '#FFB800';
       var GREY   = '#D1D5DB';
+      var running = false; /* prevent re-entrant calls */
+      var timer   = null;  /* debounce timer */
 
-      /* Set CSS custom-properties at root so var() references resolve correctly */
+      /* CSS custom-properties */
       function setCSSVars() {
         var r = document.documentElement;
-        r.style.setProperty('--jdgm-primary-color',    BRAND,  'important');
-        r.style.setProperty('--jdgm-secondary-color',  BRAND,  'important');
-        r.style.setProperty('--jdgm-star-color',       GOLD,   'important');
-        r.style.setProperty('--jdgm-button-color',     BRAND,  'important');
-        r.style.setProperty('--jdgm-write-review-bg',  BRAND,  'important');
-        r.style.setProperty('--jdgm-badge-color',      GOLD,   'important');
+        r.style.setProperty('--jdgm-primary-color',   BRAND, 'important');
+        r.style.setProperty('--jdgm-secondary-color', BRAND, 'important');
+        r.style.setProperty('--jdgm-star-color',      GOLD,  'important');
+        r.style.setProperty('--jdgm-button-color',    BRAND, 'important');
+        r.style.setProperty('--jdgm-write-review-bg', BRAND, 'important');
+        r.style.setProperty('--jdgm-badge-color',     GOLD,  'important');
       }
 
-      /* Re-colour a single element. NEVER touch font-family on stars —
-         Judge.me uses an icon font; overriding it causes squares. */
+      /* Re-colour one element — never touch font-family on stars */
       function styleEl(el) {
         var cls = el.className || '';
-        var isStar   = /jdgm-star|jdgm-rev-widg__star|jdgm-form__star/.test(cls);
-        var isButton = /jdgm-write-rev-btn|jdgm-submit-rev|jdgm-rev-widg__write-rev-btn/.test(cls);
-        var isLink   = /jdgm-tab/.test(cls);
-
-        if (isStar) {
+        if (/jdgm-star|jdgm-rev-widg__star|jdgm-form__star/.test(cls)) {
           var off = el.classList.contains('jdgm--off') || el.classList.contains('jdgm--empty');
           el.style.setProperty('color', off ? GREY : GOLD, 'important');
-          /* Do NOT set font-family here */
         }
-
-        if (isButton) {
+        if (/jdgm-write-rev-btn|jdgm-submit-rev|jdgm-rev-widg__write-rev-btn/.test(cls)) {
           el.style.setProperty('background-color', BRAND, 'important');
           el.style.setProperty('background',       BRAND, 'important');
           el.style.setProperty('border-color',     BRAND, 'important');
-          el.style.setProperty('color',            '#FFFFFF', 'important');
-          el.style.setProperty('border-radius',    '50px', 'important');
-          el.style.setProperty('box-shadow',       '0 4px 12px rgba(198,154,124,0.3)', 'important');
-        }
-
-        if (isLink && el.classList.contains('jdgm--active')) {
-          el.style.setProperty('border-bottom-color', BRAND, 'important');
-          el.style.setProperty('color', BRAND, 'important');
+          el.style.setProperty('color',            '#fff', 'important');
+          el.style.setProperty('border-radius',    '50px','important');
         }
       }
 
-      /* Scan the whole widget area */
+      /* Inject our override <style> once, appended last so it wins cascade */
+      var overrideEl = null;
+      function ensureOverrideStyle() {
+        if (!overrideEl) {
+          overrideEl = document.createElement('style');
+          overrideEl.id = 'jdgm-brand-override';
+          (document.head || document.body).appendChild(overrideEl);
+        }
+        /* Only write if already empty or stale */
+        if (overrideEl.textContent.indexOf(BRAND) !== -1) return;
+        overrideEl.textContent =
+          'html body .jdgm-write-rev-btn,html body a.jdgm-write-rev-btn,' +
+          'html body button.jdgm-write-rev-btn,html body .jdgm-rev-widg__write-rev-btn,' +
+          'html body .jdgm-submit-rev,html body button.jdgm-submit-rev,' +
+          'html body input.jdgm-submit-rev{' +
+            'background-color:' + BRAND + '!important;' +
+            'background:'       + BRAND + '!important;' +
+            'border-color:'     + BRAND + '!important;' +
+            'color:#fff!important;border-radius:50px!important}' +
+          'html body .jdgm-write-rev-btn:hover,html body a.jdgm-write-rev-btn:hover,' +
+          'html body button.jdgm-write-rev-btn:hover{' +
+            'background-color:' + BRANDD + '!important;' +
+            'background:'       + BRANDD + '!important;' +
+            'border-color:'     + BRANDD + '!important}' +
+          'html body .jdgm-star,html body [class*="jdgm-star"],html body .jdgm-rev-widg__star{' +
+            'color:' + GOLD + '!important}' +
+          'html body .jdgm-star.jdgm--off,html body .jdgm-star.jdgm--empty,' +
+          'html body .jdgm-rev-widg__star.jdgm--off,html body .jdgm-rev-widg__star.jdgm--empty{' +
+            'color:' + GREY + '!important;opacity:0.6!important}' +
+          'html body .jdgm-tab.jdgm--active{border-bottom-color:' + BRAND + '!important;color:' + BRAND + '!important}' +
+          'html body .jdgm-widget a,html body .jdgm-rev-widg a{color:' + BRAND + '!important}';
+      }
+
+      /* Main scan — guarded against re-entry */
       function scanAll() {
-        setCSSVars();
-        document.querySelectorAll(
-          '.jdgm-star, .jdgm-rev-widg__star, .jdgm-form__star, [class*="jdgm-star"],'
-          + 'a.jdgm-write-rev-btn, button.jdgm-write-rev-btn, .jdgm-write-rev-btn,'
-          + '.jdgm-rev-widg__write-rev-btn, input.jdgm-submit-rev, button.jdgm-submit-rev,'
-          + '.jdgm-submit-rev, .jdgm-tab'
-        ).forEach(styleEl);
-
-        /* Inject a high-priority override <style> AFTER any Judge.me injected styles */
-        injectOverrideStyle();
-      }
-
-      /* ── Nuclear override: inject our own <style> tag that beats Judge.me's ── */
-      /* Judge.me injects a <style> tag into <head> with green colours via !important.
-         We append our own <style> AFTER theirs so cascade order wins, plus use
-         equal specificity + !important. We also rewrite their style tag text directly. */
-      var overrideStyleEl = null;
-      function injectOverrideStyle() {
-        /* Rewrite text content of any Judge.me <style> tags to swap green → brand */
-        document.querySelectorAll('head style, body style').forEach(function(st) {
-          if (!st.textContent) return;
-          /* Only touch Judge.me style tags */
-          if (!st.textContent.includes('jdgm') && !st.textContent.includes('judge')) return;
-          var newText = st.textContent
-            /* Green button backgrounds Judge.me uses */
-            .replace(/#168474/gi, BRAND)
-            .replace(/#1a8a6c/gi, BRAND)
-            .replace(/#0d6e56/gi, BRAND)
-            .replace(/#159b6a/gi, BRAND)
-            .replace(/#16a085/gi, BRAND)
-            .replace(/#27ae60/gi, BRAND)
-            .replace(/#2ecc71/gi, BRAND)
-            .replace(/rgb\(\s*22\s*,\s*132\s*,\s*116\s*\)/gi, 'rgb(198,154,124)')
-            .replace(/rgb\(\s*26\s*,\s*138\s*,\s*108\s*\)/gi, 'rgb(198,154,124)');
-          if (newText !== st.textContent) {
-            st.textContent = newText;
-          }
-        });
-
-        /* Append / update our own override <style> tag at the very end of <head> */
-        if (!overrideStyleEl) {
-          overrideStyleEl = document.createElement('style');
-          overrideStyleEl.id = 'jdgm-brand-override';
-          (document.head || document.body).appendChild(overrideStyleEl);
+        if (running) return;
+        running = true;
+        try {
+          /* PAUSE observer before touching DOM to avoid triggering mutations */
+          obs.disconnect();
+          setCSSVars();
+          document.querySelectorAll(
+            '.jdgm-star,.jdgm-rev-widg__star,.jdgm-form__star,[class*="jdgm-star"],' +
+            'a.jdgm-write-rev-btn,button.jdgm-write-rev-btn,.jdgm-write-rev-btn,' +
+            '.jdgm-rev-widg__write-rev-btn,input.jdgm-submit-rev,button.jdgm-submit-rev,.jdgm-submit-rev'
+          ).forEach(styleEl);
+          ensureOverrideStyle();
+        } finally {
+          running = false;
+          startObserver(); /* re-attach observer */
         }
-        overrideStyleEl.textContent = [
-          /* Buttons */
-          'html body .jdgm-write-rev-btn,',
-          'html body a.jdgm-write-rev-btn,',
-          'html body button.jdgm-write-rev-btn,',
-          'html body .jdgm-rev-widg__write-rev-btn,',
-          'html body .jdgm-submit-rev,',
-          'html body button.jdgm-submit-rev,',
-          'html body input.jdgm-submit-rev {',
-          '  background-color: ' + BRAND + ' !important;',
-          '  background: ' + BRAND + ' !important;',
-          '  border-color: ' + BRAND + ' !important;',
-          '  color: #ffffff !important;',
-          '  border-radius: 50px !important;',
-          '}',
-          'html body .jdgm-write-rev-btn:hover,',
-          'html body a.jdgm-write-rev-btn:hover,',
-          'html body button.jdgm-write-rev-btn:hover {',
-          '  background-color: ' + BRANDD + ' !important;',
-          '  background: ' + BRANDD + ' !important;',
-          '  border-color: ' + BRANDD + ' !important;',
-          '}',
-          /* Stars — colour only, no font-family */
-          'html body .jdgm-star,',
-          'html body [class*="jdgm-star"],',
-          'html body .jdgm-rev-widg__star {',
-          '  color: ' + GOLD + ' !important;',
-          '}',
-          'html body .jdgm-star.jdgm--off,',
-          'html body .jdgm-star.jdgm--empty,',
-          'html body .jdgm-rev-widg__star.jdgm--off,',
-          'html body .jdgm-rev-widg__star.jdgm--empty {',
-          '  color: ' + GREY + ' !important;',
-          '  opacity: 0.6 !important;',
-          '}',
-          /* Tabs */
-          'html body .jdgm-tab.jdgm--active {',
-          '  border-bottom-color: ' + BRAND + ' !important;',
-          '  color: ' + BRAND + ' !important;',
-          '}',
-          /* Links */
-          'html body .jdgm-widget a, html body .jdgm-rev-widg a {',
-          '  color: ' + BRAND + ' !important;',
-          '}'
-        ].join('\n');
       }
 
-      /* MutationObserver — watches BOTH head and body for Judge.me injecting styles */
-      var observer = new MutationObserver(function(mutations) {
+      /* Debounced wrapper to avoid rapid-fire calls */
+      function debouncedScan() {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(function() { timer = null; scanAll(); }, 80);
+      }
+
+      /* MutationObserver — childList and attributes only (NO characterData) */
+      var obs = new MutationObserver(function(mutations) {
         var needsScan = false;
-        mutations.forEach(function(m) {
-          if (m.type === 'childList' && m.addedNodes.length) {
-            m.addedNodes.forEach(function(n) {
-              /* If Judge.me injected a new <style> tag into <head> */
-              if (n.tagName === 'STYLE') needsScan = true;
-              if (n.tagName === 'SCRIPT') needsScan = true;
-            });
-            needsScan = true;
-          }
-          if (m.type === 'attributes') needsScan = true;
-          if (m.type === 'characterData') needsScan = true;
-        });
-        if (needsScan) scanAll();
+        for (var i = 0; i < mutations.length; i++) {
+          var m = mutations[i];
+          if (m.type === 'childList' && m.addedNodes.length) { needsScan = true; break; }
+          if (m.type === 'attributes') { needsScan = true; break; }
+        }
+        if (needsScan) debouncedScan();
       });
 
       function startObserver() {
-        var opts = { childList: true, subtree: true, attributes: true,
-                     characterData: true, attributeFilter: ['style', 'class'] };
-        /* Watch both <head> and <body> */
-        if (document.head) observer.observe(document.head, opts);
-        observer.observe(document.body, opts);
+        obs.observe(document.body, {
+          childList: true, subtree: true,
+          attributes: true, attributeFilter: ['style', 'class']
+        });
       }
 
-      /* Bootstrap */
+      /* Boot */
       setCSSVars();
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() { scanAll(); startObserver(); });
+        document.addEventListener('DOMContentLoaded', function() { scanAll(); });
       } else {
         scanAll();
-        startObserver();
       }
-      /* Also run on full load (Judge.me JS loads async after page) */
-      window.addEventListener('load', function() { scanAll(); });
+      window.addEventListener('load', debouncedScan);
     })();
     </script>
   </body>
