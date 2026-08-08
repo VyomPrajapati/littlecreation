@@ -323,53 +323,14 @@
     {% render 'cart-drawer' %}
     {% render 'newsletter-popup' %}
 
-    <!-- Judge.me Free Plan Dynamic Style & Star Enforcer -->
+    <!-- Judge.me Clean Lightweight Fix (No DOM Mutation Loops) -->
     <script>
-      (function fixJudgeMeWidgets() {
-        function enforceJudgeMeStyles() {
-          // 1. Force Gold Stars & replace unrendered font glyph boxes with real Unicode Stars ★ / ☆
-          document.querySelectorAll('.jdgm-star, .jdgm-rev-widg__star, [class*="jdgm-star"], .jdgm-rev__rating span, .jdgm-rev__rating i').forEach(function(star) {
-            var isOff = star.classList.contains('jdgm--off') || star.classList.contains('jdgm--empty');
-            star.style.setProperty('color', isOff ? '#CBD5E1' : '#FFB800', 'important');
-            star.style.setProperty('font-family', 'system-ui, -apple-system, sans-serif', 'important');
-            star.style.setProperty('font-style', 'normal', 'important');
-            star.style.setProperty('font-weight', 'bold', 'important');
-            star.style.setProperty('display', 'inline-block', 'important');
-
-            // Explicitly set textContent to ★ or ☆ so missing webfonts never show green square boxes ☐
-            star.innerHTML = isOff ? '☆' : '★';
-          });
-
-          // 2. Force Caramel Brown on 'Write a Review' Button
-          document.querySelectorAll('.jdgm-write-rev-btn, .jdgm-rev-widg__write-rev-btn, a.jdgm-write-rev-btn, button.jdgm-write-rev-btn, .jdgm-btn--primary, .jdgm-submit-rev').forEach(function(btn) {
-            btn.style.setProperty('background-color', '#C69A7C', 'important');
-            btn.style.setProperty('background', '#C69A7C', 'important');
-            btn.style.setProperty('border-color', '#C69A7C', 'important');
-            btn.style.setProperty('color', '#FFFFFF', 'important');
-            btn.style.setProperty('border-radius', '50px', 'important');
-          });
-
-          // 3. Fix filter and dropdown border buttons
-          document.querySelectorAll('.jdgm-rev-widg__filter-btn, .jdgm-rev-widg__sort-dropdown').forEach(function(el) {
-            el.style.setProperty('border-color', '#E8D5C4', 'important');
-            el.style.setProperty('color', '#111111', 'important');
-          });
-        }
-
-        // Run immediately and set timer intervals to catch async Judge.me loading
-        enforceJudgeMeStyles();
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', enforceJudgeMeStyles);
-        }
-        window.addEventListener('load', enforceJudgeMeStyles);
-
-        setInterval(enforceJudgeMeStyles, 400);
-
-        var observer = new MutationObserver(enforceJudgeMeStyles);
-        if (document.body) {
-          observer.observe(document.body, { childList: true, subtree: true });
-        }
-      })();
+      window.addEventListener('load', function() {
+        document.querySelectorAll('.jdgm-write-rev-btn, .jdgm-rev-widg__write-rev-btn').forEach(function(btn) {
+          btn.style.setProperty('background-color', '#C69A7C', 'important');
+          btn.style.setProperty('color', '#FFFFFF', 'important');
+        });
+      });
     </script>
   </body>
 </html>
