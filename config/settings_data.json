@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_primary": "#C69A7C",
@@ -12,6 +21,7 @@
     "color_border": "#E8D5C4",
     "color_button_text": "#FFFFFF",
     "color_button_background": "#C69A7C",
+    "favicon": "shopify://shop_images/favicon-96x96.png",
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
@@ -74,7 +84,9 @@
         "settings": {
           "bg_color": "#2c221e",
           "text_color": "#f5dec8",
-          "payment_enable": true
+          "payment_enable": true,
+          "developer_credit_text": "Developed by Gandhi Media Solution",
+          "developer_credit_link": ""
         }
       }
     },
