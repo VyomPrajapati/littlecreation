@@ -243,16 +243,13 @@
         opacity: 0.5 !important;
       }
 
-      /* Ultimate Overrides for Judge.me Green Buttons */
-      .jdgm-write-rev-btn,
-      .jdgm-rev-widg__write-rev-btn,
+      /* Ultimate Overrides for Judge.me Green Buttons (Buttons ONLY, no container divs) */
       a.jdgm-write-rev-btn,
       button.jdgm-write-rev-btn,
-      .jdgm-btn,
-      .jdgm-btn--primary,
-      .jdgm-submit-rev,
-      [class*="write-rev-btn"],
-      [class*="jdgm-write-rev"] {
+      .jdgm-write-rev-btn,
+      .jdgm-rev-widg__write-rev-btn,
+      input.jdgm-submit-rev,
+      button.jdgm-submit-rev {
         background-color: #C69A7C !important;
         background: #C69A7C !important;
         color: #FFFFFF !important;
@@ -265,11 +262,10 @@
         text-decoration: none !important;
       }
 
-      .jdgm-write-rev-btn:hover,
-      .jdgm-rev-widg__write-rev-btn:hover,
       a.jdgm-write-rev-btn:hover,
       button.jdgm-write-rev-btn:hover,
-      .jdgm-btn:hover {
+      .jdgm-write-rev-btn:hover,
+      .jdgm-rev-widg__write-rev-btn:hover {
         background-color: #A07855 !important;
         background: #A07855 !important;
         border-color: #A07855 !important;
@@ -341,26 +337,44 @@
     {% render 'cart-drawer' %}
     {% render 'newsletter-popup' %}
 
-    <!-- Dynamic Judge.me Brand Color Enforcer -->
+    <!-- Dynamic Judge.me Brand Color & Star Enforcer (Zero Loop) -->
     <script>
-      (function enforceJudgeMeTheme() {
-        function injectOverrideStyle() {
-          var style = document.getElementById('jdgm-brand-overrides');
-          if (!style) {
-            style = document.createElement('style');
-            style.id = 'jdgm-brand-overrides';
-            (document.head || document.documentElement).appendChild(style);
-          }
-          style.textContent = `
-            .jdgm-rev-widg__star, .jdgm-star, [class*="jdgm-star"], [class*="jdgm-rev-widg__star"] { color: #FFB800 !important; font-family: -apple-system, BlinkMacSystemFont, sans-serif !important; font-style: normal !important; }
-            .jdgm-rev-widg__star:before, .jdgm-star:before, [class*="jdgm-star"]:before, [class*="jdgm-rev-widg__star"]:before { content: "★" !important; color: #FFB800 !important; font-family: sans-serif !important; opacity: 1 !important; }
-            .jdgm-rev-widg__star.jdgm--off:before, .jdgm-rev-widg__star.jdgm--empty:before, .jdgm-star.jdgm--off:before, .jdgm-star.jdgm--empty:before { content: "★" !important; color: #CBD5E1 !important; opacity: 0.5 !important; }
-            .jdgm-write-rev-btn, .jdgm-rev-widg__write-rev-btn, a.jdgm-write-rev-btn, button.jdgm-write-rev-btn, .jdgm-btn, [class*="write-rev-btn"] { background-color: #C69A7C !important; background: #C69A7C !important; color: #FFFFFF !important; border-color: #C69A7C !important; border-radius: 50px !important; text-decoration: none !important; }
-          `;
+      (function fixJudgeMeAppBlock() {
+        function applyStyles() {
+          // 1. Force Gold stars & replace unrendered font glyph boxes (\e000) with native ★ / ☆
+          var stars = document.querySelectorAll('.jdgm-rev-widg__star, .jdgm-star, .jdgm-rev__rating span, .jdgm-rev__rating i');
+          stars.forEach(function(star) {
+            var isOff = star.classList.contains('jdgm--off') || star.classList.contains('jdgm--empty');
+            star.style.setProperty('color', isOff ? '#CBD5E1' : '#FFB800', 'important');
+            star.style.setProperty('font-family', 'sans-serif', 'important');
+            star.style.setProperty('font-style', 'normal', 'important');
+            star.style.setProperty('display', 'inline-block', 'important');
+            
+            // Replace \e000 icon glyph box with ★ / ☆ if unrendered
+            var txt = star.textContent || '';
+            if (!txt || (txt.length > 0 && txt.charCodeAt(0) > 50000) || txt.indexOf('★') === -1 && txt.indexOf('☆') === -1) {
+              star.textContent = isOff ? '☆' : '★';
+            }
+          });
+
+          // 2. Force Caramel Brown on 'Write a Review' BUTTON ONLY (do not target container divs)
+          var btns = document.querySelectorAll('a.jdgm-write-rev-btn, button.jdgm-write-rev-btn, input.jdgm-submit-rev, button.jdgm-submit-rev');
+          btns.forEach(function(btn) {
+            btn.style.setProperty('background-color', '#C69A7C', 'important');
+            btn.style.setProperty('background', '#C69A7C', 'important');
+            btn.style.setProperty('border-color', '#C69A7C', 'important');
+            btn.style.setProperty('color', '#FFFFFF', 'important');
+            btn.style.setProperty('border-radius', '50px', 'important');
+          });
         }
-        injectOverrideStyle();
-        document.addEventListener('DOMContentLoaded', injectOverrideStyle);
-        window.addEventListener('load', injectOverrideStyle);
+
+        applyStyles();
+        document.addEventListener('DOMContentLoaded', applyStyles);
+        window.addEventListener('load', applyStyles);
+        setTimeout(applyStyles, 500);
+        setTimeout(applyStyles, 1500);
+        setTimeout(applyStyles, 3000);
+        setTimeout(applyStyles, 5000);
       })();
     </script>
   </body>
