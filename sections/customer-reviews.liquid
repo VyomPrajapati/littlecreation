@@ -93,8 +93,22 @@
         <div class="review-card animate-on-scroll" data-rating="{{ block.settings.rating }}" {{ block.shopify_attributes }}>
 
           {%- assign fallback_urls = '' -%}
+          {%- assign fallback_urls_clean = '' -%}
           {%- if block.settings.fallback_image_url != blank -%}
-            {%- assign fallback_urls = block.settings.fallback_image_url | split: ',' -%}
+            {%- assign fallback_urls_raw = block.settings.fallback_image_url | split: ',' -%}
+            {%- for f_raw in fallback_urls_raw -%}
+              {%- assign f_clean = f_raw | strip -%}
+              {%- if f_clean != blank -%}
+                {%- if fallback_urls_clean == '' -%}
+                  {%- assign fallback_urls_clean = f_clean -%}
+                {%- else -%}
+                  {%- assign fallback_urls_clean = fallback_urls_clean | append: ',' | append: f_clean -%}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if fallback_urls_clean != blank -%}
+              {%- assign fallback_urls = fallback_urls_clean | split: ',' -%}
+            {%- endif -%}
           {%- endif -%}
 
           {%- assign total_images = 0 -%}
@@ -102,7 +116,7 @@
           {%- if block.settings.image_2 != blank -%}{%- assign total_images = total_images | plus: 1 -%}{%- endif -%}
           {%- if block.settings.image_3 != blank -%}{%- assign total_images = total_images | plus: 1 -%}{%- endif -%}
           {%- if block.settings.image_4 != blank -%}{%- assign total_images = total_images | plus: 1 -%}{%- endif -%}
-          {%- if fallback_urls.size > 0 -%}
+          {%- if fallback_urls != blank and fallback_urls.size > 0 -%}
             {%- assign total_images = total_images | plus: fallback_urls.size -%}
           {%- endif -%}
 
@@ -846,9 +860,9 @@
           "label": "Review photo 4 (optional)"
         },
         {
-          "type": "url",
+          "type": "text",
           "id": "fallback_image_url",
-          "label": "External image URL (optional)"
+          "label": "External image URL(s) — comma-separated for multiple"
         }
       ]
     }

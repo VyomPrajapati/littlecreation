@@ -202,50 +202,35 @@
       .cart-drawer__title {
         font-family: 'Fredoka', 'Quicksand', system-ui, sans-serif !important;
       }
-      /* Preserve & Style Judge.me Free Plan Elements */
-      #judgeme_product_reviews .jdgm-star,
-      #judgeme_product_reviews .jdgm-rev-widg__star,
+      /* ── Judge.me Stars: colour ONLY, font-family intentionally untouched ──
+         Judge.me renders stars with a proprietary icon font loaded from their
+         CDN. If you override font-family to any system font the icon glyphs
+         (private-use Unicode) become empty squares. Only set color.
+      ── ───────────────────────────────────────────────────────────────────── */
       .jdgm-star,
       .jdgm-rev-widg__star,
       .jdgm-form__star,
       [class*="jdgm-star"],
-      [class*="jdgm-rev-widg__star"],
-      .jdgm-widget span.jdgm-star,
       .jdgm-prev-badge__stars .jdgm-star,
       .jdgm-rev-widg__summary-stars .jdgm-star,
-      .jdgm-rev__rating .jdgm-star,
-      .jdgm-rev__rating span,
-      .jdgm-rev__rating i {
+      .jdgm-rev__rating .jdgm-star {
         color: #FFB800 !important;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
-        font-style: normal !important;
+        /* font-family: DO NOT set — icon font must be preserved */
       }
 
-      #judgeme_product_reviews .jdgm-star:before,
-      #judgeme_product_reviews .jdgm-rev-widg__star:before,
-      .jdgm-star:before,
-      .jdgm-rev-widg__star:before,
-      .jdgm-form__star:before,
-      .jdgm-star.jdgm--on:before,
-      .jdgm-star.jdgm--full:before,
-      .jdgm-rev-widg__star.jdgm--on:before,
-      .jdgm-rev-widg__star.jdgm--full:before {
-        content: "★" !important;
+      .jdgm-star.jdgm--on,
+      .jdgm-star.jdgm--full,
+      .jdgm-rev-widg__star.jdgm--on,
+      .jdgm-rev-widg__star.jdgm--full {
         color: #FFB800 !important;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
-        font-style: normal !important;
-        opacity: 1 !important;
       }
 
-      #judgeme_product_reviews .jdgm-star.jdgm--off:before,
-      #judgeme_product_reviews .jdgm-star.jdgm--empty:before,
-      .jdgm-star.jdgm--off:before,
-      .jdgm-star.jdgm--empty:before,
-      .jdgm-rev-widg__star.jdgm--off:before,
-      .jdgm-rev-widg__star.jdgm--empty:before {
-        content: "★" !important;
-        color: #CBD5E1 !important;
-        opacity: 0.5 !important;
+      .jdgm-star.jdgm--off,
+      .jdgm-star.jdgm--empty,
+      .jdgm-rev-widg__star.jdgm--off,
+      .jdgm-rev-widg__star.jdgm--empty {
+        color: #D1D5DB !important;
+        opacity: 0.6 !important;
       }
 
       /* Ultimate Overrides for Judge.me Green Buttons */
@@ -349,46 +334,96 @@
     {% render 'cart-drawer' %}
     {% render 'newsletter-popup' %}
 
-    <!-- Free Plan Judge.me CSS Variable & Element Color Bypasser -->
+    <!-- Judge.me Free Plan: Brand Colour Overrider + MutationObserver -->
     <script>
-      (function bypassJudgeMeFreePlanColors() {
-        function overrideColors() {
-          // 1. Force CSS variables at root element (overrides Judge.me dynamic <style> tag)
-          var root = document.documentElement;
-          root.style.setProperty('--jdgm-primary-color', '#C69A7C', 'important');
-          root.style.setProperty('--jdgm-star-color', '#FFB800', 'important');
-          root.style.setProperty('--jdgm-button-color', '#C69A7C', 'important');
-          root.style.setProperty('--jdgm-write-review-bg', '#C69A7C', 'important');
+    (function jdgmBrandOverride() {
+      var BRAND  = '#C69A7C';
+      var BRANDD = '#A07855';   /* darker hover */
+      var GOLD   = '#FFB800';
+      var GREY   = '#D1D5DB';
 
-          // 2. Force CSS variables on widget containers
-          document.querySelectorAll('.jdgm-rev-widg, .jdgm-widget, [class*="jdgm"]').forEach(function(container) {
-            container.style.setProperty('--jdgm-primary-color', '#C69A7C', 'important');
-            container.style.setProperty('--jdgm-star-color', '#FFB800', 'important');
-          });
+      /* Set CSS custom-properties at root so var() references resolve correctly */
+      function setCSSVars() {
+        var r = document.documentElement;
+        r.style.setProperty('--jdgm-primary-color',    BRAND,  'important');
+        r.style.setProperty('--jdgm-secondary-color',  BRAND,  'important');
+        r.style.setProperty('--jdgm-star-color',       GOLD,   'important');
+        r.style.setProperty('--jdgm-button-color',     BRAND,  'important');
+        r.style.setProperty('--jdgm-write-review-bg',  BRAND,  'important');
+        r.style.setProperty('--jdgm-badge-color',      GOLD,   'important');
+      }
 
-          // 3. Force Gold Stars
-          document.querySelectorAll('.jdgm-rev-widg__star, .jdgm-star, .jdgm-form__star, [class*="jdgm-star"]').forEach(function(star) {
-            var isOff = star.classList.contains('jdgm--off') || star.classList.contains('jdgm--empty');
-            var targetColor = isOff ? '#CBD5E1' : '#FFB800';
-            star.style.setProperty('color', targetColor, 'important');
-            star.style.setProperty('font-family', 'sans-serif', 'important');
-          });
+      /* Re-colour a single element. NEVER touch font-family on stars —
+         Judge.me uses an icon font; overriding it causes squares. */
+      function styleEl(el) {
+        var cls = el.className || '';
+        var isStar   = /jdgm-star|jdgm-rev-widg__star|jdgm-form__star/.test(cls);
+        var isButton = /jdgm-write-rev-btn|jdgm-submit-rev|jdgm-rev-widg__write-rev-btn/.test(cls);
+        var isLink   = /jdgm-tab/.test(cls);
 
-          // 4. Force Caramel Buttons
-          document.querySelectorAll('a.jdgm-write-rev-btn, button.jdgm-write-rev-btn, .jdgm-write-rev-btn, .jdgm-rev-widg__write-rev-btn, input.jdgm-submit-rev, button.jdgm-submit-rev, .jdgm-submit-rev').forEach(function(btn) {
-            btn.style.setProperty('background-color', '#C69A7C', 'important');
-            btn.style.setProperty('background', '#C69A7C', 'important');
-            btn.style.setProperty('border-color', '#C69A7C', 'important');
-            btn.style.setProperty('color', '#FFFFFF', 'important');
-            btn.style.setProperty('border-radius', '50px', 'important');
-          });
+        if (isStar) {
+          var off = el.classList.contains('jdgm--off') || el.classList.contains('jdgm--empty');
+          el.style.setProperty('color', off ? GREY : GOLD, 'important');
+          /* Do NOT set font-family here */
         }
 
-        overrideColors();
-        document.addEventListener('DOMContentLoaded', overrideColors);
-        window.addEventListener('load', overrideColors);
-        setInterval(overrideColors, 200);
-      })();
+        if (isButton) {
+          el.style.setProperty('background-color', BRAND, 'important');
+          el.style.setProperty('background',       BRAND, 'important');
+          el.style.setProperty('border-color',     BRAND, 'important');
+          el.style.setProperty('color',            '#FFFFFF', 'important');
+          el.style.setProperty('border-radius',    '50px', 'important');
+          el.style.setProperty('box-shadow',       '0 4px 12px rgba(198,154,124,0.3)', 'important');
+        }
+
+        if (isLink && el.classList.contains('jdgm--active')) {
+          el.style.setProperty('border-bottom-color', BRAND, 'important');
+          el.style.setProperty('color', BRAND, 'important');
+        }
+      }
+
+      /* Scan the whole widget area */
+      function scanAll() {
+        setCSSVars();
+        document.querySelectorAll(
+          '.jdgm-star, .jdgm-rev-widg__star, .jdgm-form__star, [class*="jdgm-star"],'
+          + 'a.jdgm-write-rev-btn, button.jdgm-write-rev-btn, .jdgm-write-rev-btn,'
+          + '.jdgm-rev-widg__write-rev-btn, input.jdgm-submit-rev, button.jdgm-submit-rev,'
+          + '.jdgm-submit-rev, .jdgm-tab'
+        ).forEach(styleEl);
+      }
+
+      /* MutationObserver — fires only when the DOM actually changes, not on
+         a fixed interval. Much more efficient than setInterval. */
+      var observer = new MutationObserver(function(mutations) {
+        var needsScan = false;
+        mutations.forEach(function(m) {
+          if (m.type === 'childList' && m.addedNodes.length) needsScan = true;
+          if (m.type === 'attributes') needsScan = true;
+        });
+        if (needsScan) scanAll();
+      });
+
+      function startObserver() {
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['style', 'class']
+        });
+      }
+
+      /* Bootstrap */
+      setCSSVars();
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() { scanAll(); startObserver(); });
+      } else {
+        scanAll();
+        startObserver();
+      }
+      /* Also run on full load (Judge.me JS loads async) */
+      window.addEventListener('load', scanAll);
+    })();
     </script>
   </body>
 </html>
