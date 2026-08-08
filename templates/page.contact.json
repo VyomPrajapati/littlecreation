@@ -1,9 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "form": {
       "type": "contact-form",
       "settings": {
-        "heading": "Contact Little Creation"
+        "label": "Get in touch",
+        "heading": "Contact Little Creation",
+        "subtext": "Have a question or feedback? We'd love to hear from you.",
+        "info_heading": "We are here to help",
+        "info_text": "Have a question about our teethers, orders, or wholesale inquiries? Reach out to our team anytime.",
+        "email": "contact@littlecreation.co.uk",
+        "location": "United Kingdom",
+        "hours": "Mon - Fri: 9:00 - 17:00 GMT",
+        "bg_color": "#ffffff"
       }
     }
   },
