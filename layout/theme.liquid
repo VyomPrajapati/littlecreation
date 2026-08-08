@@ -203,8 +203,11 @@
         font-family: 'Fredoka', 'Quicksand', system-ui, sans-serif !important;
       }
       /* Preserve & Style Judge.me Free Plan Elements */
+      #judgeme_product_reviews .jdgm-star,
+      #judgeme_product_reviews .jdgm-rev-widg__star,
       .jdgm-star,
       .jdgm-rev-widg__star,
+      .jdgm-form__star,
       [class*="jdgm-star"],
       [class*="jdgm-rev-widg__star"],
       .jdgm-widget span.jdgm-star,
@@ -216,13 +219,13 @@
         color: #FFB800 !important;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
         font-style: normal !important;
-        font-size: 1.1em !important;
       }
 
+      #judgeme_product_reviews .jdgm-star:before,
+      #judgeme_product_reviews .jdgm-rev-widg__star:before,
       .jdgm-star:before,
       .jdgm-rev-widg__star:before,
-      [class*="jdgm-star"]:before,
-      [class*="jdgm-rev-widg__star"]:before,
+      .jdgm-form__star:before,
       .jdgm-star.jdgm--on:before,
       .jdgm-star.jdgm--full:before,
       .jdgm-rev-widg__star.jdgm--on:before,
@@ -234,6 +237,8 @@
         opacity: 1 !important;
       }
 
+      #judgeme_product_reviews .jdgm-star.jdgm--off:before,
+      #judgeme_product_reviews .jdgm-star.jdgm--empty:before,
       .jdgm-star.jdgm--off:before,
       .jdgm-star.jdgm--empty:before,
       .jdgm-rev-widg__star.jdgm--off:before,
@@ -243,13 +248,20 @@
         opacity: 0.5 !important;
       }
 
-      /* Ultimate Overrides for Judge.me Green Buttons (Buttons ONLY, no container divs) */
+      /* Ultimate Overrides for Judge.me Green Buttons */
+      #judgeme_product_reviews .jdgm-write-rev-btn,
+      #judgeme_product_reviews .jdgm-rev-widg__write-rev-btn,
+      .jdgm-widget .jdgm-write-rev-btn,
+      .jdgm-widget .jdgm-rev-widg__write-rev-btn,
+      .jdgm-rev-widg .jdgm-write-rev-btn,
+      .jdgm-rev-widg .jdgm-rev-widg__write-rev-btn,
       a.jdgm-write-rev-btn,
       button.jdgm-write-rev-btn,
       .jdgm-write-rev-btn,
       .jdgm-rev-widg__write-rev-btn,
       input.jdgm-submit-rev,
-      button.jdgm-submit-rev {
+      button.jdgm-submit-rev,
+      .jdgm-submit-rev {
         background-color: #C69A7C !important;
         background: #C69A7C !important;
         color: #FFFFFF !important;
@@ -337,34 +349,26 @@
     {% render 'cart-drawer' %}
     {% render 'newsletter-popup' %}
 
-    <!-- Dynamic Judge.me Brand Color & Star Enforcer (Zero Loop) -->
+    <!-- Dynamic Judge.me Brand Color & Star Enforcer -->
     <script>
       (function fixJudgeMeAppBlock() {
         function applyStyles() {
-          // 1. Force Gold stars & replace unrendered font glyph boxes (\e000) with native ★ / ☆
-          var stars = document.querySelectorAll('.jdgm-rev-widg__star, .jdgm-star, .jdgm-rev__rating span, .jdgm-rev__rating i');
+          // 1. Force Gold star colors ONLY (no innerHTML or textContent changes to prevent double stars)
+          var stars = document.querySelectorAll('.jdgm-rev-widg__star, .jdgm-star, .jdgm-form__star, .jdgm-rev__rating span, .jdgm-rev__rating i');
           stars.forEach(function(star) {
             var isOff = star.classList.contains('jdgm--off') || star.classList.contains('jdgm--empty');
             star.style.setProperty('color', isOff ? '#CBD5E1' : '#FFB800', 'important');
-            star.style.setProperty('font-family', 'sans-serif', 'important');
+            star.style.setProperty('font-family', '-apple-system, BlinkMacSystemFont, sans-serif', 'important');
             star.style.setProperty('font-style', 'normal', 'important');
-            star.style.setProperty('display', 'inline-block', 'important');
-            
-            // Replace \e000 icon glyph box with ★ / ☆ if unrendered
-            var txt = star.textContent || '';
-            if (!txt || (txt.length > 0 && txt.charCodeAt(0) > 50000) || txt.indexOf('★') === -1 && txt.indexOf('☆') === -1) {
-              star.textContent = isOff ? '☆' : '★';
-            }
           });
 
-          // 2. Force Caramel Brown on 'Write a Review' BUTTON ONLY (do not target container divs)
-          var btns = document.querySelectorAll('a.jdgm-write-rev-btn, button.jdgm-write-rev-btn, input.jdgm-submit-rev, button.jdgm-submit-rev');
+          // 2. Force Caramel Brown on 'Write a Review' & Submit Buttons
+          var btns = document.querySelectorAll('.jdgm-write-rev-btn, .jdgm-rev-widg__write-rev-btn, a.jdgm-write-rev-btn, button.jdgm-write-rev-btn, input.jdgm-submit-rev, button.jdgm-submit-rev, .jdgm-submit-rev');
           btns.forEach(function(btn) {
             btn.style.setProperty('background-color', '#C69A7C', 'important');
             btn.style.setProperty('background', '#C69A7C', 'important');
             btn.style.setProperty('border-color', '#C69A7C', 'important');
             btn.style.setProperty('color', '#FFFFFF', 'important');
-            btn.style.setProperty('border-radius', '50px', 'important');
           });
         }
 
@@ -374,7 +378,6 @@
         setTimeout(applyStyles, 500);
         setTimeout(applyStyles, 1500);
         setTimeout(applyStyles, 3000);
-        setTimeout(applyStyles, 5000);
       })();
     </script>
   </body>
