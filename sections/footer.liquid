@@ -94,6 +94,18 @@
           <a href="/pages/product-safety-standards" class="footer__compliance-link">Product Safety Standards</a>
           <span class="footer__compliance-sep">&bull;</span>
           <a href="/pages/product-safety-standards#declaration-of-conformity" class="footer__compliance-link">Declaration of Conformity</a>
+          {%- if section.settings.developer_credit_text != blank -%}
+            <span class="footer__compliance-sep">&bull;</span>
+            {%- if section.settings.developer_credit_link != blank -%}
+              <a href="{{ section.settings.developer_credit_link }}" target="_blank" rel="noopener" class="footer__compliance-link footer__developer-credit">
+                {{ section.settings.developer_credit_text }}
+              </a>
+            {%- else -%}
+              <span class="footer__compliance-link footer__developer-credit">
+                {{ section.settings.developer_credit_text }}
+              </span>
+            {%- endif -%}
+          {%- endif -%}
         </div>
       </div>
 
@@ -359,6 +371,21 @@
       "id": "payment_enable",
       "default": true,
       "label": "Show payment icons"
+    },
+    {
+      "type": "header",
+      "content": "Developer / Agency Credit"
+    },
+    {
+      "type": "text",
+      "id": "developer_credit_text",
+      "label": "Developer / Agency Credit Text",
+      "default": "Developed by Gandhi Media Solution"
+    },
+    {
+      "type": "url",
+      "id": "developer_credit_link",
+      "label": "Developer / Agency Credit Link (Optional)"
     }
   ],
   "blocks": [
