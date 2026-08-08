@@ -182,8 +182,20 @@
         --font-heading-family: 'Fredoka', 'Quicksand', system-ui, sans-serif !important;
         --font-body-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
       }
-      body, p, span:not([class*="jdgm"]), li, a:not([class*="jdgm"]), input, select, textarea {
+      /* Body font — applied to specific tags only, NOT to `body` directly
+         (body would inherit into Judge.me icon-font spans and break stars) */
+      p, li, input, select, textarea,
+      span:not([class*="jdgm"]):not([class*="icon"]),
+      a:not([class*="jdgm"]):not([class*="icon"]) {
         font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+      }
+      body {
+        font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+        /* No !important here so Judge.me icon font can override via its own rules */
+      }
+      /* Explicitly unset font-family for ALL jdgm elements so their icon font loads */
+      [class*="jdgm"] {
+        font-family: unset;
       }
       h1, h2, h3, h4, h5, h6,
       .h1, .h2, .h3, .h4, .h5, .h6,
