@@ -21,7 +21,7 @@
     "color_border": "#E8D5C4",
     "color_button_text": "#FFFFFF",
     "color_button_background": "#C69A7C",
-    "favicon": "shopify://shop_images/ChatGPT_Image_Jul_26_2026_11_20_18_AM.png",
+    "favicon": "shopify://shop_images/favicon-32x32.png",
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
