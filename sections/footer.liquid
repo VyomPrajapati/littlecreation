@@ -89,23 +89,19 @@
     <!-- Bottom bar -->
     <div class="footer__bottom">
       <div class="footer__bottom-left">
-        <p class="footer__copyright">&copy; {{ 'now' | date: '%Y' }} LITTLE CREATION. All rights reserved.</p>
+        <p class="footer__copyright">
+          &copy; {{ 'now' | date: '%Y' }} LITTLE CREATION. All rights reserved.
+          {%- if section.settings.developer_credit_text != blank -%}
+            <span class="footer__compliance-sep" style="margin: 0 6px;">&bull;</span>
+            <span class="footer__developer-credit-text" style="color: inherit; text-decoration: none !important; font-weight: 500; opacity: 0.85;">
+              {{ section.settings.developer_credit_text }}
+            </span>
+          {%- endif -%}
+        </p>
         <div class="footer__compliance-links">
           <a href="/pages/product-safety-standards" class="footer__compliance-link">Product Safety Standards</a>
           <span class="footer__compliance-sep">&bull;</span>
           <a href="/pages/product-safety-standards#declaration-of-conformity" class="footer__compliance-link">Declaration of Conformity</a>
-          {%- if section.settings.developer_credit_text != blank -%}
-            <span class="footer__compliance-sep">&bull;</span>
-            {%- if section.settings.developer_credit_link != blank -%}
-              <a href="{{ section.settings.developer_credit_link }}" target="_blank" rel="noopener" class="footer__compliance-link footer__developer-credit">
-                {{ section.settings.developer_credit_text }}
-              </a>
-            {%- else -%}
-              <span class="footer__compliance-link footer__developer-credit">
-                {{ section.settings.developer_credit_text }}
-              </span>
-            {%- endif -%}
-          {%- endif -%}
         </div>
       </div>
 
