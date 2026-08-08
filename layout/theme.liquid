@@ -203,11 +203,6 @@
         font-family: 'Fredoka', 'Quicksand', system-ui, sans-serif !important;
       }
       /* Preserve & Style Judge.me Free Plan Elements */
-      @font-face {
-        font-family: 'JudgemeIcons';
-        src: url('https://cdn.judge.me/assets/JudgemeIcons.woff2') format('woff2');
-        font-display: swap;
-      }
       .jdgm-star,
       .jdgm-star:before,
       .jdgm-star:after,
@@ -215,33 +210,35 @@
       .jdgm-widget span.jdgm-star,
       .jdgm-rev-widg__star,
       .jdgm-prev-badge__stars .jdgm-star,
-      .jdgm-rev-widg__summary-stars .jdgm-star {
-        color: #EFA92E !important;
-        font-family: 'JudgemeIcons', 'FontAwesome', sans-serif !important;
+      .jdgm-rev-widg__summary-stars .jdgm-star,
+      .jdgm-rev__rating .jdgm-star {
+        color: #FFB800 !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
+        font-style: normal !important;
+        font-size: 1.2em !important;
       }
+      .jdgm-star:before,
       .jdgm-star.jdgm--on:before,
       .jdgm-star.jdgm--full:before {
-        content: "\e000" !important;
-        color: #EFA92E !important;
+        content: "★" !important;
+        color: #FFB800 !important;
+        opacity: 1 !important;
       }
       .jdgm-star.jdgm--off:before,
       .jdgm-star.jdgm--empty:before {
-        content: "\e001" !important;
-        color: #E2E8F0 !important;
+        content: "★" !important;
+        color: #CBD5E1 !important;
+        opacity: 0.5 !important;
       }
-      /* Override Judge.me Free Plan Green Buttons to Brand Caramel */
-      .jdgm-btn,
-      .jdgm-btn--primary,
-      .jdgm-write-rev-btn,
-      .jdgm-rev-widg__write-rev-btn,
-      a.jdgm-write-rev-btn,
-      button.jdgm-write-rev-btn,
-      .jdgm-submit-rev,
-      button.jdgm-submit-rev,
-      .jdgm-form-wrapper .jdgm-submit-rev,
-      .jdgm-all-reviews-widget .jdgm-btn,
-      .jdgm-widget .jdgm-btn,
-      .jdgm-widget a.jdgm-btn {
+      /* Ultimate Specificity Overrides for Judge.me Green Buttons */
+      html body div.jdgm-widget .jdgm-btn,
+      html body div.jdgm-widget a.jdgm-write-rev-btn,
+      html body div.jdgm-widget button.jdgm-write-rev-btn,
+      html body div.jdgm-widget .jdgm-rev-widg__write-rev-btn,
+      html body div.jdgm-widget .jdgm-submit-rev,
+      html body div.jdgm-widget button.jdgm-submit-rev,
+      html body div.jdgm-widget [class*="write-rev"],
+      html body div.jdgm-widget [class*="submit-rev"] {
         background-color: #C69A7C !important;
         background: #C69A7C !important;
         color: #FFFFFF !important;
@@ -249,16 +246,18 @@
         border-radius: 9999px !important;
         font-family: 'Fredoka', 'Quicksand', system-ui, sans-serif !important;
         box-shadow: 0 4px 12px rgba(198, 154, 124, 0.25) !important;
+        padding: 12px 28px !important;
+        font-weight: 600 !important;
+        text-decoration: none !important;
       }
-      .jdgm-btn:hover,
-      .jdgm-write-rev-btn:hover,
-      .jdgm-rev-widg__write-rev-btn:hover,
-      a.jdgm-write-rev-btn:hover,
-      button.jdgm-write-rev-btn:hover,
-      .jdgm-submit-rev:hover {
+      html body div.jdgm-widget .jdgm-btn:hover,
+      html body div.jdgm-widget a.jdgm-write-rev-btn:hover,
+      html body div.jdgm-widget button.jdgm-write-rev-btn:hover,
+      html body div.jdgm-widget .jdgm-rev-widg__write-rev-btn:hover {
         background-color: #A07855 !important;
         background: #A07855 !important;
         border-color: #A07855 !important;
+        color: #FFFFFF !important;
       }
 
       {%- if request.path contains 'unsubscribe' -%}
@@ -325,5 +324,40 @@
 
     {% render 'cart-drawer' %}
     {% render 'newsletter-popup' %}
+
+    <!-- Judge.me Free Plan Dynamic Style & Star Enforcer -->
+    <script>
+      (function fixJudgeMeWidgets() {
+        function enforceJudgeMeStyles() {
+          // Fix Stars (replace missing font icon boxes with native gold stars)
+          document.querySelectorAll('.jdgm-star, [class*="jdgm-star"]').forEach(function(star) {
+            star.style.setProperty('font-family', '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', 'important');
+            star.style.setProperty('font-style', 'normal', 'important');
+            var isOff = star.classList.contains('jdgm--off') || star.classList.contains('jdgm--empty');
+            star.style.setProperty('color', isOff ? '#CBD5E1' : '#FFB800', 'important');
+          });
+
+          // Fix Buttons (replace green background with caramel brown)
+          document.querySelectorAll('.jdgm-write-rev-btn, .jdgm-rev-widg__write-rev-btn, .jdgm-btn, a[class*="jdgm-write-rev"], button[class*="jdgm-write-rev"]').forEach(function(btn) {
+            btn.style.setProperty('background-color', '#C69A7C', 'important');
+            btn.style.setProperty('background', '#C69A7C', 'important');
+            btn.style.setProperty('border-color', '#C69A7C', 'important');
+            btn.style.setProperty('color', '#FFFFFF', 'important');
+            btn.style.setProperty('border-radius', '9999px', 'important');
+          });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', enforceJudgeMeStyles);
+        } else {
+          enforceJudgeMeStyles();
+        }
+        window.addEventListener('load', enforceJudgeMeStyles);
+
+        // Continuous observer for dynamic Judge.me widget loading
+        var observer = new MutationObserver(enforceJudgeMeStyles);
+        observer.observe(document.body, { childList: true, subtree: true });
+      })();
+    </script>
   </body>
 </html>
