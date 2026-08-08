@@ -3,6 +3,71 @@
   Auto-generated / compatibility stub for Shopify Judge.me Product Reviews
 {%- endcomment -%}
 
+<style>
+  :root, body, .jdgm-widget, .jdgm-review-widget, .jdgm-rev-widg, div[class*="jdgm"] {
+    --jdgm-primary-color: #C69A7C !important;
+    --jdgm-star-color: #FFB800 !important;
+    --jdgm-button-color: #C69A7C !important;
+    --jdgm-write-review-bg: #C69A7C !important;
+    --jdgm-secondary-color: #C69A7C !important;
+    --jdgm-badge-color: #FFB800 !important;
+  }
+
+  /* Force Star Colors & Replace Empty Boxes with Native Stars */
+  .jdgm-widget .jdgm-star,
+  .jdgm-widget .jdgm-star:before,
+  .jdgm-widget .jdgm-star:after,
+  .jdgm-widget [class*="jdgm-star"],
+  .jdgm-rev-widg__star,
+  .jdgm-prev-badge__stars .jdgm-star,
+  .jdgm-rev-widg__summary-stars .jdgm-star,
+  .jdgm-rev__rating .jdgm-star {
+    color: #FFB800 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-style: normal !important;
+  }
+
+  .jdgm-widget .jdgm-star:before,
+  .jdgm-widget .jdgm-star.jdgm--on:before,
+  .jdgm-widget .jdgm-star.jdgm--full:before {
+    content: "★" !important;
+    color: #FFB800 !important;
+  }
+
+  .jdgm-widget .jdgm-star.jdgm--off:before,
+  .jdgm-widget .jdgm-star.jdgm--empty:before {
+    content: "★" !important;
+    color: #E2E8F0 !important;
+  }
+
+  /* Force Button Styling & Override Judge.me Green */
+  .jdgm-widget .jdgm-btn,
+  .jdgm-widget .jdgm-write-rev-btn,
+  .jdgm-widget .jdgm-rev-widg__write-rev-btn,
+  .jdgm-widget a.jdgm-write-rev-btn,
+  .jdgm-widget button.jdgm-write-rev-btn,
+  .jdgm-widget .jdgm-submit-rev,
+  .jdgm-widget button.jdgm-submit-rev,
+  .jdgm-widget a[class*="write-rev"],
+  .jdgm-widget button[class*="write-rev"],
+  .jdgm-widget [style*="background"] {
+    background-color: #C69A7C !important;
+    background: #C69A7C !important;
+    border-color: #C69A7C !important;
+    color: #FFFFFF !important;
+    border-radius: 9999px !important;
+  }
+
+  .jdgm-widget .jdgm-btn:hover,
+  .jdgm-widget .jdgm-write-rev-btn:hover,
+  .jdgm-widget a.jdgm-write-rev-btn:hover,
+  .jdgm-widget button.jdgm-write-rev-btn:hover {
+    background-color: #A07855 !important;
+    background: #A07855 !important;
+    border-color: #A07855 !important;
+  }
+</style>
+
 <script>
   window.jdgm = window.jdgm || {};
   window.jdgm.SHOP_DOMAIN = "{{ shop.permanent_domain }}";

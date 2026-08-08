@@ -102,29 +102,47 @@
       {%- for block in section.blocks -%}
         <div class="review-card animate-on-scroll" data-rating="{{ block.settings.rating }}" {{ block.shopify_attributes }}>
 
-          {%- assign has_images = false -%}
-          {%- if block.settings.image != blank or block.settings.image_2 != blank or block.settings.image_3 != blank or block.settings.image_4 != blank or block.settings.fallback_image_url != blank -%}
-            {%- assign has_images = true -%}
+          {%- assign fallback_urls = '' -%}
+          {%- if block.settings.fallback_image_url != blank -%}
+            {%- assign fallback_urls = block.settings.fallback_image_url | split: ',' -%}
           {%- endif -%}
 
-          {%- if has_images -%}
+          {%- assign total_images = 0 -%}
+          {%- if block.settings.image != blank -%}{%- assign total_images = total_images | plus: 1 -%}{%- endif -%}
+          {%- if block.settings.image_2 != blank -%}{%- assign total_images = total_images | plus: 1 -%}{%- endif -%}
+          {%- if block.settings.image_3 != blank -%}{%- assign total_images = total_images | plus: 1 -%}{%- endif -%}
+          {%- if block.settings.image_4 != blank -%}{%- assign total_images = total_images | plus: 1 -%}{%- endif -%}
+          {%- if fallback_urls.size > 0 -%}
+            {%- assign total_images = total_images | plus: fallback_urls.size -%}
+          {%- endif -%}
+
+          {%- if total_images > 0 -%}
             <div class="review-card__images-wrap">
-              <div class="review-card__images-scroller">
+              <div class="review-card__images-scroller" id="scroller-{{ block.id }}">
                 {%- if block.settings.image != blank -%}
-                  <div class="review-card__img-item"><img src="{{ block.settings.image | image_url: width: 500 }}" alt="Review photo 1" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" loading="lazy"></div>
-                {%- elsif block.settings.fallback_image_url != blank -%}
-                  <div class="review-card__img-item"><img src="{{ block.settings.fallback_image_url }}" alt="Review photo 1" width="500" height="500" loading="lazy"></div>
+                  <div class="review-card__img-item"><img src="{{ block.settings.image | image_url: width: 500 }}" alt="Review photo" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" loading="lazy" onclick="openReviewLightbox(this.src)"></div>
                 {%- endif -%}
                 {%- if block.settings.image_2 != blank -%}
-                  <div class="review-card__img-item"><img src="{{ block.settings.image_2 | image_url: width: 500 }}" alt="Review photo 2" width="{{ block.settings.image_2.width }}" height="{{ block.settings.image_2.height }}" loading="lazy"></div>
+                  <div class="review-card__img-item"><img src="{{ block.settings.image_2 | image_url: width: 500 }}" alt="Review photo" width="{{ block.settings.image_2.width }}" height="{{ block.settings.image_2.height }}" loading="lazy" onclick="openReviewLightbox(this.src)"></div>
                 {%- endif -%}
                 {%- if block.settings.image_3 != blank -%}
-                  <div class="review-card__img-item"><img src="{{ block.settings.image_3 | image_url: width: 500 }}" alt="Review photo 3" width="{{ block.settings.image_3.width }}" height="{{ block.settings.image_3.height }}" loading="lazy"></div>
+                  <div class="review-card__img-item"><img src="{{ block.settings.image_3 | image_url: width: 500 }}" alt="Review photo" width="{{ block.settings.image_3.width }}" height="{{ block.settings.image_3.height }}" loading="lazy" onclick="openReviewLightbox(this.src)"></div>
                 {%- endif -%}
                 {%- if block.settings.image_4 != blank -%}
-                  <div class="review-card__img-item"><img src="{{ block.settings.image_4 | image_url: width: 500 }}" alt="Review photo 4" width="{{ block.settings.image_4.width }}" height="{{ block.settings.image_4.height }}" loading="lazy"></div>
+                  <div class="review-card__img-item"><img src="{{ block.settings.image_4 | image_url: width: 500 }}" alt="Review photo" width="{{ block.settings.image_4.width }}" height="{{ block.settings.image_4.height }}" loading="lazy" onclick="openReviewLightbox(this.src)"></div>
                 {%- endif -%}
+                {%- for f_url in fallback_urls -%}
+                  {%- assign clean_f_url = f_url | strip -%}
+                  {%- if clean_f_url != blank -%}
+                    <div class="review-card__img-item"><img src="{{ clean_f_url }}" alt="Review photo" width="500" height="500" loading="lazy" onclick="openReviewLightbox(this.src)"></div>
+                  {%- endif -%}
+                {%- endfor -%}
               </div>
+
+              {%- if total_images > 1 -%}
+                <button class="review-card__img-nav review-card__img-nav--prev" type="button" aria-label="Previous image" onclick="const s = document.getElementById('scroller-{{ block.id }}'); if(s) s.scrollBy({left: -220, behavior: 'smooth'});">&lsaquo;</button>
+                <button class="review-card__img-nav review-card__img-nav--next" type="button" aria-label="Next image" onclick="const s = document.getElementById('scroller-{{ block.id }}'); if(s) s.scrollBy({left: 220, behavior: 'smooth'});">&rsaquo;</button>
+              {%- endif -%}
             </div>
           {%- endif -%}
 
@@ -139,6 +157,10 @@
               {%- endfor -%}
             </div>
             
+            {%- if block.settings.title != blank -%}
+              <h4 class="review-card__title">{{ block.settings.title }}</h4>
+            {%- endif -%}
+
             <div class="review-card__text-wrap">
               <p class="review-card__text">{{ block.settings.text }}</p>
               {%- if block.settings.text.size > 90 -%}
@@ -203,13 +225,26 @@
               <label for="ReviewBody">Review</label>
               <textarea id="ReviewBody" name="contact[Review]" rows="4" required></textarea>
             </div>
-            <div class="cr-field cr-modal-actions">
-              <button type="submit" class="cr-write-btn">Submit Review</button>
-            </div>
-          {%- endform -%}
-        </div>
+    </dialog>
+
+    <!-- Image Zoom Lightbox Modal -->
+    <dialog id="cr-lightbox-modal" class="cr-modal cr-lightbox-modal" onclick="if(event.target===this) this.close()">
+      <div style="position:relative; padding:20px; text-align:center;">
+        <button type="button" onclick="document.getElementById('cr-lightbox-modal').close()" style="position:absolute; top:10px; right:10px; background:none; border:none; font-size:1.8rem; cursor:pointer; color:#111;">&times;</button>
+        <img id="cr-lightbox-img" src="" alt="Review photo full" style="max-width:100%; max-height:80vh; border-radius:12px; object-fit:contain;">
       </div>
     </dialog>
+
+    <script>
+      function openReviewLightbox(src) {
+        var modal = document.getElementById('cr-lightbox-modal');
+        var img = document.getElementById('cr-lightbox-img');
+        if (modal && img && src) {
+          img.src = src;
+          modal.showModal();
+        }
+      }
+    </script>
 
   </div>
 </section>
@@ -447,11 +482,47 @@
   transform: translateY(-4px);
   box-shadow: var(--shadow-skin);
 }
-.review-card__images-wrap { width: 100%; border-bottom: 1px solid var(--color-border, #E8D5C4); }
-.review-card__images-scroller { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.review-card__images-wrap { position: relative; width: 100%; border-bottom: 1px solid var(--color-border, #E8D5C4); }
+.review-card__images-scroller { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; scroll-behavior: smooth; }
 .review-card__images-scroller::-webkit-scrollbar { display: none; }
 .review-card__img-item { flex: 0 0 100%; scroll-snap-align: center; height: 220px; background: var(--color-skin-light); display: flex; align-items: center; justify-content: center; }
-.review-card__img-item img { width: 100%; height: 100%; object-fit: contain; }
+.review-card__img-item img { width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; }
+
+.review-card__img-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #E8D5C4;
+  color: #111;
+  font-size: 1.3rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+  transition: all 0.2s ease;
+}
+.review-card__img-nav:hover {
+  background: #C69A7C;
+  color: #FFF;
+  border-color: #C69A7C;
+}
+.review-card__img-nav--prev { left: 8px; }
+.review-card__img-nav--next { right: 8px; }
+
+.review-card__title {
+  font-family: var(--font-heading-family);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-heading);
+  margin: 4px 0 0 0;
+}
 .review-card__body { padding: 20px; display: flex; flex-direction: column; flex: 1; gap: 12px; }
 .review-card__stars { display: flex; gap: 2px; }
 .star--filled { color: #F5A623; font-size: 1rem; }
