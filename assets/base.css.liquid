@@ -536,55 +536,132 @@ input[type="text"]:focus {
 }
 
 /* ----------------------------------------------------------
-   15. Judge.me Review Widget Styles & Star Icon Fix
+   15. Judge.me Review Widget Styles & Brand Color Overrides
    ---------------------------------------------------------- */
-/* Fix Star Colors & Force Gold Stars */
+:root {
+  --jdgm-primary-color: #C69A7C !important;
+  --jdgm-secondary-color: rgba(198, 154, 124, 0.15) !important;
+  --jdgm-star-color: #FFB800 !important;
+  --jdgm-button-color: #C69A7C !important;
+  --jdgm-write-review-bg: #C69A7C !important;
+  --jdgm-write-review-bg-color: #C69A7C !important;
+  --jdgm-write-review-text-color: #FFFFFF !important;
+  --jdgm-paginate-color: #C69A7C !important;
+  --jdgm-reviewer-name-color: #C69A7C !important;
+  --jdgm-badge-color: #FFB800 !important;
+
+  --jm-primary-color: #C69A7C !important;
+  --jm-star-color: #FFB800 !important;
+  --jm-star-color-active: #FFB800 !important;
+  --jm-rating-color: #FFB800 !important;
+  --jm-secondary-color: rgba(198, 154, 124, 0.15) !important;
+  --jm-btn-primary-bg: #C69A7C !important;
+  --jm-btn-primary-color: #FFFFFF !important;
+  --jm-btn-primary-border: #C69A7C !important;
+  --jm-btn-primary-hover-bg: #A07855 !important;
+  --jm-btn-primary-hover-border: #A07855 !important;
+  --jm-btn-primary-hover-color: #FFFFFF !important;
+  --jm-button-primary-bg: #C69A7C !important;
+  --jm-button-primary-color: #FFFFFF !important;
+  --jm-button-primary-border: #C69A7C !important;
+}
+
+/* Fix Star Colors & Force Gold Stars across all widget versions & popups */
 .jdgm-star,
 .jdgm-star.jdgm--on,
+.jdgm-star.jdgm--full,
 .jdgm-prev-badge__stars .jdgm-star,
 .jdgm-rev-widg__summary-stars .jdgm-star,
 span.jdgm-star,
-.jdgm-form__rating .jdgm-star {
-  color: #FFB800 !important; /* Premium Gold Stars */
+.jdgm-form__rating .jdgm-star,
+.jdgm-rev-widg__star,
+.jdgm-form__star,
+[class*="jdgm-star"],
+.jm-star,
+.jm-rating__star,
+.jm-form-rating__star,
+.jm-form__star,
+[class*="jm-star"],
+.jm-rating-item.is-selected,
+.jm-rating-item.is-active {
+  color: #FFB800 !important;
 }
 
 .jdgm-star.jdgm--off,
-.jdgm-star.jdgm--off:before {
-  color: #E5E7EB !important;
+.jdgm-star.jdgm--empty,
+.jdgm-rev-widg__star.jdgm--off,
+.jdgm-rev-widg__star.jdgm--empty,
+.jm-star--off,
+.jm-star--empty {
+  color: #D1D5DB !important;
+  opacity: 0.6 !important;
 }
 
-/* Fix Icon Font / Square Boxes Issues */
-.jdgm-star:before {
-  font-family: 'JudgemeIcons', sans-serif !important;
-}
-
-/* Match 'Write a Review' Button to Little Creation Theme Colors */
+/* Match 'Write a Review' Button to Little Creation Theme Colors (v2 + v3) */
 .jdgm-write-rev-btn,
 .jdgm-rev-widg__write-rev-btn,
 a.jdgm-write-rev-btn,
-button.jdgm-submit-rev-btn {
+button.jdgm-write-rev-btn,
+.jm-button--primary,
+.jm-action-buttons__button,
+.jm-btn--primary,
+.jm-btn,
+.jm-button,
+.jdgm-btn--solid,
+button.jdgm-submit-rev-btn,
+button.jdgm-submit-rev,
+input.jdgm-submit-rev,
+.jdgm-submit-rev,
+.jm-modal button.jm-button--primary,
+.jm-form button[type="submit"] {
   background-color: var(--color-primary, #C69A7C) !important;
+  background: var(--color-primary, #C69A7C) !important;
   color: #FFFFFF !important;
-  border: none !important;
+  border: 2px solid var(--color-primary, #C69A7C) !important;
   border-radius: 50px !important;
   padding: 10px 24px !important;
   font-weight: 600 !important;
-  font-family: var(--font-body-family, sans-serif) !important;
+  font-family: var(--font-heading-family, inherit) !important;
   transition: all 0.2s ease !important;
   box-shadow: 0 4px 12px rgba(198, 154, 124, 0.25) !important;
+  text-decoration: none !important;
 }
 
 .jdgm-write-rev-btn:hover,
 .jdgm-rev-widg__write-rev-btn:hover,
-button.jdgm-submit-rev-btn:hover {
+a.jdgm-write-rev-btn:hover,
+button.jdgm-write-rev-btn:hover,
+.jm-button--primary:hover,
+.jm-action-buttons__button:hover,
+.jm-btn--primary:hover,
+.jm-btn:hover,
+.jm-button:hover,
+.jdgm-btn--solid:hover,
+button.jdgm-submit-rev-btn:hover,
+button.jdgm-submit-rev:hover,
+.jm-modal button.jm-button--primary:hover,
+.jm-form button[type="submit"]:hover {
   background-color: var(--color-primary-dark, #A07855) !important;
+  background: var(--color-primary-dark, #A07855) !important;
+  border-color: var(--color-primary-dark, #A07855) !important;
+  color: #FFFFFF !important;
   transform: translateY(-1px) !important;
 }
 
-/* Histogram Rating Bars */
-.jdgm-histogram__bar-content {
+/* Histogram Rating Bars & Badges */
+.jdgm-histogram__bar-content,
+.jm-histogram__bar-fill,
+.jm-histogram__bar-content {
   background-color: #FFB800 !important;
+  background: #FFB800 !important;
 }
+
+.jdgm-rev[data-verified-buyer="true"] .jdgm-rev__icon:after,
+.jdgm-rev__buyer-badge {
+  background-color: #C69A7C !important;
+  color: #FFFFFF !important;
+}
+
 
 
 

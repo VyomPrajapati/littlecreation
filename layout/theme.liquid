@@ -177,26 +177,74 @@
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
 
+    <!-- Judge.me Early Settings Brand Interceptor -->
+    <script>
+      (function() {
+        var _s = window.jdgmSettings || {};
+        function patchJdgm(s) {
+          if (!s || typeof s !== 'object') return;
+          s.widget_primary_color = '#C69A7C';
+          s.review_form_button_color = '#C69A7C';
+          s.review_form_star_color = '#FFB800';
+          s.widget_star_use_custom_color = true;
+          s.widget_custom_star_color = '#FFB800';
+          s.featured_carousel_header_background_color = '#C69A7C';
+          s.featured_carousel_full_star_background = '#FFB800';
+          s.verified_count_badge_color = '#C69A7C';
+          s.all_reviews_text_color = '#C69A7C';
+          s.widget_load_more_color = '#C69A7C';
+          s.widget_ugc_primary_button_background_color = '#C69A7C';
+          s.widget_ugc_primary_button_border_color = '#C69A7C';
+        }
+        patchJdgm(_s);
+        try {
+          Object.defineProperty(window, 'jdgmSettings', {
+            configurable: true,
+            enumerable: true,
+            get: function() { return _s; },
+            set: function(v) { _s = v; patchJdgm(_s); }
+          });
+        } catch(e) {}
+      })();
+    </script>
+
     <style id="GlobalKidsTypography">
       :root {
         --font-heading-family: 'Fredoka', 'Quicksand', system-ui, sans-serif !important;
         --font-body-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+
+        --jdgm-primary-color: #C69A7C !important;
+        --jdgm-secondary-color: rgba(198, 154, 124, 0.15) !important;
+        --jdgm-star-color: #FFB800 !important;
+        --jdgm-button-color: #C69A7C !important;
+        --jdgm-write-review-bg: #C69A7C !important;
+        --jdgm-badge-color: #FFB800 !important;
+
+        --jm-primary-color: #C69A7C !important;
+        --jm-star-color: #FFB800 !important;
+        --jm-star-color-active: #FFB800 !important;
+        --jm-rating-color: #FFB800 !important;
+        --jm-secondary-color: rgba(198, 154, 124, 0.15) !important;
+        --jm-btn-primary-bg: #C69A7C !important;
+        --jm-btn-primary-color: #FFFFFF !important;
+        --jm-btn-primary-border: #C69A7C !important;
+        --jm-btn-primary-hover-bg: #A07855 !important;
+        --jm-btn-primary-hover-border: #A07855 !important;
+        --jm-btn-primary-hover-color: #FFFFFF !important;
       }
-      /* Body font — applied to specific tags only, NOT to `body` directly
-         (body would inherit into Judge.me icon-font spans and break stars) */
-      p, li, input, select, textarea,
-      span:not([class*="jdgm"]):not([class*="icon"]),
-      a:not([class*="jdgm"]):not([class*="icon"]) {
-        font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
-      }
-      body {
+      /* Body font — applied safely without clobbering icon fonts or review modals */
+      body, p, li {
         font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-        /* No !important — allows Judge.me icon font to override via inheritance */
       }
-      /* NOTE: Do NOT add font-family rules targeting [class*="jdgm"] elements —
-         Judge.me uses a private-use Unicode icon font. Any font-family reset
-         (even font-family:unset) on jdgm elements can break icon rendering
-         if Judge.me's own CSS does not also use !important on that element. */
+      input:not([class*="jdgm"]):not([class*="jm-"]),
+      select:not([class*="jdgm"]):not([class*="jm-"]),
+      textarea:not([class*="jdgm"]):not([class*="jm-"]) {
+        font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      }
+      span:not([class*="jdgm"]):not([class*="jm-"]):not([class*="icon"]):not([class*="star"]):not([data-score]):not([data-rating]),
+      a:not([class*="jdgm"]):not([class*="jm-"]):not([class*="icon"]):not([class*="star"]):not([class*="btn"]):not([class*="button"]) {
+        font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      }
       h1, h2, h3, h4, h5, h6,
       .h1, .h2, .h3, .h4, .h5, .h6,
       [class*="title"],
@@ -214,12 +262,16 @@
       .cart-drawer__title {
         font-family: 'Fredoka', 'Quicksand', system-ui, sans-serif !important;
       }
-      /* Judge.me Stars: colour ONLY — font-family intentionally untouched
-         :root prefix gives specificity 0,1,0,0 to beat Judge.me's class selectors */
+      /* Judge.me Stars: colour ONLY — font-family untouched */
       :root .jdgm-star,
       :root .jdgm-rev-widg__star,
       :root .jdgm-form__star,
       :root [class*="jdgm-star"],
+      :root .jm-star,
+      :root .jm-rating__star,
+      :root .jm-form-rating__star,
+      :root .jm-form__star,
+      :root [class*="jm-star"],
       :root .jdgm-prev-badge__stars .jdgm-star,
       :root .jdgm-rev-widg__summary-stars .jdgm-star,
       :root .jdgm-rev__rating .jdgm-star {
@@ -229,19 +281,23 @@
       :root .jdgm-star.jdgm--on,
       :root .jdgm-star.jdgm--full,
       :root .jdgm-rev-widg__star.jdgm--on,
-      :root .jdgm-rev-widg__star.jdgm--full {
+      :root .jdgm-rev-widg__star.jdgm--full,
+      :root .jm-star.is-active,
+      :root .jm-star.is-selected {
         color: #FFB800 !important;
       }
 
       :root .jdgm-star.jdgm--off,
       :root .jdgm-star.jdgm--empty,
       :root .jdgm-rev-widg__star.jdgm--off,
-      :root .jdgm-rev-widg__star.jdgm--empty {
+      :root .jdgm-rev-widg__star.jdgm--empty,
+      :root .jm-star--off,
+      :root .jm-star--empty {
         color: #D1D5DB !important;
         opacity: 0.6 !important;
       }
 
-      /* Ultimate Overrides for Judge.me Green Buttons */
+      /* Ultimate Overrides for Judge.me Buttons (v2 + v3 + Popups) */
       #judgeme_product_reviews .jdgm-write-rev-btn,
       #judgeme_product_reviews .jdgm-rev-widg__write-rev-btn,
       .jdgm-widget .jdgm-write-rev-btn,
@@ -252,9 +308,17 @@
       button.jdgm-write-rev-btn,
       .jdgm-write-rev-btn,
       .jdgm-rev-widg__write-rev-btn,
+      .jm-button--primary,
+      .jm-action-buttons__button,
+      .jm-btn--primary,
+      .jm-btn,
+      .jm-button,
+      .jdgm-btn--solid,
       input.jdgm-submit-rev,
       button.jdgm-submit-rev,
-      .jdgm-submit-rev {
+      .jdgm-submit-rev,
+      .jm-modal button.jm-button--primary,
+      .jm-form button[type="submit"] {
         background-color: #C69A7C !important;
         background: #C69A7C !important;
         color: #FFFFFF !important;
@@ -270,7 +334,15 @@
       a.jdgm-write-rev-btn:hover,
       button.jdgm-write-rev-btn:hover,
       .jdgm-write-rev-btn:hover,
-      .jdgm-rev-widg__write-rev-btn:hover {
+      .jdgm-rev-widg__write-rev-btn:hover,
+      .jm-button--primary:hover,
+      .jm-action-buttons__button:hover,
+      .jm-btn--primary:hover,
+      .jm-btn:hover,
+      .jm-button:hover,
+      .jdgm-btn--solid:hover,
+      button.jdgm-submit-rev:hover,
+      .jm-form button[type="submit"]:hover {
         background-color: #A07855 !important;
         background: #A07855 !important;
         border-color: #A07855 !important;
@@ -355,21 +427,35 @@
       function setCSSVars() {
         var r = document.documentElement;
         r.style.setProperty('--jdgm-primary-color',   BRAND, 'important');
-        r.style.setProperty('--jdgm-secondary-color', BRAND, 'important');
+        r.style.setProperty('--jdgm-secondary-color', 'rgba(198, 154, 124, 0.15)', 'important');
         r.style.setProperty('--jdgm-star-color',      GOLD,  'important');
         r.style.setProperty('--jdgm-button-color',    BRAND, 'important');
         r.style.setProperty('--jdgm-write-review-bg', BRAND, 'important');
         r.style.setProperty('--jdgm-badge-color',     GOLD,  'important');
+
+        r.style.setProperty('--jm-primary-color',          BRAND, 'important');
+        r.style.setProperty('--jm-star-color',             GOLD,  'important');
+        r.style.setProperty('--jm-star-color-active',      GOLD,  'important');
+        r.style.setProperty('--jm-rating-color',           GOLD,  'important');
+        r.style.setProperty('--jm-secondary-color',        'rgba(198, 154, 124, 0.15)', 'important');
+        r.style.setProperty('--jm-btn-primary-bg',         BRAND, 'important');
+        r.style.setProperty('--jm-btn-primary-color',      '#fff','important');
+        r.style.setProperty('--jm-btn-primary-border',     BRAND, 'important');
+        r.style.setProperty('--jm-btn-primary-hover-bg',   BRANDD,'important');
+        r.style.setProperty('--jm-btn-primary-hover-border',BRANDD,'important');
+        r.style.setProperty('--jm-button-primary-bg',      BRAND, 'important');
+        r.style.setProperty('--jm-button-primary-color',   '#fff','important');
+        r.style.setProperty('--jm-button-primary-border',  BRAND, 'important');
       }
 
       /* Re-colour one element — never touch font-family */
       function styleEl(el) {
         var cls = el.className || '';
-        if (/jdgm-star|jdgm-rev-widg__star|jdgm-form__star/.test(cls)) {
-          var off = el.classList.contains('jdgm--off') || el.classList.contains('jdgm--empty');
+        if (/jdgm-star|jm-star|jm-rating__star|jdgm-rev-widg__star|jdgm-form__star|jm-form__star/.test(cls)) {
+          var off = el.classList.contains('jdgm--off') || el.classList.contains('jdgm--empty') || el.classList.contains('jm-star--off') || el.classList.contains('jm-star--empty');
           el.style.setProperty('color', off ? GREY : GOLD, 'important');
         }
-        if (/jdgm-write-rev-btn|jdgm-submit-rev|jdgm-rev-widg__write-rev-btn/.test(cls)) {
+        if (/jdgm-write-rev-btn|jdgm-submit-rev|jdgm-rev-widg__write-rev-btn|jm-button--primary|jm-action-buttons__button|jm-btn|jm-button/.test(cls)) {
           el.style.setProperty('background-color', BRAND, 'important');
           el.style.setProperty('background',       BRAND, 'important');
           el.style.setProperty('border-color',     BRAND, 'important');
@@ -378,26 +464,36 @@
         }
       }
 
-      /* Override <style> — always re-appended to END of <head> so it wins cascade
-         (appendChild on an existing node MOVES it to last position) */
+      /* Override <style> — always re-appended to END of <head> so it wins cascade */
       var overrideEl = null;
       var CSS_TEXT =
         ':root .jdgm-write-rev-btn,:root a.jdgm-write-rev-btn,:root button.jdgm-write-rev-btn,' +
         ':root .jdgm-rev-widg__write-rev-btn,:root .jdgm-submit-rev,:root button.jdgm-submit-rev,' +
-        ':root input.jdgm-submit-rev{' +
+        ':root input.jdgm-submit-rev,:root .jm-button--primary,:root .jm-action-buttons__button,' +
+        ':root .jm-btn--primary,:root .jm-btn,:root .jm-button,:root .jdgm-btn--solid,' +
+        ':root .jm-modal button.jm-button--primary,:root .jm-form button[type="submit"]{' +
           'background-color:' + BRAND + '!important;background:' + BRAND + '!important;' +
-          'border-color:' + BRAND + '!important;color:#fff!important;border-radius:50px!important}' +
+          'border-color:' + BRAND + '!important;color:#fff!important;border-radius:50px!important;' +
+          'font-family:Fredoka,Quicksand,sans-serif!important}' +
         ':root .jdgm-write-rev-btn:hover,:root a.jdgm-write-rev-btn:hover,' +
-        ':root button.jdgm-write-rev-btn:hover{' +
+        ':root button.jdgm-write-rev-btn:hover,:root .jm-button--primary:hover,' +
+        ':root .jm-action-buttons__button:hover,:root .jm-btn--primary:hover,' +
+        ':root .jm-btn:hover,:root .jm-button:hover,:root .jdgm-btn--solid:hover,' +
+        ':root button.jdgm-submit-rev:hover,:root .jm-form button[type="submit"]:hover{' +
           'background-color:' + BRANDD + '!important;background:' + BRANDD + '!important;' +
-          'border-color:' + BRANDD + '!important}' +
+          'border-color:' + BRANDD + '!important;color:#fff!important}' +
         ':root .jdgm-star,:root [class*="jdgm-star"],:root .jdgm-rev-widg__star,' +
-        ':root .jdgm-form__star{color:' + GOLD + '!important}' +
+        ':root .jdgm-form__star,:root .jm-star,:root .jm-rating__star,' +
+        ':root .jm-form-rating__star,:root .jm-form__star,:root [class*="jm-star"],' +
+        ':root .jm-rating-item.is-selected,:root .jm-rating-item.is-active{color:' + GOLD + '!important}' +
         ':root .jdgm-star.jdgm--off,:root .jdgm-star.jdgm--empty,' +
-        ':root .jdgm-rev-widg__star.jdgm--off,:root .jdgm-rev-widg__star.jdgm--empty{' +
+        ':root .jdgm-rev-widg__star.jdgm--off,:root .jdgm-rev-widg__star.jdgm--empty,' +
+        ':root .jm-star--off,:root .jm-star--empty{' +
           'color:' + GREY + '!important;opacity:0.6!important}' +
+        ':root .jdgm-histogram__bar-content,:root .jm-histogram__bar-fill,' +
+        ':root .jm-histogram__bar-content{background-color:' + GOLD + '!important;background:' + GOLD + '!important}' +
         ':root .jdgm-tab.jdgm--active{border-bottom-color:' + BRAND + '!important;color:' + BRAND + '!important}' +
-        ':root .jdgm-widget a,:root .jdgm-rev-widg a{color:' + BRAND + '!important}';
+        ':root .jdgm-widget a,:root .jdgm-rev-widg a,:root .jm-widget a{color:' + BRAND + '!important}';
 
       function ensureOverrideStyle() {
         var head = document.head || document.body;
@@ -406,8 +502,6 @@
           overrideEl.id = 'jdgm-brand-override';
           overrideEl.textContent = CSS_TEXT;
         }
-        /* Always appendChild: if already in DOM this MOVES it to last position,
-           ensuring it comes after any Judge.me-injected <style> tags */
         head.appendChild(overrideEl);
       }
 
@@ -420,10 +514,13 @@
           setCSSVars();
           document.querySelectorAll(
             ':root .jdgm-star,:root .jdgm-rev-widg__star,:root .jdgm-form__star,' +
-            ':root [class*="jdgm-star"],:root a.jdgm-write-rev-btn,' +
-            ':root button.jdgm-write-rev-btn,:root .jdgm-write-rev-btn,' +
+            ':root [class*="jdgm-star"],:root .jm-star,:root .jm-rating__star,' +
+            ':root .jm-form-rating__star,:root .jm-form__star,:root [class*="jm-star"],' +
+            ':root a.jdgm-write-rev-btn,:root button.jdgm-write-rev-btn,:root .jdgm-write-rev-btn,' +
             ':root .jdgm-rev-widg__write-rev-btn,:root input.jdgm-submit-rev,' +
-            ':root button.jdgm-submit-rev,:root .jdgm-submit-rev'
+            ':root button.jdgm-submit-rev,:root .jdgm-submit-rev,' +
+            ':root .jm-button--primary,:root .jm-action-buttons__button,:root .jm-btn--primary,' +
+            ':root .jm-btn,:root .jm-button,:root .jdgm-btn--solid'
           ).forEach(styleEl);
           ensureOverrideStyle();
         } finally {
@@ -447,7 +544,6 @@
 
       function startObserver() {
         var opts = { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] };
-        /* Watch BOTH head (for Judge.me injecting <style> tags) and body */
         if (document.head) obs.observe(document.head, opts);
         obs.observe(document.body, opts);
       }
