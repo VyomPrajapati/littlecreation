@@ -535,4 +535,56 @@ input[type="text"]:focus {
   pointer-events: none !important;
 }
 
+/* ----------------------------------------------------------
+   15. Judge.me Review Widget Styles & Star Icon Fix
+   ---------------------------------------------------------- */
+/* Fix Star Colors & Force Gold Stars */
+.jdgm-star,
+.jdgm-star.jdgm--on,
+.jdgm-prev-badge__stars .jdgm-star,
+.jdgm-rev-widg__summary-stars .jdgm-star,
+span.jdgm-star,
+.jdgm-form__rating .jdgm-star {
+  color: #FFB800 !important; /* Premium Gold Stars */
+}
+
+.jdgm-star.jdgm--off,
+.jdgm-star.jdgm--off:before {
+  color: #E5E7EB !important;
+}
+
+/* Fix Icon Font / Square Boxes Issues */
+.jdgm-star:before {
+  font-family: 'JudgemeIcons', sans-serif !important;
+}
+
+/* Match 'Write a Review' Button to Little Creation Theme Colors */
+.jdgm-write-rev-btn,
+.jdgm-rev-widg__write-rev-btn,
+a.jdgm-write-rev-btn,
+button.jdgm-submit-rev-btn {
+  background-color: var(--color-primary, #C69A7C) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  border-radius: 50px !important;
+  padding: 10px 24px !important;
+  font-weight: 600 !important;
+  font-family: var(--font-body-family, sans-serif) !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 4px 12px rgba(198, 154, 124, 0.25) !important;
+}
+
+.jdgm-write-rev-btn:hover,
+.jdgm-rev-widg__write-rev-btn:hover,
+button.jdgm-submit-rev-btn:hover {
+  background-color: var(--color-primary-dark, #A07855) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Histogram Rating Bars */
+.jdgm-histogram__bar-content {
+  background-color: #FFB800 !important;
+}
+
+
 

@@ -203,38 +203,62 @@
         font-family: 'Fredoka', 'Quicksand', system-ui, sans-serif !important;
       }
       /* Preserve & Style Judge.me Free Plan Elements */
+      @font-face {
+        font-family: 'JudgemeIcons';
+        src: url('https://cdn.judge.me/assets/JudgemeIcons.woff2') format('woff2');
+        font-display: swap;
+      }
       .jdgm-star,
       .jdgm-star:before,
       .jdgm-star:after,
       [class*="jdgm-star"],
       .jdgm-widget span.jdgm-star,
-      .jdgm-rev-wid__star {
+      .jdgm-rev-widg__star,
+      .jdgm-prev-badge__stars .jdgm-star,
+      .jdgm-rev-widg__summary-stars .jdgm-star {
+        color: #EFA92E !important;
+        font-family: 'JudgemeIcons', 'FontAwesome', sans-serif !important;
+      }
+      .jdgm-star.jdgm--on:before,
+      .jdgm-star.jdgm--full:before {
+        content: "\e000" !important;
         color: #EFA92E !important;
       }
-      .jdgm-star.jdgm--on,
-      .jdgm-star.jdgm--full {
-        color: #EFA92E !important;
+      .jdgm-star.jdgm--off:before,
+      .jdgm-star.jdgm--empty:before {
+        content: "\e001" !important;
+        color: #E2E8F0 !important;
       }
-      /* Override Judge.me Green Buttons to Brand Caramel */
+      /* Override Judge.me Free Plan Green Buttons to Brand Caramel */
       .jdgm-btn,
       .jdgm-btn--primary,
       .jdgm-write-rev-btn,
+      .jdgm-rev-widg__write-rev-btn,
+      a.jdgm-write-rev-btn,
+      button.jdgm-write-rev-btn,
       .jdgm-submit-rev,
       button.jdgm-submit-rev,
       .jdgm-form-wrapper .jdgm-submit-rev,
-      .jdgm-all-reviews-widget .jdgm-btn {
+      .jdgm-all-reviews-widget .jdgm-btn,
+      .jdgm-widget .jdgm-btn,
+      .jdgm-widget a.jdgm-btn {
         background-color: #C69A7C !important;
         background: #C69A7C !important;
         color: #FFFFFF !important;
         border-color: #C69A7C !important;
         border-radius: 9999px !important;
         font-family: 'Fredoka', 'Quicksand', system-ui, sans-serif !important;
+        box-shadow: 0 4px 12px rgba(198, 154, 124, 0.25) !important;
       }
       .jdgm-btn:hover,
       .jdgm-write-rev-btn:hover,
+      .jdgm-rev-widg__write-rev-btn:hover,
+      a.jdgm-write-rev-btn:hover,
+      button.jdgm-write-rev-btn:hover,
       .jdgm-submit-rev:hover {
-        background-color: #b5896b !important;
-        border-color: #b5896b !important;
+        background-color: #A07855 !important;
+        background: #A07855 !important;
+        border-color: #A07855 !important;
       }
 
       {%- if request.path contains 'unsubscribe' -%}
