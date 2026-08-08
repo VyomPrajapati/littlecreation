@@ -133,33 +133,6 @@
     "customer_reviews": {
       "type": "customer-reviews",
       "blocks": {
-        "review_1": {
-          "type": "review",
-          "settings": {
-            "author": "Kindle Customer",
-            "rating": 5,
-            "text": "Grandson loved it easy to hold and shake and made him laugh",
-            "date": "2026-04-24"
-          }
-        },
-        "review_2": {
-          "type": "review",
-          "settings": {
-            "author": "Ebiere",
-            "rating": 5,
-            "text": "I got this teeth rattle my little one good quality with grip and teething aid.",
-            "date": "2026-04-15"
-          }
-        },
-        "review_3": {
-          "type": "review",
-          "settings": {
-            "author": "Kiera",
-            "rating": 3,
-            "text": "Smaller then expected and rattle isn t very loud great teether toy though",
-            "date": "2026-04-08"
-          }
-        },
         "review_4": {
           "type": "review",
           "settings": {
@@ -168,25 +141,11 @@
             "text": "I ordered the dusky pink lion rattle as a present my nephew s baby. It has a cute little face and comes in a little presentation box. It will be easy to wrap and perfect to gift!",
             "date": "2026-02-24",
             "ext_img_1": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184112.png?v=1785935671",
-            "ext_img_2": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184107.png?v=1785935671"
-          }
-        },
-        "review_5": {
-          "type": "review",
-          "settings": {
-            "author": "Daniel Boden",
-            "rating": 5,
-            "text": "I absolutely love this Little Creation Teether. It s a sweet understated toy with a really lovely soft colour palette that feels modern and calming rather than loud or overly bright.",
-            "date": "2026-02-20"
-          }
-        },
-        "review_6": {
-          "type": "review",
-          "settings": {
-            "author": "Amazon Customer",
-            "rating": 3,
-            "text": "I ordered this rattle my five month old son who has mastered gripping things and navigating to his mouth.",
-            "date": "2026-02-16"
+            "ext_img_2": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184107.png?v=1785935671",
+            "ext_img_3": "",
+            "ext_img_4": "",
+            "ext_img_5": "",
+            "ext_img_6": ""
           }
         },
         "review_7": {
@@ -198,7 +157,10 @@
             "date": "2026-03-15",
             "ext_img_1": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184045.png?v=1785935671",
             "ext_img_2": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184052.png?v=1785935671",
-            "ext_img_3": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184058.png?v=1785935670"
+            "ext_img_3": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184058.png?v=1785935670",
+            "ext_img_4": "",
+            "ext_img_5": "",
+            "ext_img_6": ""
           }
         },
         "review_8": {
@@ -208,7 +170,12 @@
             "rating": 5,
             "text": "This is a very cute rattle that feels like a quality item. It makes such a nice noise that is not too grating which is always a bonus and it has a lovely weight to it that makes it feel quite",
             "date": "2026-02-15",
-            "ext_img_1": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184127.png?v=1785935671"
+            "ext_img_1": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184127.png?v=1785935671",
+            "ext_img_2": "",
+            "ext_img_3": "",
+            "ext_img_4": "",
+            "ext_img_5": "",
+            "ext_img_6": ""
           }
         },
         "review_9": {
@@ -233,7 +200,87 @@
             "rating": 5,
             "text": "If your house is anything like mine playtime usually involves a lot of picking toys up off the floor every thirty seconds. This little lion is one of the few things my 5-month-old can actually love and enjoy it.",
             "date": "2026-02-13",
-            "ext_img_1": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184205.png?v=1785935670"
+            "ext_img_1": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184205.png?v=1785935670",
+            "ext_img_2": "",
+            "ext_img_3": "",
+            "ext_img_4": "",
+            "ext_img_5": "",
+            "ext_img_6": ""
+          }
+        },
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "author": "Kindle Customer",
+            "rating": 5,
+            "text": "Grandson loved it easy to hold and shake and made him laugh",
+            "date": "2026-04-24",
+            "ext_img_1": "",
+            "ext_img_2": "",
+            "ext_img_3": "",
+            "ext_img_4": "",
+            "ext_img_5": "",
+            "ext_img_6": ""
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "author": "Ebiere",
+            "rating": 5,
+            "text": "I got this teeth rattle my little one good quality with grip and teething aid.",
+            "date": "2026-04-15",
+            "ext_img_1": "",
+            "ext_img_2": "",
+            "ext_img_3": "",
+            "ext_img_4": "",
+            "ext_img_5": "",
+            "ext_img_6": ""
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "author": "Kiera",
+            "rating": 3,
+            "text": "Smaller then expected and rattle isn t very loud great teether toy though",
+            "date": "2026-04-08",
+            "ext_img_1": "",
+            "ext_img_2": "",
+            "ext_img_3": "",
+            "ext_img_4": "",
+            "ext_img_5": "",
+            "ext_img_6": ""
+          }
+        },
+        "review_5": {
+          "type": "review",
+          "settings": {
+            "author": "Daniel Boden",
+            "rating": 5,
+            "text": "I absolutely love this Little Creation Teether. It s a sweet understated toy with a really lovely soft colour palette that feels modern and calming rather than loud or overly bright.",
+            "date": "2026-02-20",
+            "ext_img_1": "",
+            "ext_img_2": "",
+            "ext_img_3": "",
+            "ext_img_4": "",
+            "ext_img_5": "",
+            "ext_img_6": ""
+          }
+        },
+        "review_6": {
+          "type": "review",
+          "settings": {
+            "author": "Amazon Customer",
+            "rating": 3,
+            "text": "I ordered this rattle my five month old son who has mastered gripping things and navigating to his mouth.",
+            "date": "2026-02-16",
+            "ext_img_1": "",
+            "ext_img_2": "",
+            "ext_img_3": "",
+            "ext_img_4": "",
+            "ext_img_5": "",
+            "ext_img_6": ""
           }
         }
       },
@@ -436,46 +483,6 @@
     },
     "1786000508e973dc89": {
       "type": "apps",
-      "blocks": {
-        "judge_me_reviews_cards_carousel_UaFycY": {
-          "type": "shopify://apps/judge-me-reviews/blocks/cards_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {
-            "show_sample_reviews": false,
-            "reviews_selection": "all",
-            "products": [],
-            "filter_pinned": false,
-            "filter_featured": false,
-            "filter_custom_tags": "",
-            "star_rating": "all",
-            "show_review_media": true,
-            "display_order": "media_first",
-            "no_image_fallback": "review_text_only",
-            "max_reviews": 20,
-            "review_length": "medium",
-            "text_size": "medium",
-            "image_ratio": "1",
-            "reviews_shown": 4,
-            "show_reviewer_name": true,
-            "show_product_name": true,
-            "hide_arrows_mobile": true,
-            "arrows_position": "sides",
-            "max_width": 1100,
-            "corner_styling": "round",
-            "header_text_color": "#3a2e27",
-            "text_color": "#55483f",
-            "card_color": "#fbf0e8",
-            "stars_color": "#efa92e",
-            "arrows_color": "#c69a7c",
-            "transition_speed": 0,
-            "header_text": "Customers are saying",
-            "show_average_rating": true,
-            "rating_display": "default"
-          }
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_cards_carousel_UaFycY"
-      ],
       "settings": {}
     }
   },
