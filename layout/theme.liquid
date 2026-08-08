@@ -349,38 +349,45 @@
     {% render 'cart-drawer' %}
     {% render 'newsletter-popup' %}
 
-    <!-- Free Plan Judge.me Color Bypasser -->
+    <!-- Free Plan Judge.me CSS Variable & Element Color Bypasser -->
     <script>
       (function bypassJudgeMeFreePlanColors() {
         function overrideColors() {
-          // 1. Force Gold Stars (No textContent mutation to prevent double stars)
-          var stars = document.querySelectorAll('.jdgm-rev-widg__star, .jdgm-star, .jdgm-form__star, [class*="jdgm-star"]');
-          stars.forEach(function(star) {
-            var isOff = star.classList.contains('jdgm--off') || star.classList.contains('jdgm--empty');
-            var targetColor = isOff ? '#CBD5E1' : '#FFB800';
-            if (star.style.color !== targetColor) {
-              star.style.setProperty('color', targetColor, 'important');
-              star.style.setProperty('font-family', '-apple-system, BlinkMacSystemFont, sans-serif', 'important');
-            }
+          // 1. Force CSS variables at root element (overrides Judge.me dynamic <style> tag)
+          var root = document.documentElement;
+          root.style.setProperty('--jdgm-primary-color', '#C69A7C', 'important');
+          root.style.setProperty('--jdgm-star-color', '#FFB800', 'important');
+          root.style.setProperty('--jdgm-button-color', '#C69A7C', 'important');
+          root.style.setProperty('--jdgm-write-review-bg', '#C69A7C', 'important');
+
+          // 2. Force CSS variables on widget containers
+          document.querySelectorAll('.jdgm-rev-widg, .jdgm-widget, [class*="jdgm"]').forEach(function(container) {
+            container.style.setProperty('--jdgm-primary-color', '#C69A7C', 'important');
+            container.style.setProperty('--jdgm-star-color', '#FFB800', 'important');
           });
 
-          // 2. Override Judge.me Free Plan Green Buttons to Caramel Brown (#C69A7C)
-          var btns = document.querySelectorAll('a.jdgm-write-rev-btn, button.jdgm-write-rev-btn, .jdgm-write-rev-btn, .jdgm-rev-widg__write-rev-btn, input.jdgm-submit-rev, button.jdgm-submit-rev, .jdgm-submit-rev');
-          btns.forEach(function(btn) {
-            if (btn.style.backgroundColor !== 'rgb(198, 154, 124)') {
-              btn.style.setProperty('background-color', '#C69A7C', 'important');
-              btn.style.setProperty('background', '#C69A7C', 'important');
-              btn.style.setProperty('border-color', '#C69A7C', 'important');
-              btn.style.setProperty('color', '#FFFFFF', 'important');
-              btn.style.setProperty('border-radius', '50px', 'important');
-            }
+          // 3. Force Gold Stars
+          document.querySelectorAll('.jdgm-rev-widg__star, .jdgm-star, .jdgm-form__star, [class*="jdgm-star"]').forEach(function(star) {
+            var isOff = star.classList.contains('jdgm--off') || star.classList.contains('jdgm--empty');
+            var targetColor = isOff ? '#CBD5E1' : '#FFB800';
+            star.style.setProperty('color', targetColor, 'important');
+            star.style.setProperty('font-family', 'sans-serif', 'important');
+          });
+
+          // 4. Force Caramel Buttons
+          document.querySelectorAll('a.jdgm-write-rev-btn, button.jdgm-write-rev-btn, .jdgm-write-rev-btn, .jdgm-rev-widg__write-rev-btn, input.jdgm-submit-rev, button.jdgm-submit-rev, .jdgm-submit-rev').forEach(function(btn) {
+            btn.style.setProperty('background-color', '#C69A7C', 'important');
+            btn.style.setProperty('background', '#C69A7C', 'important');
+            btn.style.setProperty('border-color', '#C69A7C', 'important');
+            btn.style.setProperty('color', '#FFFFFF', 'important');
+            btn.style.setProperty('border-radius', '50px', 'important');
           });
         }
 
         overrideColors();
         document.addEventListener('DOMContentLoaded', overrideColors);
         window.addEventListener('load', overrideColors);
-        setInterval(overrideColors, 250);
+        setInterval(overrideColors, 200);
       })();
     </script>
   </body>
