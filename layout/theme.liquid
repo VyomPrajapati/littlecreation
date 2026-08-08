@@ -204,39 +204,55 @@
       }
       /* Preserve & Style Judge.me Free Plan Elements */
       .jdgm-star,
-      .jdgm-star:before,
-      .jdgm-star:after,
-      [class*="jdgm-star"],
-      .jdgm-widget span.jdgm-star,
       .jdgm-rev-widg__star,
+      [class*="jdgm-star"],
+      [class*="jdgm-rev-widg__star"],
+      .jdgm-widget span.jdgm-star,
       .jdgm-prev-badge__stars .jdgm-star,
       .jdgm-rev-widg__summary-stars .jdgm-star,
-      .jdgm-rev__rating .jdgm-star {
+      .jdgm-rev__rating .jdgm-star,
+      .jdgm-rev__rating span,
+      .jdgm-rev__rating i {
         color: #FFB800 !important;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
         font-style: normal !important;
-        font-size: 1.2em !important;
+        font-size: 1.1em !important;
       }
+
       .jdgm-star:before,
+      .jdgm-rev-widg__star:before,
+      [class*="jdgm-star"]:before,
+      [class*="jdgm-rev-widg__star"]:before,
       .jdgm-star.jdgm--on:before,
-      .jdgm-star.jdgm--full:before {
+      .jdgm-star.jdgm--full:before,
+      .jdgm-rev-widg__star.jdgm--on:before,
+      .jdgm-rev-widg__star.jdgm--full:before {
         content: "★" !important;
         color: #FFB800 !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
+        font-style: normal !important;
         opacity: 1 !important;
       }
+
       .jdgm-star.jdgm--off:before,
-      .jdgm-star.jdgm--empty:before {
+      .jdgm-star.jdgm--empty:before,
+      .jdgm-rev-widg__star.jdgm--off:before,
+      .jdgm-rev-widg__star.jdgm--empty:before {
         content: "★" !important;
         color: #CBD5E1 !important;
         opacity: 0.5 !important;
       }
-      /* Ultimate Specificity Overrides for Judge.me Green Buttons */
-      html body div.jdgm-widget .jdgm-btn,
-      html body div.jdgm-widget a.jdgm-write-rev-btn,
-      html body div.jdgm-widget button.jdgm-write-rev-btn,
-      html body div.jdgm-widget .jdgm-rev-widg__write-rev-btn,
-      html body div.jdgm-widget .jdgm-submit-rev,
-      html body div.jdgm-widget button.jdgm-submit-rev {
+
+      /* Ultimate Overrides for Judge.me Green Buttons */
+      .jdgm-write-rev-btn,
+      .jdgm-rev-widg__write-rev-btn,
+      a.jdgm-write-rev-btn,
+      button.jdgm-write-rev-btn,
+      .jdgm-btn,
+      .jdgm-btn--primary,
+      .jdgm-submit-rev,
+      [class*="write-rev-btn"],
+      [class*="jdgm-write-rev"] {
         background-color: #C69A7C !important;
         background: #C69A7C !important;
         color: #FFFFFF !important;
@@ -248,10 +264,12 @@
         font-weight: 600 !important;
         text-decoration: none !important;
       }
-      html body div.jdgm-widget .jdgm-btn:hover,
-      html body div.jdgm-widget a.jdgm-write-rev-btn:hover,
-      html body div.jdgm-widget button.jdgm-write-rev-btn:hover,
-      html body div.jdgm-widget .jdgm-rev-widg__write-rev-btn:hover {
+
+      .jdgm-write-rev-btn:hover,
+      .jdgm-rev-widg__write-rev-btn:hover,
+      a.jdgm-write-rev-btn:hover,
+      button.jdgm-write-rev-btn:hover,
+      .jdgm-btn:hover {
         background-color: #A07855 !important;
         background: #A07855 !important;
         border-color: #A07855 !important;
@@ -323,14 +341,27 @@
     {% render 'cart-drawer' %}
     {% render 'newsletter-popup' %}
 
-    <!-- Judge.me Clean Lightweight Fix (No DOM Mutation Loops) -->
+    <!-- Dynamic Judge.me Brand Color Enforcer -->
     <script>
-      window.addEventListener('load', function() {
-        document.querySelectorAll('.jdgm-write-rev-btn, .jdgm-rev-widg__write-rev-btn').forEach(function(btn) {
-          btn.style.setProperty('background-color', '#C69A7C', 'important');
-          btn.style.setProperty('color', '#FFFFFF', 'important');
-        });
-      });
+      (function enforceJudgeMeTheme() {
+        function injectOverrideStyle() {
+          var style = document.getElementById('jdgm-brand-overrides');
+          if (!style) {
+            style = document.createElement('style');
+            style.id = 'jdgm-brand-overrides';
+            (document.head || document.documentElement).appendChild(style);
+          }
+          style.textContent = `
+            .jdgm-rev-widg__star, .jdgm-star, [class*="jdgm-star"], [class*="jdgm-rev-widg__star"] { color: #FFB800 !important; font-family: -apple-system, BlinkMacSystemFont, sans-serif !important; font-style: normal !important; }
+            .jdgm-rev-widg__star:before, .jdgm-star:before, [class*="jdgm-star"]:before, [class*="jdgm-rev-widg__star"]:before { content: "★" !important; color: #FFB800 !important; font-family: sans-serif !important; opacity: 1 !important; }
+            .jdgm-rev-widg__star.jdgm--off:before, .jdgm-rev-widg__star.jdgm--empty:before, .jdgm-star.jdgm--off:before, .jdgm-star.jdgm--empty:before { content: "★" !important; color: #CBD5E1 !important; opacity: 0.5 !important; }
+            .jdgm-write-rev-btn, .jdgm-rev-widg__write-rev-btn, a.jdgm-write-rev-btn, button.jdgm-write-rev-btn, .jdgm-btn, [class*="write-rev-btn"] { background-color: #C69A7C !important; background: #C69A7C !important; color: #FFFFFF !important; border-color: #C69A7C !important; border-radius: 50px !important; text-decoration: none !important; }
+          `;
+        }
+        injectOverrideStyle();
+        document.addEventListener('DOMContentLoaded', injectOverrideStyle);
+        window.addEventListener('load', injectOverrideStyle);
+      })();
     </script>
   </body>
 </html>
