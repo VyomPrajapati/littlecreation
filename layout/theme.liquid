@@ -236,14 +236,12 @@
       html body div.jdgm-widget button.jdgm-write-rev-btn,
       html body div.jdgm-widget .jdgm-rev-widg__write-rev-btn,
       html body div.jdgm-widget .jdgm-submit-rev,
-      html body div.jdgm-widget button.jdgm-submit-rev,
-      html body div.jdgm-widget [class*="write-rev"],
-      html body div.jdgm-widget [class*="submit-rev"] {
+      html body div.jdgm-widget button.jdgm-submit-rev {
         background-color: #C69A7C !important;
         background: #C69A7C !important;
         color: #FFFFFF !important;
         border-color: #C69A7C !important;
-        border-radius: 9999px !important;
+        border-radius: 50px !important;
         font-family: 'Fredoka', 'Quicksand', system-ui, sans-serif !important;
         box-shadow: 0 4px 12px rgba(198, 154, 124, 0.25) !important;
         padding: 12px 28px !important;
@@ -337,13 +335,13 @@
             star.style.setProperty('color', isOff ? '#CBD5E1' : '#FFB800', 'important');
           });
 
-          // Fix Buttons (replace green background with caramel brown)
-          document.querySelectorAll('.jdgm-write-rev-btn, .jdgm-rev-widg__write-rev-btn, .jdgm-btn, a[class*="jdgm-write-rev"], button[class*="jdgm-write-rev"]').forEach(function(btn) {
+          // Fix Buttons ONLY (do not target container divs)
+          document.querySelectorAll('a.jdgm-write-rev-btn, button.jdgm-write-rev-btn, .jdgm-btn--primary, .jdgm-submit-rev').forEach(function(btn) {
             btn.style.setProperty('background-color', '#C69A7C', 'important');
             btn.style.setProperty('background', '#C69A7C', 'important');
             btn.style.setProperty('border-color', '#C69A7C', 'important');
             btn.style.setProperty('color', '#FFFFFF', 'important');
-            btn.style.setProperty('border-radius', '9999px', 'important');
+            btn.style.setProperty('border-radius', '50px', 'important');
           });
         }
 

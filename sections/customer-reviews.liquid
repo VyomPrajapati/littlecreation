@@ -106,25 +106,64 @@
             {%- assign total_images = total_images | plus: fallback_urls.size -%}
           {%- endif -%}
 
+          {%- capture card_images_json -%}
+            [
+              {%- assign img_count = 0 -%}
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 1200 | json }}
+                {%- assign img_count = img_count | plus: 1 -%}
+              {%- endif -%}
+              {%- if block.settings.image_2 != blank -%}
+                {%- if img_count > 0 -%},{%- endif -%}
+                {{ block.settings.image_2 | image_url: width: 1200 | json }}
+                {%- assign img_count = img_count | plus: 1 -%}
+              {%- endif -%}
+              {%- if block.settings.image_3 != blank -%}
+                {%- if img_count > 0 -%},{%- endif -%}
+                {{ block.settings.image_3 | image_url: width: 1200 | json }}
+                {%- assign img_count = img_count | plus: 1 -%}
+              {%- endif -%}
+              {%- if block.settings.image_4 != blank -%}
+                {%- if img_count > 0 -%},{%- endif -%}
+                {{ block.settings.image_4 | image_url: width: 1200 | json }}
+                {%- assign img_count = img_count | plus: 1 -%}
+              {%- endif -%}
+              {%- for f_url in fallback_urls -%}
+                {%- assign clean_f_url = f_url | strip -%}
+                {%- if clean_f_url != blank -%}
+                  {%- if img_count > 0 -%},{%- endif -%}
+                  {{ clean_f_url | json }}
+                  {%- assign img_count = img_count | plus: 1 -%}
+                {%- endif -%}
+              {%- endfor -%}
+            ]
+          {%- endcapture -%}
+
           {%- if total_images > 0 -%}
             <div class="review-card__images-wrap">
               <div class="review-card__images-scroller" id="scroller-{{ block.id }}">
+                {%- assign img_idx = 0 -%}
                 {%- if block.settings.image != blank -%}
-                  <div class="review-card__img-item"><img src="{{ block.settings.image | image_url: width: 500 }}" alt="Review photo" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" loading="lazy" onclick="openReviewLightbox(this.src)"></div>
+                  <div class="review-card__img-item"><img src="{{ block.settings.image | image_url: width: 600 }}" alt="Review photo" loading="lazy" onclick='openReviewLightbox({{ card_images_json | escape }}, {{ img_idx }})'></div>
+                  {%- assign img_idx = img_idx | plus: 1 -%}
                 {%- endif -%}
                 {%- if block.settings.image_2 != blank -%}
-                  <div class="review-card__img-item"><img src="{{ block.settings.image_2 | image_url: width: 500 }}" alt="Review photo" width="{{ block.settings.image_2.width }}" height="{{ block.settings.image_2.height }}" loading="lazy" onclick="openReviewLightbox(this.src)"></div>
+                  <div class="review-card__img-item"><img src="{{ block.settings.image_2 | image_url: width: 600 }}" alt="Review photo" loading="lazy" onclick='openReviewLightbox({{ card_images_json | escape }}, {{ img_idx }})'></div>
+                  {%- assign img_idx = img_idx | plus: 1 -%}
                 {%- endif -%}
                 {%- if block.settings.image_3 != blank -%}
-                  <div class="review-card__img-item"><img src="{{ block.settings.image_3 | image_url: width: 500 }}" alt="Review photo" width="{{ block.settings.image_3.width }}" height="{{ block.settings.image_3.height }}" loading="lazy" onclick="openReviewLightbox(this.src)"></div>
+                  <div class="review-card__img-item"><img src="{{ block.settings.image_3 | image_url: width: 600 }}" alt="Review photo" loading="lazy" onclick='openReviewLightbox({{ card_images_json | escape }}, {{ img_idx }})'></div>
+                  {%- assign img_idx = img_idx | plus: 1 -%}
                 {%- endif -%}
                 {%- if block.settings.image_4 != blank -%}
-                  <div class="review-card__img-item"><img src="{{ block.settings.image_4 | image_url: width: 500 }}" alt="Review photo" width="{{ block.settings.image_4.width }}" height="{{ block.settings.image_4.height }}" loading="lazy" onclick="openReviewLightbox(this.src)"></div>
+                  <div class="review-card__img-item"><img src="{{ block.settings.image_4 | image_url: width: 600 }}" alt="Review photo" loading="lazy" onclick='openReviewLightbox({{ card_images_json | escape }}, {{ img_idx }})'></div>
+                  {%- assign img_idx = img_idx | plus: 1 -%}
                 {%- endif -%}
                 {%- for f_url in fallback_urls -%}
                   {%- assign clean_f_url = f_url | strip -%}
                   {%- if clean_f_url != blank -%}
-                    <div class="review-card__img-item"><img src="{{ clean_f_url }}" alt="Review photo" width="500" height="500" loading="lazy" onclick="openReviewLightbox(this.src)"></div>
+                    <div class="review-card__img-item"><img src="{{ clean_f_url }}" alt="Review photo" loading="lazy" onclick='openReviewLightbox({{ card_images_json | escape }}, {{ img_idx }})'></div>
+                    {%- assign img_idx = img_idx | plus: 1 -%}
                   {%- endif -%}
                 {%- endfor -%}
               </div>
@@ -178,22 +217,64 @@
     <!-- Empty state when filter has no results -->
     <p class="cr-no-results" id="cr-no-results-{{ section.id }}" style="display:none;">No reviews found for this rating.</p>
 
-    <!-- Image Zoom Lightbox Modal -->
-    <dialog id="cr-lightbox-modal" class="cr-modal cr-lightbox-modal" onclick="if(event.target===this) this.close()">
-      <div style="position:relative; padding:20px; text-align:center;">
-        <button type="button" onclick="document.getElementById('cr-lightbox-modal').close()" style="position:absolute; top:10px; right:10px; background:none; border:none; font-size:1.8rem; cursor:pointer; color:#111;">&times;</button>
-        <img id="cr-lightbox-img" src="" alt="Review photo full" style="max-width:100%; max-height:80vh; border-radius:12px; object-fit:contain;">
+    <!-- Enhanced In-Modal Gallery Lightbox with Arrows & Close Button -->
+    <dialog id="cr-lightbox-modal" class="cr-lightbox-modal" onclick="if(event.target===this) closeReviewLightbox()">
+      <div class="cr-lightbox-content">
+        <button type="button" class="cr-lightbox-close" onclick="closeReviewLightbox()" aria-label="Close">&times;</button>
+        <button type="button" id="cr-lightbox-prev" class="cr-lightbox-arrow cr-lightbox-arrow--prev" onclick="prevLightboxImage()" aria-label="Previous photo">&lsaquo;</button>
+        
+        <div class="cr-lightbox-image-wrap">
+          <img id="cr-lightbox-img" src="" alt="Review photo full">
+        </div>
+        
+        <button type="button" id="cr-lightbox-next" class="cr-lightbox-arrow cr-lightbox-arrow--next" onclick="nextLightboxImage()" aria-label="Next photo">&rsaquo;</button>
       </div>
     </dialog>
 
     <script>
-      function openReviewLightbox(src) {
+      var currentLbImages = [];
+      var currentLbIndex = 0;
+
+      function openReviewLightbox(images, startIndex) {
+        currentLbImages = typeof images === 'string' ? [images] : (images || []);
+        currentLbIndex = startIndex || 0;
         var modal = document.getElementById('cr-lightbox-modal');
+        if (!modal) return;
+        updateLightboxDisplay();
+        modal.showModal();
+      }
+
+      function updateLightboxDisplay() {
         var img = document.getElementById('cr-lightbox-img');
-        if (modal && img && src) {
-          img.src = src;
-          modal.showModal();
+        var prevBtn = document.getElementById('cr-lightbox-prev');
+        var nextBtn = document.getElementById('cr-lightbox-next');
+        if (currentLbImages.length > 0 && img) {
+          img.src = currentLbImages[currentLbIndex];
         }
+        if (currentLbImages.length > 1) {
+          if (prevBtn) prevBtn.style.display = 'flex';
+          if (nextBtn) nextBtn.style.display = 'flex';
+        } else {
+          if (prevBtn) prevBtn.style.display = 'none';
+          if (nextBtn) nextBtn.style.display = 'none';
+        }
+      }
+
+      function prevLightboxImage() {
+        if (currentLbImages.length <= 1) return;
+        currentLbIndex = (currentLbIndex - 1 + currentLbImages.length) % currentLbImages.length;
+        updateLightboxDisplay();
+      }
+
+      function nextLightboxImage() {
+        if (currentLbImages.length <= 1) return;
+        currentLbIndex = (currentLbIndex + 1) % currentLbImages.length;
+        updateLightboxDisplay();
+      }
+
+      function closeReviewLightbox() {
+        var modal = document.getElementById('cr-lightbox-modal');
+        if (modal) modal.close();
       }
     </script>
 
@@ -397,17 +478,19 @@
 
 @media screen and (min-width: 640px) {
   .cr-grid { 
-    display: grid; 
-    grid-template-columns: repeat(2, 1fr); 
+    display: grid !important; 
+    grid-template-columns: repeat(2, 1fr) !important; 
+    align-items: start !important; /* Compact cards fit text content, no giant empty towers */
     overflow-x: visible;
+    gap: 24px !important;
   }
   .cr-grid > .review-card { flex: auto; }
 }
 @media screen and (min-width: 1024px) {
-  .cr-grid { grid-template-columns: repeat(3, 1fr); }
+  .cr-grid { grid-template-columns: repeat(3, 1fr) !important; }
 }
 @media screen and (min-width: 1280px) {
-  .cr-grid { grid-template-columns: repeat(4, 1fr); }
+  .cr-grid { grid-template-columns: repeat(4, 1fr) !important; }
 }
 
 .cr-no-results {
@@ -418,7 +501,7 @@
   font-size: 0.95rem;
 }
 
-/* ---- Review Card (keep existing styles) ---- */
+/* ---- Review Card ---- */
 .review-card {
   background: var(--color-white, #fff);
   border: 1px solid var(--color-border, #E8D5C4);
@@ -427,17 +510,18 @@
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
+  height: auto !important;
   transition: box-shadow 0.3s, transform 0.3s;
 }
 .review-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-skin);
 }
-.review-card__images-wrap { position: relative; width: 100%; border-bottom: 1px solid var(--color-border, #E8D5C4); }
+.review-card__images-wrap { position: relative; width: 100%; border-bottom: 1px solid var(--color-border, #E8D5C4); overflow: hidden; }
 .review-card__images-scroller { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; scroll-behavior: smooth; }
 .review-card__images-scroller::-webkit-scrollbar { display: none; }
-.review-card__img-item { flex: 0 0 100%; scroll-snap-align: center; height: 220px; background: var(--color-skin-light); display: flex; align-items: center; justify-content: center; }
-.review-card__img-item img { width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; }
+.review-card__img-item { flex: 0 0 100%; scroll-snap-align: center; height: 260px; background: transparent !important; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.review-card__img-item img { width: 100% !important; height: 100% !important; object-fit: cover !important; cursor: zoom-in; }
 
 .review-card__img-nav {
   position: absolute;
@@ -466,6 +550,75 @@
 }
 .review-card__img-nav--prev { left: 8px; }
 .review-card__img-nav--next { right: 8px; }
+
+/* In-Modal Gallery Lightbox */
+.cr-lightbox-modal {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: auto !important;
+  overflow: visible !important;
+}
+.cr-lightbox-modal::backdrop {
+  background: rgba(0, 0, 0, 0.85) !important;
+  backdrop-filter: blur(5px);
+}
+.cr-lightbox-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.cr-lightbox-image-wrap img {
+  max-width: 80vw;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+.cr-lightbox-close {
+  position: absolute;
+  top: -30px;
+  right: -10px;
+  background: #FFFFFF;
+  color: #111;
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.cr-lightbox-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 90;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: none;
+  color: #111;
+  font-size: 1.8rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+}
+.cr-lightbox-arrow:hover { background: #C69A7C; color: #FFF; }
+.cr-lightbox-arrow--prev { left: -15px; }
+.cr-lightbox-arrow--next { right: -15px; }
 
 .review-card__title {
   font-family: var(--font-heading-family);
