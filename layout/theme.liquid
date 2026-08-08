@@ -391,26 +391,115 @@
           + '.jdgm-rev-widg__write-rev-btn, input.jdgm-submit-rev, button.jdgm-submit-rev,'
           + '.jdgm-submit-rev, .jdgm-tab'
         ).forEach(styleEl);
+
+        /* Inject a high-priority override <style> AFTER any Judge.me injected styles */
+        injectOverrideStyle();
       }
 
-      /* MutationObserver — fires only when the DOM actually changes, not on
-         a fixed interval. Much more efficient than setInterval. */
+      /* ── Nuclear override: inject our own <style> tag that beats Judge.me's ── */
+      /* Judge.me injects a <style> tag into <head> with green colours via !important.
+         We append our own <style> AFTER theirs so cascade order wins, plus use
+         equal specificity + !important. We also rewrite their style tag text directly. */
+      var overrideStyleEl = null;
+      function injectOverrideStyle() {
+        /* Rewrite text content of any Judge.me <style> tags to swap green → brand */
+        document.querySelectorAll('head style, body style').forEach(function(st) {
+          if (!st.textContent) return;
+          /* Only touch Judge.me style tags */
+          if (!st.textContent.includes('jdgm') && !st.textContent.includes('judge')) return;
+          var newText = st.textContent
+            /* Green button backgrounds Judge.me uses */
+            .replace(/#168474/gi, BRAND)
+            .replace(/#1a8a6c/gi, BRAND)
+            .replace(/#0d6e56/gi, BRAND)
+            .replace(/#159b6a/gi, BRAND)
+            .replace(/#16a085/gi, BRAND)
+            .replace(/#27ae60/gi, BRAND)
+            .replace(/#2ecc71/gi, BRAND)
+            .replace(/rgb\(\s*22\s*,\s*132\s*,\s*116\s*\)/gi, 'rgb(198,154,124)')
+            .replace(/rgb\(\s*26\s*,\s*138\s*,\s*108\s*\)/gi, 'rgb(198,154,124)');
+          if (newText !== st.textContent) {
+            st.textContent = newText;
+          }
+        });
+
+        /* Append / update our own override <style> tag at the very end of <head> */
+        if (!overrideStyleEl) {
+          overrideStyleEl = document.createElement('style');
+          overrideStyleEl.id = 'jdgm-brand-override';
+          (document.head || document.body).appendChild(overrideStyleEl);
+        }
+        overrideStyleEl.textContent = [
+          /* Buttons */
+          'html body .jdgm-write-rev-btn,',
+          'html body a.jdgm-write-rev-btn,',
+          'html body button.jdgm-write-rev-btn,',
+          'html body .jdgm-rev-widg__write-rev-btn,',
+          'html body .jdgm-submit-rev,',
+          'html body button.jdgm-submit-rev,',
+          'html body input.jdgm-submit-rev {',
+          '  background-color: ' + BRAND + ' !important;',
+          '  background: ' + BRAND + ' !important;',
+          '  border-color: ' + BRAND + ' !important;',
+          '  color: #ffffff !important;',
+          '  border-radius: 50px !important;',
+          '}',
+          'html body .jdgm-write-rev-btn:hover,',
+          'html body a.jdgm-write-rev-btn:hover,',
+          'html body button.jdgm-write-rev-btn:hover {',
+          '  background-color: ' + BRANDD + ' !important;',
+          '  background: ' + BRANDD + ' !important;',
+          '  border-color: ' + BRANDD + ' !important;',
+          '}',
+          /* Stars — colour only, no font-family */
+          'html body .jdgm-star,',
+          'html body [class*="jdgm-star"],',
+          'html body .jdgm-rev-widg__star {',
+          '  color: ' + GOLD + ' !important;',
+          '}',
+          'html body .jdgm-star.jdgm--off,',
+          'html body .jdgm-star.jdgm--empty,',
+          'html body .jdgm-rev-widg__star.jdgm--off,',
+          'html body .jdgm-rev-widg__star.jdgm--empty {',
+          '  color: ' + GREY + ' !important;',
+          '  opacity: 0.6 !important;',
+          '}',
+          /* Tabs */
+          'html body .jdgm-tab.jdgm--active {',
+          '  border-bottom-color: ' + BRAND + ' !important;',
+          '  color: ' + BRAND + ' !important;',
+          '}',
+          /* Links */
+          'html body .jdgm-widget a, html body .jdgm-rev-widg a {',
+          '  color: ' + BRAND + ' !important;',
+          '}'
+        ].join('\n');
+      }
+
+      /* MutationObserver — watches BOTH head and body for Judge.me injecting styles */
       var observer = new MutationObserver(function(mutations) {
         var needsScan = false;
         mutations.forEach(function(m) {
-          if (m.type === 'childList' && m.addedNodes.length) needsScan = true;
+          if (m.type === 'childList' && m.addedNodes.length) {
+            m.addedNodes.forEach(function(n) {
+              /* If Judge.me injected a new <style> tag into <head> */
+              if (n.tagName === 'STYLE') needsScan = true;
+              if (n.tagName === 'SCRIPT') needsScan = true;
+            });
+            needsScan = true;
+          }
           if (m.type === 'attributes') needsScan = true;
+          if (m.type === 'characterData') needsScan = true;
         });
         if (needsScan) scanAll();
       });
 
       function startObserver() {
-        observer.observe(document.body, {
-          childList: true,
-          subtree: true,
-          attributes: true,
-          attributeFilter: ['style', 'class']
-        });
+        var opts = { childList: true, subtree: true, attributes: true,
+                     characterData: true, attributeFilter: ['style', 'class'] };
+        /* Watch both <head> and <body> */
+        if (document.head) observer.observe(document.head, opts);
+        observer.observe(document.body, opts);
       }
 
       /* Bootstrap */
@@ -421,8 +510,8 @@
         scanAll();
         startObserver();
       }
-      /* Also run on full load (Judge.me JS loads async) */
-      window.addEventListener('load', scanAll);
+      /* Also run on full load (Judge.me JS loads async after page) */
+      window.addEventListener('load', function() { scanAll(); });
     })();
     </script>
   </body>
