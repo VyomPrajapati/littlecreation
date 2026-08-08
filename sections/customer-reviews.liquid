@@ -173,6 +173,11 @@
                 <button class="review-card__img-nav review-card__img-nav--next" type="button" aria-label="Next image" onclick="const s = document.getElementById('scroller-{{ block.id }}'); if(s) s.scrollBy({left: 220, behavior: 'smooth'});">&rsaquo;</button>
               {%- endif -%}
             </div>
+          {%- else -%}
+            <div class="review-card__quote-header">
+              <span class="review-card__quote-icon">“</span>
+              <span class="review-card__quote-badge">Verified Customer</span>
+            </div>
           {%- endif -%}
 
           <div class="review-card__body">
@@ -480,7 +485,7 @@
   .cr-grid { 
     display: grid !important; 
     grid-template-columns: repeat(2, 1fr) !important; 
-    align-items: start !important; /* Compact cards fit text content, no giant empty towers */
+    align-items: stretch !important; /* All cards in row have identical height */
     overflow-x: visible;
     gap: 24px !important;
   }
@@ -504,23 +509,53 @@
 /* ---- Review Card ---- */
 .review-card {
   background: var(--color-white, #fff);
-  border: 1px solid var(--color-border, #E8D5C4);
+  border: 1.5px solid var(--color-border, #E8D5C4);
   border-radius: var(--radius-xl, 24px);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  height: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
   transition: box-shadow 0.3s, transform 0.3s;
 }
 .review-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-skin);
 }
-.review-card__images-wrap { position: relative; width: 100%; border-bottom: 1px solid var(--color-border, #E8D5C4); overflow: hidden; }
-.review-card__images-scroller { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; scroll-behavior: smooth; }
+.review-card__images-wrap,
+.review-card__quote-header {
+  position: relative;
+  width: 100%;
+  height: 220px; /* Fixed uniform header height for ALL cards */
+  flex-shrink: 0;
+  border-bottom: 1.5px solid var(--color-border, #E8D5C4);
+  overflow: hidden;
+}
+.review-card__quote-header {
+  background: linear-gradient(135deg, #FBF0E8 0%, #F5DEC8 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.review-card__quote-icon {
+  font-family: 'Fredoka', Georgia, serif;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: #C69A7C;
+  opacity: 0.85;
+}
+.review-card__quote-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #A07855;
+}
+.review-card__images-scroller { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; scroll-behavior: smooth; height: 100%; }
 .review-card__images-scroller::-webkit-scrollbar { display: none; }
-.review-card__img-item { flex: 0 0 100%; scroll-snap-align: center; height: 260px; background: transparent !important; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.review-card__img-item { flex: 0 0 100%; scroll-snap-align: center; height: 100%; background: transparent !important; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .review-card__img-item img { width: 100% !important; height: 100% !important; object-fit: cover !important; cursor: zoom-in; }
 
 .review-card__img-nav {

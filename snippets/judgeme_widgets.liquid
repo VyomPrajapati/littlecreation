@@ -14,50 +14,54 @@
   }
 
   /* Force Star Colors & Replace Empty Boxes with Native Stars */
-  .jdgm-widget .jdgm-star,
-  .jdgm-widget .jdgm-star:before,
-  .jdgm-widget .jdgm-star:after,
-  .jdgm-widget [class*="jdgm-star"],
-  .jdgm-rev-widg__star,
-  .jdgm-prev-badge__stars .jdgm-star,
-  .jdgm-rev-widg__summary-stars .jdgm-star,
-  .jdgm-rev__rating .jdgm-star {
+  /* High Specificity Star Overrides */
+  html body .jdgm-widget .jdgm-star,
+  html body .jdgm-widget [class*="jdgm-star"],
+  html body .jdgm-rev-widg__star,
+  html body .jdgm-prev-badge__stars .jdgm-star,
+  html body .jdgm-rev-widg__summary-stars .jdgm-star,
+  html body .jdgm-rev__rating .jdgm-star,
+  html body .jdgm-star {
     color: #FFB800 !important;
     font-family: Arial, Helvetica, sans-serif !important;
     font-style: normal !important;
   }
 
-  .jdgm-widget .jdgm-star:before,
-  .jdgm-widget .jdgm-star.jdgm--on:before,
-  .jdgm-widget .jdgm-star.jdgm--full:before {
+  html body .jdgm-widget .jdgm-star:before,
+  html body .jdgm-widget .jdgm-rev-widg__star:before,
+  html body .jdgm-star:before,
+  html body .jdgm-star.jdgm--on:before,
+  html body .jdgm-star.jdgm--full:before {
     content: "★" !important;
     color: #FFB800 !important;
   }
 
-  .jdgm-widget .jdgm-star.jdgm--off:before,
-  .jdgm-widget .jdgm-star.jdgm--empty:before {
+  html body .jdgm-widget .jdgm-star.jdgm--off:before,
+  html body .jdgm-widget .jdgm-star.jdgm--empty:before {
     content: "★" !important;
     color: #E2E8F0 !important;
   }
 
   /* Force Button Styling & Override Judge.me Green */
-  .jdgm-widget .jdgm-btn,
-  .jdgm-widget .jdgm-write-rev-btn,
-  .jdgm-widget .jdgm-rev-widg__write-rev-btn,
-  .jdgm-widget a.jdgm-write-rev-btn,
-  .jdgm-widget button.jdgm-write-rev-btn,
-  .jdgm-widget .jdgm-submit-rev,
-  .jdgm-widget button.jdgm-submit-rev {
+  html body .jdgm-widget .jdgm-write-rev-btn,
+  html body .jdgm-widget .jdgm-rev-widg__write-rev-btn,
+  html body .jdgm-widget a.jdgm-write-rev-btn,
+  html body .jdgm-widget button.jdgm-write-rev-btn,
+  html body .jdgm-widget .jdgm-submit-rev,
+  html body .jdgm-widget button.jdgm-submit-rev,
+  html body .jdgm-write-rev-btn,
+  html body .jdgm-rev-widg__write-rev-btn {
     background-color: #C69A7C !important;
+    background: #C69A7C !important;
     border-color: #C69A7C !important;
     color: #FFFFFF !important;
     border-radius: 50px !important;
   }
 
-  .jdgm-widget .jdgm-btn:hover,
-  .jdgm-widget .jdgm-write-rev-btn:hover,
-  .jdgm-widget a.jdgm-write-rev-btn:hover,
-  .jdgm-widget button.jdgm-write-rev-btn:hover {
+  html body .jdgm-widget .jdgm-btn:hover,
+  html body .jdgm-widget .jdgm-write-rev-btn:hover,
+  html body .jdgm-widget a.jdgm-write-rev-btn:hover,
+  html body .jdgm-widget button.jdgm-write-rev-btn:hover {
     background-color: #A07855 !important;
     background: #A07855 !important;
     border-color: #A07855 !important;
