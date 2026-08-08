@@ -73,17 +73,7 @@
               <span class="cr-bar-count">({{ cnt_vals[idx] }})</span>
             </button>
           {%- endfor -%}
-        </div>
-
-        <!-- Write a review button -->
-        <div class="cr-write-wrap">
-          {%- if section.settings.review_link != blank -%}
-            <a href="{{ section.settings.review_link }}" class="cr-write-btn">Write a Review</a>
-          {%- else -%}
-            <button class="cr-write-btn" type="button" onclick="const jmBtn = document.querySelector('.jdgm-write-rev-link') || document.querySelector('.jdgm-form-link'); if (jmBtn) { jmBtn.click(); } else { window.location.href = '{{ collections.all.products.first.url | default: "/collections/all" }}#judgeme_product_reviews'; }">Write a Review</button>
-          {%- endif -%}
-        </div>
-      </div>
+          </div>
 
       {%- comment -%} Judge.me review widget container {%- endcomment -%}
       <div id="judgeme_product_reviews" class="cr-judgeme-wrap">
@@ -187,45 +177,6 @@
 
     <!-- Empty state when filter has no results -->
     <p class="cr-no-results" id="cr-no-results-{{ section.id }}" style="display:none;">No reviews found for this rating.</p>
-
-    <!-- Write a Review Modal -->
-    <dialog id="cr-modal-{{ section.id }}" class="cr-modal">
-      <div class="cr-modal-content">
-        <div class="cr-modal-header">
-          <h3>Write a Review</h3>
-          <button class="cr-modal-close" type="button" aria-label="Close" onclick="document.getElementById('cr-modal-{{ section.id }}').close()">&times;</button>
-        </div>
-        <div class="cr-modal-body">
-          <p class="cr-modal-sub">Please share your experience with us! We will review it and add it to our site.</p>
-          {%- form 'contact', id: 'ReviewForm' -%}
-            {%- if form.posted_successfully? -%}
-              <div class="form-status form-status-list form__message" tabindex="-1" autofocus style="color: green; margin-bottom: 15px;">
-                Thanks for your review! It has been submitted for approval.
-              </div>
-            {%- endif -%}
-            <div class="cr-field">
-              <label for="ReviewName">Name</label>
-              <input type="text" id="ReviewName" name="contact[Name]" required>
-            </div>
-            <div class="cr-field">
-              <label for="ReviewEmail">Email</label>
-              <input type="email" id="ReviewEmail" name="contact[email]" required>
-            </div>
-            <div class="cr-field">
-              <label for="ReviewRating">Rating</label>
-              <select id="ReviewRating" name="contact[Rating]" required>
-                <option value="5">★★★★★ (5/5)</option>
-                <option value="4">★★★★☆ (4/5)</option>
-                <option value="3">★★★☆☆ (3/5)</option>
-                <option value="2">★★☆☆☆ (2/5)</option>
-                <option value="1">★☆☆☆☆ (1/5)</option>
-              </select>
-            </div>
-            <div class="cr-field">
-              <label for="ReviewBody">Review</label>
-              <textarea id="ReviewBody" name="contact[Review]" rows="4" required></textarea>
-            </div>
-    </dialog>
 
     <!-- Image Zoom Lightbox Modal -->
     <dialog id="cr-lightbox-modal" class="cr-modal cr-lightbox-modal" onclick="if(event.target===this) this.close()">
