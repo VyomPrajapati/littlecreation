@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -129,7 +138,6 @@
           "settings": {
             "author": "Kindle Customer",
             "rating": 5,
-            "title": "Grandson loved it",
             "text": "Grandson loved it easy to hold and shake and made him laugh",
             "date": "2026-04-24",
             "fallback_image_url": ""
@@ -140,7 +148,6 @@
           "settings": {
             "author": "Ebiere",
             "rating": 5,
-            "title": "Good quality teether",
             "text": "I got this teeth rattle my little one good quality with grip and teething aid.",
             "date": "2026-04-15",
             "fallback_image_url": ""
@@ -151,7 +158,6 @@
           "settings": {
             "author": "Kiera",
             "rating": 3,
-            "title": "Great teether toy",
             "text": "Smaller then expected and rattle isn t very loud great teether toy though",
             "date": "2026-04-08",
             "fallback_image_url": ""
@@ -162,7 +168,6 @@
           "settings": {
             "author": "EllieBelle",
             "rating": 4,
-            "title": "Perfect to gift!",
             "text": "I ordered the dusky pink lion rattle as a present my nephew s baby. It has a cute little face and comes in a little presentation box. It will be easy to wrap and perfect to gift!",
             "date": "2026-02-24",
             "fallback_image_url": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184112.png?v=1785935671,https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184107.png?v=1785935671"
@@ -173,7 +178,6 @@
           "settings": {
             "author": "Daniel Boden",
             "rating": 5,
-            "title": "Modern and calming",
             "text": "I absolutely love this Little Creation Teether. It s a sweet understated toy with a really lovely soft colour palette that feels modern and calming rather than loud or overly bright.",
             "date": "2026-02-20",
             "fallback_image_url": ""
@@ -184,7 +188,6 @@
           "settings": {
             "author": "Amazon Customer",
             "rating": 3,
-            "title": "Great for hand coordination",
             "text": "I ordered this rattle my five month old son who has mastered gripping things and navigating to his mouth. His piqued interested in achieving this hand to mouth coordination means he needs smalls",
             "date": "2026-02-16",
             "fallback_image_url": ""
@@ -195,7 +198,6 @@
           "settings": {
             "author": "Charlie G.",
             "rating": 4,
-            "title": "Lovely audible rattle",
             "text": "This teether rattle has mostly perks both baby and parents carers being bpa free easy enough to hold and a rattle that s readily audible and interesting to baby but perfectly subtle enough mums",
             "date": "2026-03-15",
             "fallback_image_url": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184045.png?v=1785935671,https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184052.png?v=1785935671,https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184058.png?v=1785935670"
@@ -206,7 +208,6 @@
           "settings": {
             "author": "Reviewer28",
             "rating": 5,
-            "title": "Very cute rattle",
             "text": "This is a very cute rattle that feels like a quality item. It makes such a nice noise that is not too grating which is always a bonus and it has a lovely weight to it that makes it feel quite",
             "date": "2026-02-15",
             "fallback_image_url": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184127.png?v=1785935671"
@@ -217,7 +218,6 @@
           "settings": {
             "author": "Mr. A. Dance",
             "rating": 5,
-            "title": "High standard teether",
             "text": "lion shaped baby Teether from age 3 months upwards this is a larger than other brands baby hand rattle in a light brown colour on inspection this appears to be made to a high standard the rattle is amazing",
             "date": "2026-02-13",
             "fallback_image_url": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184052.png?v=1785935671,https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184142.png?v=1785935671,https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184137.png?v=1785935669,https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184151.png?v=1785935671,https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184156.png?v=1785935671,https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184147.png?v=1785935669"
@@ -228,7 +228,6 @@
           "settings": {
             "author": "Lou",
             "rating": 5,
-            "title": "5-month-old loves it!",
             "text": "If your house is anything like mine playtime usually involves a lot of picking toys up off the floor every thirty seconds. This little lion is one of the few things my 5-month-old can actually love and enjoy it.",
             "date": "2026-02-13",
             "fallback_image_url": "https://cdn.shopify.com/s/files/1/0986/3384/3014/files/Screenshot_2026-08-05_184205.png?v=1785935670"
@@ -247,7 +246,6 @@
         "review_5",
         "review_6"
       ],
-      "disabled": false,
       "settings": {
         "heading": "What Parents Are Saying",
         "review_link": "",
