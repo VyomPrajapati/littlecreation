@@ -92,33 +92,23 @@
       {%- for block in section.blocks -%}
         <div class="review-card animate-on-scroll" data-rating="{{ block.settings.rating }}" {{ block.shopify_attributes }}>
 
-          {%- assign fallback_urls = '' -%}
-          {%- assign fallback_urls_clean = '' -%}
-          {%- if block.settings.fallback_image_url != blank -%}
-            {%- assign fallback_urls_raw = block.settings.fallback_image_url | split: ',' -%}
-            {%- for f_raw in fallback_urls_raw -%}
-              {%- assign f_clean = f_raw | strip -%}
-              {%- if f_clean != blank -%}
-                {%- if fallback_urls_clean == '' -%}
-                  {%- assign fallback_urls_clean = f_clean -%}
-                {%- else -%}
-                  {%- assign fallback_urls_clean = fallback_urls_clean | append: ',' | append: f_clean -%}
-                {%- endif -%}
-              {%- endif -%}
-            {%- endfor -%}
-            {%- if fallback_urls_clean != blank -%}
-              {%- assign fallback_urls = fallback_urls_clean | split: ',' -%}
-            {%- endif -%}
-          {%- endif -%}
+          {%- comment -%} Build ext_imgs array from individual ext_img_N fields {%- endcomment -%}
+          {%- assign ext_imgs = '' -%}
+          {%- if block.settings.ext_img_1 != blank -%}{%- assign ext_imgs = ext_imgs | append: block.settings.ext_img_1 | append: '|' -%}{%- endif -%}
+          {%- if block.settings.ext_img_2 != blank -%}{%- assign ext_imgs = ext_imgs | append: block.settings.ext_img_2 | append: '|' -%}{%- endif -%}
+          {%- if block.settings.ext_img_3 != blank -%}{%- assign ext_imgs = ext_imgs | append: block.settings.ext_img_3 | append: '|' -%}{%- endif -%}
+          {%- if block.settings.ext_img_4 != blank -%}{%- assign ext_imgs = ext_imgs | append: block.settings.ext_img_4 | append: '|' -%}{%- endif -%}
+          {%- if block.settings.ext_img_5 != blank -%}{%- assign ext_imgs = ext_imgs | append: block.settings.ext_img_5 | append: '|' -%}{%- endif -%}
+          {%- if block.settings.ext_img_6 != blank -%}{%- assign ext_imgs = ext_imgs | append: block.settings.ext_img_6 | append: '|' -%}{%- endif -%}
+          {%- assign fallback_urls = ext_imgs | split: '|' -%}
+          {%- comment -%} Remove trailing empty element from split {%- endcomment -%}
 
           {%- assign total_images = 0 -%}
           {%- if block.settings.image != blank -%}{%- assign total_images = total_images | plus: 1 -%}{%- endif -%}
           {%- if block.settings.image_2 != blank -%}{%- assign total_images = total_images | plus: 1 -%}{%- endif -%}
           {%- if block.settings.image_3 != blank -%}{%- assign total_images = total_images | plus: 1 -%}{%- endif -%}
           {%- if block.settings.image_4 != blank -%}{%- assign total_images = total_images | plus: 1 -%}{%- endif -%}
-          {%- if fallback_urls != blank and fallback_urls.size > 0 -%}
-            {%- assign total_images = total_images | plus: fallback_urls.size -%}
-          {%- endif -%}
+          {%- for eu in fallback_urls -%}{%- if eu != blank -%}{%- assign total_images = total_images | plus: 1 -%}{%- endif -%}{%- endfor -%}
 
           {%- capture card_images_json -%}
             [
@@ -150,6 +140,7 @@
                   {%- assign img_count = img_count | plus: 1 -%}
                 {%- endif -%}
               {%- endfor -%}
+              {%- comment -%} end fallback loop {%- endcomment -%}
             ]
           {%- endcapture -%}
 
@@ -861,8 +852,33 @@
         },
         {
           "type": "text",
-          "id": "fallback_image_url",
-          "label": "External image URL(s) — comma-separated for multiple"
+          "id": "ext_img_1",
+          "label": "Review photo URL 1 (Shopify CDN)"
+        },
+        {
+          "type": "text",
+          "id": "ext_img_2",
+          "label": "Review photo URL 2 (Shopify CDN)"
+        },
+        {
+          "type": "text",
+          "id": "ext_img_3",
+          "label": "Review photo URL 3 (Shopify CDN)"
+        },
+        {
+          "type": "text",
+          "id": "ext_img_4",
+          "label": "Review photo URL 4 (Shopify CDN)"
+        },
+        {
+          "type": "text",
+          "id": "ext_img_5",
+          "label": "Review photo URL 5 (Shopify CDN)"
+        },
+        {
+          "type": "text",
+          "id": "ext_img_6",
+          "label": "Review photo URL 6 (Shopify CDN)"
         }
       ]
     }
