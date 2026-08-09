@@ -21,7 +21,7 @@
     "color_border": "#E8D5C4",
     "color_button_text": "#FFFFFF",
     "color_button_background": "#C69A7C",
-    "favicon": "shopify://shop_images/favicon-32x32_eac61188-3390-4a03-8dac-1a61f7bf52a4.png",
+    "favicon": "shopify://shop_images/android-chrome-512x512.png",
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
