@@ -137,7 +137,7 @@
         "type": "image_picker",
         "id": "favicon",
         "label": "Favicon image",
-        "info": "Will be scaled down to 32 x 32px"
+        "info": "Recommended: 512 x 512px PNG (Google Search requires at least 48 x 48px)"
       }
     ]
   }
