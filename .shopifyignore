@@ -3,4 +3,8 @@ judgeme_reviews_import.csv
 *.csv
 .git/
 .gitignore
-node_modules/
+# Local favicon working directories
+favicon/
+favicons/
+favicon_io/
+images-for content/

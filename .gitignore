@@ -7,4 +7,8 @@ judgeme_reviews_import.csv
 config/settings_data.json.bak
 node_modules/
 .DS_Store
-Thumbs.db
+# Local favicon working directories
+favicon/
+favicons/
+favicon_io/
+images-for content/
