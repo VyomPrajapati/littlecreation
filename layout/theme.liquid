@@ -116,24 +116,75 @@
       "@type": "Product",
       "name": {{ product.title | json }},
       "url": {{ shop.url | append: product.url | json }},
-      {%- if product.featured_media -%}
-        "image": [
+      "image": [
+        {%- if product.featured_media -%}
           {{ product.featured_media | image_url: width: 1000 | prepend: 'https:' | json }}
-        ],
-      {%- endif -%}
-      "description": {{ product.description | strip_html | truncatewords: 100 | json }},
+        {%- else -%}
+          {{ settings.logo | image_url: width: 1000 | prepend: 'https:' | json }}
+        {%- endif -%}
+      ],
+      "description": {{ product.description | strip_html | truncatewords: 100 | default: product.title | json }},
       "brand": {
         "@type": "Brand",
         "name": {{ product.vendor | default: shop.name | json }}
       },
-      "offers": {
-        "@type": "Offer",
-        "priceCurrency": {{ cart.currency.iso_code | json }},
-        "price": {{ product.price | money_without_currency | remove: ',' | json }},
-        "itemCondition": "https://schema.org/NewCondition",
-        "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
-        "url": {{ shop.url | append: product.url | json }}
-      }
+      {%- assign judgeme_rating = product.metafields.judgeme.badge | split: "data-average-rating='" | last | split: "'" | first | plus: 0 -%}
+      {%- assign judgeme_count = product.metafields.judgeme.badge | split: "data-number-of-reviews='" | last | split: "'" | first | plus: 0 -%}
+      {%- if judgeme_count > 0 -%}
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "{{ judgeme_rating }}",
+        "reviewCount": "{{ judgeme_count }}"
+      },
+      {%- endif -%}
+      "offers": [
+        {%- for variant in product.variants -%}
+        {
+          "@type": "Offer",
+          "name": {{ variant.title | json }},
+          "priceCurrency": {{ cart.currency.iso_code | json }},
+          "price": {{ variant.price | money_without_currency | remove: ',' | json }},
+          "itemCondition": "https://schema.org/NewCondition",
+          "availability": "https://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+          "url": {{ shop.url | append: variant.url | json }},
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "GB",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 30,
+            "returnMethod": "https://schema.org/ReturnByMail",
+            "returnFees": "https://schema.org/FreeReturn"
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {
+              "@type": "MonetaryAmount",
+              "value": "0.00",
+              "currency": {{ cart.currency.iso_code | json }}
+            },
+            "shippingDestination": {
+              "@type": "DefinedRegion",
+              "addressCountry": "GB"
+            },
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": {
+                "@type": "QuantitativeValue",
+                "minValue": 0,
+                "maxValue": 2,
+                "unitCode": "d"
+              },
+              "transitTime": {
+                "@type": "QuantitativeValue",
+                "minValue": 1,
+                "maxValue": 3,
+                "unitCode": "d"
+              }
+            }
+          }
+        }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
     }
     </script>
     {%- endif -%}
