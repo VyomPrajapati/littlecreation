@@ -14,16 +14,9 @@
   assign available = target.available | default: false
   assign unit_price_measurement = target.selected_or_first_available_variant.unit_price_measurement
   assign unit_price = target.selected_or_first_available_variant.unit_price
-
-  if cart.currency.iso_code == 'GBP'
-    assign money_price = price | money
-    assign money_compare = compare_at_price | money
-    assign money_unit = unit_price | money
-  else
-    assign money_price = price | money_without_currency | prepend: '£'
-    assign money_compare = compare_at_price | money_without_currency | prepend: '£'
-    assign money_unit = unit_price | money_without_currency | prepend: '£'
-  endif
+  assign money_price = price | money
+  assign money_compare = compare_at_price | money
+  assign money_unit = unit_price | money
 -%}
 
 <div class="price {% if price_class %} {{ price_class }}{% endif %}{% if compare_at_price > price %} price--on-sale{% endif %}{% if available == false %} price--sold-out{% endif %}">

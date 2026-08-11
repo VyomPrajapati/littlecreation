@@ -55,8 +55,6 @@
               <span class="price-val">
                 {%- if main_prod != empty -%}
                   {{ main_prod.price | money }}
-                {%- else -%}
-                  £19.99 GBP
                 {%- endif -%}
               </span>
             </div>
@@ -86,7 +84,7 @@
             <span class="spotlight-side-card__tag">Cooling Water Teether</span>
             <h5 class="spotlight-side-card__title">{{ sec_prod_1.title | default: "Crown Swan Cooling Teether" }}</h5>
             <span class="spotlight-side-card__price">
-              {%- if sec_prod_1 != empty -%}{{ sec_prod_1.price | money }}{%- else -%}£19.99 GBP{%- endif -%}
+              {%- if sec_prod_1 != empty -%}{{ sec_prod_1.price | money }}{%- endif -%}
             </span>
             <a href="{{ sec_prod_1.url | default: '/collections/all' }}" class="spotlight-side-card__link">View Details →</a>
           </div>
@@ -106,7 +104,7 @@
             <span class="spotlight-side-card__tag">Easy-Grip Ring</span>
             <h5 class="spotlight-side-card__title">{{ sec_prod_2.title | default: "Bear Cooling Teether" }}</h5>
             <span class="spotlight-side-card__price">
-              {%- if sec_prod_2 != empty -%}{{ sec_prod_2.price | money }}{%- else -%}£19.99 GBP{%- endif -%}
+              {%- if sec_prod_2 != empty -%}{{ sec_prod_2.price | money }}{%- endif -%}
             </span>
             <a href="{{ sec_prod_2.url | default: '/collections/all' }}" class="spotlight-side-card__link">View Details →</a>
           </div>
