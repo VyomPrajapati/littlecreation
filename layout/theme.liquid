@@ -6,15 +6,44 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <meta name="theme-color" content="{{ settings.color_primary | default: '#C69A7C' }}">
     <link rel="canonical" href="{{ canonical_url }}">
-    <meta name="robots" content="index, follow">
+    {%- comment -%}
+      Smart robots meta: noindex utility/feed URLs, index real content.
+      - .atom feeds (Shopify auto-generates these for every collection/blog)
+      - /policies/ pages (auto-generated thin content)
+      - Cart, account, search, customer pages (no value to index)
+    {%- endcomment -%}
+    {%- assign _path = request.path | downcase -%}
+    {%- assign _is_atom = false -%}
+    {%- if _path contains '.atom' -%}{%- assign _is_atom = true -%}{%- endif -%}
+    {%- assign _is_policy = false -%}
+    {%- if _path contains '/policies/' -%}{%- assign _is_policy = true -%}{%- endif -%}
+    {%- assign _noindex_templates = 'customers/login,customers/register,customers/account,customers/order,customers/addresses,cart,search,password' | split: ',' -%}
+    {%- assign _template_key = template.directory | append: '/' | append: template.name -%}
+    {%- assign _is_noindex_template = false -%}
+    {%- for _t in _noindex_templates -%}
+      {%- if _template_key contains _t or template.name == _t -%}{%- assign _is_noindex_template = true -%}{%- endif -%}
+    {%- endfor -%}
+    {%- if _is_atom or _is_policy or _is_noindex_template -%}
+      <meta name="robots" content="noindex, nofollow">
+    {%- else -%}
+      <meta name="robots" content="index, follow">
+    {%- endif -%}
     <meta name="google-site-verification" content="AKgLmJaK6c2A4Se0iTE8kg6PgRnYBwK5StLm2Vl9mZs">
 
+    {%- comment -%}Favicon / Google search result icon{%- endcomment -%}
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" sizes="48x48" href="{{ settings.favicon | image_url: width: 48, height: 48 }}">
       <link rel="icon" type="image/png" sizes="96x96" href="{{ settings.favicon | image_url: width: 96, height: 96 }}">
       <link rel="icon" type="image/png" sizes="192x192" href="{{ settings.favicon | image_url: width: 192, height: 192 }}">
       <link rel="shortcut icon" type="image/png" href="{{ settings.favicon | image_url: width: 48, height: 48 }}">
       <link rel="apple-touch-icon" sizes="180x180" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
+    {%- elsif settings.logo != blank -%}
+      {%- comment -%}Fallback: use the header logo as the site icon if no dedicated favicon is set{%- endcomment -%}
+      <link rel="icon" type="image/png" sizes="48x48" href="{{ settings.logo | image_url: width: 48, height: 48 }}">
+      <link rel="icon" type="image/png" sizes="96x96" href="{{ settings.logo | image_url: width: 96, height: 96 }}">
+      <link rel="icon" type="image/png" sizes="192x192" href="{{ settings.logo | image_url: width: 192, height: 192 }}">
+      <link rel="shortcut icon" type="image/png" href="{{ settings.logo | image_url: width: 48, height: 48 }}">
+      <link rel="apple-touch-icon" sizes="180x180" href="{{ settings.logo | image_url: width: 180, height: 180 }}">
     {%- endif -%}
 
     <title>
